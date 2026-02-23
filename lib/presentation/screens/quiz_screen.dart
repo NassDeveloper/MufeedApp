@@ -8,10 +8,15 @@ import 'package:go_router/go_router.dart';
 
 import '../../core/constants/animation_constants.dart';
 import '../../l10n/app_localizations.dart';
+import '../providers/error_report_provider.dart';
 import '../providers/quiz_session_provider.dart';
 import '../widgets/arabic_text_widget.dart';
+import '../widgets/error_report_dialog_widget.dart';
 import '../widgets/quiz_option_widget.dart';
+import '../utils/confirm_quit_session.dart';
+import '../widgets/fade_in_widget.dart';
 import '../widgets/skeleton_loader_widget.dart';
+import '../widgets/tts_button_widget.dart';
 
 class QuizScreen extends ConsumerStatefulWidget {
   const QuizScreen({required this.lessonId, super.key});
@@ -150,7 +155,7 @@ class _QuizScreenState extends ConsumerState<QuizScreen>
           ),
           title: Text(l10n.quizTitle),
         ),
-        body: const SkeletonListLoader(itemCount: 4),
+        body: const FadeIn(child: SkeletonListLoader(itemCount: 4)),
       );
     }
 
@@ -246,16 +251,27 @@ class _QuizScreenState extends ConsumerState<QuizScreen>
 
     final question = state.currentQuestion;
 
-    return GestureDetector(
+    return PopScope(
+      canPop: false,
+      onPopInvokedWithResult: (didPop, _) async {
+        if (didPop) return;
+        if (await confirmQuitSession(context)) {
+          ref.read(quizSessionProvider.notifier).endSession();
+          if (context.mounted) context.pop();
+        }
+      },
+      child: GestureDetector(
       onTap: state.isCorrect == false ? _onTapAfterIncorrect : null,
       child: Scaffold(
         appBar: AppBar(
           leading: IconButton(
             icon: const Icon(Icons.close),
             tooltip: l10n.quizEmptyAction,
-            onPressed: () {
-              ref.read(quizSessionProvider.notifier).endSession();
-              context.pop();
+            onPressed: () async {
+              if (await confirmQuitSession(context)) {
+                ref.read(quizSessionProvider.notifier).endSession();
+                if (context.mounted) context.pop();
+              }
             },
           ),
           title: Semantics(
@@ -270,6 +286,18 @@ class _QuizScreenState extends ConsumerState<QuizScreen>
               ),
             ),
           ),
+          actions: [
+            IconButton(
+              icon: const Icon(Icons.flag_outlined),
+              tooltip: l10n.reportError,
+              onPressed: () => _showReport(
+                context,
+                ref,
+                itemId: question.itemId,
+                contentType: question.contentType,
+              ),
+            ),
+          ],
           bottom: PreferredSize(
             preferredSize: const Size.fromHeight(4),
             child: LinearProgressIndicator(
@@ -284,9 +312,16 @@ class _QuizScreenState extends ConsumerState<QuizScreen>
               child: Column(
                 children: [
                   const Spacer(),
-                  ArabicText(
-                    question.arabic,
-                    style: Theme.of(context).textTheme.headlineLarge,
+                  Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      ArabicText(
+                        question.arabic,
+                        style: Theme.of(context).textTheme.headlineLarge,
+                      ),
+                      const SizedBox(height: 8),
+                      TtsButton(text: question.arabic),
+                    ],
                   ),
                   const Spacer(),
                   ...List.generate(question.choices.length, (index) {
@@ -340,6 +375,26 @@ class _QuizScreenState extends ConsumerState<QuizScreen>
           ],
         ),
       ),
+      ),
+    );
+  }
+
+  void _showReport(
+    BuildContext context,
+    WidgetRef ref, {
+    required int itemId,
+    required String contentType,
+  }) {
+    showErrorReportDialog(
+      context: context,
+      onSend: (category, comment) async {
+        await ref.read(errorReportRepositoryProvider).submitReport(
+              itemId: itemId,
+              contentType: contentType,
+              category: category,
+              comment: comment,
+            );
+      },
     );
   }
 

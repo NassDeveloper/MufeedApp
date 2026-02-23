@@ -315,11 +315,28 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get exercisesDescription =>
-      'Quiz exercises are available from each lesson';
+  String get vocabularyScreenTitle => 'My vocabulary';
+
+  @override
+  String get vocabularyScreenSubtitle => 'Browse lessons by level';
+
+  @override
+  String get exercisesScreenTitle => 'Exercises';
+
+  @override
+  String get exercisesScreenSubtitle => 'Test your knowledge with quizzes';
+
+  @override
+  String get exercisesDescription => 'Choose a lesson to start a quiz';
 
   @override
   String get exercisesGoToVocabulary => 'Go to vocabulary';
+
+  @override
+  String get statisticsScreenTitle => 'My statistics';
+
+  @override
+  String get statisticsScreenSubtitle => 'Track your progress';
 
   @override
   String get quizSummaryTitle => 'Quiz Results';
@@ -783,4 +800,78 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get privacyPolicyLastUpdated => 'Last updated: February 2026';
+
+  @override
+  String get sentenceExerciseTitle => 'Complete sentences';
+
+  @override
+  String get completeTheSentence => 'Complete the sentence:';
+
+  @override
+  String get sentenceExerciseNext => 'Next';
+
+  @override
+  String get sentenceExerciseEmpty => 'No sentence exercises available';
+
+  @override
+  String get sentenceExerciseButton => 'Complete';
+
+  @override
+  String get verbTableTitle => 'Conjugation table';
+
+  @override
+  String get verbTableButton => 'Conjugation';
+
+  @override
+  String get verbTableTapToGuess => 'Tap ? to guess';
+
+  @override
+  String verbTableScore(int correct, int total) {
+    return '$correct / $total correct';
+  }
+
+  @override
+  String get verbTableCompleted => 'Table completed!';
+
+  @override
+  String get verbTableEmpty => 'Not enough verbs for this exercise';
+
+  @override
+  String get verbTableTranslation => 'Translation';
+
+  @override
+  String get statsVocabulary => 'Vocabulary';
+
+  @override
+  String get statsVerbs => 'Verbs';
+
+  @override
+  String statsItemsTotal(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count items',
+      one: '1 item',
+      zero: '0 items',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String statsMastered(int count) {
+    return '$count mastered';
+  }
+
+  @override
+  String get confirmQuitTitle => 'Quit session?';
+
+  @override
+  String get confirmQuitMessage =>
+      'Your progress in this session will be lost.';
+
+  @override
+  String get confirmQuitLeave => 'Quit';
+
+  @override
+  String get confirmQuitStay => 'Continue';
 }

@@ -5,6 +5,7 @@ import 'package:mufeed_app/domain/models/word_model.dart';
 import 'package:mufeed_app/domain/models/session_model.dart';
 import 'package:mufeed_app/domain/models/reviewable_item_model.dart';
 import 'package:mufeed_app/domain/models/user_progress_model.dart';
+import 'package:mufeed_app/domain/models/sentence_exercise_model.dart';
 import 'package:mufeed_app/domain/repositories/content_repository.dart';
 import 'package:mufeed_app/domain/repositories/progress_repository.dart';
 import 'package:mufeed_app/domain/models/level_model.dart';
@@ -38,6 +39,11 @@ class FakeContentRepository implements ContentRepository {
 
   @override
   Future<List<LessonModel>> getLessonsByLevelId(int levelId) async => [];
+
+  @override
+  Future<LessonModel?> getLessonById(int lessonId) async => null;
+  @override
+  Future<List<SentenceExerciseModel>> getExercisesForLesson(int lessonId) async => [];
 }
 
 class FakeProgressRepository implements ProgressRepository {
@@ -61,6 +67,12 @@ class FakeProgressRepository implements ProgressRepository {
   Future<void> saveProgress(UserProgressModel progress) async {}
   @override
   Future<Map<String, int>> getProgressCountsByState() async => {};
+  @override
+  Future<Map<String, Map<String, int>>> getProgressCountsByStateAndType() async => {};
+  @override
+  Future<int> getTotalWordCount() async => 0;
+  @override
+  Future<int> getTotalVerbCount() async => 0;
   @override
   Future<int> getTotalItemCount() async => 0;
   @override

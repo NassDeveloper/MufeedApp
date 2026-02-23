@@ -35,6 +35,16 @@ class FakeProgressRepository implements ProgressRepository {
       throw UnimplementedError();
 
   @override
+  Future<Map<String, Map<String, int>>> getProgressCountsByStateAndType() =>
+      throw UnimplementedError();
+
+  @override
+  Future<int> getTotalWordCount() => throw UnimplementedError();
+
+  @override
+  Future<int> getTotalVerbCount() => throw UnimplementedError();
+
+  @override
   Future<int> getTotalItemCount() => throw UnimplementedError();
 
   @override

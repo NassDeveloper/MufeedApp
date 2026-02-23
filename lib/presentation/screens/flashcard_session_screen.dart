@@ -6,6 +6,7 @@ import 'package:go_router/go_router.dart';
 import '../../core/constants/animation_constants.dart';
 import '../../l10n/app_localizations.dart';
 import '../providers/flashcard_session_provider.dart';
+import '../utils/confirm_quit_session.dart';
 import '../providers/preferences_provider.dart';
 import '../widgets/evaluation_grid_widget.dart';
 import '../widgets/flashcard_widget.dart';
@@ -97,9 +98,11 @@ class _FlashcardSessionScreenState
     ref.read(flashcardSessionProvider.notifier).goToPage(index);
   }
 
-  void _endSession() {
-    ref.read(flashcardSessionProvider.notifier).endSession();
-    context.pop();
+  Future<void> _endSession() async {
+    if (await confirmQuitSession(context)) {
+      ref.read(flashcardSessionProvider.notifier).endSession();
+      if (mounted) context.pop();
+    }
   }
 
   Future<void> _onRating(int rating) async {
@@ -163,7 +166,13 @@ class _FlashcardSessionScreenState
       );
     }
 
-    return KeyboardListener(
+    return PopScope(
+      canPop: false,
+      onPopInvokedWithResult: (didPop, _) async {
+        if (didPop) return;
+        await _endSession();
+      },
+      child: KeyboardListener(
       focusNode: _focusNode,
       onKeyEvent: (event) => _handleKeyEvent(event, session),
       child: Scaffold(
@@ -216,6 +225,7 @@ class _FlashcardSessionScreenState
             ],
           ),
         ),
+      ),
       ),
     );
   }

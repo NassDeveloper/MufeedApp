@@ -20,14 +20,20 @@ class QuizSummaryScreen extends ConsumerStatefulWidget {
   ConsumerState<QuizSummaryScreen> createState() => _QuizSummaryScreenState();
 }
 
-class _QuizSummaryScreenState extends ConsumerState<QuizSummaryScreen> {
+class _QuizSummaryScreenState extends ConsumerState<QuizSummaryScreen>
+    with SingleTickerProviderStateMixin {
   int _score = 0;
   int _total = 0;
   List<QuizResultEntry> _incorrectResults = const [];
+  late AnimationController _entryController;
 
   @override
   void initState() {
     super.initState();
+    _entryController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 900),
+    );
     final session = ref.read(quizSessionProvider);
     if (session != null) {
       _score = session.score;
@@ -35,6 +41,7 @@ class _QuizSummaryScreenState extends ConsumerState<QuizSummaryScreen> {
       _incorrectResults =
           List.unmodifiable(session.incorrectResults);
     }
+    _entryController.forward();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final newBadges = ref.read(newBadgesProvider);
       if (newBadges.isNotEmpty) {
@@ -48,6 +55,12 @@ class _QuizSummaryScreenState extends ConsumerState<QuizSummaryScreen> {
         );
       }
     });
+  }
+
+  @override
+  void dispose() {
+    _entryController.dispose();
+    super.dispose();
   }
 
   @override
@@ -67,14 +80,28 @@ class _QuizSummaryScreenState extends ConsumerState<QuizSummaryScreen> {
           child: Column(
             children: [
               const SizedBox(height: 16),
-              Semantics(
-                label: l10n.quizSummarySemanticScore(_score, _total),
-                excludeSemantics: true,
-                child: Text(
-                  l10n.quizSummaryScore(_score, _total),
-                  style: Theme.of(context).textTheme.displaySmall?.copyWith(
-                        fontWeight: FontWeight.bold,
-                      ),
+              FadeTransition(
+                opacity: CurvedAnimation(
+                  parent: _entryController,
+                  curve: const Interval(0.0, 0.5, curve: Curves.easeOut),
+                ),
+                child: ScaleTransition(
+                  scale: Tween<double>(begin: 0.8, end: 1.0).animate(
+                    CurvedAnimation(
+                      parent: _entryController,
+                      curve: const Interval(0.0, 0.5, curve: Curves.easeOut),
+                    ),
+                  ),
+                  child: Semantics(
+                    label: l10n.quizSummarySemanticScore(_score, _total),
+                    excludeSemantics: true,
+                    child: Text(
+                      l10n.quizSummaryScore(_score, _total),
+                      style: Theme.of(context).textTheme.displaySmall?.copyWith(
+                            fontWeight: FontWeight.bold,
+                          ),
+                    ),
+                  ),
                 ),
               ),
               const SizedBox(height: 32),
@@ -89,43 +116,62 @@ class _QuizSummaryScreenState extends ConsumerState<QuizSummaryScreen> {
                 const SizedBox(height: 24),
               ] else
                 const Spacer(),
-              SizedBox(
-                width: double.infinity,
-                child: FilledButton(
-                  onPressed: () {
-                    ref.read(quizSessionProvider.notifier).endSession();
-                    ref.invalidate(learningModeProvider);
-                    context.pushReplacement(
-                      '/session/quiz/${widget.lessonId}',
-                    );
-                  },
-                  child: Text(l10n.quizSummaryRestart),
-                ),
-              ),
-              const SizedBox(height: 12),
-              SizedBox(
-                width: double.infinity,
-                child: OutlinedButton(
-                  onPressed: () {
-                    ref.read(quizSessionProvider.notifier).endSession();
-                    ref.invalidate(learningModeProvider);
-                    context.go('/vocabulary');
-                  },
-                  child: Text(l10n.quizSummaryBackToVocabulary),
-                ),
-              ),
-              const SizedBox(height: 12),
-              SizedBox(
-                width: double.infinity,
-                child: TextButton(
-                  onPressed: () {
-                    ref.read(quizSessionProvider.notifier).endSession();
-                    ref.invalidate(learningModeProvider);
-                    context.pushReplacement(
-                      '/session/flashcard/${widget.lessonId}',
-                    );
-                  },
-                  child: Text(l10n.quizSummaryGoToFlashcards),
+              SlideTransition(
+                position: Tween<Offset>(
+                  begin: const Offset(0, 0.3),
+                  end: Offset.zero,
+                ).animate(CurvedAnimation(
+                  parent: _entryController,
+                  curve: const Interval(0.5, 1.0, curve: Curves.easeOut),
+                )),
+                child: FadeTransition(
+                  opacity: CurvedAnimation(
+                    parent: _entryController,
+                    curve: const Interval(0.5, 1.0, curve: Curves.easeOut),
+                  ),
+                  child: Column(
+                    children: [
+                      SizedBox(
+                        width: double.infinity,
+                        child: FilledButton(
+                          onPressed: () {
+                            ref.read(quizSessionProvider.notifier).endSession();
+                            ref.invalidate(learningModeProvider);
+                            context.pushReplacement(
+                              '/session/quiz/${widget.lessonId}',
+                            );
+                          },
+                          child: Text(l10n.quizSummaryRestart),
+                        ),
+                      ),
+                      const SizedBox(height: 12),
+                      SizedBox(
+                        width: double.infinity,
+                        child: OutlinedButton(
+                          onPressed: () {
+                            ref.read(quizSessionProvider.notifier).endSession();
+                            ref.invalidate(learningModeProvider);
+                            context.go('/vocabulary');
+                          },
+                          child: Text(l10n.quizSummaryBackToVocabulary),
+                        ),
+                      ),
+                      const SizedBox(height: 12),
+                      SizedBox(
+                        width: double.infinity,
+                        child: TextButton(
+                          onPressed: () {
+                            ref.read(quizSessionProvider.notifier).endSession();
+                            ref.invalidate(learningModeProvider);
+                            context.pushReplacement(
+                              '/session/flashcard/${widget.lessonId}',
+                            );
+                          },
+                          child: Text(l10n.quizSummaryGoToFlashcards),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ],
@@ -157,7 +203,8 @@ class _ScoreDistributionState extends State<_ScoreDistribution>
 
   static Duration get _totalDuration => Duration(
         milliseconds: AnimationConstants.summaryBarDuration.inMilliseconds +
-            AnimationConstants.summaryBarDelay.inMilliseconds,
+            AnimationConstants.summaryBarDelay.inMilliseconds +
+            200, // extra time for stagger offset
       );
 
   @override
@@ -188,6 +235,7 @@ class _ScoreDistributionState extends State<_ScoreDistribution>
           total: widget.total,
           color: AppColors.ratingEasy,
           controller: _controller,
+          startInterval: 0.0,
         ),
         const SizedBox(height: 16),
         _AnimatedScoreBar(
@@ -196,6 +244,7 @@ class _ScoreDistributionState extends State<_ScoreDistribution>
           total: widget.total,
           color: AppColors.ratingAgain,
           controller: _controller,
+          startInterval: 0.2,
         ),
       ],
     );
@@ -209,6 +258,7 @@ class _AnimatedScoreBar extends StatefulWidget {
     required this.total,
     required this.color,
     required this.controller,
+    required this.startInterval,
   });
 
   final String label;
@@ -216,6 +266,7 @@ class _AnimatedScoreBar extends StatefulWidget {
   final int total;
   final Color color;
   final AnimationController controller;
+  final double startInterval;
 
   @override
   State<_AnimatedScoreBar> createState() => _AnimatedScoreBarState();
@@ -229,7 +280,11 @@ class _AnimatedScoreBarState extends State<_AnimatedScoreBar> {
     super.initState();
     _animation = CurvedAnimation(
       parent: widget.controller,
-      curve: AnimationConstants.summaryBarCurve,
+      curve: Interval(
+        widget.startInterval,
+        1.0,
+        curve: AnimationConstants.summaryBarCurve,
+      ),
     );
   }
 

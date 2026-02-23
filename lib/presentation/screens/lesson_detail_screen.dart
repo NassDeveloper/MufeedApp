@@ -8,6 +8,7 @@ import '../../domain/models/verb_model.dart';
 import '../../l10n/app_localizations.dart';
 import '../providers/content_provider.dart';
 import '../providers/error_report_provider.dart';
+import '../utils/localized_name.dart';
 import '../widgets/error_content_widget.dart';
 import '../widgets/error_report_dialog_widget.dart';
 import '../widgets/skeleton_loader_widget.dart';
@@ -97,26 +98,65 @@ class LessonDetailScreen extends ConsumerWidget {
       return Center(child: Text(l10n.emptyVocabulary));
     }
 
+    final asyncLesson = ref.watch(lessonByIdProvider(lessonId));
+    final locale = Localizations.localeOf(context);
+    final description = asyncLesson.value?.localizedDescription(locale);
+    final hasDescription = description != null && description.isNotEmpty;
+
     return ListView.builder(
       padding: const EdgeInsets.all(16),
-      itemCount: items.length,
-      itemBuilder: (context, index) => switch (items[index]) {
-        WordItem(:final word) => WordCard(
-            word: word,
-            onReport: () => _showReport(
-              context, ref,
-              itemId: word.id,
-              contentType: 'vocab',
+      itemCount: items.length + (hasDescription ? 1 : 0),
+      itemBuilder: (context, index) {
+        if (hasDescription && index == 0) {
+          return Padding(
+            padding: const EdgeInsets.only(bottom: 16),
+            child: Card(
+              child: Padding(
+                padding: const EdgeInsets.all(16),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Icon(
+                      Icons.info_outline,
+                      size: 20,
+                      color: Theme.of(context).colorScheme.primary,
+                    ),
+                    const SizedBox(width: 12),
+                    Expanded(
+                      child: Text(
+                        description,
+                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                              color: Theme.of(context)
+                                  .colorScheme
+                                  .onSurfaceVariant,
+                            ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             ),
-          ),
-        VerbItem(:final verb) => VerbCard(
-            verb: verb,
-            onReport: () => _showReport(
-              context, ref,
-              itemId: verb.id,
-              contentType: 'verb',
+          );
+        }
+        final itemIndex = hasDescription ? index - 1 : index;
+        return switch (items[itemIndex]) {
+          WordItem(:final word) => WordCard(
+              word: word,
+              onReport: () => _showReport(
+                context, ref,
+                itemId: word.id,
+                contentType: 'vocab',
+              ),
             ),
-          ),
+          VerbItem(:final verb) => VerbCard(
+              verb: verb,
+              onReport: () => _showReport(
+                context, ref,
+                itemId: verb.id,
+                contentType: 'verb',
+              ),
+            ),
+        };
       },
     );
   }

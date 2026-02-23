@@ -68,6 +68,29 @@ class ContentDao extends DatabaseAccessor<AppDatabase>
     return result.read(count)!;
   }
 
+  /// Returns (levelNumber, unitNumber, lessonNumber) for a given lesson ID.
+  Future<({int levelNumber, int unitNumber, int lessonNumber})?> getLessonCoordinates(int lessonId) async {
+    final query = customSelect(
+      '''
+      SELECT lev.number AS level_number, u.number AS unit_number, l.number AS lesson_number
+      FROM lessons l
+      JOIN units u ON l.unit_id = u.id
+      JOIN levels lev ON u.level_id = lev.id
+      WHERE l.id = ?
+      ''',
+      variables: [Variable.withInt(lessonId)],
+      readsFrom: {lessons, units, levels},
+    );
+    final rows = await query.get();
+    if (rows.isEmpty) return null;
+    final row = rows.first;
+    return (
+      levelNumber: row.read<int>('level_number'),
+      unitNumber: row.read<int>('unit_number'),
+      lessonNumber: row.read<int>('lesson_number'),
+    );
+  }
+
   /// Returns all lessons for a given level (across all units), ordered by unit.number then lesson.number.
   Future<List<Lesson>> getLessonsByLevelId(int levelId) async {
     final query = select(lessons).join([

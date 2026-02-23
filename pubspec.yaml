@@ -29,6 +29,7 @@ dev_dependencies:
   drift_dev: ^2.31.0
   build_runner: ^2.4.15
   mockito: ^5.4.0
+  flutter_native_splash: ^2.4.5
 
 flutter:
   generate: true
@@ -37,6 +38,7 @@ flutter:
   assets:
     - assets/data/
     - assets/data/level_01/
+    - assets/data/level_02/
     - assets/images/
 
   fonts:

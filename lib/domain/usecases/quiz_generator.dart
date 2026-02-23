@@ -46,7 +46,7 @@ class QuizGenerator {
 
     for (final verb in verbs) {
       allItems.add(_QuizItem(
-        arabic: verb.masdar,
+        arabic: verb.past,
         translationFr: verb.translationFr,
         itemId: verb.id,
         contentType: verb.contentType,

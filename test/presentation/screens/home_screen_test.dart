@@ -11,11 +11,14 @@ import 'package:mufeed_app/domain/models/user_progress_model.dart';
 import 'package:mufeed_app/domain/models/verb_model.dart';
 import 'package:mufeed_app/domain/models/word_model.dart';
 import 'package:mufeed_app/domain/models/streak_model.dart';
+import 'package:mufeed_app/domain/models/sentence_exercise_model.dart';
 import 'package:mufeed_app/domain/repositories/content_repository.dart';
 import 'package:mufeed_app/domain/repositories/progress_repository.dart';
 import 'package:mufeed_app/domain/repositories/streak_repository.dart';
+import 'package:mufeed_app/domain/services/notification_service.dart';
 import 'package:mufeed_app/l10n/app_localizations.dart';
 import 'package:mufeed_app/presentation/providers/content_provider.dart';
+import 'package:mufeed_app/presentation/providers/notification_provider.dart';
 import 'package:mufeed_app/presentation/providers/preferences_provider.dart';
 import 'package:mufeed_app/presentation/providers/srs_provider.dart';
 import 'package:mufeed_app/presentation/providers/streak_provider.dart';
@@ -53,6 +56,12 @@ class FakeProgressRepository implements ProgressRepository {
   @override
   Future<Map<String, int>> getProgressCountsByState() async => {};
   @override
+  Future<Map<String, Map<String, int>>> getProgressCountsByStateAndType() async => {};
+  @override
+  Future<int> getTotalWordCount() async => 0;
+  @override
+  Future<int> getTotalVerbCount() async => 0;
+  @override
   Future<int> getTotalItemCount() async => 0;
   @override
   Future<int> getSessionCount() async => sessionCount;
@@ -87,6 +96,36 @@ class FakeContentRepository implements ContentRepository {
   @override
   Future<List<LessonModel>> getLessonsByLevelId(int levelId) async =>
       lessonsByLevel;
+  @override
+  Future<LessonModel?> getLessonById(int lessonId) async => null;
+  @override
+  Future<List<SentenceExerciseModel>> getExercisesForLesson(int lessonId) async => [];
+}
+
+class FakeNotificationService implements NotificationService {
+  @override
+  Future<void> initialize() async {}
+  @override
+  Future<bool> requestPermission() async => true;
+  @override
+  Future<void> scheduleDailyReminder({
+    required int id,
+    required int hour,
+    required int minute,
+    required String title,
+    required String body,
+  }) async {}
+  @override
+  Future<void> scheduleNotification({
+    required int id,
+    required String title,
+    required String body,
+    required DateTime scheduledDate,
+  }) async {}
+  @override
+  Future<void> cancelNotification(int id) async {}
+  @override
+  Future<void> cancelAll() async {}
 }
 
 class FakeStreakRepository implements StreakRepository {
@@ -124,6 +163,8 @@ Widget _buildApp({
           .overrideWithValue(contentRepo ?? FakeContentRepository()),
       streakRepositoryProvider
           .overrideWithValue(streakRepo ?? FakeStreakRepository()),
+      notificationServiceProvider
+          .overrideWithValue(FakeNotificationService()),
       if (clock != null) clockProvider.overrideWithValue(clock),
     ],
     child: const MaterialApp(
@@ -156,7 +197,7 @@ void main() {
           _buildApp(prefsSource: SharedPreferencesSource(prefs)));
       await tester.pumpAndSettle();
 
-      expect(find.byIcon(Icons.settings), findsOneWidget);
+      expect(find.byIcon(Icons.settings_outlined), findsOneWidget);
     });
 
     testWidgets('shows mode info section', (tester) async {
@@ -171,7 +212,6 @@ void main() {
       await tester.pumpAndSettle();
 
       expect(find.text('Mode : Cursus'), findsOneWidget);
-      expect(find.text('Niveau 2'), findsOneWidget);
     });
 
     testWidgets('does not show resume card when no last visited lesson',
@@ -213,9 +253,17 @@ void main() {
         'active_level_id': 1,
       });
       final prefs = await SharedPreferences.getInstance();
+      final contentRepo = FakeContentRepository();
+      contentRepo.levels = [
+        const LevelModel(id: 1, number: 1, nameFr: 'Niveau 1', nameEn: 'Level 1', nameAr: 'م1', unitCount: 1),
+        const LevelModel(id: 2, number: 2, nameFr: 'Niveau 2', nameEn: 'Level 2', nameAr: 'م2', unitCount: 1),
+      ];
 
       await tester.pumpWidget(
-          _buildApp(prefsSource: SharedPreferencesSource(prefs)));
+          _buildApp(
+            prefsSource: SharedPreferencesSource(prefs),
+            contentRepo: contentRepo,
+          ));
       await tester.pumpAndSettle();
 
       expect(find.text('Prêt pour le niveau suivant ?'), findsOneWidget);

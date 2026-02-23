@@ -1,0 +1,20 @@
+[
+  { "unit": 1, "lesson": 6, "masdar": "كِتَابَةٌ", "past": "كَتَبَ", "present": "يَكْتُبُ", "imperative": "اُكْتُبْ", "translation_fr": "écrire", "translation_en": "to write", "sort_order": 1 },
+  { "unit": 1, "lesson": 6, "masdar": "قِرَاءَةٌ", "past": "قَرَأَ", "present": "يَقْرَأُ", "imperative": "اِقْرَأْ", "translation_fr": "lire", "translation_en": "to read", "sort_order": 2 },
+  { "unit": 1, "lesson": 6, "masdar": "فَهْمٌ", "past": "فَهِمَ", "present": "يَفْهَمُ", "imperative": "اِفْهَمْ", "translation_fr": "comprendre", "translation_en": "to understand", "sort_order": 3 },
+  { "unit": 1, "lesson": 6, "masdar": "حِفْظٌ", "past": "حَفِظَ", "present": "يَحْفَظُ", "imperative": "اِحْفَظْ", "translation_fr": "mémoriser", "translation_en": "to memorize", "sort_order": 4 },
+  { "unit": 1, "lesson": 6, "masdar": "نَظَرٌ", "past": "نَظَرَ", "present": "يَنْظُرُ", "imperative": "اُنْظُرْ", "translation_fr": "regarder", "translation_en": "to look", "sort_order": 5 },
+  { "unit": 1, "lesson": 6, "masdar": "سَمَاعٌ", "past": "سَمِعَ", "present": "يَسْمَعُ", "imperative": "اِسْمَعْ", "translation_fr": "écouter", "translation_en": "to listen", "sort_order": 6 },
+  { "unit": 1, "lesson": 6, "masdar": "وُقُوفٌ", "past": "وَقَفَ", "present": "يَقِفُ", "imperative": "قِفْ", "translation_fr": "se lever / s'arrêter", "translation_en": "to stand / to stop", "sort_order": 7 },
+  { "unit": 1, "lesson": 6, "masdar": "أَكْلٌ", "past": "أَكَلَ", "present": "يَأْكُلُ", "imperative": "كُلْ", "translation_fr": "manger", "translation_en": "to eat", "sort_order": 8 },
+  { "unit": 1, "lesson": 6, "masdar": "شُرْبٌ", "past": "شَرِبَ", "present": "يَشْرَبُ", "imperative": "اِشْرَبْ", "translation_fr": "boire", "translation_en": "to drink", "sort_order": 9 },
+  { "unit": 1, "lesson": 6, "masdar": "جُلُوسٌ", "past": "جَلَسَ", "present": "يَجْلِسُ", "imperative": "اِجْلِسْ", "translation_fr": "s'asseoir", "translation_en": "to sit", "sort_order": 10 },
+  { "unit": 1, "lesson": 6, "masdar": "سُؤَالٌ", "past": "سَأَلَ", "present": "يَسْأَلُ", "imperative": "اِسْأَلْ", "translation_fr": "demander", "translation_en": "to ask", "sort_order": 11 },
+  { "unit": 1, "lesson": 6, "masdar": "خُرُوجٌ", "past": "خَرَجَ", "present": "يَخْرُجُ", "imperative": "اُخْرُجْ", "translation_fr": "sortir", "translation_en": "to go out", "sort_order": 12 },
+  { "unit": 1, "lesson": 6, "masdar": "دُخُولٌ", "past": "دَخَلَ", "present": "يَدْخُلُ", "imperative": "اُدْخُلْ", "translation_fr": "entrer", "translation_en": "to enter", "sort_order": 13 },
+  { "unit": 1, "lesson": 6, "masdar": "ذَهَابٌ", "past": "ذَهَبَ", "present": "يَذْهَبُ", "imperative": "اِذْهَبْ", "translation_fr": "aller / partir", "translation_en": "to go", "sort_order": 14 },
+  { "unit": 1, "lesson": 6, "masdar": "رُجُوعٌ", "past": "رَجَعَ", "present": "يَرْجِعُ", "imperative": "اِرْجِعْ", "translation_fr": "revenir / retourner", "translation_en": "to return", "sort_order": 15 },
+  { "unit": 1, "lesson": 6, "masdar": "فَتْحٌ", "past": "فَتَحَ", "present": "يَفْتَحُ", "imperative": "اِفْتَحْ", "translation_fr": "ouvrir", "translation_en": "to open", "sort_order": 16 },
+  { "unit": 1, "lesson": 6, "masdar": "إِغْلَاقٌ", "past": "أَغْلَقَ", "present": "يُغْلِقُ", "imperative": "أَغْلِقْ", "translation_fr": "fermer", "translation_en": "to close", "sort_order": 17 },
+  { "unit": 1, "lesson": 6, "masdar": "دِرَاسَةٌ", "past": "دَرَسَ", "present": "يَدْرُسُ", "imperative": "اُدْرُسْ", "translation_fr": "étudier", "translation_en": "to study", "sort_order": 18 }
+]

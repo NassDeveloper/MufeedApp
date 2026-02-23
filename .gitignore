@@ -48,6 +48,11 @@ app.*.map.json
 _bmad/
 _bmad-output/
 
+# Android signing
+android/key.properties
+*.jks
+*.keystore
+
 # IDE/CLI config
 .cursor/
 .windsurf/

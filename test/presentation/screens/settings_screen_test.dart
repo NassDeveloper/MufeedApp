@@ -10,6 +10,7 @@ import 'package:mufeed_app/domain/models/unit_model.dart';
 import 'package:mufeed_app/domain/models/user_progress_model.dart';
 import 'package:mufeed_app/domain/models/verb_model.dart';
 import 'package:mufeed_app/domain/models/word_model.dart';
+import 'package:mufeed_app/domain/models/sentence_exercise_model.dart';
 import 'package:mufeed_app/domain/repositories/content_repository.dart';
 import 'package:mufeed_app/domain/repositories/progress_repository.dart';
 import 'package:mufeed_app/l10n/app_localizations.dart';
@@ -41,6 +42,12 @@ class FakeProgressRepository implements ProgressRepository {
   Future<int> createSession(SessionModel session) async => 1;
   @override
   Future<Map<String, int>> getProgressCountsByState() async => {};
+  @override
+  Future<Map<String, Map<String, int>>> getProgressCountsByStateAndType() async => {};
+  @override
+  Future<int> getTotalWordCount() async => 0;
+  @override
+  Future<int> getTotalVerbCount() async => 0;
   @override
   Future<int> getTotalItemCount() async => 0;
   @override
@@ -74,6 +81,10 @@ class FakeContentRepository implements ContentRepository {
   Future<List<VerbModel>> getVerbsByLessonId(int lessonId) async => [];
   @override
   Future<List<LessonModel>> getLessonsByLevelId(int levelId) async => [];
+  @override
+  Future<LessonModel?> getLessonById(int lessonId) async => null;
+  @override
+  Future<List<SentenceExerciseModel>> getExercisesForLesson(int lessonId) async => [];
 }
 
 LevelModel _level(int id) => LevelModel(

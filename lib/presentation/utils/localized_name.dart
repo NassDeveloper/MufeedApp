@@ -30,4 +30,11 @@ extension LessonLocalizedName on LessonModel {
       _ => nameFr,
     };
   }
+
+  String? localizedDescription(Locale locale) {
+    return switch (locale.languageCode) {
+      'en' => descriptionEn,
+      _ => descriptionFr,
+    };
+  }
 }

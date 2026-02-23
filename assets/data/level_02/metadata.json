@@ -1,0 +1,207 @@
+{
+  "level": {
+    "number": 2,
+    "name_fr": "Grammaire et vie quotidienne",
+    "name_en": "Grammar and Daily Life",
+    "name_ar": "القَوَاعِدُ وَالحَيَاةُ اليَوْمِيَّة",
+    "unit_count": 7
+  },
+  "units": [
+    {
+      "number": 1,
+      "name_fr": "Unité 1 - Les bases grammaticales",
+      "name_en": "Unit 1 - Grammar foundations",
+      "lessons": [
+        {
+          "number": 1,
+          "name_fr": "Leçon 1 - Les pronoms personnels et possessifs",
+          "name_en": "Lesson 1 - Personal and possessive pronouns",
+          "description_fr": "Apprenez les pronoms personnels arabes أَنَا (je), أَنْتَ/أَنْتِ (tu), هُوَ (il) et هِيَ (elle), fondamentaux pour construire des phrases.",
+          "description_en": "Learn the Arabic personal pronouns أَنَا (I), أَنْتَ/أَنْتِ (you), هُوَ (he), and هِيَ (she), which are fundamental for building sentences."
+        },
+        {
+          "number": 2,
+          "name_fr": "Leçon 2 - Les adjectifs",
+          "name_en": "Lesson 2 - Adjectives",
+          "description_fr": "Découvrez les adjectifs courants en arabe pour décrire les personnes et les choses : كَبِيرٌ (grand), صَغِيرٌ (petit), جَمِيلٌ (beau), سَعِيدٌ (heureux), قَوِيٌّ (fort) et bien d'autres.",
+          "description_en": "Discover common Arabic adjectives to describe people and things: كَبِيرٌ (big), صَغِيرٌ (small), جَمِيلٌ (beautiful), سَعِيدٌ (happy), قَوِيٌّ (strong), and many more."
+        },
+        {
+          "number": 3,
+          "name_fr": "Leçon 3 - Les démonstratifs et interrogatifs",
+          "name_en": "Lesson 3 - Demonstratives and interrogatives",
+          "description_fr": "Apprenez les démonstratifs هَذَا (celui-ci) et هَذِهِ (celle-ci), ainsi que les mots interrogatifs : مَا (quoi), مَنْ (qui), أَيْنَ (où) et مَتَى (quand).",
+          "description_en": "Learn the demonstratives هَذَا (this, m.) and هَذِهِ (this, f.), as well as question words: مَا (what), مَنْ (who), أَيْنَ (where), and مَتَى (when)."
+        },
+        {
+          "number": 4,
+          "name_fr": "Leçon 4 - Les adverbes",
+          "name_en": "Lesson 4 - Adverbs",
+          "description_fr": "Apprenez les adverbes de temps et de lieu essentiels : الْيَوْمَ (aujourd'hui), غَدًا (demain), أَمْسِ (hier), قَبْلَ (avant), بَعْدَ (après), فَوْقَ (au-dessus) et تَحْتَ (en-dessous).",
+          "description_en": "Learn essential adverbs of time and place: الْيَوْمَ (today), غَدًا (tomorrow), أَمْسِ (yesterday), قَبْلَ (before), بَعْدَ (after), فَوْقَ (above), and تَحْتَ (below)."
+        },
+        {
+          "number": 5,
+          "name_fr": "Leçon 5 - La négation",
+          "name_en": "Lesson 5 - Negation",
+          "description_fr": "Découvrez les particules de négation en arabe : لَا (non / ne...pas), لَمْ (négation au passé) et لَنْ (négation au futur). Apprenez à formuler des phrases négatives.",
+          "description_en": "Discover the negation particles in Arabic: لَا (no / not), لَمْ (past negation), and لَنْ (future negation). Learn how to form negative sentences."
+        },
+        {
+          "number": 6,
+          "name_fr": "Leçon 6 - Les verbes",
+          "name_en": "Lesson 6 - Verbs",
+          "description_fr": "Initiez-vous aux verbes arabes et à leur conjugaison de base. Découvrez comment les verbes changent de forme selon le sujet et le temps.",
+          "description_en": "Get started with Arabic verbs and their basic conjugation. Discover how verbs change form depending on the subject and tense."
+        }
+      ]
+    },
+    {
+      "number": 2,
+      "name_fr": "Unité 2 - La famille et les métiers",
+      "name_en": "Unit 2 - Family and professions",
+      "lessons": [
+        {
+          "number": 1,
+          "name_fr": "Leçon 1 - Les membres de la famille",
+          "name_en": "Lesson 1 - Family members",
+          "description_fr": "Apprenez les noms des membres de la famille : أَبٌ (père), أُمٌّ (mère), أَخٌ (frère), أُخْتٌ (sœur), جَدٌّ (grand-père), ainsi que les oncles et tantes paternels et maternels.",
+          "description_en": "Learn the names of family members: أَبٌ (father), أُمٌّ (mother), أَخٌ (brother), أُخْتٌ (sister), جَدٌّ (grandfather), as well as paternal and maternal uncles and aunts."
+        },
+        {
+          "number": 2,
+          "name_fr": "Leçon 2 - Les métiers",
+          "name_en": "Lesson 2 - Professions",
+          "description_fr": "Découvrez un large éventail de métiers en arabe : مُعَلِّمٌ (enseignant), طَبِيبٌ (médecin), مُهَنْدِسٌ (ingénieur), خَبَّازٌ (boulanger), نَجَّارٌ (menuisier) et bien d'autres.",
+          "description_en": "Discover a wide range of professions in Arabic: مُعَلِّمٌ (teacher), طَبِيبٌ (doctor), مُهَنْدِسٌ (engineer), خَبَّازٌ (baker), نَجَّارٌ (carpenter), and many more."
+        }
+      ]
+    },
+    {
+      "number": 3,
+      "name_fr": "Unité 3 - Faire connaissance",
+      "name_en": "Unit 3 - Getting to know",
+      "lessons": [
+        {
+          "number": 1,
+          "name_fr": "Leçon 1 - Se présenter",
+          "name_en": "Lesson 1 - Introducing yourself",
+          "description_fr": "Apprenez le vocabulaire pour vous présenter : اِسْمٌ (nom), عَمَلٌ (travail), عُمْرٌ (âge), جِنْسِيَّةٌ (nationalité) et بَلَدٌ (pays). Pratiquez les échanges de base pour faire connaissance.",
+          "description_en": "Learn the vocabulary to introduce yourself: اِسْمٌ (name), عَمَلٌ (job), عُمْرٌ (age), جِنْسِيَّةٌ (nationality), and بَلَدٌ (country). Practise basic exchanges to get to know someone."
+        }
+      ]
+    },
+    {
+      "number": 4,
+      "name_fr": "Unité 4 - La maison",
+      "name_en": "Unit 4 - The house",
+      "lessons": [
+        {
+          "number": 1,
+          "name_fr": "Leçon 1 - Les parties de la maison",
+          "name_en": "Lesson 1 - Parts of the house",
+          "description_fr": "Apprenez les noms des différentes parties d'une maison : بَيْتٌ (maison), شُقَّةٌ (appartement), غُرْفَةٌ (chambre), الشُّرْفَةُ (balcon), الْحَدِيقَةُ (jardin) et les étages.",
+          "description_en": "Learn the names of different parts of a house: بَيْتٌ (house), شُقَّةٌ (apartment), غُرْفَةٌ (room), الشُّرْفَةُ (balcony), الْحَدِيقَةُ (garden), and the floors."
+        },
+        {
+          "number": 2,
+          "name_fr": "Leçon 2 - La chambre à coucher",
+          "name_en": "Lesson 2 - The bedroom",
+          "description_fr": "Découvrez le vocabulaire de la chambre à coucher : سَرِيرٌ (lit), خِزَانَةٌ (armoire), مِرْآةٌ (miroir), سَجَّادَةٌ (tapis), مِصْبَاحٌ (lampe) et حَاسُوبٌ (ordinateur).",
+          "description_en": "Discover bedroom vocabulary: سَرِيرٌ (bed), خِزَانَةٌ (wardrobe), مِرْآةٌ (mirror), سَجَّادَةٌ (carpet), مِصْبَاحٌ (lamp), and حَاسُوبٌ (computer)."
+        },
+        {
+          "number": 3,
+          "name_fr": "Leçon 3 - La salle de bain",
+          "name_en": "Lesson 3 - The bathroom",
+          "description_fr": "Apprenez le vocabulaire de la salle de bain : مِرْحَاضٌ (toilettes), حَوْضٌ (lavabo), صُنْبُورٌ (robinet), مِنْشَفَةٌ (serviette) et غَسَّالَةٌ (machine à laver).",
+          "description_en": "Learn bathroom vocabulary: مِرْحَاضٌ (toilet), حَوْضٌ (sink), صُنْبُورٌ (faucet), مِنْشَفَةٌ (towel), and غَسَّالَةٌ (washing machine)."
+        },
+        {
+          "number": 4,
+          "name_fr": "Leçon 4 - Le salon",
+          "name_en": "Lesson 4 - The living room",
+          "description_fr": "Découvrez le vocabulaire du salon : أَرِيكَةٌ (canapé), سِتَارَةٌ (rideau), تِلْفَازٌ (télévision), كُرْسِيٌّ (chaise) et طَاوِلَةٌ (table).",
+          "description_en": "Discover living room vocabulary: أَرِيكَةٌ (sofa), سِتَارَةٌ (curtain), تِلْفَازٌ (television), كُرْسِيٌّ (chair), and طَاوِلَةٌ (table)."
+        },
+        {
+          "number": 5,
+          "name_fr": "Leçon 5 - La cuisine",
+          "name_en": "Lesson 5 - The kitchen",
+          "description_fr": "Apprenez le vocabulaire de la cuisine : سِكِّينٌ (couteau), مِلْعَقَةٌ (cuillère), شَوْكَةٌ (fourchette), طَبَقٌ (assiette), فُرْنٌ (four) et ثَلَّاجَةٌ (réfrigérateur).",
+          "description_en": "Learn kitchen vocabulary: سِكِّينٌ (knife), مِلْعَقَةٌ (spoon), شَوْكَةٌ (fork), طَبَقٌ (plate), فُرْنٌ (oven), and ثَلَّاجَةٌ (refrigerator)."
+        }
+      ]
+    },
+    {
+      "number": 5,
+      "name_fr": "Unité 5 - La salle de classe",
+      "name_en": "Unit 5 - The classroom",
+      "lessons": [
+        {
+          "number": 1,
+          "name_fr": "Leçon 1 - Les fournitures scolaires",
+          "name_en": "Lesson 1 - School supplies",
+          "description_fr": "Apprenez les noms des fournitures scolaires : قَلَمُ رَصَاصٍ (crayon), مِسْطَرَةٌ (règle), مِحَاةٌ (gomme), دَفْتَرٌ (cahier), كِتَابٌ (livre) et حَقِيبَةٌ (cartable).",
+          "description_en": "Learn the names of school supplies: قَلَمُ رَصَاصٍ (pencil), مِسْطَرَةٌ (ruler), مِحَاةٌ (eraser), دَفْتَرٌ (notebook), كِتَابٌ (book), and حَقِيبَةٌ (schoolbag)."
+        },
+        {
+          "number": 2,
+          "name_fr": "Leçon 2 - Le mobilier et la vie scolaire",
+          "name_en": "Lesson 2 - Furniture and school life",
+          "description_fr": "Découvrez le mobilier et le vocabulaire de la vie scolaire : سَبُّورَةٌ (tableau), مَكْتَبٌ (bureau), الدَّرْسُ (leçon), السُّؤَالُ (question), الْأُسْتَاذُ (professeur) et الطَّالِبُ (étudiant).",
+          "description_en": "Discover classroom furniture and school life vocabulary: سَبُّورَةٌ (blackboard), مَكْتَبٌ (desk), الدَّرْسُ (lesson), السُّؤَالُ (question), الْأُسْتَاذُ (teacher), and الطَّالِبُ (student)."
+        }
+      ]
+    },
+    {
+      "number": 6,
+      "name_fr": "Unité 6 - La rue",
+      "name_en": "Unit 6 - The street",
+      "lessons": [
+        {
+          "number": 1,
+          "name_fr": "Leçon 1 - L'infrastructure urbaine",
+          "name_en": "Lesson 1 - Urban infrastructure",
+          "description_fr": "Apprenez le vocabulaire de l'infrastructure urbaine : شَارِعٌ (rue), رَصِيفٌ (trottoir), جِسْرٌ (pont), إِشَارَةُ الْمُرُورِ (feu de signalisation) et مَحَطَّةُ الْحَافِلَةِ (arrêt de bus).",
+          "description_en": "Learn urban infrastructure vocabulary: شَارِعٌ (street), رَصِيفٌ (sidewalk), جِسْرٌ (bridge), إِشَارَةُ الْمُرُورِ (traffic light), and مَحَطَّةُ الْحَافِلَةِ (bus stop)."
+        },
+        {
+          "number": 2,
+          "name_fr": "Leçon 2 - Les véhicules et le transport",
+          "name_en": "Lesson 2 - Vehicles and transport",
+          "description_fr": "Découvrez les noms des véhicules et moyens de transport : سَيَّارَةٌ (voiture), حَافِلَةٌ (bus), قِطَارٌ (train), طَائِرَةٌ (avion) et دَرَّاجَةٌ (vélo).",
+          "description_en": "Discover the names of vehicles and means of transport: سَيَّارَةٌ (car), حَافِلَةٌ (bus), قِطَارٌ (train), طَائِرَةٌ (airplane), and دَرَّاجَةٌ (bicycle)."
+        },
+        {
+          "number": 3,
+          "name_fr": "Leçon 3 - Les commerces et lieux",
+          "name_en": "Lesson 3 - Shops and places",
+          "description_fr": "Apprenez les noms des commerces et lieux courants : السُّوقُ (marché), الدُّكَّانُ (boutique), مَطْعَمٌ (restaurant), مَدْرَسَةٌ (école) et مُسْتَشْفَى (hôpital).",
+          "description_en": "Learn the names of common shops and places: السُّوقُ (market), الدُّكَّانُ (shop), مَطْعَمٌ (restaurant), مَدْرَسَةٌ (school), and مُسْتَشْفَى (hospital)."
+        }
+      ]
+    },
+    {
+      "number": 7,
+      "name_fr": "Unité 7 - La mosquée",
+      "name_en": "Unit 7 - The mosque",
+      "lessons": [
+        {
+          "number": 1,
+          "name_fr": "Leçon 1 - L'architecture et les objets",
+          "name_en": "Lesson 1 - Architecture and objects",
+          "description_fr": "Découvrez le vocabulaire architectural de la mosquée : قُبَّةٌ (coupole), مِئْذَنَةٌ (minaret), مِنْبَرٌ (chaire), مَكْتَبَةٌ (bibliothèque) et مِيضَأَةٌ (lieu d'ablutions).",
+          "description_en": "Discover the architectural vocabulary of the mosque: قُبَّةٌ (dome), مِئْذَنَةٌ (minaret), مِنْبَرٌ (pulpit), مَكْتَبَةٌ (library), and مِيضَأَةٌ (ablution area)."
+        },
+        {
+          "number": 2,
+          "name_fr": "Leçon 2 - La prière et les invocations",
+          "name_en": "Lesson 2 - Prayer and supplications",
+          "description_fr": "Apprenez le vocabulaire lié à la prière et aux invocations : الصَّلَاةُ (prière), الْإِمَامُ (imam), الْمُصَلُّونَ (fidèles), الْأَذْكَارُ (invocations) et صَلَاةُ الْفَجْرِ (prière de l'aube).",
+          "description_en": "Learn vocabulary related to prayer and supplications: الصَّلَاةُ (prayer), الْإِمَامُ (imam), الْمُصَلُّونَ (worshippers), الْأَذْكَارُ (invocations), and صَلَاةُ الْفَجْرِ (dawn prayer)."
+        }
+      ]
+    }
+  ]
+}

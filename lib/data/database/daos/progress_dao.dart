@@ -93,6 +93,24 @@ class ProgressDao extends DatabaseAccessor<AppDatabase>
     };
   }
 
+  /// Returns progress counts grouped by content_type and state.
+  Future<Map<String, Map<String, int>>>
+      getProgressCountsByStateAndType() async {
+    final query = customSelect(
+      'SELECT content_type, state, COUNT(*) AS cnt FROM user_progress GROUP BY content_type, state',
+      readsFrom: {userProgress},
+    );
+    final rows = await query.get();
+    final result = <String, Map<String, int>>{};
+    for (final row in rows) {
+      final type = row.read<String>('content_type');
+      final state = row.read<String>('state');
+      final cnt = row.read<int>('cnt');
+      result.putIfAbsent(type, () => {})[state] = cnt;
+    }
+    return result;
+  }
+
   /// Returns total number of reviewable items (words + verbs).
   Future<int> getTotalItemCount() async {
     final query = customSelect(
@@ -101,6 +119,26 @@ class ProgressDao extends DatabaseAccessor<AppDatabase>
     );
     final row = await query.getSingle();
     return row.read<int>('total');
+  }
+
+  /// Returns total number of words.
+  Future<int> getTotalWordCount() async {
+    final query = customSelect(
+      'SELECT COUNT(*) AS cnt FROM words',
+      readsFrom: {words},
+    );
+    final row = await query.getSingle();
+    return row.read<int>('cnt');
+  }
+
+  /// Returns total number of verbs.
+  Future<int> getTotalVerbCount() async {
+    final query = customSelect(
+      'SELECT COUNT(*) AS cnt FROM verbs',
+      readsFrom: {verbs},
+    );
+    final row = await query.getSingle();
+    return row.read<int>('cnt');
   }
 
   /// Returns the number of completed sessions.

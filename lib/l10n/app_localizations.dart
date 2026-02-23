@@ -566,10 +566,34 @@ abstract class AppLocalizations {
   /// **'Question {current} sur {total}'**
   String quizSemanticQuestion(int current, int total);
 
+  /// No description provided for @vocabularyScreenTitle.
+  ///
+  /// In fr, this message translates to:
+  /// **'Mon vocabulaire'**
+  String get vocabularyScreenTitle;
+
+  /// No description provided for @vocabularyScreenSubtitle.
+  ///
+  /// In fr, this message translates to:
+  /// **'Parcourez les leçons par niveau'**
+  String get vocabularyScreenSubtitle;
+
+  /// No description provided for @exercisesScreenTitle.
+  ///
+  /// In fr, this message translates to:
+  /// **'Exercices'**
+  String get exercisesScreenTitle;
+
+  /// No description provided for @exercisesScreenSubtitle.
+  ///
+  /// In fr, this message translates to:
+  /// **'Testez vos connaissances avec des QCM'**
+  String get exercisesScreenSubtitle;
+
   /// No description provided for @exercisesDescription.
   ///
   /// In fr, this message translates to:
-  /// **'Les exercices QCM sont accessibles depuis chaque leçon'**
+  /// **'Choisissez une leçon pour lancer un QCM'**
   String get exercisesDescription;
 
   /// No description provided for @exercisesGoToVocabulary.
@@ -577,6 +601,18 @@ abstract class AppLocalizations {
   /// In fr, this message translates to:
   /// **'Aller au vocabulaire'**
   String get exercisesGoToVocabulary;
+
+  /// No description provided for @statisticsScreenTitle.
+  ///
+  /// In fr, this message translates to:
+  /// **'Mes statistiques'**
+  String get statisticsScreenTitle;
+
+  /// No description provided for @statisticsScreenSubtitle.
+  ///
+  /// In fr, this message translates to:
+  /// **'Suivez votre progression'**
+  String get statisticsScreenSubtitle;
 
   /// No description provided for @quizSummaryTitle.
   ///
@@ -1375,6 +1411,126 @@ abstract class AppLocalizations {
   /// In fr, this message translates to:
   /// **'Dernière mise à jour : février 2026'**
   String get privacyPolicyLastUpdated;
+
+  /// No description provided for @sentenceExerciseTitle.
+  ///
+  /// In fr, this message translates to:
+  /// **'Compléter les phrases'**
+  String get sentenceExerciseTitle;
+
+  /// No description provided for @completeTheSentence.
+  ///
+  /// In fr, this message translates to:
+  /// **'Complétez la phrase :'**
+  String get completeTheSentence;
+
+  /// No description provided for @sentenceExerciseNext.
+  ///
+  /// In fr, this message translates to:
+  /// **'Suivant'**
+  String get sentenceExerciseNext;
+
+  /// No description provided for @sentenceExerciseEmpty.
+  ///
+  /// In fr, this message translates to:
+  /// **'Aucun exercice de complétion disponible'**
+  String get sentenceExerciseEmpty;
+
+  /// No description provided for @sentenceExerciseButton.
+  ///
+  /// In fr, this message translates to:
+  /// **'Compléter'**
+  String get sentenceExerciseButton;
+
+  /// No description provided for @verbTableTitle.
+  ///
+  /// In fr, this message translates to:
+  /// **'Tableau de conjugaison'**
+  String get verbTableTitle;
+
+  /// No description provided for @verbTableButton.
+  ///
+  /// In fr, this message translates to:
+  /// **'Conjugaison'**
+  String get verbTableButton;
+
+  /// No description provided for @verbTableTapToGuess.
+  ///
+  /// In fr, this message translates to:
+  /// **'Tapez sur ? pour deviner'**
+  String get verbTableTapToGuess;
+
+  /// No description provided for @verbTableScore.
+  ///
+  /// In fr, this message translates to:
+  /// **'{correct} / {total} correct'**
+  String verbTableScore(int correct, int total);
+
+  /// No description provided for @verbTableCompleted.
+  ///
+  /// In fr, this message translates to:
+  /// **'Tableau complété !'**
+  String get verbTableCompleted;
+
+  /// No description provided for @verbTableEmpty.
+  ///
+  /// In fr, this message translates to:
+  /// **'Pas assez de verbes pour cet exercice'**
+  String get verbTableEmpty;
+
+  /// No description provided for @verbTableTranslation.
+  ///
+  /// In fr, this message translates to:
+  /// **'Traduction'**
+  String get verbTableTranslation;
+
+  /// No description provided for @statsVocabulary.
+  ///
+  /// In fr, this message translates to:
+  /// **'Vocabulaire'**
+  String get statsVocabulary;
+
+  /// No description provided for @statsVerbs.
+  ///
+  /// In fr, this message translates to:
+  /// **'Verbes'**
+  String get statsVerbs;
+
+  /// No description provided for @statsItemsTotal.
+  ///
+  /// In fr, this message translates to:
+  /// **'{count, plural, =0{0 élément} =1{1 élément} other{{count} éléments}}'**
+  String statsItemsTotal(int count);
+
+  /// No description provided for @statsMastered.
+  ///
+  /// In fr, this message translates to:
+  /// **'{count} maîtrisé(s)'**
+  String statsMastered(int count);
+
+  /// No description provided for @confirmQuitTitle.
+  ///
+  /// In fr, this message translates to:
+  /// **'Quitter la session ?'**
+  String get confirmQuitTitle;
+
+  /// No description provided for @confirmQuitMessage.
+  ///
+  /// In fr, this message translates to:
+  /// **'Ta progression dans cette session sera perdue.'**
+  String get confirmQuitMessage;
+
+  /// No description provided for @confirmQuitLeave.
+  ///
+  /// In fr, this message translates to:
+  /// **'Quitter'**
+  String get confirmQuitLeave;
+
+  /// No description provided for @confirmQuitStay.
+  ///
+  /// In fr, this message translates to:
+  /// **'Continuer'**
+  String get confirmQuitStay;
 }
 
 class _AppLocalizationsDelegate

@@ -14,12 +14,12 @@ WordModel _word(int id, String arabic, String translationFr) => WordModel(
       sortOrder: id,
     );
 
-VerbModel _verb(int id, String masdar, String translationFr) => VerbModel(
+VerbModel _verb(int id, String past, String translationFr) => VerbModel(
       id: id,
       lessonId: 1,
       contentType: 'verb',
-      masdar: masdar,
-      past: 'past',
+      masdar: 'masdar',
+      past: past,
       present: 'present',
       imperative: 'imp',
       translationFr: translationFr,

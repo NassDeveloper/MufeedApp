@@ -57,7 +57,7 @@ void main() async {
       overrides: [
         databaseProvider.overrideWithValue(database),
         contentRepositoryProvider.overrideWithValue(
-          ContentRepositoryImpl(database.contentDao),
+          ContentRepositoryImpl(database.contentDao, JsonContentLoader()),
         ),
         errorReportRepositoryProvider.overrideWithValue(
           ErrorReportRepositoryImpl(database),

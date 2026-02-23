@@ -13,11 +13,35 @@ import '../providers/progress_provider.dart';
 import '../providers/streak_provider.dart';
 import '../utils/localized_name.dart';
 
-class HomeScreen extends ConsumerWidget {
+class HomeScreen extends ConsumerStatefulWidget {
   const HomeScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends ConsumerState<HomeScreen>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _staggerController;
+
+  @override
+  void initState() {
+    super.initState();
+    _staggerController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 800),
+    );
+    _staggerController.forward();
+  }
+
+  @override
+  void dispose() {
+    _staggerController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     final prefsSource = ref.watch(sharedPreferencesSourceProvider);
     final lastLessonName = prefsSource.getLastVisitedLessonName();
@@ -26,14 +50,14 @@ class HomeScreen extends ConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(l10n.tabHome),
+        title: Text(l10n.appTitle),
         actions: [
           Semantics(
             button: true,
             label: l10n.settingsSemanticButton,
             excludeSemantics: true,
             child: IconButton(
-              icon: const Icon(Icons.settings),
+              icon: const Icon(Icons.settings_outlined),
               tooltip: l10n.settingsSemanticButton,
               onPressed: () => context.push('/settings'),
             ),
@@ -45,42 +69,65 @@ class HomeScreen extends ConsumerWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              l10n.welcomeBack,
-              style: Theme.of(context).textTheme.headlineMedium,
+            _StaggeredItem(
+              index: 0,
+              controller: _staggerController,
+              child: const _WelcomeBanner(),
             ),
             const SizedBox(height: 16),
-            const _StreakSection(),
+            _StaggeredItem(
+              index: 1,
+              controller: _staggerController,
+              child: const _StreakSection(),
+            ),
             const SizedBox(height: 16),
-            const _DailySessionSection(),
+            _StaggeredItem(
+              index: 2,
+              controller: _staggerController,
+              child: const _ProgressOverview(),
+            ),
             const SizedBox(height: 16),
-            learningModeAsync.when(
-              loading: () => const SizedBox.shrink(),
-              error: (_, _) => const SizedBox.shrink(),
-              data: (modeState) => Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  _ModeInfoSection(modeState: modeState),
-                  const SizedBox(height: 16),
-                  if (modeState.isAutodidact &&
-                      modeState.suggestedLessonId != null)
-                    _SuggestedLessonCard(
-                      activeLevelId: modeState.activeLevelId,
-                      suggestedLessonId: modeState.suggestedLessonId!,
-                    )
-                  else if (modeState.isAutodidact &&
-                      modeState.suggestedLessonId == null)
-                    _NextLevelCard(activeLevelId: modeState.activeLevelId)
-                  else if (lastLessonName != null && lastLessonRoute != null)
-                    _ResumeCard(
-                      lessonName: lastLessonName,
-                      onTap: () => context.push(
-                        lastLessonRoute,
-                        extra: lastLessonName,
+            _StaggeredItem(
+              index: 3,
+              controller: _staggerController,
+              child: const _DailySessionSection(),
+            ),
+            const SizedBox(height: 16),
+            _StaggeredItem(
+              index: 4,
+              controller: _staggerController,
+              child: learningModeAsync.when(
+                loading: () => const SizedBox.shrink(),
+                error: (_, _) => const SizedBox.shrink(),
+                data: (modeState) => Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    if (modeState.isAutodidact &&
+                        modeState.suggestedLessonId != null)
+                      _SuggestedLessonCard(
+                        activeLevelId: modeState.activeLevelId,
+                        suggestedLessonId: modeState.suggestedLessonId!,
+                      )
+                    else if (modeState.isAutodidact &&
+                        modeState.suggestedLessonId == null)
+                      _NextLevelCard(activeLevelId: modeState.activeLevelId)
+                    else if (lastLessonName != null && lastLessonRoute != null)
+                      _ResumeCard(
+                        lessonName: lastLessonName,
+                        onTap: () => context.push(
+                          lastLessonRoute,
+                          extra: lastLessonName,
+                        ),
                       ),
-                    ),
-                ],
+                  ],
+                ),
               ),
+            ),
+            const SizedBox(height: 16),
+            _StaggeredItem(
+              index: 5,
+              controller: _staggerController,
+              child: _QuickActions(),
             ),
           ],
         ),
@@ -89,35 +136,277 @@ class HomeScreen extends ConsumerWidget {
   }
 }
 
-class _ModeInfoSection extends StatelessWidget {
-  const _ModeInfoSection({required this.modeState});
+class _StaggeredItem extends StatelessWidget {
+  const _StaggeredItem({
+    required this.index,
+    required this.controller,
+    required this.child,
+  });
 
-  final LearningModeState modeState;
+  final int index;
+  final AnimationController controller;
+  final Widget child;
 
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
-    final modeName = modeState.isCurriculum
-        ? l10n.homeModeCurriculum
-        : l10n.homeModeAutodidact;
+    final start = (index * 0.1).clamp(0.0, 0.6);
+    final end = (start + 0.5).clamp(0.0, 1.0);
+    final curve = Interval(start, end, curve: Curves.easeOut);
 
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          l10n.homeCurrentMode(modeName),
-          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                color: Theme.of(context).colorScheme.onSurfaceVariant,
-              ),
+    final opacity = CurvedAnimation(parent: controller, curve: curve);
+    final offset = Tween<Offset>(
+      begin: const Offset(0, 0.1),
+      end: Offset.zero,
+    ).animate(CurvedAnimation(parent: controller, curve: curve));
+
+    return SlideTransition(
+      position: offset,
+      child: FadeTransition(
+        opacity: opacity,
+        child: child,
+      ),
+    );
+  }
+}
+
+class _WelcomeBanner extends ConsumerWidget {
+  const _WelcomeBanner();
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context)!;
+    final colorScheme = Theme.of(context).colorScheme;
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    final modeAsync = ref.watch(learningModeProvider);
+
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: isDark
+              ? [colorScheme.primaryContainer, colorScheme.surface]
+              : [colorScheme.primary, colorScheme.primary.withValues(alpha: 0.85)],
         ),
-        const SizedBox(height: 4),
-        Text(
-          l10n.homeActiveLevel(modeState.activeLevelId.toString()),
-          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                color: Theme.of(context).colorScheme.onSurfaceVariant,
-              ),
+        borderRadius: BorderRadius.circular(20),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            '\u0628\u0650\u0633\u0652\u0645\u0650 \u0627\u0644\u0644\u0651\u064e\u0647\u0650 \u0627\u0644\u0631\u0651\u064e\u062d\u0652\u0645\u064e\u0646\u0650 \u0627\u0644\u0631\u0651\u064e\u062d\u0650\u064a\u0645\u0650',
+            style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                  color: isDark
+                      ? colorScheme.onSurface.withValues(alpha: 0.7)
+                      : colorScheme.onPrimary.withValues(alpha: 0.8),
+                ),
+          ),
+          const SizedBox(height: 8),
+          Text(
+            l10n.welcomeBack,
+            style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                  color: isDark
+                      ? colorScheme.onSurface
+                      : colorScheme.onPrimary,
+                  fontWeight: FontWeight.bold,
+                ),
+          ),
+          const SizedBox(height: 4),
+          modeAsync.when(
+            loading: () => const SizedBox.shrink(),
+            error: (_, _) => const SizedBox.shrink(),
+            data: (modeState) {
+              final modeName = modeState.isCurriculum
+                  ? l10n.homeModeCurriculum
+                  : l10n.homeModeAutodidact;
+              return Text(
+                l10n.homeCurrentMode(modeName),
+                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                      color: isDark
+                          ? colorScheme.onSurface.withValues(alpha: 0.7)
+                          : colorScheme.onPrimary.withValues(alpha: 0.8),
+                    ),
+              );
+            },
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _ProgressOverview extends ConsumerWidget {
+  const _ProgressOverview();
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context)!;
+    final colorScheme = Theme.of(context).colorScheme;
+    final asyncStats = ref.watch(progressStatsProvider);
+
+    return asyncStats.when(
+      loading: () => const SizedBox.shrink(),
+      error: (_, _) => const SizedBox.shrink(),
+      data: (stats) {
+        if (stats.totalItems == 0) return const SizedBox.shrink();
+
+        final mastered = stats.reviewCount;
+        final total = stats.totalItems;
+        final progress = total > 0 ? mastered / total : 0.0;
+
+        return Card(
+          child: Padding(
+            padding: const EdgeInsets.all(16),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    Icon(
+                      Icons.auto_graph,
+                      size: 20,
+                      color: colorScheme.primary,
+                    ),
+                    const SizedBox(width: 8),
+                    Text(
+                      l10n.statsOverview,
+                      style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                            color: colorScheme.onSurfaceVariant,
+                          ),
+                    ),
+                    const Spacer(),
+                    Text(
+                      '$mastered / $total',
+                      style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                            fontWeight: FontWeight.bold,
+                          ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 12),
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(6),
+                  child: LinearProgressIndicator(
+                    value: progress,
+                    minHeight: 8,
+                    backgroundColor:
+                        colorScheme.outline.withValues(alpha: 0.15),
+                    color: colorScheme.primary,
+                  ),
+                ),
+                const SizedBox(height: 8),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      l10n.statsWordsTotal(total),
+                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                            color: colorScheme.onSurfaceVariant,
+                          ),
+                    ),
+                    Text(
+                      l10n.statsSessionsCompleted(stats.sessionCount),
+                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                            color: colorScheme.onSurfaceVariant,
+                          ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+}
+
+class _QuickActions extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+    final colorScheme = Theme.of(context).colorScheme;
+
+    return Row(
+      children: [
+        Expanded(
+          child: _QuickActionCard(
+            icon: Icons.menu_book_outlined,
+            label: l10n.tabVocabulary,
+            color: colorScheme.primary,
+            onTap: () => context.go('/vocabulary'),
+          ),
+        ),
+        const SizedBox(width: 12),
+        Expanded(
+          child: _QuickActionCard(
+            icon: Icons.quiz_outlined,
+            label: l10n.tabExercises,
+            color: colorScheme.secondary,
+            onTap: () => context.go('/exercises'),
+          ),
+        ),
+        const SizedBox(width: 12),
+        Expanded(
+          child: _QuickActionCard(
+            icon: Icons.bar_chart_outlined,
+            label: l10n.tabStatistics,
+            color: colorScheme.tertiary,
+            onTap: () => context.go('/statistics'),
+          ),
         ),
       ],
+    );
+  }
+}
+
+class _QuickActionCard extends StatelessWidget {
+  const _QuickActionCard({
+    required this.icon,
+    required this.label,
+    required this.color,
+    required this.onTap,
+  });
+
+  final IconData icon;
+  final String label;
+  final Color color;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      child: InkWell(
+        borderRadius: BorderRadius.circular(16),
+        onTap: onTap,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 8),
+          child: Column(
+            children: [
+              Container(
+                width: 44,
+                height: 44,
+                decoration: BoxDecoration(
+                  color: color.withValues(alpha: 0.15),
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                alignment: Alignment.center,
+                child: Icon(icon, color: color, size: 22),
+              ),
+              const SizedBox(height: 8),
+              Text(
+                label,
+                style: Theme.of(context).textTheme.labelSmall,
+                textAlign: TextAlign.center,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }
@@ -236,33 +525,39 @@ class _NextLevelCard extends ConsumerWidget {
         clipBehavior: Clip.antiAlias,
         child: Padding(
           padding: const EdgeInsets.all(16),
-          child: Row(
-            children: [
-              Icon(Icons.emoji_events, color: colorScheme.primary, size: 32),
-              const SizedBox(width: 16),
-              Expanded(
-                child: Text(
-                  l10n.homeNextLevelSuggestion,
-                  style: Theme.of(context).textTheme.titleMedium,
-                ),
-              ),
-              if (hasNextLevel)
-                FilledButton(
-                  onPressed: () {
-                    final nextLevel = levels[currentIndex + 1];
-                    ref
-                        .read(learningModeProvider.notifier)
-                        .setActiveLevelId(nextLevel.id);
-                  },
-                  child: Text(l10n.homeGoToNextLevel),
-                )
-              else
-                Text(
-                  l10n.homeAllLevelsMastered,
-                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                        color: colorScheme.onSurfaceVariant,
+          child: hasNextLevel
+              ? Row(
+                  children: [
+                    Icon(Icons.emoji_events,
+                        color: colorScheme.primary, size: 32),
+                    const SizedBox(width: 16),
+                    Expanded(
+                      child: Text(
+                        l10n.homeNextLevelSuggestion,
+                        style: Theme.of(context).textTheme.titleMedium,
                       ),
-                ),
+                    ),
+                    FilledButton(
+                      onPressed: () {
+                        final nextLevel = levels[currentIndex + 1];
+                        ref
+                            .read(learningModeProvider.notifier)
+                            .setActiveLevelId(nextLevel.id);
+                      },
+                      child: Text(l10n.homeGoToNextLevel),
+                    ),
+                  ],
+                )
+              : Column(
+                  children: [
+                    Icon(Icons.emoji_events,
+                        color: colorScheme.primary, size: 48),
+                    const SizedBox(height: 12),
+                    Text(
+                      l10n.homeAllLevelsMastered,
+                      style: Theme.of(context).textTheme.titleMedium,
+                      textAlign: TextAlign.center,
+                    ),
             ],
           ),
         ),
@@ -342,20 +637,21 @@ class _DailySessionCard extends StatelessWidget {
         child: InkWell(
           onTap: () => context.push('/session/daily'),
           child: Padding(
-            padding: const EdgeInsets.all(16),
+            padding: const EdgeInsets.all(20),
             child: Row(
               children: [
                 Container(
-                  width: 48,
-                  height: 48,
+                  width: 52,
+                  height: 52,
                   decoration: BoxDecoration(
                     color: colorScheme.primary,
-                    borderRadius: BorderRadius.circular(12),
+                    borderRadius: BorderRadius.circular(14),
                   ),
                   alignment: Alignment.center,
                   child: Icon(
                     Icons.today,
                     color: colorScheme.onPrimary,
+                    size: 26,
                   ),
                 ),
                 const SizedBox(width: 16),
@@ -368,6 +664,7 @@ class _DailySessionCard extends StatelessWidget {
                         style:
                             Theme.of(context).textTheme.titleMedium?.copyWith(
                                   color: colorScheme.onPrimaryContainer,
+                                  fontWeight: FontWeight.bold,
                                 ),
                       ),
                       const SizedBox(height: 4),
@@ -420,10 +717,7 @@ class _ResumeSessionCard extends StatelessWidget {
                     borderRadius: BorderRadius.circular(12),
                   ),
                   alignment: Alignment.center,
-                  child: Icon(
-                    Icons.wb_sunny,
-                    color: colorScheme.onTertiary,
-                  ),
+                  child: Icon(Icons.wb_sunny, color: colorScheme.onTertiary),
                 ),
                 const SizedBox(width: 16),
                 Expanded(
@@ -458,22 +752,14 @@ class _ResumeSessionCard extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                Semantics(
-                  button: true,
-                  label: l10n.resumeDismissButton,
-                  child: TextButton(
-                    onPressed: onDismiss,
-                    child: Text(l10n.resumeDismissButton),
-                  ),
+                TextButton(
+                  onPressed: onDismiss,
+                  child: Text(l10n.resumeDismissButton),
                 ),
                 const SizedBox(width: 8),
-                Semantics(
-                  button: true,
-                  label: l10n.resumeSemanticLabel,
-                  child: FilledButton(
-                    onPressed: () => context.push('/session/daily'),
-                    child: Text(l10n.resumeCtaButton),
-                  ),
+                FilledButton(
+                  onPressed: () => context.push('/session/daily'),
+                  child: Text(l10n.resumeCtaButton),
                 ),
               ],
             ),
@@ -507,10 +793,8 @@ class _AllReviewedCard extends ConsumerWidget {
               color: colorScheme.primary,
             ),
             const SizedBox(height: 12),
-            Text(
-              l10n.allReviewedTitle,
-              style: Theme.of(context).textTheme.titleMedium,
-            ),
+            Text(l10n.allReviewedTitle,
+                style: Theme.of(context).textTheme.titleMedium),
             const SizedBox(height: 4),
             Text(
               l10n.allReviewedSubtitle,
@@ -524,35 +808,22 @@ class _AllReviewedCard extends ConsumerWidget {
               runSpacing: 8,
               alignment: WrapAlignment.center,
               children: [
-                Semantics(
-                  button: true,
-                  label: l10n.allReviewedExplore,
-                  child: OutlinedButton.icon(
-                    onPressed: () => context.go('/vocabulary'),
-                    icon: const Icon(Icons.menu_book, size: 18),
-                    label: Text(l10n.allReviewedExplore),
-                  ),
+                OutlinedButton.icon(
+                  onPressed: () => context.go('/vocabulary'),
+                  icon: const Icon(Icons.menu_book, size: 18),
+                  label: Text(l10n.allReviewedExplore),
                 ),
                 if (activeLessonId != null)
-                  Semantics(
-                    button: true,
-                    label: l10n.allReviewedReviewEarly,
-                    child: OutlinedButton.icon(
-                      onPressed: () => context.push(
-                        '/session/flashcard/$activeLessonId',
-                      ),
-                      icon: const Icon(Icons.replay, size: 18),
-                      label: Text(l10n.allReviewedReviewEarly),
-                    ),
+                  OutlinedButton.icon(
+                    onPressed: () =>
+                        context.push('/session/flashcard/$activeLessonId'),
+                    icon: const Icon(Icons.replay, size: 18),
+                    label: Text(l10n.allReviewedReviewEarly),
                   ),
-                Semantics(
-                  button: true,
-                  label: l10n.allReviewedQuiz,
-                  child: OutlinedButton.icon(
-                    onPressed: () => context.go('/exercises'),
-                    icon: const Icon(Icons.quiz, size: 18),
-                    label: Text(l10n.allReviewedQuiz),
-                  ),
+                OutlinedButton.icon(
+                  onPressed: () => context.go('/exercises'),
+                  icon: const Icon(Icons.quiz, size: 18),
+                  label: Text(l10n.allReviewedQuiz),
                 ),
               ],
             ),
@@ -577,7 +848,6 @@ class _StreakSectionState extends ConsumerState<_StreakSection> {
   @override
   void initState() {
     super.initState();
-    // Perform streak check once on first build
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (!_checkPerformed) {
         _checkPerformed = true;
@@ -585,7 +855,6 @@ class _StreakSectionState extends ConsumerState<_StreakSection> {
       }
     });
 
-    // Show freeze-used snackbar via listener (not in build)
     ref.listenManual(streakCheckProvider, (previous, next) {
       if (next != null && next.wasFreezeUsed && previous == null) {
         final l10n = AppLocalizations.of(context)!;
@@ -606,7 +875,6 @@ class _StreakSectionState extends ConsumerState<_StreakSection> {
 
     if (result == null) return const SizedBox.shrink();
 
-    // Show streak broken card
     if (result.wasStreakBroken && !_streakBrokenDismissed) {
       return _StreakBrokenCard(
         onDismiss: () => setState(() => _streakBrokenDismissed = true),
@@ -614,10 +882,11 @@ class _StreakSectionState extends ConsumerState<_StreakSection> {
     }
 
     final streak = result.streak;
-
+    final colorScheme = Theme.of(context).colorScheme;
     final freezeLabel = streak.freezeAvailable
         ? l10n.streakFreezeAvailable
         : l10n.streakFreezeUsed;
+    final isMilestone = const {7, 30, 100}.contains(streak.currentStreak);
 
     return Semantics(
       label: l10n.streakSemanticLabel(
@@ -628,16 +897,30 @@ class _StreakSectionState extends ConsumerState<_StreakSection> {
       child: Card(
         clipBehavior: Clip.antiAlias,
         child: Padding(
-          padding: const EdgeInsets.all(16),
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
           child: Row(
             children: [
-              Icon(
-                Icons.local_fire_department,
-                size: 36,
-                color: streak.currentStreak > 0
-                    ? Theme.of(context).colorScheme.primary
-                    : Theme.of(context).colorScheme.onSurfaceVariant,
-              ),
+              if (isMilestone)
+                _MilestoneFireIcon()
+              else
+                Container(
+                  width: 44,
+                  height: 44,
+                  decoration: BoxDecoration(
+                    color: streak.currentStreak > 0
+                        ? colorScheme.primary.withValues(alpha: 0.15)
+                        : colorScheme.outline.withValues(alpha: 0.1),
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  alignment: Alignment.center,
+                  child: Icon(
+                    Icons.local_fire_department,
+                    size: 24,
+                    color: streak.currentStreak > 0
+                        ? colorScheme.primary
+                        : colorScheme.onSurfaceVariant,
+                  ),
+                ),
               const SizedBox(width: 12),
               Expanded(
                 child: Column(
@@ -647,21 +930,17 @@ class _StreakSectionState extends ConsumerState<_StreakSection> {
                       streak.currentStreak > 0
                           ? l10n.streakDaysCount(streak.currentStreak)
                           : l10n.streakEncouragement,
-                      style: Theme.of(context).textTheme.titleMedium,
+                      style: Theme.of(context).textTheme.titleSmall,
                     ),
                     if (streak.longestStreak > 0)
                       Padding(
-                        padding: const EdgeInsets.only(top: 4),
+                        padding: const EdgeInsets.only(top: 2),
                         child: Text(
                           l10n.streakRecord(streak.longestStreak),
                           style: Theme.of(context)
                               .textTheme
                               .bodySmall
-                              ?.copyWith(
-                                color: Theme.of(context)
-                                    .colorScheme
-                                    .onSurfaceVariant,
-                              ),
+                              ?.copyWith(color: colorScheme.onSurfaceVariant),
                         ),
                       ),
                   ],
@@ -688,8 +967,7 @@ class _FreezeIndicator extends StatelessWidget {
     final available = streak.freezeAvailable;
 
     return Tooltip(
-      message:
-          available ? l10n.streakFreezeAvailable : l10n.streakFreezeUsed,
+      message: available ? l10n.streakFreezeAvailable : l10n.streakFreezeUsed,
       child: ExcludeSemantics(
         child: Icon(
           Icons.ac_unit,
@@ -711,60 +989,43 @@ class _StreakBrokenCard extends StatelessWidget {
     final l10n = AppLocalizations.of(context)!;
     final colorScheme = Theme.of(context).colorScheme;
 
-    return Semantics(
-      label: '${l10n.streakBrokenTitle}. ${l10n.streakBrokenMessage}',
-      child: Card(
-        clipBehavior: Clip.antiAlias,
-        child: Padding(
-          padding: const EdgeInsets.all(16),
-          child: Column(
-            children: [
-              Row(
-                children: [
-                  Icon(
-                    Icons.favorite,
-                    size: 36,
-                    color: colorScheme.primary,
-                  ),
-                  const SizedBox(width: 12),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          l10n.streakBrokenTitle,
-                          style:
-                              Theme.of(context).textTheme.titleMedium,
-                        ),
-                        const SizedBox(height: 4),
-                        Text(
-                          l10n.streakBrokenMessage,
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyMedium
-                              ?.copyWith(
-                                color: colorScheme.onSurfaceVariant,
-                              ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 12),
-              Align(
-                alignment: Alignment.centerRight,
-                child: Semantics(
-                  button: true,
-                  label: l10n.streakBrokenCta,
-                  child: FilledButton(
-                    onPressed: onDismiss,
-                    child: Text(l10n.streakBrokenCta),
+    return Card(
+      clipBehavior: Clip.antiAlias,
+      child: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          children: [
+            Row(
+              children: [
+                Icon(Icons.favorite, size: 36, color: colorScheme.primary),
+                const SizedBox(width: 12),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(l10n.streakBrokenTitle,
+                          style: Theme.of(context).textTheme.titleMedium),
+                      const SizedBox(height: 4),
+                      Text(
+                        l10n.streakBrokenMessage,
+                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                              color: colorScheme.onSurfaceVariant,
+                            ),
+                      ),
+                    ],
                   ),
                 ),
+              ],
+            ),
+            const SizedBox(height: 12),
+            Align(
+              alignment: Alignment.centerRight,
+              child: FilledButton(
+                onPressed: onDismiss,
+                child: Text(l10n.streakBrokenCta),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
@@ -801,10 +1062,8 @@ class _ResumeCard extends StatelessWidget {
                     borderRadius: BorderRadius.circular(12),
                   ),
                   alignment: Alignment.center,
-                  child: Icon(
-                    Icons.play_arrow,
-                    color: colorScheme.onPrimaryContainer,
-                  ),
+                  child: Icon(Icons.play_arrow,
+                      color: colorScheme.onPrimaryContainer),
                 ),
                 const SizedBox(width: 16),
                 Expanded(
@@ -818,10 +1077,8 @@ class _ResumeCard extends StatelessWidget {
                             ),
                       ),
                       const SizedBox(height: 4),
-                      Text(
-                        lessonName,
-                        style: Theme.of(context).textTheme.titleMedium,
-                      ),
+                      Text(lessonName,
+                          style: Theme.of(context).textTheme.titleMedium),
                     ],
                   ),
                 ),
@@ -833,6 +1090,56 @@ class _ResumeCard extends StatelessWidget {
               ],
             ),
           ),
+        ),
+      ),
+    );
+  }
+}
+
+class _MilestoneFireIcon extends StatefulWidget {
+  @override
+  State<_MilestoneFireIcon> createState() => _MilestoneFireIconState();
+}
+
+class _MilestoneFireIconState extends State<_MilestoneFireIcon>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+  late Animation<double> _scale;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 1000),
+    )..repeat(reverse: true);
+    _scale = Tween<double>(begin: 1.0, end: 1.15).animate(
+      CurvedAnimation(parent: _controller, curve: Curves.easeInOut),
+    );
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return ScaleTransition(
+      scale: _scale,
+      child: Container(
+        width: 44,
+        height: 44,
+        decoration: BoxDecoration(
+          color: Colors.orange.withValues(alpha: 0.2),
+          borderRadius: BorderRadius.circular(12),
+        ),
+        alignment: Alignment.center,
+        child: const Icon(
+          Icons.local_fire_department,
+          size: 24,
+          color: Colors.orange,
         ),
       ),
     );

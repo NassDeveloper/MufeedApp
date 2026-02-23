@@ -13,7 +13,9 @@ import '../screens/units_screen.dart';
 import '../screens/flashcard_session_screen.dart';
 import '../screens/quiz_screen.dart';
 import '../screens/quiz_summary_screen.dart';
+import '../screens/sentence_exercise_screen.dart';
 import '../screens/session_summary_screen.dart';
+import '../screens/verb_table_exercise_screen.dart';
 import '../screens/daily_session_screen.dart';
 import '../screens/daily_summary_screen.dart';
 import '../screens/settings_screen.dart';
@@ -82,6 +84,22 @@ GoRouter createAppRouter({
       builder: (context, state) {
         final lessonId = int.parse(state.pathParameters['lessonId']!);
         return QuizSummaryScreen(lessonId: lessonId);
+      },
+    ),
+    GoRoute(
+      path: '/session/sentence-exercise/:lessonId',
+      parentNavigatorKey: _rootNavigatorKey,
+      builder: (context, state) {
+        final lessonId = int.parse(state.pathParameters['lessonId']!);
+        return SentenceExerciseScreen(lessonId: lessonId);
+      },
+    ),
+    GoRoute(
+      path: '/session/verb-table/:lessonId',
+      parentNavigatorKey: _rootNavigatorKey,
+      builder: (context, state) {
+        final lessonId = int.parse(state.pathParameters['lessonId']!);
+        return VerbTableExerciseScreen(lessonId: lessonId);
       },
     ),
     GoRoute(

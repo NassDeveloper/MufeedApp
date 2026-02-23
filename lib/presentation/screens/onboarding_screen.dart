@@ -366,22 +366,56 @@ class _LevelPage extends ConsumerWidget {
   }
 }
 
-class _ConsentPage extends ConsumerWidget {
+class _ConsentPage extends ConsumerStatefulWidget {
   const _ConsentPage();
 
-  Future<void> _complete(
-    BuildContext context,
-    WidgetRef ref,
-    bool consent,
-  ) async {
+  @override
+  ConsumerState<_ConsentPage> createState() => _ConsentPageState();
+}
+
+class _ConsentPageState extends ConsumerState<_ConsentPage>
+    with SingleTickerProviderStateMixin {
+  bool _showCelebration = false;
+  late AnimationController _celebrationController;
+  late Animation<double> _scaleAnim;
+  late Animation<double> _opacityAnim;
+
+  @override
+  void initState() {
+    super.initState();
+    _celebrationController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 600),
+    );
+    _scaleAnim = Tween<double>(begin: 0.3, end: 1.0).animate(
+      CurvedAnimation(
+        parent: _celebrationController,
+        curve: Curves.elasticOut,
+      ),
+    );
+    _opacityAnim = CurvedAnimation(
+      parent: _celebrationController,
+      curve: const Interval(0.0, 0.4, curve: Curves.easeOut),
+    );
+  }
+
+  @override
+  void dispose() {
+    _celebrationController.dispose();
+    super.dispose();
+  }
+
+  Future<void> _complete(bool consent) async {
     ref.read(onboardingProvider.notifier).setGdprConsent(consent);
     try {
       await ref.read(onboardingProvider.notifier).completeOnboarding();
-      if (context.mounted) {
-        context.go('/');
-      }
+      if (!mounted) return;
+      setState(() => _showCelebration = true);
+      _celebrationController.forward();
+      await Future<void>.delayed(const Duration(milliseconds: 1500));
+      if (mounted) context.go('/');
     } catch (_) {
-      if (context.mounted) {
+      if (mounted) {
         final l10n = AppLocalizations.of(context)!;
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text(l10n.errorLoadingContent)),
@@ -391,9 +425,38 @@ class _ConsentPage extends ConsumerWidget {
   }
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     final colorScheme = Theme.of(context).colorScheme;
+
+    if (_showCelebration) {
+      return Center(
+        child: FadeTransition(
+          opacity: _opacityAnim,
+          child: ScaleTransition(
+            scale: _scaleAnim,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Icon(
+                  Icons.check_circle,
+                  size: 96,
+                  color: colorScheme.primary,
+                ),
+                const SizedBox(height: 24),
+                Text(
+                  l10n.onboardingWelcomeTitle,
+                  style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                        fontWeight: FontWeight.bold,
+                      ),
+                  textAlign: TextAlign.center,
+                ),
+              ],
+            ),
+          ),
+        ),
+      );
+    }
 
     return Padding(
       padding: const EdgeInsets.all(32),
@@ -439,7 +502,7 @@ class _ConsentPage extends ConsumerWidget {
           SizedBox(
             width: double.infinity,
             child: FilledButton(
-              onPressed: () => _complete(context, ref, true),
+              onPressed: () => _complete(true),
               child: Text(l10n.onboardingConsentAccept),
             ),
           ),
@@ -447,7 +510,7 @@ class _ConsentPage extends ConsumerWidget {
           SizedBox(
             width: double.infinity,
             child: OutlinedButton(
-              onPressed: () => _complete(context, ref, false),
+              onPressed: () => _complete(false),
               child: Text(l10n.onboardingConsentRefuse),
             ),
           ),
