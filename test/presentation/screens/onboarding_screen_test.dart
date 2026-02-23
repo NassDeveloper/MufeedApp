@@ -7,6 +7,7 @@ import 'package:mufeed_app/domain/models/lesson_model.dart';
 import 'package:mufeed_app/domain/models/unit_model.dart';
 import 'package:mufeed_app/domain/models/verb_model.dart';
 import 'package:mufeed_app/domain/models/word_model.dart';
+import 'package:mufeed_app/domain/models/sentence_exercise_model.dart';
 import 'package:mufeed_app/domain/repositories/content_repository.dart';
 import 'package:mufeed_app/l10n/app_localizations.dart';
 import 'package:mufeed_app/presentation/providers/content_provider.dart';
@@ -36,6 +37,11 @@ class FakeContentRepository implements ContentRepository {
 
   @override
   Future<List<LessonModel>> getLessonsByLevelId(int levelId) async => [];
+
+  @override
+  Future<LessonModel?> getLessonById(int lessonId) async => null;
+  @override
+  Future<List<SentenceExerciseModel>> getExercisesForLesson(int lessonId) async => [];
 }
 
 LevelModel _level(int id) => LevelModel(

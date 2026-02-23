@@ -5,19 +5,41 @@ import '../../domain/models/progress_stats_model.dart';
 import '../../domain/models/user_progress_model.dart';
 import 'srs_provider.dart';
 
+ContentTypeStats _buildTypeStats({
+  required int totalItems,
+  required Map<String, int> stateCounts,
+}) {
+  final learning = stateCounts['learning'] ?? 0;
+  final review = stateCounts['review'] ?? 0;
+  final relearning = stateCounts['relearning'] ?? 0;
+  final trackedNonNew = learning + review + relearning;
+  return ContentTypeStats(
+    totalItems: totalItems,
+    newCount: totalItems - trackedNonNew,
+    learningCount: learning,
+    reviewCount: review,
+    relearningCount: relearning,
+  );
+}
+
 final progressStatsProvider = FutureProvider<ProgressStatsModel>((ref) async {
   final repo = ref.watch(progressRepositoryProvider);
   final results = await Future.wait([
     repo.getProgressCountsByState(),
+    repo.getProgressCountsByStateAndType(),
     repo.getTotalItemCount(),
+    repo.getTotalWordCount(),
+    repo.getTotalVerbCount(),
     repo.getSessionCount(),
   ]);
 
   final stateCounts = results[0] as Map<String, int>;
-  final totalItems = results[1] as int;
-  final sessionCount = results[2] as int;
+  final stateByType = results[1] as Map<String, Map<String, int>>;
+  final totalItems = results[2] as int;
+  final totalWords = results[3] as int;
+  final totalVerbs = results[4] as int;
+  final sessionCount = results[5] as int;
 
-  // Items tracked in DB include 'new' state records — count them with untracked items
   final trackedNonNew = (stateCounts['learning'] ?? 0) +
       (stateCounts['review'] ?? 0) +
       (stateCounts['relearning'] ?? 0);
@@ -29,6 +51,14 @@ final progressStatsProvider = FutureProvider<ProgressStatsModel>((ref) async {
     reviewCount: stateCounts['review'] ?? 0,
     relearningCount: stateCounts['relearning'] ?? 0,
     sessionCount: sessionCount,
+    vocabStats: _buildTypeStats(
+      totalItems: totalWords,
+      stateCounts: stateByType['vocab'] ?? {},
+    ),
+    verbStats: _buildTypeStats(
+      totalItems: totalVerbs,
+      stateCounts: stateByType['verb'] ?? {},
+    ),
   );
 });
 

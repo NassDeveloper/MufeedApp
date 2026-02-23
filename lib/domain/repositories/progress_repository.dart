@@ -10,7 +10,10 @@ abstract class ProgressRepository {
   Future<void> saveProgress(UserProgressModel progress);
   Future<int> createSession(SessionModel session);
   Future<Map<String, int>> getProgressCountsByState();
+  Future<Map<String, Map<String, int>>> getProgressCountsByStateAndType();
   Future<int> getTotalItemCount();
+  Future<int> getTotalWordCount();
+  Future<int> getTotalVerbCount();
   Future<int> getSessionCount();
   Future<List<UserProgressModel>> getProgressForLesson(int lessonId);
   Future<int> getTotalItemCountForLesson(int lessonId);

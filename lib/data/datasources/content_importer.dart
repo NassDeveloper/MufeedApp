@@ -16,7 +16,7 @@ class ContentImporter {
   final JsonContentLoader jsonLoader;
   final SharedPreferencesSource prefsSource;
 
-  static const currentContentVersion = 1;
+  static const currentContentVersion = 5;
 
   Future<void> importIfNeeded() async {
     final installedVersion = prefsSource.getContentVersion();
@@ -29,6 +29,13 @@ class ContentImporter {
       final levelNumbers = await jsonLoader.discoverLevels();
 
       await database.transaction(() async {
+        // Clear existing content before re-import (order matters for FK)
+        await database.delete(database.verbs).go();
+        await database.delete(database.words).go();
+        await database.delete(database.lessons).go();
+        await database.delete(database.units).go();
+        await database.delete(database.levels).go();
+
         for (final levelNum in levelNumbers) {
           await _importLevel(levelNum);
         }
@@ -86,6 +93,8 @@ class ContentImporter {
                 number: lessonNumber,
                 nameFr: lesson['name_fr'] as String,
                 nameEn: lesson['name_en'] as String,
+                descriptionFr: Value(lesson['description_fr'] as String?),
+                descriptionEn: Value(lesson['description_en'] as String?),
               ),
             );
 

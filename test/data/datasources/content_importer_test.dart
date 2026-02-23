@@ -56,7 +56,7 @@ void main() {
   group('ContentImporter', () {
     test('importIfNeeded skips when content_version is already current',
         () async {
-      await prefsSource.setContentVersion(1);
+      await prefsSource.setContentVersion(ContentImporter.currentContentVersion);
 
       final loader = FakeJsonContentLoader(fakeLevels: [1]);
       final importer = ContentImporter(
@@ -155,7 +155,7 @@ void main() {
       expect(verbs.first.masdar, 'كِتَابَةٌ');
 
       // Verify version was updated
-      expect(prefsSource.getContentVersion(), 1);
+      expect(prefsSource.getContentVersion(), ContentImporter.currentContentVersion);
     });
 
     test('importIfNeeded does not re-import on second call', () async {
@@ -197,7 +197,7 @@ void main() {
       );
 
       await importer.importIfNeeded();
-      expect(prefsSource.getContentVersion(), 1);
+      expect(prefsSource.getContentVersion(), ContentImporter.currentContentVersion);
 
       // Second call should be a no-op
       await importer.importIfNeeded();

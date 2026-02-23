@@ -8,6 +8,8 @@ class LessonModel {
     required this.number,
     required this.nameFr,
     required this.nameEn,
+    this.descriptionFr,
+    this.descriptionEn,
   });
 
   final int id;
@@ -15,6 +17,8 @@ class LessonModel {
   final int number;
   final String nameFr;
   final String nameEn;
+  final String? descriptionFr;
+  final String? descriptionEn;
 
   @override
   bool operator ==(Object other) =>
@@ -24,10 +28,13 @@ class LessonModel {
           unitId == other.unitId &&
           number == other.number &&
           nameFr == other.nameFr &&
-          nameEn == other.nameEn;
+          nameEn == other.nameEn &&
+          descriptionFr == other.descriptionFr &&
+          descriptionEn == other.descriptionEn;
 
   @override
-  int get hashCode => Object.hash(id, unitId, number, nameFr, nameEn);
+  int get hashCode =>
+      Object.hash(id, unitId, number, nameFr, nameEn, descriptionFr, descriptionEn);
 
   LessonModel copyWith({
     int? id,
@@ -35,6 +42,8 @@ class LessonModel {
     int? number,
     String? nameFr,
     String? nameEn,
+    String? descriptionFr,
+    String? descriptionEn,
   }) {
     return LessonModel(
       id: id ?? this.id,
@@ -42,6 +51,8 @@ class LessonModel {
       number: number ?? this.number,
       nameFr: nameFr ?? this.nameFr,
       nameEn: nameEn ?? this.nameEn,
+      descriptionFr: descriptionFr ?? this.descriptionFr,
+      descriptionEn: descriptionEn ?? this.descriptionEn,
     );
   }
 }

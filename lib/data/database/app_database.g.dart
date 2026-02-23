@@ -793,8 +793,38 @@ class $LessonsTable extends Lessons with TableInfo<$LessonsTable, Lesson> {
     type: DriftSqlType.string,
     requiredDuringInsert: true,
   );
+  static const VerificationMeta _descriptionFrMeta = const VerificationMeta(
+    'descriptionFr',
+  );
   @override
-  List<GeneratedColumn> get $columns => [id, unitId, number, nameFr, nameEn];
+  late final GeneratedColumn<String> descriptionFr = GeneratedColumn<String>(
+    'description_fr',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _descriptionEnMeta = const VerificationMeta(
+    'descriptionEn',
+  );
+  @override
+  late final GeneratedColumn<String> descriptionEn = GeneratedColumn<String>(
+    'description_en',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  @override
+  List<GeneratedColumn> get $columns => [
+    id,
+    unitId,
+    number,
+    nameFr,
+    nameEn,
+    descriptionFr,
+    descriptionEn,
+  ];
   @override
   String get aliasedName => _alias ?? actualTableName;
   @override
@@ -842,6 +872,24 @@ class $LessonsTable extends Lessons with TableInfo<$LessonsTable, Lesson> {
     } else if (isInserting) {
       context.missing(_nameEnMeta);
     }
+    if (data.containsKey('description_fr')) {
+      context.handle(
+        _descriptionFrMeta,
+        descriptionFr.isAcceptableOrUnknown(
+          data['description_fr']!,
+          _descriptionFrMeta,
+        ),
+      );
+    }
+    if (data.containsKey('description_en')) {
+      context.handle(
+        _descriptionEnMeta,
+        descriptionEn.isAcceptableOrUnknown(
+          data['description_en']!,
+          _descriptionEnMeta,
+        ),
+      );
+    }
     return context;
   }
 
@@ -871,6 +919,14 @@ class $LessonsTable extends Lessons with TableInfo<$LessonsTable, Lesson> {
         DriftSqlType.string,
         data['${effectivePrefix}name_en'],
       )!,
+      descriptionFr: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}description_fr'],
+      ),
+      descriptionEn: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}description_en'],
+      ),
     );
   }
 
@@ -886,12 +942,16 @@ class Lesson extends DataClass implements Insertable<Lesson> {
   final int number;
   final String nameFr;
   final String nameEn;
+  final String? descriptionFr;
+  final String? descriptionEn;
   const Lesson({
     required this.id,
     required this.unitId,
     required this.number,
     required this.nameFr,
     required this.nameEn,
+    this.descriptionFr,
+    this.descriptionEn,
   });
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
@@ -901,6 +961,12 @@ class Lesson extends DataClass implements Insertable<Lesson> {
     map['number'] = Variable<int>(number);
     map['name_fr'] = Variable<String>(nameFr);
     map['name_en'] = Variable<String>(nameEn);
+    if (!nullToAbsent || descriptionFr != null) {
+      map['description_fr'] = Variable<String>(descriptionFr);
+    }
+    if (!nullToAbsent || descriptionEn != null) {
+      map['description_en'] = Variable<String>(descriptionEn);
+    }
     return map;
   }
 
@@ -911,6 +977,12 @@ class Lesson extends DataClass implements Insertable<Lesson> {
       number: Value(number),
       nameFr: Value(nameFr),
       nameEn: Value(nameEn),
+      descriptionFr: descriptionFr == null && nullToAbsent
+          ? const Value.absent()
+          : Value(descriptionFr),
+      descriptionEn: descriptionEn == null && nullToAbsent
+          ? const Value.absent()
+          : Value(descriptionEn),
     );
   }
 
@@ -925,6 +997,8 @@ class Lesson extends DataClass implements Insertable<Lesson> {
       number: serializer.fromJson<int>(json['number']),
       nameFr: serializer.fromJson<String>(json['nameFr']),
       nameEn: serializer.fromJson<String>(json['nameEn']),
+      descriptionFr: serializer.fromJson<String?>(json['descriptionFr']),
+      descriptionEn: serializer.fromJson<String?>(json['descriptionEn']),
     );
   }
   @override
@@ -936,6 +1010,8 @@ class Lesson extends DataClass implements Insertable<Lesson> {
       'number': serializer.toJson<int>(number),
       'nameFr': serializer.toJson<String>(nameFr),
       'nameEn': serializer.toJson<String>(nameEn),
+      'descriptionFr': serializer.toJson<String?>(descriptionFr),
+      'descriptionEn': serializer.toJson<String?>(descriptionEn),
     };
   }
 
@@ -945,12 +1021,20 @@ class Lesson extends DataClass implements Insertable<Lesson> {
     int? number,
     String? nameFr,
     String? nameEn,
+    Value<String?> descriptionFr = const Value.absent(),
+    Value<String?> descriptionEn = const Value.absent(),
   }) => Lesson(
     id: id ?? this.id,
     unitId: unitId ?? this.unitId,
     number: number ?? this.number,
     nameFr: nameFr ?? this.nameFr,
     nameEn: nameEn ?? this.nameEn,
+    descriptionFr: descriptionFr.present
+        ? descriptionFr.value
+        : this.descriptionFr,
+    descriptionEn: descriptionEn.present
+        ? descriptionEn.value
+        : this.descriptionEn,
   );
   Lesson copyWithCompanion(LessonsCompanion data) {
     return Lesson(
@@ -959,6 +1043,12 @@ class Lesson extends DataClass implements Insertable<Lesson> {
       number: data.number.present ? data.number.value : this.number,
       nameFr: data.nameFr.present ? data.nameFr.value : this.nameFr,
       nameEn: data.nameEn.present ? data.nameEn.value : this.nameEn,
+      descriptionFr: data.descriptionFr.present
+          ? data.descriptionFr.value
+          : this.descriptionFr,
+      descriptionEn: data.descriptionEn.present
+          ? data.descriptionEn.value
+          : this.descriptionEn,
     );
   }
 
@@ -969,13 +1059,23 @@ class Lesson extends DataClass implements Insertable<Lesson> {
           ..write('unitId: $unitId, ')
           ..write('number: $number, ')
           ..write('nameFr: $nameFr, ')
-          ..write('nameEn: $nameEn')
+          ..write('nameEn: $nameEn, ')
+          ..write('descriptionFr: $descriptionFr, ')
+          ..write('descriptionEn: $descriptionEn')
           ..write(')'))
         .toString();
   }
 
   @override
-  int get hashCode => Object.hash(id, unitId, number, nameFr, nameEn);
+  int get hashCode => Object.hash(
+    id,
+    unitId,
+    number,
+    nameFr,
+    nameEn,
+    descriptionFr,
+    descriptionEn,
+  );
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -984,7 +1084,9 @@ class Lesson extends DataClass implements Insertable<Lesson> {
           other.unitId == this.unitId &&
           other.number == this.number &&
           other.nameFr == this.nameFr &&
-          other.nameEn == this.nameEn);
+          other.nameEn == this.nameEn &&
+          other.descriptionFr == this.descriptionFr &&
+          other.descriptionEn == this.descriptionEn);
 }
 
 class LessonsCompanion extends UpdateCompanion<Lesson> {
@@ -993,12 +1095,16 @@ class LessonsCompanion extends UpdateCompanion<Lesson> {
   final Value<int> number;
   final Value<String> nameFr;
   final Value<String> nameEn;
+  final Value<String?> descriptionFr;
+  final Value<String?> descriptionEn;
   const LessonsCompanion({
     this.id = const Value.absent(),
     this.unitId = const Value.absent(),
     this.number = const Value.absent(),
     this.nameFr = const Value.absent(),
     this.nameEn = const Value.absent(),
+    this.descriptionFr = const Value.absent(),
+    this.descriptionEn = const Value.absent(),
   });
   LessonsCompanion.insert({
     this.id = const Value.absent(),
@@ -1006,6 +1112,8 @@ class LessonsCompanion extends UpdateCompanion<Lesson> {
     required int number,
     required String nameFr,
     required String nameEn,
+    this.descriptionFr = const Value.absent(),
+    this.descriptionEn = const Value.absent(),
   }) : unitId = Value(unitId),
        number = Value(number),
        nameFr = Value(nameFr),
@@ -1016,6 +1124,8 @@ class LessonsCompanion extends UpdateCompanion<Lesson> {
     Expression<int>? number,
     Expression<String>? nameFr,
     Expression<String>? nameEn,
+    Expression<String>? descriptionFr,
+    Expression<String>? descriptionEn,
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
@@ -1023,6 +1133,8 @@ class LessonsCompanion extends UpdateCompanion<Lesson> {
       if (number != null) 'number': number,
       if (nameFr != null) 'name_fr': nameFr,
       if (nameEn != null) 'name_en': nameEn,
+      if (descriptionFr != null) 'description_fr': descriptionFr,
+      if (descriptionEn != null) 'description_en': descriptionEn,
     });
   }
 
@@ -1032,6 +1144,8 @@ class LessonsCompanion extends UpdateCompanion<Lesson> {
     Value<int>? number,
     Value<String>? nameFr,
     Value<String>? nameEn,
+    Value<String?>? descriptionFr,
+    Value<String?>? descriptionEn,
   }) {
     return LessonsCompanion(
       id: id ?? this.id,
@@ -1039,6 +1153,8 @@ class LessonsCompanion extends UpdateCompanion<Lesson> {
       number: number ?? this.number,
       nameFr: nameFr ?? this.nameFr,
       nameEn: nameEn ?? this.nameEn,
+      descriptionFr: descriptionFr ?? this.descriptionFr,
+      descriptionEn: descriptionEn ?? this.descriptionEn,
     );
   }
 
@@ -1060,6 +1176,12 @@ class LessonsCompanion extends UpdateCompanion<Lesson> {
     if (nameEn.present) {
       map['name_en'] = Variable<String>(nameEn.value);
     }
+    if (descriptionFr.present) {
+      map['description_fr'] = Variable<String>(descriptionFr.value);
+    }
+    if (descriptionEn.present) {
+      map['description_en'] = Variable<String>(descriptionEn.value);
+    }
     return map;
   }
 
@@ -1070,7 +1192,9 @@ class LessonsCompanion extends UpdateCompanion<Lesson> {
           ..write('unitId: $unitId, ')
           ..write('number: $number, ')
           ..write('nameFr: $nameFr, ')
-          ..write('nameEn: $nameEn')
+          ..write('nameEn: $nameEn, ')
+          ..write('descriptionFr: $descriptionFr, ')
+          ..write('descriptionEn: $descriptionEn')
           ..write(')'))
         .toString();
   }
@@ -5817,6 +5941,8 @@ typedef $$LessonsTableCreateCompanionBuilder =
       required int number,
       required String nameFr,
       required String nameEn,
+      Value<String?> descriptionFr,
+      Value<String?> descriptionEn,
     });
 typedef $$LessonsTableUpdateCompanionBuilder =
     LessonsCompanion Function({
@@ -5825,6 +5951,8 @@ typedef $$LessonsTableUpdateCompanionBuilder =
       Value<int> number,
       Value<String> nameFr,
       Value<String> nameEn,
+      Value<String?> descriptionFr,
+      Value<String?> descriptionEn,
     });
 
 final class $$LessonsTableReferences
@@ -5914,6 +6042,16 @@ class $$LessonsTableFilterComposer
 
   ColumnFilters<String> get nameEn => $composableBuilder(
     column: $table.nameEn,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get descriptionFr => $composableBuilder(
+    column: $table.descriptionFr,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get descriptionEn => $composableBuilder(
+    column: $table.descriptionEn,
     builder: (column) => ColumnFilters(column),
   );
 
@@ -6020,6 +6158,16 @@ class $$LessonsTableOrderingComposer
     builder: (column) => ColumnOrderings(column),
   );
 
+  ColumnOrderings<String> get descriptionFr => $composableBuilder(
+    column: $table.descriptionFr,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get descriptionEn => $composableBuilder(
+    column: $table.descriptionEn,
+    builder: (column) => ColumnOrderings(column),
+  );
+
   $$UnitsTableOrderingComposer get unitId {
     final $$UnitsTableOrderingComposer composer = $composerBuilder(
       composer: this,
@@ -6064,6 +6212,16 @@ class $$LessonsTableAnnotationComposer
 
   GeneratedColumn<String> get nameEn =>
       $composableBuilder(column: $table.nameEn, builder: (column) => column);
+
+  GeneratedColumn<String> get descriptionFr => $composableBuilder(
+    column: $table.descriptionFr,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get descriptionEn => $composableBuilder(
+    column: $table.descriptionEn,
+    builder: (column) => column,
+  );
 
   $$UnitsTableAnnotationComposer get unitId {
     final $$UnitsTableAnnotationComposer composer = $composerBuilder(
@@ -6172,12 +6330,16 @@ class $$LessonsTableTableManager
                 Value<int> number = const Value.absent(),
                 Value<String> nameFr = const Value.absent(),
                 Value<String> nameEn = const Value.absent(),
+                Value<String?> descriptionFr = const Value.absent(),
+                Value<String?> descriptionEn = const Value.absent(),
               }) => LessonsCompanion(
                 id: id,
                 unitId: unitId,
                 number: number,
                 nameFr: nameFr,
                 nameEn: nameEn,
+                descriptionFr: descriptionFr,
+                descriptionEn: descriptionEn,
               ),
           createCompanionCallback:
               ({
@@ -6186,12 +6348,16 @@ class $$LessonsTableTableManager
                 required int number,
                 required String nameFr,
                 required String nameEn,
+                Value<String?> descriptionFr = const Value.absent(),
+                Value<String?> descriptionEn = const Value.absent(),
               }) => LessonsCompanion.insert(
                 id: id,
                 unitId: unitId,
                 number: number,
                 nameFr: nameFr,
                 nameEn: nameEn,
+                descriptionFr: descriptionFr,
+                descriptionEn: descriptionEn,
               ),
           withReferenceMapper: (p0) => p0
               .map(

@@ -18,7 +18,20 @@ class VocabularyScreen extends ConsumerWidget {
     final asyncLevels = ref.watch(levelsProvider);
 
     return Scaffold(
-      appBar: AppBar(title: Text(l10n.tabVocabulary)),
+      appBar: AppBar(
+        title: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(l10n.vocabularyScreenTitle),
+            Text(
+              l10n.vocabularyScreenSubtitle,
+              style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                    color: Theme.of(context).colorScheme.onSurfaceVariant,
+                  ),
+            ),
+          ],
+        ),
+      ),
       body: asyncLevels.when(
         loading: () => const SkeletonListLoader(itemCount: 4),
         error: (error, _) => ErrorContent(

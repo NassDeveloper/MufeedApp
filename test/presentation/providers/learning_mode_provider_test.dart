@@ -38,6 +38,12 @@ class FakeProgressRepository implements ProgressRepository {
   @override
   Future<Map<String, int>> getProgressCountsByState() async => {};
   @override
+  Future<Map<String, Map<String, int>>> getProgressCountsByStateAndType() async => {};
+  @override
+  Future<int> getTotalWordCount() async => 0;
+  @override
+  Future<int> getTotalVerbCount() async => 0;
+  @override
   Future<int> getTotalItemCount() async => 0;
   @override
   Future<int> getSessionCount() async => 0;

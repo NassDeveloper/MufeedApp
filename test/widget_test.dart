@@ -62,9 +62,9 @@ void main() {
 
     // Verify navigation bar is visible with 4 tabs (fr locale)
     expect(find.text('Accueil'), findsWidgets);
-    expect(find.text('Vocabulaire'), findsOneWidget);
-    expect(find.text('Exercices'), findsOneWidget);
-    expect(find.text('Statistiques'), findsOneWidget);
+    expect(find.text('Vocabulaire'), findsWidgets);
+    expect(find.text('Exercices'), findsWidgets);
+    expect(find.text('Statistiques'), findsWidgets);
   });
 
   testWidgets('App shows onboarding when not completed',

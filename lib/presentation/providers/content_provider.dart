@@ -2,6 +2,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../domain/models/lesson_model.dart';
 import '../../domain/models/level_model.dart';
+import '../../domain/models/sentence_exercise_model.dart';
 import '../../domain/models/unit_model.dart';
 import '../../domain/models/verb_model.dart';
 import '../../domain/models/word_model.dart';
@@ -27,6 +28,11 @@ final lessonsByUnitProvider =
   return ref.watch(contentRepositoryProvider).getLessonsByUnitId(unitId);
 });
 
+final lessonByIdProvider =
+    FutureProvider.family<LessonModel?, int>((ref, lessonId) {
+  return ref.watch(contentRepositoryProvider).getLessonById(lessonId);
+});
+
 final wordsByLessonProvider =
     FutureProvider.family<List<WordModel>, int>((ref, lessonId) {
   return ref.watch(contentRepositoryProvider).getWordsByLessonId(lessonId);
@@ -40,4 +46,9 @@ final verbsByLessonProvider =
 final lessonsByLevelProvider =
     FutureProvider.family<List<LessonModel>, int>((ref, levelId) {
   return ref.watch(contentRepositoryProvider).getLessonsByLevelId(levelId);
+});
+
+final exercisesByLessonProvider =
+    FutureProvider.family<List<SentenceExerciseModel>, int>((ref, lessonId) {
+  return ref.watch(contentRepositoryProvider).getExercisesForLesson(lessonId);
 });

@@ -11,13 +11,25 @@ import 'package:mufeed_app/presentation/providers/srs_provider.dart';
 
 class FakeProgressRepository implements ProgressRepository {
   Map<String, int> stateCounts = {};
+  Map<String, Map<String, int>> stateByType = {};
   int totalItemCount = 0;
+  int totalWordCount = 0;
+  int totalVerbCount = 0;
   int sessionCount = 0;
   List<UserProgressModel> lessonProgress = [];
   int lessonItemCount = 0;
 
   @override
   Future<Map<String, int>> getProgressCountsByState() async => stateCounts;
+
+  @override
+  Future<Map<String, Map<String, int>>> getProgressCountsByStateAndType() async => stateByType;
+
+  @override
+  Future<int> getTotalWordCount() async => totalWordCount;
+
+  @override
+  Future<int> getTotalVerbCount() async => totalVerbCount;
 
   @override
   Future<int> getTotalItemCount() async => totalItemCount;

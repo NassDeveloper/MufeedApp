@@ -1,3 +1,5 @@
+import 'dart:math' as math;
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -22,7 +24,20 @@ class StatisticsScreen extends ConsumerWidget {
     final asyncBadges = ref.watch(allBadgesProvider);
 
     return Scaffold(
-      appBar: AppBar(title: Text(l10n.tabStatistics)),
+      appBar: AppBar(
+        title: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(l10n.statisticsScreenTitle),
+            Text(
+              l10n.statisticsScreenSubtitle,
+              style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                    color: Theme.of(context).colorScheme.onSurfaceVariant,
+                  ),
+            ),
+          ],
+        ),
+      ),
       body: asyncStats.when(
         loading: () => const SkeletonListLoader(itemCount: 3),
         error: (_, _) => ErrorContent(
@@ -141,40 +156,53 @@ class _StatsContent extends StatelessWidget {
     ];
 
     return SingleChildScrollView(
-      padding: const EdgeInsets.all(24),
+      padding: const EdgeInsets.all(16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            l10n.statsOverview,
-            style: Theme.of(context).textTheme.titleLarge,
-          ),
-          const SizedBox(height: 8),
-          Text(
-            l10n.statsWordsTotal(stats.totalItems),
-            style: Theme.of(context).textTheme.bodyLarge,
-          ),
-          const SizedBox(height: 4),
-          Text(
-            l10n.statsSessionsCompleted(stats.sessionCount),
-            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                  color: colorScheme.onSurfaceVariant,
-                ),
-          ),
-          const SizedBox(height: 24),
-          _SegmentedProgressBar(
+          // Circular progress + summary
+          _CircularProgressSection(
+            stats: stats,
             segments: segments,
-            total: stats.totalItems,
+            l10n: l10n,
           ),
-          const SizedBox(height: 24),
+          const SizedBox(height: 20),
+
+          // Stats grid
+          _StatsGrid(stats: stats, segments: segments, l10n: l10n),
+          const SizedBox(height: 20),
+
+          // Segmented bar
+          _SegmentedProgressBar(segments: segments, total: stats.totalItems),
+          const SizedBox(height: 20),
+
+          // Legend
           ...segments.map(
             (s) => Padding(
-              padding: const EdgeInsets.only(bottom: 12),
+              padding: const EdgeInsets.only(bottom: 10),
               child: _LegendRow(segment: s),
             ),
           ),
+          const SizedBox(height: 20),
+
+          // Vocab vs Verb breakdown
+          _ContentTypeProgressCard(
+            icon: Icons.abc,
+            title: l10n.statsVocabulary,
+            typeStats: stats.vocabStats,
+            l10n: l10n,
+          ),
+          const SizedBox(height: 12),
+          _ContentTypeProgressCard(
+            icon: Icons.edit_note,
+            title: l10n.statsVerbs,
+            typeStats: stats.verbStats,
+            l10n: l10n,
+          ),
+
+          // Badges
           if (badges.isNotEmpty) ...[
-            const SizedBox(height: 32),
+            const SizedBox(height: 24),
             Text(
               l10n.badgeSectionTitle,
               style: Theme.of(context).textTheme.titleLarge,
@@ -183,6 +211,180 @@ class _StatsContent extends StatelessWidget {
             _BadgesGrid(badges: badges, l10n: l10n),
           ],
         ],
+      ),
+    );
+  }
+}
+
+class _CircularProgressSection extends StatelessWidget {
+  const _CircularProgressSection({
+    required this.stats,
+    required this.segments,
+    required this.l10n,
+  });
+
+  final ProgressStatsModel stats;
+  final List<_SegmentData> segments;
+  final AppLocalizations l10n;
+
+  @override
+  Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+    final mastered = stats.reviewCount;
+    final total = stats.totalItems;
+    final percent = total > 0 ? (mastered / total * 100).round() : 0;
+
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.all(20),
+        child: Row(
+          children: [
+            SizedBox(
+              width: 100,
+              height: 100,
+              child: CustomPaint(
+                painter: _DonutChartPainter(
+                  segments: segments,
+                  total: total,
+                  backgroundColor:
+                      colorScheme.outline.withValues(alpha: 0.1),
+                ),
+                child: Center(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(
+                        '$percent%',
+                        style: Theme.of(context)
+                            .textTheme
+                            .headlineSmall
+                            ?.copyWith(fontWeight: FontWeight.bold),
+                      ),
+                      Text(
+                        l10n.statsReview,
+                        style:
+                            Theme.of(context).textTheme.labelSmall?.copyWith(
+                                  color: colorScheme.onSurfaceVariant,
+                                ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            const SizedBox(width: 24),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    l10n.statsOverview,
+                    style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                          fontWeight: FontWeight.bold,
+                        ),
+                  ),
+                  const SizedBox(height: 8),
+                  Text(
+                    l10n.statsWordsTotal(total),
+                    style: Theme.of(context).textTheme.bodyMedium,
+                  ),
+                  const SizedBox(height: 4),
+                  Text(
+                    l10n.statsSessionsCompleted(stats.sessionCount),
+                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                          color: colorScheme.onSurfaceVariant,
+                        ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _StatsGrid extends StatelessWidget {
+  const _StatsGrid({
+    required this.stats,
+    required this.segments,
+    required this.l10n,
+  });
+
+  final ProgressStatsModel stats;
+  final List<_SegmentData> segments;
+  final AppLocalizations l10n;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Expanded(
+          child: _StatCard(
+            label: l10n.statsLearning,
+            count: stats.learningCount,
+            color: AppColors.ratingHard,
+          ),
+        ),
+        const SizedBox(width: 8),
+        Expanded(
+          child: _StatCard(
+            label: l10n.statsReview,
+            count: stats.reviewCount,
+            color: AppColors.ratingEasy,
+          ),
+        ),
+        const SizedBox(width: 8),
+        Expanded(
+          child: _StatCard(
+            label: l10n.statsRelearning,
+            count: stats.relearningCount,
+            color: AppColors.ratingAgain,
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class _StatCard extends StatelessWidget {
+  const _StatCard({
+    required this.label,
+    required this.count,
+    required this.color,
+  });
+
+  final String label;
+  final int count;
+  final Color color;
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 12),
+        child: Column(
+          children: [
+            Text(
+              '$count',
+              style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                    fontWeight: FontWeight.bold,
+                    color: color,
+                  ),
+            ),
+            const SizedBox(height: 4),
+            Text(
+              label,
+              style: Theme.of(context).textTheme.labelSmall?.copyWith(
+                    color: Theme.of(context).colorScheme.onSurfaceVariant,
+                  ),
+              textAlign: TextAlign.center,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -197,8 +399,8 @@ class _BadgesGrid extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Wrap(
-      spacing: 16,
-      runSpacing: 16,
+      spacing: 12,
+      runSpacing: 12,
       children: badges.map((badge) {
         return _BadgeTile(badge: badge, l10n: l10n);
       }).toList(),
@@ -238,6 +440,12 @@ class _BadgeTile extends StatelessWidget {
                   color: isUnlocked
                       ? colorScheme.primaryContainer
                       : colorScheme.surfaceContainerHighest,
+                  border: isUnlocked
+                      ? Border.all(
+                          color: colorScheme.primary.withValues(alpha: 0.3),
+                          width: 2,
+                        )
+                      : null,
                 ),
                 child: Icon(
                   badge.badgeType.icon,
@@ -261,6 +469,89 @@ class _BadgeTile extends StatelessWidget {
               ),
             ],
           ),
+        ),
+      ),
+    );
+  }
+}
+
+class _ContentTypeProgressCard extends StatelessWidget {
+  const _ContentTypeProgressCard({
+    required this.icon,
+    required this.title,
+    required this.typeStats,
+    required this.l10n,
+  });
+
+  final IconData icon;
+  final String title;
+  final ContentTypeStats typeStats;
+  final AppLocalizations l10n;
+
+  @override
+  Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+    final total = typeStats.totalItems;
+    final mastered = typeStats.reviewCount;
+    final progress = total > 0 ? mastered / total : 0.0;
+
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              children: [
+                Icon(icon, size: 20, color: colorScheme.primary),
+                const SizedBox(width: 8),
+                Text(
+                  title,
+                  style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                        fontWeight: FontWeight.bold,
+                      ),
+                ),
+                const Spacer(),
+                Text(
+                  l10n.statsItemsTotal(total),
+                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                        color: colorScheme.onSurfaceVariant,
+                      ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 12),
+            ClipRRect(
+              borderRadius: BorderRadius.circular(6),
+              child: LinearProgressIndicator(
+                value: progress,
+                minHeight: 8,
+                backgroundColor: colorScheme.outline.withValues(alpha: 0.15),
+                valueColor:
+                    const AlwaysStoppedAnimation<Color>(AppColors.ratingEasy),
+              ),
+            ),
+            const SizedBox(height: 8),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  l10n.statsMastered(mastered),
+                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                        color: AppColors.ratingEasy,
+                        fontWeight: FontWeight.w600,
+                      ),
+                ),
+                if (typeStats.learningCount > 0)
+                  Text(
+                    '${typeStats.learningCount} ${l10n.statsLearning.toLowerCase()}',
+                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                          color: colorScheme.onSurfaceVariant,
+                        ),
+                  ),
+              ],
+            ),
+          ],
         ),
       ),
     );
@@ -354,4 +645,52 @@ class _LegendRow extends StatelessWidget {
       ],
     );
   }
+}
+
+class _DonutChartPainter extends CustomPainter {
+  _DonutChartPainter({
+    required this.segments,
+    required this.total,
+    required this.backgroundColor,
+  });
+
+  final List<_SegmentData> segments;
+  final int total;
+  final Color backgroundColor;
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final center = Offset(size.width / 2, size.height / 2);
+    final radius = math.min(size.width, size.height) / 2;
+    const strokeWidth = 10.0;
+    final rect = Rect.fromCircle(center: center, radius: radius - strokeWidth / 2);
+
+    // Background ring
+    final bgPaint = Paint()
+      ..color = backgroundColor
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = strokeWidth
+      ..strokeCap = StrokeCap.round;
+    canvas.drawCircle(center, radius - strokeWidth / 2, bgPaint);
+
+    if (total == 0) return;
+
+    // Segment arcs
+    var startAngle = -math.pi / 2; // Start from top
+    for (final segment in segments) {
+      if (segment.count == 0) continue;
+      final sweepAngle = (segment.count / total) * 2 * math.pi;
+      final paint = Paint()
+        ..color = segment.color
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = strokeWidth
+        ..strokeCap = StrokeCap.butt;
+      canvas.drawArc(rect, startAngle, sweepAngle, false, paint);
+      startAngle += sweepAngle;
+    }
+  }
+
+  @override
+  bool shouldRepaint(covariant _DonutChartPainter oldDelegate) =>
+      total != oldDelegate.total;
 }

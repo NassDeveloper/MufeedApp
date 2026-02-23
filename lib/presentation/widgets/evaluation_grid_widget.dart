@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import '../../core/constants/app_colors.dart';
 import '../../core/constants/srs_constants.dart';
@@ -90,7 +91,10 @@ class _RatingButton extends StatelessWidget {
         borderRadius: BorderRadius.circular(12),
         child: InkWell(
           borderRadius: BorderRadius.circular(12),
-          onTap: () => onTap(rating),
+          onTap: () {
+            HapticFeedback.lightImpact();
+            onTap(rating);
+          },
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 14),
             child: Center(

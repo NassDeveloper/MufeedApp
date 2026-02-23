@@ -76,8 +76,23 @@ class ProgressRepositoryImpl implements ProgressRepository {
   }
 
   @override
+  Future<Map<String, Map<String, int>>> getProgressCountsByStateAndType() {
+    return _dao.getProgressCountsByStateAndType();
+  }
+
+  @override
   Future<int> getTotalItemCount() {
     return _dao.getTotalItemCount();
+  }
+
+  @override
+  Future<int> getTotalWordCount() {
+    return _dao.getTotalWordCount();
+  }
+
+  @override
+  Future<int> getTotalVerbCount() {
+    return _dao.getTotalVerbCount();
   }
 
   @override

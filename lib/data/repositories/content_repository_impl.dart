@@ -1,15 +1,18 @@
 import '../../domain/models/lesson_model.dart';
 import '../../domain/models/level_model.dart';
+import '../../domain/models/sentence_exercise_model.dart';
 import '../../domain/models/unit_model.dart';
 import '../../domain/models/verb_model.dart';
 import '../../domain/models/word_model.dart';
 import '../../domain/repositories/content_repository.dart';
 import '../database/daos/content_dao.dart';
+import '../datasources/json_content_loader.dart';
 
 class ContentRepositoryImpl implements ContentRepository {
-  ContentRepositoryImpl(this._contentDao);
+  ContentRepositoryImpl(this._contentDao, this._jsonLoader);
 
   final ContentDao _contentDao;
+  final JsonContentLoader _jsonLoader;
 
   @override
   Future<List<LevelModel>> getAllLevels() async {
@@ -55,9 +58,26 @@ class ContentRepositoryImpl implements ContentRepository {
             number: r.number,
             nameFr: r.nameFr,
             nameEn: r.nameEn,
+            descriptionFr: r.descriptionFr,
+            descriptionEn: r.descriptionEn,
           ),
         )
         .toList();
+  }
+
+  @override
+  Future<LessonModel?> getLessonById(int lessonId) async {
+    final r = await _contentDao.getLessonById(lessonId);
+    if (r == null) return null;
+    return LessonModel(
+      id: r.id,
+      unitId: r.unitId,
+      number: r.number,
+      nameFr: r.nameFr,
+      nameEn: r.nameEn,
+      descriptionFr: r.descriptionFr,
+      descriptionEn: r.descriptionEn,
+    );
   }
 
   @override
@@ -122,8 +142,30 @@ class ContentRepositoryImpl implements ContentRepository {
             number: r.number,
             nameFr: r.nameFr,
             nameEn: r.nameEn,
+            descriptionFr: r.descriptionFr,
+            descriptionEn: r.descriptionEn,
           ),
         )
+        .toList();
+  }
+
+  @override
+  Future<List<SentenceExerciseModel>> getExercisesForLesson(
+      int lessonId) async {
+    final coords = await _contentDao.getLessonCoordinates(lessonId);
+    if (coords == null) return [];
+
+    final jsonList = await _jsonLoader.loadExercises(coords.levelNumber);
+    if (jsonList.isEmpty) return [];
+
+    return jsonList
+        .where((j) =>
+            j['unit'] == coords.unitNumber &&
+            j['lesson'] == coords.lessonNumber)
+        .map((j) => SentenceExerciseModel.fromJson({
+              ...j,
+              'lesson_id': lessonId,
+            }))
         .toList();
   }
 }

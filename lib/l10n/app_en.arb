@@ -159,8 +159,14 @@
       "total": { "type": "int" }
     }
   },
-  "exercisesDescription": "Quiz exercises are available from each lesson",
+  "vocabularyScreenTitle": "My vocabulary",
+  "vocabularyScreenSubtitle": "Browse lessons by level",
+  "exercisesScreenTitle": "Exercises",
+  "exercisesScreenSubtitle": "Test your knowledge with quizzes",
+  "exercisesDescription": "Choose a lesson to start a quiz",
   "exercisesGoToVocabulary": "Go to vocabulary",
+  "statisticsScreenTitle": "My statistics",
+  "statisticsScreenSubtitle": "Track your progress",
   "quizSummaryTitle": "Quiz Results",
   "quizSummaryScore": "{correct} / {total}",
   "@quizSummaryScore": {
@@ -387,5 +393,41 @@
   "privacyPolicyContentRights": "In accordance with GDPR, you have the following rights:\n\n• Access: your data is accessible directly within the app\n• Deletion: uninstall the app to delete all your data\n• Consent modification: change your analytics choice at any time in the settings\n• Objection: you can refuse analytics data collection\n• Portability: since your data is stored locally, it remains under your control\n• Complaint: you can lodge a complaint with your local data protection authority (e.g., CNIL in France)",
   "privacyPolicySectionContact": "Contact",
   "privacyPolicyContentContact": "For any questions regarding the privacy of your data, you can contact us at: privacy@mufeed.app",
-  "privacyPolicyLastUpdated": "Last updated: February 2026"
+  "privacyPolicyLastUpdated": "Last updated: February 2026",
+  "sentenceExerciseTitle": "Complete sentences",
+  "completeTheSentence": "Complete the sentence:",
+  "sentenceExerciseNext": "Next",
+  "sentenceExerciseEmpty": "No sentence exercises available",
+  "sentenceExerciseButton": "Complete",
+  "verbTableTitle": "Conjugation table",
+  "verbTableButton": "Conjugation",
+  "verbTableTapToGuess": "Tap ? to guess",
+  "verbTableScore": "{correct} / {total} correct",
+  "@verbTableScore": {
+    "placeholders": {
+      "correct": { "type": "int" },
+      "total": { "type": "int" }
+    }
+  },
+  "verbTableCompleted": "Table completed!",
+  "verbTableEmpty": "Not enough verbs for this exercise",
+  "verbTableTranslation": "Translation",
+  "statsVocabulary": "Vocabulary",
+  "statsVerbs": "Verbs",
+  "statsItemsTotal": "{count, plural, =0{0 items} =1{1 item} other{{count} items}}",
+  "@statsItemsTotal": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "statsMastered": "{count} mastered",
+  "@statsMastered": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "confirmQuitTitle": "Quit session?",
+  "confirmQuitMessage": "Your progress in this session will be lost.",
+  "confirmQuitLeave": "Quit",
+  "confirmQuitStay": "Continue"
 }

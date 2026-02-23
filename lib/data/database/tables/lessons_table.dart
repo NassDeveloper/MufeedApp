@@ -8,4 +8,6 @@ class Lessons extends Table {
   IntColumn get number => integer()();
   TextColumn get nameFr => text()();
   TextColumn get nameEn => text()();
+  TextColumn get descriptionFr => text().nullable()();
+  TextColumn get descriptionEn => text().nullable()();
 }

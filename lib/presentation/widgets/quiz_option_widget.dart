@@ -23,9 +23,11 @@ class QuizOptionWidget extends StatefulWidget {
 }
 
 class _QuizOptionWidgetState extends State<QuizOptionWidget>
-    with SingleTickerProviderStateMixin {
+    with TickerProviderStateMixin {
   late AnimationController _scaleController;
   late Animation<double> _scaleAnimation;
+  late AnimationController _bounceController;
+  late Animation<double> _bounceAnimation;
 
   @override
   void initState() {
@@ -40,11 +42,33 @@ class _QuizOptionWidgetState extends State<QuizOptionWidget>
         curve: AnimationConstants.buttonFeedbackCurve,
       ),
     );
+    _bounceController = AnimationController(
+      duration: const Duration(milliseconds: 300),
+      vsync: this,
+    );
+    _bounceAnimation = TweenSequence<double>([
+      TweenSequenceItem(tween: Tween(begin: 1.0, end: 1.08), weight: 40),
+      TweenSequenceItem(tween: Tween(begin: 1.08, end: 1.0), weight: 60),
+    ]).animate(CurvedAnimation(
+      parent: _bounceController,
+      curve: Curves.easeOut,
+    ));
+  }
+
+  @override
+  void didUpdateWidget(QuizOptionWidget oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.optionState == QuizOptionState.idle &&
+        (widget.optionState == QuizOptionState.correct ||
+            widget.optionState == QuizOptionState.revealed)) {
+      _bounceController.forward(from: 0);
+    }
   }
 
   @override
   void dispose() {
     _scaleController.dispose();
+    _bounceController.dispose();
     super.dispose();
   }
 
@@ -80,6 +104,8 @@ class _QuizOptionWidgetState extends State<QuizOptionWidget>
       button: true,
       label: widget.text,
       child: ScaleTransition(
+        scale: _bounceAnimation,
+        child: ScaleTransition(
         scale: _scaleAnimation,
         child: AnimatedContainer(
           duration: AnimationConstants.quizOptionColorDuration,
@@ -119,6 +145,7 @@ class _QuizOptionWidgetState extends State<QuizOptionWidget>
               ),
             ),
           ),
+        ),
         ),
       ),
     );

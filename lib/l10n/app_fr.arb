@@ -159,8 +159,14 @@
       "total": { "type": "int" }
     }
   },
-  "exercisesDescription": "Les exercices QCM sont accessibles depuis chaque leçon",
+  "vocabularyScreenTitle": "Mon vocabulaire",
+  "vocabularyScreenSubtitle": "Parcourez les leçons par niveau",
+  "exercisesScreenTitle": "Exercices",
+  "exercisesScreenSubtitle": "Testez vos connaissances avec des QCM",
+  "exercisesDescription": "Choisissez une leçon pour lancer un QCM",
   "exercisesGoToVocabulary": "Aller au vocabulaire",
+  "statisticsScreenTitle": "Mes statistiques",
+  "statisticsScreenSubtitle": "Suivez votre progression",
   "quizSummaryTitle": "Résultat QCM",
   "quizSummaryScore": "{correct} / {total}",
   "@quizSummaryScore": {
@@ -387,5 +393,41 @@
   "privacyPolicyContentRights": "Conformément au RGPD, vous disposez des droits suivants :\n\n• Accès : vos données sont accessibles directement dans l'application\n• Suppression : désinstallez l'application pour supprimer toutes vos données\n• Modification du consentement : modifiez votre choix analytics à tout moment dans les paramètres\n• Opposition : vous pouvez refuser la collecte de données analytics\n• Portabilité : vos données étant stockées localement, elles restent sous votre contrôle\n• Réclamation : vous pouvez introduire une réclamation auprès de la CNIL (cnil.fr) ou de l'autorité de protection des données de votre pays",
   "privacyPolicySectionContact": "Contact",
   "privacyPolicyContentContact": "Pour toute question concernant la confidentialité de vos données, vous pouvez nous contacter à l'adresse : privacy@mufeed.app",
-  "privacyPolicyLastUpdated": "Dernière mise à jour : février 2026"
+  "privacyPolicyLastUpdated": "Dernière mise à jour : février 2026",
+  "sentenceExerciseTitle": "Compléter les phrases",
+  "completeTheSentence": "Complétez la phrase :",
+  "sentenceExerciseNext": "Suivant",
+  "sentenceExerciseEmpty": "Aucun exercice de complétion disponible",
+  "sentenceExerciseButton": "Compléter",
+  "verbTableTitle": "Tableau de conjugaison",
+  "verbTableButton": "Conjugaison",
+  "verbTableTapToGuess": "Tapez sur ? pour deviner",
+  "verbTableScore": "{correct} / {total} correct",
+  "@verbTableScore": {
+    "placeholders": {
+      "correct": { "type": "int" },
+      "total": { "type": "int" }
+    }
+  },
+  "verbTableCompleted": "Tableau complété !",
+  "verbTableEmpty": "Pas assez de verbes pour cet exercice",
+  "verbTableTranslation": "Traduction",
+  "statsVocabulary": "Vocabulaire",
+  "statsVerbs": "Verbes",
+  "statsItemsTotal": "{count, plural, =0{0 élément} =1{1 élément} other{{count} éléments}}",
+  "@statsItemsTotal": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "statsMastered": "{count} maîtrisé(s)",
+  "@statsMastered": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "confirmQuitTitle": "Quitter la session ?",
+  "confirmQuitMessage": "Ta progression dans cette session sera perdue.",
+  "confirmQuitLeave": "Quitter",
+  "confirmQuitStay": "Continuer"
 }

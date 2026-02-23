@@ -11,6 +11,8 @@ void main() {
         reviewCount: 25,
         relearningCount: 5,
         sessionCount: 10,
+        vocabStats: ContentTypeStats(totalItems: 0, newCount: 0, learningCount: 0, reviewCount: 0, relearningCount: 0),
+        verbStats: ContentTypeStats(totalItems: 0, newCount: 0, learningCount: 0, reviewCount: 0, relearningCount: 0),
       );
 
       expect(stats.masteredCount, 25);
@@ -24,6 +26,8 @@ void main() {
         reviewCount: 25,
         relearningCount: 5,
         sessionCount: 10,
+        vocabStats: ContentTypeStats(totalItems: 0, newCount: 0, learningCount: 0, reviewCount: 0, relearningCount: 0),
+        verbStats: ContentTypeStats(totalItems: 0, newCount: 0, learningCount: 0, reviewCount: 0, relearningCount: 0),
       );
 
       expect(stats.masteredPercentage, 0.25);
@@ -37,6 +41,8 @@ void main() {
         reviewCount: 0,
         relearningCount: 0,
         sessionCount: 0,
+        vocabStats: ContentTypeStats(totalItems: 0, newCount: 0, learningCount: 0, reviewCount: 0, relearningCount: 0),
+        verbStats: ContentTypeStats(totalItems: 0, newCount: 0, learningCount: 0, reviewCount: 0, relearningCount: 0),
       );
 
       expect(stats.masteredPercentage, 0.0);
@@ -50,6 +56,8 @@ void main() {
         reviewCount: 25,
         relearningCount: 5,
         sessionCount: 10,
+        vocabStats: ContentTypeStats(totalItems: 0, newCount: 0, learningCount: 0, reviewCount: 0, relearningCount: 0),
+        verbStats: ContentTypeStats(totalItems: 0, newCount: 0, learningCount: 0, reviewCount: 0, relearningCount: 0),
       );
 
       const stats2 = ProgressStatsModel(
@@ -59,6 +67,8 @@ void main() {
         reviewCount: 25,
         relearningCount: 5,
         sessionCount: 10,
+        vocabStats: ContentTypeStats(totalItems: 0, newCount: 0, learningCount: 0, reviewCount: 0, relearningCount: 0),
+        verbStats: ContentTypeStats(totalItems: 0, newCount: 0, learningCount: 0, reviewCount: 0, relearningCount: 0),
       );
 
       expect(stats1, equals(stats2));
@@ -73,6 +83,8 @@ void main() {
         reviewCount: 25,
         relearningCount: 5,
         sessionCount: 10,
+        vocabStats: ContentTypeStats(totalItems: 0, newCount: 0, learningCount: 0, reviewCount: 0, relearningCount: 0),
+        verbStats: ContentTypeStats(totalItems: 0, newCount: 0, learningCount: 0, reviewCount: 0, relearningCount: 0),
       );
 
       const stats2 = ProgressStatsModel(
@@ -82,6 +94,8 @@ void main() {
         reviewCount: 30,
         relearningCount: 5,
         sessionCount: 10,
+        vocabStats: ContentTypeStats(totalItems: 0, newCount: 0, learningCount: 0, reviewCount: 0, relearningCount: 0),
+        verbStats: ContentTypeStats(totalItems: 0, newCount: 0, learningCount: 0, reviewCount: 0, relearningCount: 0),
       );
 
       expect(stats1, isNot(equals(stats2)));

@@ -1,0 +1,609 @@
+[
+  {
+    "unit": 1,
+    "lesson": 1,
+    "sentence_fr": "___ طالِبٌ.",
+    "sentence_ar": "___ طَالِبٌ.",
+    "choices": ["أَنَا", "هُوَ", "هِيَ", "أَنْتِ"],
+    "correct_index": 1,
+    "explanations": [
+      "Incorrect. أَنَا signifie « je ». La phrase deviendrait « Je suis un étudiant », mais le contexte demande « Il ».",
+      "Correct ! هُوَ signifie « il ». La phrase se lit : هُوَ طَالِبٌ (Il est un étudiant).",
+      "Incorrect. هِيَ signifie « elle ». On dirait هِيَ طَالِبَةٌ avec le féminin.",
+      "Incorrect. أَنْتِ signifie « tu » au féminin."
+    ]
+  },
+  {
+    "unit": 1,
+    "lesson": 1,
+    "sentence_fr": "___ مُعَلِّمَةٌ.",
+    "sentence_ar": "___ مُعَلِّمَةٌ.",
+    "choices": ["هُوَ", "أَنْتَ", "هِيَ", "أَنَا"],
+    "correct_index": 2,
+    "explanations": [
+      "Incorrect. هُوَ signifie « il ». Le mot مُعَلِّمَةٌ est au féminin, il faut un pronom féminin.",
+      "Incorrect. أَنْتَ signifie « tu » au masculin.",
+      "Correct ! هِيَ signifie « elle ». La phrase se lit : هِيَ مُعَلِّمَةٌ (Elle est enseignante).",
+      "Incorrect. أَنَا signifie « je »."
+    ]
+  },
+  {
+    "unit": 1,
+    "lesson": 1,
+    "sentence_fr": "___ طَبِيبٌ.",
+    "sentence_ar": "___ طَبِيبٌ.",
+    "choices": ["هِيَ", "أَنَا", "أَنْتِ", "هُوَ"],
+    "correct_index": 1,
+    "explanations": [
+      "Incorrect. هِيَ signifie « elle ». Avec le féminin, on dirait طَبِيبَةٌ.",
+      "Correct ! أَنَا signifie « je ». La phrase se lit : أَنَا طَبِيبٌ (Je suis médecin).",
+      "Incorrect. أَنْتِ signifie « tu » au féminin.",
+      "Incorrect. هُوَ signifie « il ». C'est possible grammaticalement, mais le contexte demande « je »."
+    ]
+  },
+  {
+    "unit": 1,
+    "lesson": 1,
+    "sentence_fr": "___ مُهَنْدِسٌ.",
+    "sentence_ar": "___ مُهَنْدِسٌ.",
+    "choices": ["هِيَ", "أَنْتِ", "أَنْتَ", "أَنَا"],
+    "correct_index": 2,
+    "explanations": [
+      "Incorrect. هِيَ signifie « elle ». مُهَنْدِسٌ est au masculin.",
+      "Incorrect. أَنْتِ signifie « tu » au féminin. Le mot مُهَنْدِسٌ est au masculin.",
+      "Correct ! أَنْتَ signifie « tu » au masculin. La phrase se lit : أَنْتَ مُهَنْدِسٌ (Tu es ingénieur).",
+      "Incorrect. أَنَا signifie « je ». C'est possible, mais le contexte demande « tu (m.) »."
+    ]
+  },
+  {
+    "unit": 1,
+    "lesson": 1,
+    "sentence_fr": "___ سَعِيدَةٌ.",
+    "sentence_ar": "___ سَعِيدَةٌ.",
+    "choices": ["هُوَ", "أَنْتَ", "أَنَا", "أَنْتِ"],
+    "correct_index": 3,
+    "explanations": [
+      "Incorrect. هُوَ signifie « il ». Le mot سَعِيدَةٌ est au féminin (تاء مربوطة).",
+      "Incorrect. أَنْتَ signifie « tu » au masculin. Le mot سَعِيدَةٌ est au féminin.",
+      "Incorrect. أَنَا peut être masculin ou féminin, mais le contexte demande « tu (f.) ».",
+      "Correct ! أَنْتِ signifie « tu » au féminin. La phrase se lit : أَنْتِ سَعِيدَةٌ (Tu es heureuse)."
+    ]
+  },
+  {
+    "unit": 1,
+    "lesson": 1,
+    "sentence_fr": "___ مَرِيضٌ.",
+    "sentence_ar": "___ مَرِيضٌ.",
+    "choices": ["هِيَ", "هُوَ", "أَنْتِ", "أَنَا"],
+    "correct_index": 1,
+    "explanations": [
+      "Incorrect. هِيَ signifie « elle ». On dirait مَرِيضَةٌ au féminin.",
+      "Correct ! هُوَ signifie « il ». La phrase se lit : هُوَ مَرِيضٌ (Il est malade).",
+      "Incorrect. أَنْتِ signifie « tu » au féminin. Le mot مَرِيضٌ est au masculin.",
+      "Incorrect. أَنَا signifie « je ». C'est possible, mais le contexte demande « il »."
+    ]
+  },
+  {
+    "unit": 1,
+    "lesson": 1,
+    "sentence_fr": "___ جَمِيلَةٌ.",
+    "sentence_ar": "___ جَمِيلَةٌ.",
+    "choices": ["أَنْتَ", "هُوَ", "هِيَ", "أَنَا"],
+    "correct_index": 2,
+    "explanations": [
+      "Incorrect. أَنْتَ signifie « tu » au masculin. Le mot جَمِيلَةٌ est au féminin.",
+      "Incorrect. هُوَ signifie « il ». Le mot جَمِيلَةٌ est au féminin.",
+      "Correct ! هِيَ signifie « elle ». La phrase se lit : هِيَ جَمِيلَةٌ (Elle est belle).",
+      "Incorrect. أَنَا signifie « je ». Le contexte demande « elle »."
+    ]
+  },
+
+  {
+    "unit": 1,
+    "lesson": 2,
+    "sentence_fr": "Le garçon est ___. (grand)",
+    "sentence_ar": "الوَلَدُ ___.",
+    "choices": ["كَبِيرَةٌ", "كَبِيرٌ", "صَغِيرٌ", "صَغِيرَةٌ"],
+    "correct_index": 1,
+    "explanations": [
+      "Incorrect. كَبِيرَةٌ est le féminin de « grand ». الوَلَدُ (le garçon) est masculin.",
+      "Correct ! كَبِيرٌ est l'adjectif masculin « grand ». Il s'accorde avec الوَلَدُ (masculin).",
+      "Incorrect. صَغِيرٌ signifie « petit », pas « grand ».",
+      "Incorrect. صَغِيرَةٌ signifie « petite » au féminin."
+    ]
+  },
+  {
+    "unit": 1,
+    "lesson": 2,
+    "sentence_fr": "La maison est ___. (petite)",
+    "sentence_ar": "البَيْتُ ___.",
+    "choices": ["صَغِيرَةٌ", "صَغِيرٌ", "كَبِيرٌ", "كَبِيرَةٌ"],
+    "correct_index": 1,
+    "explanations": [
+      "Incorrect. صَغِيرَةٌ est au féminin, mais البَيْتُ (la maison) est masculin en arabe.",
+      "Correct ! صَغِيرٌ est l'adjectif masculin « petit ». البَيْتُ est masculin en arabe, l'adjectif s'accorde au masculin.",
+      "Incorrect. كَبِيرٌ signifie « grand », pas « petit ».",
+      "Incorrect. كَبِيرَةٌ signifie « grande » au féminin."
+    ]
+  },
+  {
+    "unit": 1,
+    "lesson": 2,
+    "sentence_fr": "La fille est ___. (belle)",
+    "sentence_ar": "البِنْتُ ___.",
+    "choices": ["جَمِيلٌ", "جَمِيلَةٌ", "طَوِيلٌ", "طَوِيلَةٌ"],
+    "correct_index": 1,
+    "explanations": [
+      "Incorrect. جَمِيلٌ est au masculin. البِنْتُ (la fille) est féminin, il faut l'adjectif féminin.",
+      "Correct ! جَمِيلَةٌ est l'adjectif féminin « belle ». Il s'accorde avec البِنْتُ (féminin).",
+      "Incorrect. طَوِيلٌ signifie « grand (taille) » au masculin.",
+      "Incorrect. طَوِيلَةٌ signifie « grande (taille) », pas « belle »."
+    ]
+  },
+  {
+    "unit": 1,
+    "lesson": 2,
+    "sentence_fr": "L'étudiant est ___. (assidu)",
+    "sentence_ar": "الطَّالِبُ ___.",
+    "choices": ["مُجْتَهِدَةٌ", "ضَعِيفٌ", "مُجْتَهِدٌ", "طَيِّبَةٌ"],
+    "correct_index": 2,
+    "explanations": [
+      "Incorrect. مُجْتَهِدَةٌ est au féminin. الطَّالِبُ (l'étudiant) est masculin.",
+      "Incorrect. ضَعِيفٌ signifie « faible », pas « assidu ».",
+      "Correct ! مُجْتَهِدٌ signifie « assidu / travailleur » au masculin. Il s'accorde avec الطَّالِبُ.",
+      "Incorrect. طَيِّبَةٌ signifie « bonne / gentille » au féminin."
+    ]
+  },
+  {
+    "unit": 1,
+    "lesson": 2,
+    "sentence_fr": "L'homme est ___. (fort)",
+    "sentence_ar": "الرَّجُلُ ___.",
+    "choices": ["قَوِيَّةٌ", "ضَعِيفٌ", "قَوِيٌّ", "سَعِيدَةٌ"],
+    "correct_index": 2,
+    "explanations": [
+      "Incorrect. قَوِيَّةٌ est au féminin. الرَّجُلُ (l'homme) est masculin.",
+      "Incorrect. ضَعِيفٌ signifie « faible », c'est le contraire de « fort ».",
+      "Correct ! قَوِيٌّ signifie « fort » au masculin. Il s'accorde avec الرَّجُلُ.",
+      "Incorrect. سَعِيدَةٌ signifie « heureuse » au féminin."
+    ]
+  },
+  {
+    "unit": 1,
+    "lesson": 2,
+    "sentence_fr": "La mère est ___. (gentille)",
+    "sentence_ar": "الأُمُّ ___.",
+    "choices": ["طَيِّبٌ", "طَيِّبَةٌ", "حَزِينٌ", "حَزِينَةٌ"],
+    "correct_index": 1,
+    "explanations": [
+      "Incorrect. طَيِّبٌ est au masculin. الأُمُّ (la mère) est féminin, il faut l'adjectif féminin.",
+      "Correct ! طَيِّبَةٌ signifie « gentille » au féminin. Il s'accorde avec الأُمُّ (féminin).",
+      "Incorrect. حَزِينٌ signifie « triste » au masculin.",
+      "Incorrect. حَزِينَةٌ signifie « triste » au féminin, pas « gentille »."
+    ]
+  },
+  {
+    "unit": 1,
+    "lesson": 2,
+    "sentence_fr": "Le livre est ___. (petit)",
+    "sentence_ar": "الكِتَابُ ___.",
+    "choices": ["صَغِيرَةٌ", "كَبِيرٌ", "صَغِيرٌ", "قَصِيرٌ"],
+    "correct_index": 2,
+    "explanations": [
+      "Incorrect. صَغِيرَةٌ est au féminin. الكِتَابُ (le livre) est masculin.",
+      "Incorrect. كَبِيرٌ signifie « grand », pas « petit ».",
+      "Correct ! صَغِيرٌ signifie « petit » au masculin. Il s'accorde avec الكِتَابُ (masculin).",
+      "Incorrect. قَصِيرٌ signifie « court », pas « petit »."
+    ]
+  },
+
+  {
+    "unit": 1,
+    "lesson": 3,
+    "sentence_fr": "___ كِتَابٌ. (Ceci est un livre.)",
+    "sentence_ar": "___ كِتَابٌ.",
+    "choices": ["هَذِهِ", "هَذَا", "مَا", "مَنْ"],
+    "correct_index": 1,
+    "explanations": [
+      "Incorrect. هَذِهِ est le démonstratif féminin. كِتَابٌ (livre) est masculin.",
+      "Correct ! هَذَا est le démonstratif masculin. كِتَابٌ est masculin, donc on utilise هَذَا.",
+      "Incorrect. مَا signifie « quoi / que ». Ce n'est pas un démonstratif.",
+      "Incorrect. مَنْ signifie « qui ». Ce n'est pas un démonstratif."
+    ]
+  },
+  {
+    "unit": 1,
+    "lesson": 3,
+    "sentence_fr": "___ سَيَّارَةٌ. (Ceci est une voiture.)",
+    "sentence_ar": "___ سَيَّارَةٌ.",
+    "choices": ["هَذَا", "هَذِهِ", "أَيْنَ", "مَتَى"],
+    "correct_index": 1,
+    "explanations": [
+      "Incorrect. هَذَا est le démonstratif masculin. سَيَّارَةٌ (voiture) est féminin (تاء مربوطة).",
+      "Correct ! هَذِهِ est le démonstratif féminin. سَيَّارَةٌ est féminin, donc on utilise هَذِهِ.",
+      "Incorrect. أَيْنَ signifie « où ». Ce n'est pas un démonstratif.",
+      "Incorrect. مَتَى signifie « quand ». Ce n'est pas un démonstratif."
+    ]
+  },
+  {
+    "unit": 1,
+    "lesson": 3,
+    "sentence_fr": "___ هَذَا ؟ (Qu'est-ce que c'est ?)",
+    "sentence_ar": "___ هَذَا ؟",
+    "choices": ["مَنْ", "أَيْنَ", "مَا", "مَتَى"],
+    "correct_index": 2,
+    "explanations": [
+      "Incorrect. مَنْ signifie « qui ». On l'utilise pour les personnes, pas les choses.",
+      "Incorrect. أَيْنَ signifie « où ». On l'utilise pour demander un lieu.",
+      "Correct ! مَا signifie « quoi / que ». On l'utilise pour demander l'identité d'une chose.",
+      "Incorrect. مَتَى signifie « quand ». On l'utilise pour demander le temps."
+    ]
+  },
+  {
+    "unit": 1,
+    "lesson": 3,
+    "sentence_fr": "___ هَذَا ؟ (Qui est-ce ?)",
+    "sentence_ar": "___ هَذَا ؟",
+    "choices": ["مَا", "مَاذَا", "أَيْنَ", "مَنْ"],
+    "correct_index": 3,
+    "explanations": [
+      "Incorrect. مَا signifie « quoi ». On l'utilise pour les choses, pas les personnes.",
+      "Incorrect. مَاذَا signifie « que / qu'est-ce que ». On l'utilise pour les actions.",
+      "Incorrect. أَيْنَ signifie « où ». On l'utilise pour demander un lieu.",
+      "Correct ! مَنْ signifie « qui ». On l'utilise pour demander l'identité d'une personne."
+    ]
+  },
+  {
+    "unit": 1,
+    "lesson": 3,
+    "sentence_fr": "___ المَدْرَسَةُ ؟ (Où est l'école ?)",
+    "sentence_ar": "___ المَدْرَسَةُ ؟",
+    "choices": ["مَا", "مَنْ", "مَتَى", "أَيْنَ"],
+    "correct_index": 3,
+    "explanations": [
+      "Incorrect. مَا signifie « quoi ». On ne demande pas « quoi » pour un lieu.",
+      "Incorrect. مَنْ signifie « qui ». On l'utilise pour les personnes.",
+      "Incorrect. مَتَى signifie « quand ». On l'utilise pour le temps.",
+      "Correct ! أَيْنَ signifie « où ». On l'utilise pour demander un lieu."
+    ]
+  },
+  {
+    "unit": 1,
+    "lesson": 3,
+    "sentence_fr": "___ مَدْرَسَةٌ. (Ceci est une école.)",
+    "sentence_ar": "___ مَدْرَسَةٌ.",
+    "choices": ["هَذَا", "مَنْ", "هَذِهِ", "مَا"],
+    "correct_index": 2,
+    "explanations": [
+      "Incorrect. هَذَا est le démonstratif masculin. مَدْرَسَةٌ (école) est féminin (تاء مربوطة).",
+      "Incorrect. مَنْ signifie « qui ». Ce n'est pas un démonstratif.",
+      "Correct ! هَذِهِ est le démonstratif féminin. مَدْرَسَةٌ est féminin, donc on utilise هَذِهِ.",
+      "Incorrect. مَا signifie « quoi ». Ce n'est pas un démonstratif."
+    ]
+  },
+  {
+    "unit": 1,
+    "lesson": 3,
+    "sentence_fr": "___ الدَّرْسُ ؟ (Quand est le cours ?)",
+    "sentence_ar": "___ الدَّرْسُ ؟",
+    "choices": ["أَيْنَ", "مَا", "مَنْ", "مَتَى"],
+    "correct_index": 3,
+    "explanations": [
+      "Incorrect. أَيْنَ signifie « où ». On demande le moment, pas le lieu.",
+      "Incorrect. مَا signifie « quoi ». On ne demande pas l'identité ici.",
+      "Incorrect. مَنْ signifie « qui ». On ne demande pas une personne.",
+      "Correct ! مَتَى signifie « quand ». On l'utilise pour demander le moment."
+    ]
+  },
+  {
+    "unit": 1,
+    "lesson": 3,
+    "sentence_fr": "___ قَلَمٌ. (Ceci est un stylo.)",
+    "sentence_ar": "___ قَلَمٌ.",
+    "choices": ["هَذِهِ", "مَا", "هَذَا", "أَيْنَ"],
+    "correct_index": 2,
+    "explanations": [
+      "Incorrect. هَذِهِ est le démonstratif féminin. قَلَمٌ (stylo) est masculin.",
+      "Incorrect. مَا signifie « quoi ». Ce n'est pas un démonstratif.",
+      "Correct ! هَذَا est le démonstratif masculin. قَلَمٌ est masculin, donc on utilise هَذَا.",
+      "Incorrect. أَيْنَ signifie « où ». Ce n'est pas un démonstratif."
+    ]
+  },
+
+  {
+    "unit": 1,
+    "lesson": 4,
+    "sentence_fr": "Le livre est ___ la table. (sur)",
+    "sentence_ar": "الكِتَابُ ___ الطَّاوِلَةِ.",
+    "choices": ["تَحْتَ", "فَوْقَ", "أَمَامَ", "خَلْفَ"],
+    "correct_index": 1,
+    "explanations": [
+      "Incorrect. تَحْتَ signifie « sous ». Le livre est sur la table, pas en dessous.",
+      "Correct ! فَوْقَ signifie « sur / au-dessus ». Le livre est sur la table.",
+      "Incorrect. أَمَامَ signifie « devant ».",
+      "Incorrect. خَلْفَ signifie « derrière »."
+    ]
+  },
+  {
+    "unit": 1,
+    "lesson": 4,
+    "sentence_fr": "Le chat est ___ la table. (sous)",
+    "sentence_ar": "القِطُّ ___ الطَّاوِلَةِ.",
+    "choices": ["فَوْقَ", "أَمَامَ", "تَحْتَ", "بَيْنَ"],
+    "correct_index": 2,
+    "explanations": [
+      "Incorrect. فَوْقَ signifie « sur / au-dessus ». Le chat est sous la table.",
+      "Incorrect. أَمَامَ signifie « devant ».",
+      "Correct ! تَحْتَ signifie « sous / en dessous ». Le chat est sous la table.",
+      "Incorrect. بَيْنَ signifie « entre »."
+    ]
+  },
+  {
+    "unit": 1,
+    "lesson": 4,
+    "sentence_fr": "La voiture est ___ la maison. (devant)",
+    "sentence_ar": "السَّيَّارَةُ ___ البَيْتِ.",
+    "choices": ["خَلْفَ", "تَحْتَ", "بَيْنَ", "أَمَامَ"],
+    "correct_index": 3,
+    "explanations": [
+      "Incorrect. خَلْفَ signifie « derrière », pas « devant ».",
+      "Incorrect. تَحْتَ signifie « sous ».",
+      "Incorrect. بَيْنَ signifie « entre ».",
+      "Correct ! أَمَامَ signifie « devant ». La voiture est devant la maison."
+    ]
+  },
+  {
+    "unit": 1,
+    "lesson": 4,
+    "sentence_fr": "Le jardin est ___ la maison. (derrière)",
+    "sentence_ar": "الحَدِيقَةُ ___ البَيْتِ.",
+    "choices": ["أَمَامَ", "خَلْفَ", "فَوْقَ", "يَمِينَ"],
+    "correct_index": 1,
+    "explanations": [
+      "Incorrect. أَمَامَ signifie « devant », pas « derrière ».",
+      "Correct ! خَلْفَ signifie « derrière ». Le jardin est derrière la maison.",
+      "Incorrect. فَوْقَ signifie « au-dessus ».",
+      "Incorrect. يَمِينَ signifie « à droite »."
+    ]
+  },
+  {
+    "unit": 1,
+    "lesson": 4,
+    "sentence_fr": "La mosquée est à ___ de l'école. (droite)",
+    "sentence_ar": "المَسْجِدُ ___ المَدْرَسَةِ.",
+    "choices": ["يَسَارَ", "خَلْفَ", "يَمِينَ", "بَيْنَ"],
+    "correct_index": 2,
+    "explanations": [
+      "Incorrect. يَسَارَ signifie « à gauche ».",
+      "Incorrect. خَلْفَ signifie « derrière ».",
+      "Correct ! يَمِينَ signifie « à droite ». La mosquée est à droite de l'école.",
+      "Incorrect. بَيْنَ signifie « entre »."
+    ]
+  },
+  {
+    "unit": 1,
+    "lesson": 4,
+    "sentence_fr": "L'école est ___ la mosquée et le marché. (entre)",
+    "sentence_ar": "المَدْرَسَةُ ___ المَسْجِدِ وَالسُّوقِ.",
+    "choices": ["أَمَامَ", "فَوْقَ", "خَلْفَ", "بَيْنَ"],
+    "correct_index": 3,
+    "explanations": [
+      "Incorrect. أَمَامَ signifie « devant ».",
+      "Incorrect. فَوْقَ signifie « au-dessus ».",
+      "Incorrect. خَلْفَ signifie « derrière ».",
+      "Correct ! بَيْنَ signifie « entre ». L'école est entre la mosquée et le marché."
+    ]
+  },
+  {
+    "unit": 1,
+    "lesson": 4,
+    "sentence_fr": "J'étudie ___ le cours. (avant)",
+    "sentence_ar": "أَدْرُسُ ___ الدَّرْسِ.",
+    "choices": ["بَعْدَ", "قَبْلَ", "فَوْقَ", "تَحْتَ"],
+    "correct_index": 1,
+    "explanations": [
+      "Incorrect. بَعْدَ signifie « après », pas « avant ».",
+      "Correct ! قَبْلَ signifie « avant ». J'étudie avant le cours.",
+      "Incorrect. فَوْقَ signifie « au-dessus ». C'est un adverbe de lieu, pas de temps.",
+      "Incorrect. تَحْتَ signifie « sous ». C'est un adverbe de lieu, pas de temps."
+    ]
+  },
+
+  {
+    "unit": 1,
+    "lesson": 5,
+    "sentence_fr": "___ أَذْهَبُ إِلَى المَدْرَسَةِ. (Je ne vais pas à l'école. - présent)",
+    "sentence_ar": "___ أَذْهَبُ إِلَى المَدْرَسَةِ.",
+    "choices": ["لَمْ", "لَنْ", "نَعَمْ", "لَا"],
+    "correct_index": 3,
+    "explanations": [
+      "Incorrect. لَمْ sert à nier au passé et se suit d'un مضارع مجزوم, pas ici.",
+      "Incorrect. لَنْ sert à nier au futur. La phrase est au présent.",
+      "Incorrect. نَعَمْ signifie « oui ». Ce n'est pas une négation.",
+      "Correct ! لَا nie le verbe au présent. لَا أَذْهَبُ signifie « Je ne vais pas »."
+    ]
+  },
+  {
+    "unit": 1,
+    "lesson": 5,
+    "sentence_fr": "___ يَذْهَبْ إِلَى المَدْرَسَةِ. (Il n'est pas allé à l'école. - passé)",
+    "sentence_ar": "___ يَذْهَبْ إِلَى المَدْرَسَةِ.",
+    "choices": ["لَا", "لَنْ", "لَمْ", "نَعَمْ"],
+    "correct_index": 2,
+    "explanations": [
+      "Incorrect. لَا nie le présent de façon générale. Ici, il s'agit du passé.",
+      "Incorrect. لَنْ sert à nier au futur, pas au passé.",
+      "Correct ! لَمْ nie au passé. Elle est suivie du مضارع مجزوم : لَمْ يَذْهَبْ (il n'est pas allé).",
+      "Incorrect. نَعَمْ signifie « oui ». Ce n'est pas une négation."
+    ]
+  },
+  {
+    "unit": 1,
+    "lesson": 5,
+    "sentence_fr": "___ أَذْهَبَ إِلَى السُّوقِ غَدًا. (Je n'irai pas au marché demain. - futur)",
+    "sentence_ar": "___ أَذْهَبَ إِلَى السُّوقِ غَدًا.",
+    "choices": ["لَا", "لَمْ", "نَعَمْ", "لَنْ"],
+    "correct_index": 3,
+    "explanations": [
+      "Incorrect. لَا nie le présent. Ici, la phrase est au futur (غَدًا = demain).",
+      "Incorrect. لَمْ sert à nier au passé, pas au futur.",
+      "Incorrect. نَعَمْ signifie « oui ». Ce n'est pas une négation.",
+      "Correct ! لَنْ nie au futur. Elle est suivie du مضارع منصوب : لَنْ أَذْهَبَ (je n'irai pas)."
+    ]
+  },
+  {
+    "unit": 1,
+    "lesson": 5,
+    "sentence_fr": "___ يَفْهَمْ الدَّرْسَ. (Il n'a pas compris la leçon. - passé)",
+    "sentence_ar": "___ يَفْهَمْ الدَّرْسَ.",
+    "choices": ["لَا", "نَعَمْ", "لَمْ", "لَنْ"],
+    "correct_index": 2,
+    "explanations": [
+      "Incorrect. لَا nie le présent de manière générale. Ici, la négation est au passé.",
+      "Incorrect. نَعَمْ signifie « oui ». Ce n'est pas une négation.",
+      "Correct ! لَمْ nie au passé. Elle est suivie du مضارع مجزوم : لَمْ يَفْهَمْ (il n'a pas compris).",
+      "Incorrect. لَنْ sert à nier au futur, pas au passé."
+    ]
+  },
+  {
+    "unit": 1,
+    "lesson": 5,
+    "sentence_fr": "___، أَنَا طَالِبٌ. (Non, je suis un étudiant.)",
+    "sentence_ar": "___، أَنَا طَالِبٌ.",
+    "choices": ["لَمْ", "لَنْ", "لَا", "نَعَمْ"],
+    "correct_index": 2,
+    "explanations": [
+      "Incorrect. لَمْ sert à nier un verbe au passé. Il n'y a pas de verbe ici.",
+      "Incorrect. لَنْ sert à nier un verbe au futur. Il n'y a pas de verbe ici.",
+      "Correct ! لَا s'utilise ici comme « non » pour répondre négativement avant une phrase nominale.",
+      "Incorrect. نَعَمْ signifie « oui ». La phrase demande « non »."
+    ]
+  },
+  {
+    "unit": 1,
+    "lesson": 5,
+    "sentence_fr": "___ يَكْتُبَ الوَاجِبَ. (Il n'écrira pas le devoir. - futur)",
+    "sentence_ar": "___ يَكْتُبَ الوَاجِبَ.",
+    "choices": ["لَمْ", "لَا", "لَنْ", "نَعَمْ"],
+    "correct_index": 2,
+    "explanations": [
+      "Incorrect. لَمْ sert à nier au passé. Ici, la négation est au futur.",
+      "Incorrect. لَا nie le présent. Avec لَا le verbe reste مرفوع (يَكْتُبُ), pas منصوب.",
+      "Correct ! لَنْ nie au futur. Elle est suivie du مضارع منصوب : لَنْ يَكْتُبَ (il n'écrira pas).",
+      "Incorrect. نَعَمْ signifie « oui ». Ce n'est pas une négation."
+    ]
+  },
+  {
+    "unit": 1,
+    "lesson": 5,
+    "sentence_fr": "___، هَذَا صَحِيحٌ. (Oui, c'est correct.)",
+    "sentence_ar": "___، هَذَا صَحِيحٌ.",
+    "choices": ["لَا", "لَمْ", "نَعَمْ", "لَنْ"],
+    "correct_index": 2,
+    "explanations": [
+      "Incorrect. لَا signifie « non ». La phrase est affirmative.",
+      "Incorrect. لَمْ est une particule de négation au passé.",
+      "Correct ! نَعَمْ signifie « oui ». On affirme que c'est correct.",
+      "Incorrect. لَنْ est une particule de négation au futur."
+    ]
+  },
+
+  {
+    "unit": 1,
+    "lesson": 6,
+    "sentence_fr": "Hier, il ___ la leçon. (a étudié)",
+    "sentence_ar": "أَمْسِ ___ الدَّرْسَ.",
+    "choices": ["يَدْرُسُ", "اُدْرُسْ", "دَرَسَ", "يَدْرُسْ"],
+    "correct_index": 2,
+    "explanations": [
+      "Incorrect. يَدْرُسُ est au présent (il étudie). Le mot أَمْسِ (hier) indique le passé.",
+      "Incorrect. اُدْرُسْ est l'impératif (étudie !). Le mot أَمْسِ (hier) indique le passé.",
+      "Correct ! دَرَسَ est le passé (il a étudié). أَمْسِ (hier) indique une action passée.",
+      "Incorrect. يَدْرُسْ est le مضارع مجزوم, utilisé après لَمْ."
+    ]
+  },
+  {
+    "unit": 1,
+    "lesson": 6,
+    "sentence_fr": "Aujourd'hui, il ___ le livre. (lit)",
+    "sentence_ar": "الْيَوْمَ ___ الكِتَابَ.",
+    "choices": ["قَرَأَ", "يَقْرَأُ", "اِقْرَأْ", "قِرَاءَةٌ"],
+    "correct_index": 1,
+    "explanations": [
+      "Incorrect. قَرَأَ est au passé (il a lu). Le mot الْيَوْمَ (aujourd'hui) indique le présent.",
+      "Correct ! يَقْرَأُ est au présent (il lit). الْيَوْمَ (aujourd'hui) indique une action en cours.",
+      "Incorrect. اِقْرَأْ est l'impératif (lis !). Ce n'est pas le temps demandé.",
+      "Incorrect. قِرَاءَةٌ est le masdar (le fait de lire). Ce n'est pas un verbe conjugué."
+    ]
+  },
+  {
+    "unit": 1,
+    "lesson": 6,
+    "sentence_fr": "___ الدَّرْسَ ! (Écoute la leçon !)",
+    "sentence_ar": "___ الدَّرْسَ !",
+    "choices": ["سَمِعَ", "يَسْمَعُ", "اِسْمَعْ", "سَمَاعٌ"],
+    "correct_index": 2,
+    "explanations": [
+      "Incorrect. سَمِعَ est au passé (il a écouté). La phrase est un ordre.",
+      "Incorrect. يَسْمَعُ est au présent (il écoute). La phrase est un ordre.",
+      "Correct ! اِسْمَعْ est l'impératif (écoute !). Le point d'exclamation indique un ordre.",
+      "Incorrect. سَمَاعٌ est le masdar (le fait d'écouter). Ce n'est pas un verbe conjugué."
+    ]
+  },
+  {
+    "unit": 1,
+    "lesson": 6,
+    "sentence_fr": "Il ___ du restaurant hier. (est sorti)",
+    "sentence_ar": "___ مِنَ المَطْعَمِ أَمْسِ.",
+    "choices": ["يَخْرُجُ", "اُخْرُجْ", "خُرُوجٌ", "خَرَجَ"],
+    "correct_index": 3,
+    "explanations": [
+      "Incorrect. يَخْرُجُ est au présent (il sort). Le mot أَمْسِ (hier) indique le passé.",
+      "Incorrect. اُخْرُجْ est l'impératif (sors !). Le mot أَمْسِ (hier) indique le passé.",
+      "Incorrect. خُرُوجٌ est le masdar (la sortie). Ce n'est pas un verbe conjugué.",
+      "Correct ! خَرَجَ est au passé (il est sorti). أَمْسِ (hier) indique une action passée."
+    ]
+  },
+  {
+    "unit": 1,
+    "lesson": 6,
+    "sentence_fr": "___ البَابَ ! (Ouvre la porte !)",
+    "sentence_ar": "___ البَابَ !",
+    "choices": ["فَتَحَ", "يَفْتَحُ", "فَتْحٌ", "اِفْتَحْ"],
+    "correct_index": 3,
+    "explanations": [
+      "Incorrect. فَتَحَ est au passé (il a ouvert). La phrase est un ordre.",
+      "Incorrect. يَفْتَحُ est au présent (il ouvre). La phrase est un ordre.",
+      "Incorrect. فَتْحٌ est le masdar (le fait d'ouvrir). Ce n'est pas un verbe conjugué.",
+      "Correct ! اِفْتَحْ est l'impératif (ouvre !). Le point d'exclamation indique un ordre."
+    ]
+  },
+  {
+    "unit": 1,
+    "lesson": 6,
+    "sentence_fr": "Aujourd'hui, il ___ à l'école. (va)",
+    "sentence_ar": "الْيَوْمَ ___ إِلَى المَدْرَسَةِ.",
+    "choices": ["ذَهَبَ", "اِذْهَبْ", "يَذْهَبُ", "ذَهَابٌ"],
+    "correct_index": 2,
+    "explanations": [
+      "Incorrect. ذَهَبَ est au passé (il est allé). Le mot الْيَوْمَ (aujourd'hui) indique le présent.",
+      "Incorrect. اِذْهَبْ est l'impératif (va !). Ce n'est pas le temps demandé.",
+      "Correct ! يَذْهَبُ est au présent (il va). الْيَوْمَ (aujourd'hui) indique une action en cours.",
+      "Incorrect. ذَهَابٌ est le masdar (le fait d'aller). Ce n'est pas un verbe conjugué."
+    ]
+  },
+  {
+    "unit": 1,
+    "lesson": 6,
+    "sentence_fr": "Hier, il ___ dans la classe. (est entré)",
+    "sentence_ar": "أَمْسِ ___ الفَصْلَ.",
+    "choices": ["يَدْخُلُ", "دَخَلَ", "اُدْخُلْ", "دُخُولٌ"],
+    "correct_index": 1,
+    "explanations": [
+      "Incorrect. يَدْخُلُ est au présent (il entre). Le mot أَمْسِ (hier) indique le passé.",
+      "Correct ! دَخَلَ est au passé (il est entré). أَمْسِ (hier) indique une action passée.",
+      "Incorrect. اُدْخُلْ est l'impératif (entre !). Le mot أَمْسِ (hier) indique le passé.",
+      "Incorrect. دُخُولٌ est le masdar (l'entrée). Ce n'est pas un verbe conjugué."
+    ]
+  }
+]

@@ -44,6 +44,8 @@ void main() {
                 reviewCount: 0,
                 relearningCount: 0,
                 sessionCount: 0,
+                vocabStats: ContentTypeStats(totalItems: 0, newCount: 0, learningCount: 0, reviewCount: 0, relearningCount: 0),
+                verbStats: ContentTypeStats(totalItems: 0, newCount: 0, learningCount: 0, reviewCount: 0, relearningCount: 0),
               ),
             ),
           ],
@@ -73,6 +75,8 @@ void main() {
                 reviewCount: 25,
                 relearningCount: 5,
                 sessionCount: 3,
+                vocabStats: ContentTypeStats(totalItems: 0, newCount: 0, learningCount: 0, reviewCount: 0, relearningCount: 0),
+                verbStats: ContentTypeStats(totalItems: 0, newCount: 0, learningCount: 0, reviewCount: 0, relearningCount: 0),
               ),
             ),
           ],
@@ -88,13 +92,13 @@ void main() {
 
       expect(find.text('Vue d\'ensemble'), findsOneWidget);
       expect(find.text('Nouveau'), findsOneWidget);
-      expect(find.text('En apprentissage'), findsOneWidget);
-      expect(find.text('Maîtrisé'), findsOneWidget);
-      expect(find.text('À revoir'), findsOneWidget);
-      expect(find.text('50'), findsOneWidget);
-      expect(find.text('20'), findsOneWidget);
-      expect(find.text('25'), findsOneWidget);
-      expect(find.text('5'), findsOneWidget);
+      expect(find.text('En apprentissage'), findsWidgets);
+      expect(find.text('Maîtrisé'), findsWidgets);
+      expect(find.text('À revoir'), findsWidgets);
+      expect(find.text('50'), findsWidgets);
+      expect(find.text('20'), findsWidgets);
+      expect(find.text('25'), findsWidgets);
+      expect(find.text('5'), findsWidgets);
     });
 
     testWidgets('shows error state with retry button', (tester) async {

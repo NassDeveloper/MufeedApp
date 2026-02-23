@@ -1,19 +1,150 @@
 {
   "level": {
     "number": 1,
-    "name_fr": "Niveau 1",
-    "name_en": "Level 1",
-    "name_ar": "المستوى الأول",
-    "unit_count": 1
+    "name_fr": "Les bases de l'arabe",
+    "name_en": "Arabic Foundations",
+    "name_ar": "أَسَاسِيَّاتُ العَرَبِيَّة",
+    "unit_count": 3
   },
   "units": [
     {
       "number": 1,
-      "name_fr": "Unité 1 - Les salutations",
-      "name_en": "Unit 1 - Greetings",
+      "name_fr": "Unité 1 - Les voyelles",
+      "name_en": "Unit 1 - Vowel marks",
       "lessons": [
-        { "number": 1, "name_fr": "Leçon 1 - Vocabulaire de base", "name_en": "Lesson 1 - Basic vocabulary" },
-        { "number": 2, "name_fr": "Leçon 2 - Les verbes courants", "name_en": "Lesson 2 - Common verbs" }
+        {
+          "number": 1,
+          "name_fr": "Leçon 1 - La Fatha",
+          "name_en": "Lesson 1 - The Fatha",
+          "description_fr": "Découvrez des mots contenant la voyelle fatha (ـَ), qui produit le son « a » court. Vous apprendrez des noms courants comme جَبَل (montagne), قَلَم (stylo) et بَيْت (maison).",
+          "description_en": "Discover words containing the fatha vowel mark (ـَ), which produces the short 'a' sound. You will learn common nouns such as جَبَل (mountain), قَلَم (pen), and بَيْت (house)."
+        },
+        {
+          "number": 2,
+          "name_fr": "Leçon 2 - La Kasra",
+          "name_en": "Lesson 2 - The Kasra",
+          "description_fr": "Apprenez des mots contenant la voyelle kasra (ـِ), qui produit le son « i » court. Vous découvrirez des mots comme طِفْل (enfant), جِسْر (pont) et عِنَب (raisin).",
+          "description_en": "Learn words containing the kasra vowel mark (ـِ), which produces the short 'i' sound. You will discover words such as طِفْل (child), جِسْر (bridge), and عِنَب (grapes)."
+        },
+        {
+          "number": 3,
+          "name_fr": "Leçon 3 - La Damma",
+          "name_en": "Lesson 3 - The Damma",
+          "description_fr": "Apprenez des mots contenant la voyelle damma (ـُ), qui produit le son « ou » court. Vous découvrirez des mots comme كُتُب (livres), كُرَة (ballon) et خُبْز (pain).",
+          "description_en": "Learn words containing the damma vowel mark (ـُ), which produces the short 'u' sound. You will discover words such as كُتُب (books), كُرَة (ball), and خُبْز (bread)."
+        },
+        {
+          "number": 4,
+          "name_fr": "Leçon 4 - Le Soukoun",
+          "name_en": "Lesson 4 - The Sukoon",
+          "description_fr": "Découvrez le soukoun (ـْ), un signe indiquant l'absence de voyelle sur une consonne. Vous pratiquerez avec des mots comme نَجْم (étoile), شَمْس (soleil) et مَسْجِد (mosquée).",
+          "description_en": "Discover the sukoon (ـْ), a sign indicating the absence of a vowel on a consonant. You will practise with words such as نَجْم (star), شَمْس (sun), and مَسْجِد (mosque)."
+        },
+        {
+          "number": 5,
+          "name_fr": "Leçon 5 - Le Madd",
+          "name_en": "Lesson 5 - The Madd",
+          "description_fr": "Apprenez le madd (prolongation vocalique), qui allonge le son d'une voyelle. Vous pratiquerez avec des mots comme كِتَاب (livre), حِذَاء (chaussure) et مِفْتَاح (clé).",
+          "description_en": "Learn the madd (vowel elongation), which lengthens a vowel sound. You will practise with words such as كِتَاب (book), حِذَاء (shoe), and مِفْتَاح (key)."
+        }
+      ]
+    },
+    {
+      "number": 2,
+      "name_fr": "Unité 2 - Les nombres et le calendrier",
+      "name_en": "Unit 2 - Numbers and calendar",
+      "lessons": [
+        {
+          "number": 1,
+          "name_fr": "Leçon 1 - Les nombres 1-10",
+          "name_en": "Lesson 1 - Numbers 1-10",
+          "description_fr": "Apprenez à compter de 1 à 10 en arabe, de وَاحِد (un) à عَشَرَة (dix). Une base essentielle pour la vie quotidienne.",
+          "description_en": "Learn to count from 1 to 10 in Arabic, from وَاحِد (one) to عَشَرَة (ten). An essential foundation for everyday life."
+        },
+        {
+          "number": 2,
+          "name_fr": "Leçon 2 - Les nombres 11-20",
+          "name_en": "Lesson 2 - Numbers 11-20",
+          "description_fr": "Poursuivez l'apprentissage des nombres de 11 à 20, de أَحَدَ عَشَرَ (onze) à عِشْرُون (vingt). Découvrez la construction des nombres composés en arabe.",
+          "description_en": "Continue learning numbers from 11 to 20, from أَحَدَ عَشَرَ (eleven) to عِشْرُون (twenty). Discover how compound numbers are formed in Arabic."
+        },
+        {
+          "number": 3,
+          "name_fr": "Leçon 3 - Les jours de la semaine",
+          "name_en": "Lesson 3 - Days of the week",
+          "description_fr": "Apprenez les sept jours de la semaine en arabe, du السَّبْت (samedi) au الجُمُعَة (vendredi). La semaine arabe commence traditionnellement le samedi.",
+          "description_en": "Learn the seven days of the week in Arabic, from السَّبْت (Saturday) to الجُمُعَة (Friday). The Arabic week traditionally begins on Saturday."
+        },
+        {
+          "number": 4,
+          "name_fr": "Leçon 4 - Les mois hégirien",
+          "name_en": "Lesson 4 - Hijri months",
+          "description_fr": "Découvrez les douze mois du calendrier hégirien (lunaire), de مُحَرَّم (Mouharram) à ذُو الحِجَّة (Dhou al-Hijja), utilisé dans le monde musulman.",
+          "description_en": "Discover the twelve months of the Hijri (lunar) calendar, from مُحَرَّم (Muharram) to ذُو الحِجَّة (Dhul Hijjah), used across the Muslim world."
+        },
+        {
+          "number": 5,
+          "name_fr": "Leçon 5 - Les mois grégoriens",
+          "name_en": "Lesson 5 - Gregorian months",
+          "description_fr": "Apprenez les douze mois du calendrier grégorien en arabe, de يَنَايِر (janvier) à دِيسَمْبَر (décembre).",
+          "description_en": "Learn the twelve months of the Gregorian calendar in Arabic, from يَنَايِر (January) to دِيسَمْبَر (December)."
+        }
+      ]
+    },
+    {
+      "number": 3,
+      "name_fr": "Unité 3 - Le monde autour de nous",
+      "name_en": "Unit 3 - The world around us",
+      "lessons": [
+        {
+          "number": 1,
+          "name_fr": "Leçon 1 - Les cinq sens et les couleurs",
+          "name_en": "Lesson 1 - Five senses and colors",
+          "description_fr": "Apprenez le vocabulaire des cinq sens (السَّمْع, البَصَر, الشَّمّ, التَّذَوُّق, اللَّمْس) et les couleurs de base comme أَحْمَر (rouge), أَصْفَر (jaune) et أَخْضَر (vert).",
+          "description_en": "Learn the vocabulary of the five senses (hearing, sight, smell, taste, touch) and basic colours such as أَحْمَر (red), أَصْفَر (yellow), and أَخْضَر (green)."
+        },
+        {
+          "number": 2,
+          "name_fr": "Leçon 2 - Les directions et positions",
+          "name_en": "Lesson 2 - Directions and positions",
+          "description_fr": "Apprenez les points cardinaux (الشَّمَال, الجَنُوب, الشَّرْق, الغَرْب) et les mots de position comme أَمَام (devant), خَلْف (derrière), فَوْق (au-dessus) et تَحْت (en-dessous).",
+          "description_en": "Learn the cardinal directions (north, south, east, west) and position words such as أَمَام (in front), خَلْف (behind), فَوْق (above), and تَحْت (below)."
+        },
+        {
+          "number": 3,
+          "name_fr": "Leçon 3 - Les animaux sauvages",
+          "name_en": "Lesson 3 - Wild animals",
+          "description_fr": "Découvrez les noms des animaux sauvages en arabe, comme ثَعْلَب (renard), ذِئْب (loup), نَمِر (tigre), دُبّ (ours) et زَرَافَة (girafe).",
+          "description_en": "Discover the names of wild animals in Arabic, such as ثَعْلَب (fox), ذِئْب (wolf), نَمِر (tiger), دُبّ (bear), and زَرَافَة (giraffe)."
+        },
+        {
+          "number": 4,
+          "name_fr": "Leçon 4 - Les animaux domestiques",
+          "name_en": "Lesson 4 - Domestic animals",
+          "description_fr": "Apprenez les noms des animaux domestiques et de la ferme, comme قِطَّة (chat), حِصَان (cheval), جَمَل (chameau), خَرُوف (mouton) et فِيل (éléphant).",
+          "description_en": "Learn the names of domestic and farm animals, such as قِطَّة (cat), حِصَان (horse), جَمَل (camel), خَرُوف (sheep), and فِيل (elephant)."
+        },
+        {
+          "number": 5,
+          "name_fr": "Leçon 5 - Les oiseaux",
+          "name_en": "Lesson 5 - Birds",
+          "description_fr": "Découvrez les noms de nombreux oiseaux en arabe, comme عُصْفُور (moineau), نَسْر (aigle), بُومَة (chouette), بَبَّغَاء (perroquet) et طَاوُوس (paon).",
+          "description_en": "Discover the names of many birds in Arabic, such as عُصْفُور (sparrow), نَسْر (eagle), بُومَة (owl), بَبَّغَاء (parrot), and طَاوُوس (peacock)."
+        },
+        {
+          "number": 6,
+          "name_fr": "Leçon 6 - Les reptiles et les insectes",
+          "name_en": "Lesson 6 - Reptiles and insects",
+          "description_fr": "Apprenez les noms des reptiles comme حِرْبَاء (caméléon) et عَظَاءَة (lézard), ainsi que des insectes comme فَرَاشَة (papillon), نَحْلَة (abeille) et عَنْكَبُوت (araignée).",
+          "description_en": "Learn the names of reptiles such as حِرْبَاء (chameleon) and عَظَاءَة (lizard), as well as insects such as فَرَاشَة (butterfly), نَحْلَة (bee), and عَنْكَبُوت (spider)."
+        },
+        {
+          "number": 7,
+          "name_fr": "Leçon 7 - Les créatures marines et les minéraux",
+          "name_en": "Lesson 7 - Sea creatures and minerals",
+          "description_fr": "Découvrez les créatures marines comme قِرْش (requin), دُولْفِين (dauphin) et حُوت (baleine), ainsi que les minéraux comme ذَهَب (or), فِضَّة (argent) et حَدِيد (fer).",
+          "description_en": "Discover sea creatures such as قِرْش (shark), دُولْفِين (dolphin), and حُوت (whale), as well as minerals such as ذَهَب (gold), فِضَّة (silver), and حَدِيد (iron)."
+        }
       ]
     }
   ]
