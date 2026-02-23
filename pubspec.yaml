@@ -1,0 +1,47 @@
+name: mufeed_app
+description: "Application mobile/web pour apprendre le vocabulaire arabe classique"
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.11.0
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+  intl: any
+  flutter_riverpod: ^3.2.1
+  go_router: ^16.2.0
+  drift: ^2.31.0
+  drift_flutter: ^0.2.4
+  shared_preferences: ^2.5.0
+  fsrs: ^2.0.0
+  flutter_tts: ^4.2.5
+  flutter_local_notifications: ^20.1.0
+  timezone: ^0.10.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+  drift_dev: ^2.31.0
+  build_runner: ^2.4.15
+  mockito: ^5.4.0
+
+flutter:
+  generate: true
+  uses-material-design: true
+
+  assets:
+    - assets/data/
+    - assets/data/level_01/
+    - assets/images/
+
+  fonts:
+    - family: ScheherazadeNew
+      fonts:
+        - asset: assets/fonts/ScheherazadeNew-Regular.ttf
+        - asset: assets/fonts/ScheherazadeNew-Bold.ttf
+          weight: 700

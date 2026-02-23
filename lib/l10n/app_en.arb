@@ -1,0 +1,391 @@
+{
+  "@@locale": "en",
+  "appTitle": "Mufeed",
+  "tabHome": "Home",
+  "tabVocabulary": "Vocabulary",
+  "tabExercises": "Exercises",
+  "tabStatistics": "Statistics",
+  "levelTitle": "Level {number}",
+  "@levelTitle": {
+    "placeholders": {
+      "number": { "type": "int" }
+    }
+  },
+  "unitCount": "{count, plural, =0{0 units} =1{1 unit} other{{count} units}}",
+  "@unitCount": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "unitTitle": "Unit {number}",
+  "@unitTitle": {
+    "placeholders": {
+      "number": { "type": "int" }
+    }
+  },
+  "lessonTitle": "Lesson {number}",
+  "@lessonTitle": {
+    "placeholders": {
+      "number": { "type": "int" }
+    }
+  },
+  "loading": "Loading...",
+  "errorLoadingContent": "Error loading content",
+  "retry": "Retry",
+  "emptyContent": "No content available",
+  "emptyVocabulary": "No vocabulary in this lesson",
+  "verbFormMasdar": "Masdar (المصدر)",
+  "verbFormPast": "Past (الماضي)",
+  "verbFormPresent": "Present (المضارع)",
+  "verbFormImperative": "Imperative (الأمر)",
+  "grammaticalCategory": "Category",
+  "singularLabel": "Singular",
+  "pluralLabel": "Plural",
+  "synonymLabel": "Synonym",
+  "antonymLabel": "Antonym",
+  "reportError": "Report an error",
+  "reportCategoryHarakat": "Harakat error",
+  "reportCategoryTranslation": "Translation error",
+  "reportCategoryOther": "Other issue",
+  "reportComment": "Comment (optional)",
+  "reportSend": "Send",
+  "reportCancel": "Cancel",
+  "errorReportSent": "Thank you! Report sent",
+  "wordCount": "{count, plural, =0{0 words} =1{1 word} other{{count} words}}",
+  "@wordCount": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "verbCount": "{count, plural, =0{0 verbs} =1{1 verb} other{{count} verbs}}",
+  "@verbCount": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "resumeLastLesson": "Resume",
+  "lastLessonVisited": "Last lesson visited",
+  "welcomeBack": "Welcome back!",
+  "flashcardStartSession": "Review",
+  "flashcardEndSession": "End session",
+  "flashcardProgress": "{current} / {total}",
+  "@flashcardProgress": {
+    "placeholders": {
+      "current": { "type": "int" },
+      "total": { "type": "int" }
+    }
+  },
+  "flashcardTapToFlip": "Tap to flip",
+  "flashcardFront": "Front",
+  "flashcardBack": "Back",
+  "flashcardResumeSession": "Resume session?",
+  "flashcardResumeYes": "Resume",
+  "flashcardResumeNo": "New session",
+  "flashcardEmpty": "No items to review",
+  "flashcardSemanticCard": "Flashcard {current} of {total}",
+  "@flashcardSemanticCard": {
+    "placeholders": {
+      "current": { "type": "int" },
+      "total": { "type": "int" }
+    }
+  },
+  "flashcardSemanticFlipped": "Card flipped, back side visible",
+  "ratingAgain": "Again",
+  "ratingHard": "Hard",
+  "ratingGood": "Good",
+  "ratingEasy": "Easy",
+  "sessionSummaryTitle": "Summary",
+  "sessionSummaryItemsReviewed": "{count, plural, =1{1 word reviewed} other{{count} words reviewed}}",
+  "@sessionSummaryItemsReviewed": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "sessionSummaryBackToLesson": "Back to lesson",
+  "sessionSummaryRestart": "Start new session",
+  "statsOverview": "Overview",
+  "statsNew": "New",
+  "statsLearning": "Learning",
+  "statsReview": "Mastered",
+  "statsRelearning": "Relearning",
+  "statsWordsTotal": "{count, plural, =0{0 words total} =1{1 word total} other{{count} words total}}",
+  "@statsWordsTotal": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "statsSessionsCompleted": "{count, plural, =0{0 sessions completed} =1{1 session completed} other{{count} sessions completed}}",
+  "@statsSessionsCompleted": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "statsLessonProgress": "{mastered} / {total}",
+  "@statsLessonProgress": {
+    "placeholders": {
+      "mastered": { "type": "int" },
+      "total": { "type": "int" }
+    }
+  },
+  "statsEmpty": "No reviews yet",
+  "statsEmptyAction": "Start reviewing",
+  "statsProgressBar": "Progress bar",
+  "quizTitle": "Quiz",
+  "quizStart": "Start Quiz",
+  "quizProgress": "Question {current} / {total}",
+  "@quizProgress": {
+    "placeholders": {
+      "current": { "type": "int" },
+      "total": { "type": "int" }
+    }
+  },
+  "quizCorrect": "Correct!",
+  "quizIncorrect": "Incorrect",
+  "quizTapToContinue": "Tap to continue",
+  "quizEmptyTitle": "No exercises available",
+  "quizEmptyMessage": "This lesson needs at least 4 words to start a quiz",
+  "quizEmptyAction": "Go back",
+  "quizSemanticOption": "Choice {index}: {text}",
+  "@quizSemanticOption": {
+    "placeholders": {
+      "index": { "type": "int" },
+      "text": { "type": "String" }
+    }
+  },
+  "quizSemanticQuestion": "Question {current} of {total}",
+  "@quizSemanticQuestion": {
+    "placeholders": {
+      "current": { "type": "int" },
+      "total": { "type": "int" }
+    }
+  },
+  "exercisesDescription": "Quiz exercises are available from each lesson",
+  "exercisesGoToVocabulary": "Go to vocabulary",
+  "quizSummaryTitle": "Quiz Results",
+  "quizSummaryScore": "{correct} / {total}",
+  "@quizSummaryScore": {
+    "placeholders": {
+      "correct": { "type": "int" },
+      "total": { "type": "int" }
+    }
+  },
+  "quizSummaryCorrectLabel": "Correct",
+  "quizSummaryIncorrectLabel": "Incorrect",
+  "quizSummaryMissedWords": "Words to review",
+  "quizSummaryRestart": "Restart quiz",
+  "quizSummaryBackToVocabulary": "Back to vocabulary",
+  "quizSummaryGoToFlashcards": "Review with flashcards",
+  "quizSummarySemanticScore": "{correct} correct answers out of {total}",
+  "@quizSummarySemanticScore": {
+    "placeholders": {
+      "correct": { "type": "int" },
+      "total": { "type": "int" }
+    }
+  },
+  "quizSummarySemanticBar": "{label}: {count}",
+  "@quizSummarySemanticBar": {
+    "placeholders": {
+      "label": { "type": "String" },
+      "count": { "type": "int" }
+    }
+  },
+  "onboardingWelcomeTitle": "Learn Arabic with method",
+  "onboardingWelcomeSubtitle": "A progressive and structured approach to mastering classical Arabic",
+  "onboardingStart": "Get started",
+  "onboardingModeTitle": "How do you learn?",
+  "onboardingModeCurriculum": "I study at an institute",
+  "onboardingModeCurriculumDescription": "You follow a structured program with a teacher",
+  "onboardingModeAutodidact": "Self-taught",
+  "onboardingModeAutodidactDescription": "You learn at your own pace, independently",
+  "onboardingLevelTitle": "Choose your level",
+  "onboardingLevelSubtitle": "You can change it at any time",
+  "onboardingConfirm": "Confirm",
+  "onboardingNext": "Next",
+  "onboardingSemanticPage": "Step {current} of {total}",
+  "@onboardingSemanticPage": {
+    "placeholders": {
+      "current": { "type": "int" },
+      "total": { "type": "int" }
+    }
+  },
+  "onboardingSemanticMode": "{title}, {description}",
+  "@onboardingSemanticMode": {
+    "placeholders": {
+      "title": { "type": "String" },
+      "description": { "type": "String" }
+    }
+  },
+  "onboardingSemanticLevel": "{name}, {unitCount}",
+  "@onboardingSemanticLevel": {
+    "placeholders": {
+      "name": { "type": "String" },
+      "unitCount": { "type": "String" }
+    }
+  },
+  "ttsButtonTooltip": "Listen to pronunciation",
+  "ttsButtonSemanticLabel": "Listen to pronunciation of {text}",
+  "@ttsButtonSemanticLabel": {
+    "placeholders": {
+      "text": { "type": "String" }
+    }
+  },
+  "ttsUnavailable": "Pronunciation unavailable",
+  "settingsTitle": "Settings",
+  "settingsLearningMode": "Learning mode",
+  "settingsActiveLevel": "Active level",
+  "settingsModeCurriculum": "Curriculum (free selection)",
+  "settingsModeCurriculumDescription": "Choose freely which lesson to study",
+  "settingsModeAutodidact": "Self-study (guided progression)",
+  "settingsModeAutodidactDescription": "The system suggests the next lesson",
+  "homeCurrentMode": "Mode: {mode}",
+  "@homeCurrentMode": {
+    "placeholders": {
+      "mode": { "type": "String" }
+    }
+  },
+  "homeActiveLevel": "Level {level}",
+  "@homeActiveLevel": {
+    "placeholders": {
+      "level": { "type": "String" }
+    }
+  },
+  "homeSuggestedLesson": "Suggested lesson",
+  "homeContinueLesson": "Continue",
+  "homeNextLevelSuggestion": "Ready for the next level?",
+  "homeModeCurriculum": "Curriculum",
+  "homeModeAutodidact": "Self-study",
+  "settingsSemanticButton": "Open settings",
+  "homeGoToNextLevel": "Go to next level",
+  "homeAllLevelsMastered": "Congratulations! All levels completed",
+  "homeNextLevelSemanticLabel": "All lessons mastered. Go to next level",
+  "dailySessionTitle": "Daily session",
+  "dailySessionCta": "Start session",
+  "dailySessionDueCount": "{count, plural, =1{1 word to review} other{{count} words to review}}",
+  "@dailySessionDueCount": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "dailySessionSemanticCta": "Daily session: {count} words to review. Start session",
+  "@dailySessionSemanticCta": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "dailySessionEmpty": "No words to review",
+  "dailySummaryTitle": "Session complete!",
+  "dailySummaryBackHome": "Back to home",
+  "dailySummaryRestart": "Start new session",
+  "allReviewedTitle": "All reviewed!",
+  "allReviewedSubtitle": "Great job, all your words are up to date",
+  "allReviewedExplore": "Explore content",
+  "allReviewedReviewEarly": "Review early",
+  "allReviewedQuiz": "Take a quiz",
+  "resumeWelcomeTitle": "Welcome back!",
+  "resumeWelcomeSubtitle": "Let's ease back in with a few words",
+  "resumeCtaButton": "Resume",
+  "resumeDismissButton": "Not now",
+  "resumeSemanticLabel": "Resume session available. Start reviewing",
+  "streakDaysCount": "{count, plural, =0{0 days} =1{1 day} other{{count} days in a row!}}",
+  "@streakDaysCount": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "streakRecord": "Record: {count} days",
+  "@streakRecord": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "streakBrokenTitle": "Streak broken",
+  "streakBrokenMessage": "Don't worry, what matters is getting back on track!",
+  "streakBrokenCta": "Let's go",
+  "streakFreezeUsedMessage": "Your streak freeze was used! Streak preserved.",
+  "streakFreezeAvailable": "Freeze available",
+  "streakFreezeUsed": "Freeze used",
+  "streakSemanticLabel": "Streak of {count} consecutive days. Record: {record} days. {freeze}",
+  "@streakSemanticLabel": {
+    "placeholders": {
+      "count": { "type": "int" },
+      "record": { "type": "int" },
+      "freeze": { "type": "String" }
+    }
+  },
+  "streakEncouragement": "Complete a session to start your streak!",
+  "badgeSectionTitle": "Badges",
+  "badgeCelebrationTitle": "Badge unlocked!",
+  "badgeSemanticUnlocked": "{badge}, unlocked",
+  "@badgeSemanticUnlocked": {
+    "placeholders": {
+      "badge": { "type": "String" }
+    }
+  },
+  "badgeSemanticLocked": "{badge}, locked",
+  "@badgeSemanticLocked": {
+    "placeholders": {
+      "badge": { "type": "String" }
+    }
+  },
+  "badgeFirstWordReviewed": "First step",
+  "badgeFirstWordReviewedDesc": "Review your first word",
+  "badgeWords10": "10 words",
+  "badgeWords10Desc": "Master 10 words",
+  "badgeWords50": "50 words",
+  "badgeWords50Desc": "Master 50 words",
+  "badgeWords100": "100 words",
+  "badgeWords100Desc": "Master 100 words",
+  "badgeWords500": "500 words",
+  "badgeWords500Desc": "Master 500 words",
+  "badgeFirstLessonCompleted": "First lesson",
+  "badgeFirstLessonCompletedDesc": "Complete an entire lesson",
+  "badgeStreak7": "1 week",
+  "badgeStreak7Desc": "Maintain a 7-day streak",
+  "badgeStreak30": "1 month",
+  "badgeStreak30Desc": "Maintain a 30-day streak",
+  "badgeStreak100": "100 days",
+  "badgeStreak100Desc": "Maintain a 100-day streak",
+  "badgePerfectQuiz": "Perfect score",
+  "badgePerfectQuizDesc": "Get a perfect score on a quiz",
+  "badgeContinue": "Continue",
+  "settingsNotificationsSection": "Notifications",
+  "settingsNotificationsEnabled": "Daily reminder",
+  "settingsNotificationsTime": "Reminder time",
+  "settingsNotificationsInfo": "You will receive a reminder every day at this time",
+  "settingsNotificationsPermissionDenied": "Enable notifications in your device settings",
+  "settingsNotificationsTimeSemanticLabel": "Reminder time: {hour}:{minute}. Tap to change",
+  "@settingsNotificationsTimeSemanticLabel": {
+    "placeholders": {
+      "hour": { "type": "int" },
+      "minute": { "type": "int" }
+    }
+  },
+  "settingsLanguageSection": "Language",
+  "settingsLanguageFr": "Français",
+  "settingsLanguageEn": "English",
+  "settingsThemeSection": "Theme",
+  "settingsThemeSystem": "System",
+  "settingsThemeLight": "Light",
+  "settingsThemeDark": "Dark",
+  "onboardingConsentTitle": "Data & Privacy",
+  "onboardingConsentDescription": "Mufeed can collect anonymous usage data (screens visited, features used) to improve the app. No personal data is collected. You can change this at any time in the settings.",
+  "onboardingConsentAccept": "Accept",
+  "onboardingConsentRefuse": "Decline",
+  "onboardingConsentViewPolicy": "Read privacy policy",
+  "settingsPrivacySection": "Data & Privacy",
+  "settingsPrivacyConsent": "Anonymous analytics",
+  "settingsPrivacyInfo": "Anonymous collection of usage events to improve the app. No personal data is included.",
+  "settingsPrivacyPolicyButton": "Privacy Policy",
+  "privacyPolicyTitle": "Privacy Policy",
+  "privacyPolicySectionData": "Data Collected",
+  "privacyPolicyContentData": "Mufeed does not collect any personal data. Your progress, preferences, and results are stored exclusively on your device. No information is transmitted to external servers.",
+  "privacyPolicySectionAnalytics": "Anonymous Analytics",
+  "privacyPolicyContentAnalytics": "If you have accepted analytics consent, Mufeed collects anonymous usage events (screens visited, features used) via Firebase Analytics. This data does not contain any personally identifiable information and is used solely to improve the app. You can enable or disable this collection at any time in the settings.",
+  "privacyPolicySectionStorage": "Local Storage",
+  "privacyPolicyContentStorage": "All your progress data (learned vocabulary, scores, streaks) is stored locally on your device in a SQLite database. This data never leaves your device and is deleted if you uninstall the app.",
+  "privacyPolicySectionRights": "Your Rights",
+  "privacyPolicyContentRights": "In accordance with GDPR, you have the following rights:\n\n• Access: your data is accessible directly within the app\n• Deletion: uninstall the app to delete all your data\n• Consent modification: change your analytics choice at any time in the settings\n• Objection: you can refuse analytics data collection\n• Portability: since your data is stored locally, it remains under your control\n• Complaint: you can lodge a complaint with your local data protection authority (e.g., CNIL in France)",
+  "privacyPolicySectionContact": "Contact",
+  "privacyPolicyContentContact": "For any questions regarding the privacy of your data, you can contact us at: privacy@mufeed.app",
+  "privacyPolicyLastUpdated": "Last updated: February 2026"
+}

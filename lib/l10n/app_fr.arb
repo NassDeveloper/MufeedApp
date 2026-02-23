@@ -1,0 +1,391 @@
+{
+  "@@locale": "fr",
+  "appTitle": "Mufeed",
+  "tabHome": "Accueil",
+  "tabVocabulary": "Vocabulaire",
+  "tabExercises": "Exercices",
+  "tabStatistics": "Statistiques",
+  "levelTitle": "Niveau {number}",
+  "@levelTitle": {
+    "placeholders": {
+      "number": { "type": "int" }
+    }
+  },
+  "unitCount": "{count, plural, =0{0 unité} =1{1 unité} other{{count} unités}}",
+  "@unitCount": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "unitTitle": "Unité {number}",
+  "@unitTitle": {
+    "placeholders": {
+      "number": { "type": "int" }
+    }
+  },
+  "lessonTitle": "Leçon {number}",
+  "@lessonTitle": {
+    "placeholders": {
+      "number": { "type": "int" }
+    }
+  },
+  "loading": "Chargement...",
+  "errorLoadingContent": "Erreur de chargement du contenu",
+  "retry": "Réessayer",
+  "emptyContent": "Aucun contenu disponible",
+  "emptyVocabulary": "Aucun vocabulaire dans cette leçon",
+  "verbFormMasdar": "Masdar (المصدر)",
+  "verbFormPast": "Passé (الماضي)",
+  "verbFormPresent": "Présent (المضارع)",
+  "verbFormImperative": "Impératif (الأمر)",
+  "grammaticalCategory": "Catégorie",
+  "singularLabel": "Singulier",
+  "pluralLabel": "Pluriel",
+  "synonymLabel": "Synonyme",
+  "antonymLabel": "Antonyme",
+  "reportError": "Signaler une erreur",
+  "reportCategoryHarakat": "Erreur de harakat",
+  "reportCategoryTranslation": "Erreur de traduction",
+  "reportCategoryOther": "Autre problème",
+  "reportComment": "Commentaire (optionnel)",
+  "reportSend": "Envoyer",
+  "reportCancel": "Annuler",
+  "errorReportSent": "Merci ! Signalement envoyé",
+  "wordCount": "{count, plural, =0{0 mot} =1{1 mot} other{{count} mots}}",
+  "@wordCount": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "verbCount": "{count, plural, =0{0 verbe} =1{1 verbe} other{{count} verbes}}",
+  "@verbCount": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "resumeLastLesson": "Reprendre",
+  "lastLessonVisited": "Dernière leçon consultée",
+  "welcomeBack": "Bon retour !",
+  "flashcardStartSession": "Réviser",
+  "flashcardEndSession": "Terminer la session",
+  "flashcardProgress": "{current} / {total}",
+  "@flashcardProgress": {
+    "placeholders": {
+      "current": { "type": "int" },
+      "total": { "type": "int" }
+    }
+  },
+  "flashcardTapToFlip": "Appuyez pour retourner",
+  "flashcardFront": "Recto",
+  "flashcardBack": "Verso",
+  "flashcardResumeSession": "Reprendre la session ?",
+  "flashcardResumeYes": "Reprendre",
+  "flashcardResumeNo": "Nouvelle session",
+  "flashcardEmpty": "Aucun élément à réviser",
+  "flashcardSemanticCard": "Flashcard {current} sur {total}",
+  "@flashcardSemanticCard": {
+    "placeholders": {
+      "current": { "type": "int" },
+      "total": { "type": "int" }
+    }
+  },
+  "flashcardSemanticFlipped": "Carte retournée, verso visible",
+  "ratingAgain": "À revoir",
+  "ratingHard": "Difficile",
+  "ratingGood": "Bien",
+  "ratingEasy": "Facile",
+  "sessionSummaryTitle": "Résumé",
+  "sessionSummaryItemsReviewed": "{count, plural, =1{1 mot révisé} other{{count} mots révisés}}",
+  "@sessionSummaryItemsReviewed": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "sessionSummaryBackToLesson": "Retour à la leçon",
+  "sessionSummaryRestart": "Relancer une session",
+  "statsOverview": "Vue d'ensemble",
+  "statsNew": "Nouveau",
+  "statsLearning": "En apprentissage",
+  "statsReview": "Maîtrisé",
+  "statsRelearning": "À revoir",
+  "statsWordsTotal": "{count, plural, =0{0 mot au total} =1{1 mot au total} other{{count} mots au total}}",
+  "@statsWordsTotal": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "statsSessionsCompleted": "{count, plural, =0{0 session complétée} =1{1 session complétée} other{{count} sessions complétées}}",
+  "@statsSessionsCompleted": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "statsLessonProgress": "{mastered} / {total}",
+  "@statsLessonProgress": {
+    "placeholders": {
+      "mastered": { "type": "int" },
+      "total": { "type": "int" }
+    }
+  },
+  "statsEmpty": "Aucune révision pour le moment",
+  "statsEmptyAction": "Commencer à réviser",
+  "statsProgressBar": "Barre de progression",
+  "quizTitle": "QCM",
+  "quizStart": "Lancer le QCM",
+  "quizProgress": "Question {current} / {total}",
+  "@quizProgress": {
+    "placeholders": {
+      "current": { "type": "int" },
+      "total": { "type": "int" }
+    }
+  },
+  "quizCorrect": "Bonne réponse !",
+  "quizIncorrect": "Mauvaise réponse",
+  "quizTapToContinue": "Appuyez pour continuer",
+  "quizEmptyTitle": "Aucun exercice disponible",
+  "quizEmptyMessage": "Cette leçon nécessite au minimum 4 mots pour lancer un QCM",
+  "quizEmptyAction": "Retour",
+  "quizSemanticOption": "Choix {index} : {text}",
+  "@quizSemanticOption": {
+    "placeholders": {
+      "index": { "type": "int" },
+      "text": { "type": "String" }
+    }
+  },
+  "quizSemanticQuestion": "Question {current} sur {total}",
+  "@quizSemanticQuestion": {
+    "placeholders": {
+      "current": { "type": "int" },
+      "total": { "type": "int" }
+    }
+  },
+  "exercisesDescription": "Les exercices QCM sont accessibles depuis chaque leçon",
+  "exercisesGoToVocabulary": "Aller au vocabulaire",
+  "quizSummaryTitle": "Résultat QCM",
+  "quizSummaryScore": "{correct} / {total}",
+  "@quizSummaryScore": {
+    "placeholders": {
+      "correct": { "type": "int" },
+      "total": { "type": "int" }
+    }
+  },
+  "quizSummaryCorrectLabel": "Correctes",
+  "quizSummaryIncorrectLabel": "Incorrectes",
+  "quizSummaryMissedWords": "Mots à revoir",
+  "quizSummaryRestart": "Relancer le QCM",
+  "quizSummaryBackToVocabulary": "Retour au vocabulaire",
+  "quizSummaryGoToFlashcards": "Réviser en flashcards",
+  "quizSummarySemanticScore": "{correct} réponses correctes sur {total}",
+  "@quizSummarySemanticScore": {
+    "placeholders": {
+      "correct": { "type": "int" },
+      "total": { "type": "int" }
+    }
+  },
+  "quizSummarySemanticBar": "{label} : {count}",
+  "@quizSummarySemanticBar": {
+    "placeholders": {
+      "label": { "type": "String" },
+      "count": { "type": "int" }
+    }
+  },
+  "onboardingWelcomeTitle": "Apprends l'arabe avec méthode",
+  "onboardingWelcomeSubtitle": "Une méthode progressive et structurée pour maîtriser l'arabe classique",
+  "onboardingStart": "Commencer",
+  "onboardingModeTitle": "Comment apprenez-vous ?",
+  "onboardingModeCurriculum": "J'étudie auprès d'un institut",
+  "onboardingModeCurriculumDescription": "Vous suivez un programme structuré avec un enseignant",
+  "onboardingModeAutodidact": "Autodidacte",
+  "onboardingModeAutodidactDescription": "Vous apprenez à votre rythme, de manière indépendante",
+  "onboardingLevelTitle": "Choisissez votre niveau",
+  "onboardingLevelSubtitle": "Vous pourrez le modifier à tout moment",
+  "onboardingConfirm": "Confirmer",
+  "onboardingNext": "Suivant",
+  "onboardingSemanticPage": "Étape {current} sur {total}",
+  "@onboardingSemanticPage": {
+    "placeholders": {
+      "current": { "type": "int" },
+      "total": { "type": "int" }
+    }
+  },
+  "onboardingSemanticMode": "{title}, {description}",
+  "@onboardingSemanticMode": {
+    "placeholders": {
+      "title": { "type": "String" },
+      "description": { "type": "String" }
+    }
+  },
+  "onboardingSemanticLevel": "{name}, {unitCount}",
+  "@onboardingSemanticLevel": {
+    "placeholders": {
+      "name": { "type": "String" },
+      "unitCount": { "type": "String" }
+    }
+  },
+  "ttsButtonTooltip": "Écouter la prononciation",
+  "ttsButtonSemanticLabel": "Écouter la prononciation de {text}",
+  "@ttsButtonSemanticLabel": {
+    "placeholders": {
+      "text": { "type": "String" }
+    }
+  },
+  "ttsUnavailable": "Prononciation non disponible",
+  "settingsTitle": "Paramètres",
+  "settingsLearningMode": "Mode d'apprentissage",
+  "settingsActiveLevel": "Niveau actif",
+  "settingsModeCurriculum": "Cursus (sélection libre)",
+  "settingsModeCurriculumDescription": "Choisissez librement la leçon à étudier",
+  "settingsModeAutodidact": "Autodidacte (progression guidée)",
+  "settingsModeAutodidactDescription": "Le système vous suggère la prochaine leçon",
+  "homeCurrentMode": "Mode : {mode}",
+  "@homeCurrentMode": {
+    "placeholders": {
+      "mode": { "type": "String" }
+    }
+  },
+  "homeActiveLevel": "Niveau {level}",
+  "@homeActiveLevel": {
+    "placeholders": {
+      "level": { "type": "String" }
+    }
+  },
+  "homeSuggestedLesson": "Leçon suggérée",
+  "homeContinueLesson": "Continuer",
+  "homeNextLevelSuggestion": "Prêt pour le niveau suivant ?",
+  "homeModeCurriculum": "Cursus",
+  "homeModeAutodidact": "Autodidacte",
+  "settingsSemanticButton": "Ouvrir les paramètres",
+  "homeGoToNextLevel": "Passer au suivant",
+  "homeAllLevelsMastered": "Bravo ! Tous les niveaux sont terminés",
+  "homeNextLevelSemanticLabel": "Toutes les leçons maîtrisées. Passer au niveau suivant",
+  "dailySessionTitle": "Session du jour",
+  "dailySessionCta": "Lancer la session",
+  "dailySessionDueCount": "{count, plural, =1{1 mot à réviser} other{{count} mots à réviser}}",
+  "@dailySessionDueCount": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "dailySessionSemanticCta": "Session du jour : {count} mots à réviser. Lancer la session",
+  "@dailySessionSemanticCta": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "dailySessionEmpty": "Aucun mot à réviser",
+  "dailySummaryTitle": "Session terminée !",
+  "dailySummaryBackHome": "Retour à l'accueil",
+  "dailySummaryRestart": "Relancer une session",
+  "allReviewedTitle": "Tout est révisé !",
+  "allReviewedSubtitle": "Bravo, tous vos mots sont à jour",
+  "allReviewedExplore": "Explorer le contenu",
+  "allReviewedReviewEarly": "Réviser à l'avance",
+  "allReviewedQuiz": "Faire un QCM",
+  "resumeWelcomeTitle": "Bon retour !",
+  "resumeWelcomeSubtitle": "Reprenons en douceur avec quelques mots",
+  "resumeCtaButton": "Reprendre",
+  "resumeDismissButton": "Pas maintenant",
+  "resumeSemanticLabel": "Session de reprise disponible. Reprendre la révision",
+  "streakDaysCount": "{count, plural, =0{0 jour} =1{1 jour} other{{count} jours de suite !}}",
+  "@streakDaysCount": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "streakRecord": "Record : {count} jours",
+  "@streakRecord": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "streakBrokenTitle": "Série interrompue",
+  "streakBrokenMessage": "Ce n'est pas grave, l'important c'est de reprendre !",
+  "streakBrokenCta": "C'est reparti",
+  "streakFreezeUsedMessage": "Votre gel de série a été utilisé ! Série préservée.",
+  "streakFreezeAvailable": "Gel disponible",
+  "streakFreezeUsed": "Gel utilisé",
+  "streakSemanticLabel": "Série de {count} jours consécutifs. Record : {record} jours. {freeze}",
+  "@streakSemanticLabel": {
+    "placeholders": {
+      "count": { "type": "int" },
+      "record": { "type": "int" },
+      "freeze": { "type": "String" }
+    }
+  },
+  "streakEncouragement": "Commencez une session pour lancer votre série !",
+  "badgeSectionTitle": "Badges",
+  "badgeCelebrationTitle": "Badge débloqué !",
+  "badgeSemanticUnlocked": "{badge}, débloqué",
+  "@badgeSemanticUnlocked": {
+    "placeholders": {
+      "badge": { "type": "String" }
+    }
+  },
+  "badgeSemanticLocked": "{badge}, verrouillé",
+  "@badgeSemanticLocked": {
+    "placeholders": {
+      "badge": { "type": "String" }
+    }
+  },
+  "badgeFirstWordReviewed": "Premier pas",
+  "badgeFirstWordReviewedDesc": "Révisez votre premier mot",
+  "badgeWords10": "10 mots",
+  "badgeWords10Desc": "Maîtrisez 10 mots",
+  "badgeWords50": "50 mots",
+  "badgeWords50Desc": "Maîtrisez 50 mots",
+  "badgeWords100": "100 mots",
+  "badgeWords100Desc": "Maîtrisez 100 mots",
+  "badgeWords500": "500 mots",
+  "badgeWords500Desc": "Maîtrisez 500 mots",
+  "badgeFirstLessonCompleted": "Première leçon",
+  "badgeFirstLessonCompletedDesc": "Complétez une leçon entière",
+  "badgeStreak7": "1 semaine",
+  "badgeStreak7Desc": "Maintenez une série de 7 jours",
+  "badgeStreak30": "1 mois",
+  "badgeStreak30Desc": "Maintenez une série de 30 jours",
+  "badgeStreak100": "100 jours",
+  "badgeStreak100Desc": "Maintenez une série de 100 jours",
+  "badgePerfectQuiz": "Sans faute",
+  "badgePerfectQuizDesc": "Obtenez un score parfait au QCM",
+  "badgeContinue": "Continuer",
+  "settingsNotificationsSection": "Notifications",
+  "settingsNotificationsEnabled": "Rappel quotidien",
+  "settingsNotificationsTime": "Heure du rappel",
+  "settingsNotificationsInfo": "Vous recevrez un rappel chaque jour à cette heure",
+  "settingsNotificationsPermissionDenied": "Autorisez les notifications dans les paramètres de votre appareil",
+  "settingsNotificationsTimeSemanticLabel": "Heure du rappel : {hour}h{minute}. Appuyez pour modifier",
+  "@settingsNotificationsTimeSemanticLabel": {
+    "placeholders": {
+      "hour": { "type": "int" },
+      "minute": { "type": "int" }
+    }
+  },
+  "settingsLanguageSection": "Langue",
+  "settingsLanguageFr": "Français",
+  "settingsLanguageEn": "English",
+  "settingsThemeSection": "Thème",
+  "settingsThemeSystem": "Système",
+  "settingsThemeLight": "Clair",
+  "settingsThemeDark": "Sombre",
+  "onboardingConsentTitle": "Données & confidentialité",
+  "onboardingConsentDescription": "Mufeed peut collecter des données d'utilisation anonymes (écrans visités, fonctionnalités utilisées) pour améliorer l'application. Aucune donnée personnelle n'est collectée. Vous pouvez modifier ce choix à tout moment dans les paramètres.",
+  "onboardingConsentAccept": "Accepter",
+  "onboardingConsentRefuse": "Refuser",
+  "onboardingConsentViewPolicy": "Lire la politique de confidentialité",
+  "settingsPrivacySection": "Données & confidentialité",
+  "settingsPrivacyConsent": "Analytics anonymes",
+  "settingsPrivacyInfo": "Collecte anonyme d'événements d'utilisation pour améliorer l'application. Aucune donnée personnelle n'est incluse.",
+  "settingsPrivacyPolicyButton": "Politique de confidentialité",
+  "privacyPolicyTitle": "Politique de confidentialité",
+  "privacyPolicySectionData": "Données collectées",
+  "privacyPolicyContentData": "Mufeed ne collecte aucune donnée personnelle. Votre progression, vos préférences et vos résultats sont stockés exclusivement sur votre appareil. Aucune information n'est transmise à des serveurs externes.",
+  "privacyPolicySectionAnalytics": "Analytics anonymes",
+  "privacyPolicyContentAnalytics": "Si vous avez accepté le consentement analytics, Mufeed collecte des événements d'utilisation anonymes (écrans visités, fonctionnalités utilisées) via Firebase Analytics. Ces données ne contiennent aucune information personnelle identifiable et servent uniquement à améliorer l'application. Vous pouvez activer ou désactiver cette collecte à tout moment dans les paramètres.",
+  "privacyPolicySectionStorage": "Stockage local",
+  "privacyPolicyContentStorage": "Toutes vos données de progression (vocabulaire appris, scores, séries) sont stockées localement sur votre appareil dans une base de données SQLite. Ces données ne quittent jamais votre appareil et sont supprimées si vous désinstallez l'application.",
+  "privacyPolicySectionRights": "Vos droits",
+  "privacyPolicyContentRights": "Conformément au RGPD, vous disposez des droits suivants :\n\n• Accès : vos données sont accessibles directement dans l'application\n• Suppression : désinstallez l'application pour supprimer toutes vos données\n• Modification du consentement : modifiez votre choix analytics à tout moment dans les paramètres\n• Opposition : vous pouvez refuser la collecte de données analytics\n• Portabilité : vos données étant stockées localement, elles restent sous votre contrôle\n• Réclamation : vous pouvez introduire une réclamation auprès de la CNIL (cnil.fr) ou de l'autorité de protection des données de votre pays",
+  "privacyPolicySectionContact": "Contact",
+  "privacyPolicyContentContact": "Pour toute question concernant la confidentialité de vos données, vous pouvez nous contacter à l'adresse : privacy@mufeed.app",
+  "privacyPolicyLastUpdated": "Dernière mise à jour : février 2026"
+}

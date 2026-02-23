@@ -1,0 +1,60 @@
+[
+  {
+    "unit": 1,
+    "lesson": 1,
+    "arabic": "كِتَابٌ",
+    "translation_fr": "Livre",
+    "grammatical_category": "nom",
+    "singular": "كِتَابٌ",
+    "plural": "كُتُبٌ",
+    "sort_order": 1
+  },
+  {
+    "unit": 1,
+    "lesson": 1,
+    "arabic": "قَلَمٌ",
+    "translation_fr": "Stylo",
+    "grammatical_category": "nom",
+    "singular": "قَلَمٌ",
+    "plural": "أَقْلَامٌ",
+    "sort_order": 2
+  },
+  {
+    "unit": 1,
+    "lesson": 1,
+    "arabic": "بَيْتٌ",
+    "translation_fr": "Maison",
+    "grammatical_category": "nom",
+    "singular": "بَيْتٌ",
+    "plural": "بُيُوتٌ",
+    "sort_order": 3
+  },
+  {
+    "unit": 1,
+    "lesson": 1,
+    "arabic": "مَاءٌ",
+    "translation_fr": "Eau",
+    "grammatical_category": "nom",
+    "sort_order": 4
+  },
+  {
+    "unit": 1,
+    "lesson": 1,
+    "arabic": "وَلَدٌ",
+    "translation_fr": "Garçon",
+    "grammatical_category": "nom",
+    "singular": "وَلَدٌ",
+    "plural": "أَوْلَادٌ",
+    "sort_order": 5
+  },
+  {
+    "unit": 1,
+    "lesson": 1,
+    "arabic": "بِنْتٌ",
+    "translation_fr": "Fille",
+    "grammatical_category": "nom",
+    "singular": "بِنْتٌ",
+    "plural": "بَنَاتٌ",
+    "sort_order": 6
+  }
+]

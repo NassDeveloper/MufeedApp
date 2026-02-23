@@ -1,0 +1,20 @@
+{
+  "level": {
+    "number": 1,
+    "name_fr": "Niveau 1",
+    "name_en": "Level 1",
+    "name_ar": "المستوى الأول",
+    "unit_count": 1
+  },
+  "units": [
+    {
+      "number": 1,
+      "name_fr": "Unité 1 - Les salutations",
+      "name_en": "Unit 1 - Greetings",
+      "lessons": [
+        { "number": 1, "name_fr": "Leçon 1 - Vocabulaire de base", "name_en": "Lesson 1 - Basic vocabulary" },
+        { "number": 2, "name_fr": "Leçon 2 - Les verbes courants", "name_en": "Lesson 2 - Common verbs" }
+      ]
+    }
+  ]
+}

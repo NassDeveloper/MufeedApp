@@ -1,0 +1,458 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
+
+import '../../core/constants/animation_constants.dart';
+import '../../l10n/app_localizations.dart';
+import '../providers/content_provider.dart';
+import '../providers/onboarding_provider.dart';
+import '../utils/localized_name.dart';
+import '../widgets/error_content_widget.dart';
+import '../widgets/mode_card_widget.dart';
+import '../widgets/skeleton_loader_widget.dart';
+
+class OnboardingScreen extends ConsumerStatefulWidget {
+  const OnboardingScreen({super.key});
+
+  @override
+  ConsumerState<OnboardingScreen> createState() => _OnboardingScreenState();
+}
+
+class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
+  late PageController _pageController;
+
+  @override
+  void initState() {
+    super.initState();
+    _pageController = PageController();
+  }
+
+  @override
+  void dispose() {
+    _pageController.dispose();
+    super.dispose();
+  }
+
+  void _goToPage(int page) {
+    _pageController.animateToPage(
+      page,
+      duration: AnimationConstants.onboardingPageDuration,
+      curve: AnimationConstants.onboardingPageCurve,
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final state = ref.watch(onboardingProvider);
+    final l10n = AppLocalizations.of(context)!;
+
+    ref.listen<OnboardingState>(onboardingProvider, (previous, next) {
+      if (previous != null && previous.currentPage != next.currentPage) {
+        _goToPage(next.currentPage);
+      }
+    });
+
+    return Scaffold(
+      body: SafeArea(
+        child: Column(
+          children: [
+            Expanded(
+              child: PageView(
+                controller: _pageController,
+                physics: const NeverScrollableScrollPhysics(),
+                children: const [
+                  _WelcomePage(),
+                  _ModePage(),
+                  _LevelPage(),
+                  _ConsentPage(),
+                ],
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+              child: Column(
+                children: [
+                  Semantics(
+                    label: l10n.onboardingSemanticPage(
+                      state.currentPage + 1,
+                      OnboardingState.totalPages,
+                    ),
+                    excludeSemantics: true,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: List.generate(
+                        OnboardingState.totalPages,
+                        (index) => _PageDot(isActive: index == state.currentPage),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _PageDot extends StatelessWidget {
+  const _PageDot({required this.isActive});
+
+  final bool isActive;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 4),
+      width: isActive ? 24 : 8,
+      height: 8,
+      decoration: BoxDecoration(
+        color: isActive
+            ? Theme.of(context).colorScheme.primary
+            : Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.3),
+        borderRadius: BorderRadius.circular(4),
+      ),
+    );
+  }
+}
+
+class _WelcomePage extends ConsumerWidget {
+  const _WelcomePage();
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context)!;
+    final colorScheme = Theme.of(context).colorScheme;
+
+    return Padding(
+      padding: const EdgeInsets.all(32),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          const Spacer(),
+          Icon(
+            Icons.menu_book,
+            size: 96,
+            color: colorScheme.primary,
+          ),
+          const SizedBox(height: 32),
+          Text(
+            l10n.onboardingWelcomeTitle,
+            style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                  fontWeight: FontWeight.bold,
+                ),
+            textAlign: TextAlign.center,
+          ),
+          const SizedBox(height: 16),
+          Text(
+            l10n.onboardingWelcomeSubtitle,
+            style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                  color: colorScheme.onSurfaceVariant,
+                ),
+            textAlign: TextAlign.center,
+          ),
+          const Spacer(),
+          SizedBox(
+            width: double.infinity,
+            child: FilledButton(
+              onPressed: () =>
+                  ref.read(onboardingProvider.notifier).nextPage(),
+              child: Text(l10n.onboardingStart),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _ModePage extends ConsumerWidget {
+  const _ModePage();
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context)!;
+    final state = ref.watch(onboardingProvider);
+
+    return Padding(
+      padding: const EdgeInsets.all(32),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const SizedBox(height: 32),
+          Text(
+            l10n.onboardingModeTitle,
+            style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                  fontWeight: FontWeight.bold,
+                ),
+          ),
+          const SizedBox(height: 32),
+          ModeCard(
+            title: l10n.onboardingModeCurriculum,
+            description: l10n.onboardingModeCurriculumDescription,
+            icon: Icons.school,
+            isSelected: state.learningMode == 'curriculum',
+            onTap: () => ref
+                .read(onboardingProvider.notifier)
+                .setLearningMode('curriculum'),
+          ),
+          const SizedBox(height: 16),
+          ModeCard(
+            title: l10n.onboardingModeAutodidact,
+            description: l10n.onboardingModeAutodidactDescription,
+            icon: Icons.self_improvement,
+            isSelected: state.learningMode == 'autodidact',
+            onTap: () => ref
+                .read(onboardingProvider.notifier)
+                .setLearningMode('autodidact'),
+          ),
+          const Spacer(),
+          SizedBox(
+            width: double.infinity,
+            child: FilledButton(
+              onPressed: state.canProceed
+                  ? () => ref.read(onboardingProvider.notifier).nextPage()
+                  : null,
+              child: Text(l10n.onboardingNext),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _LevelPage extends ConsumerWidget {
+  const _LevelPage();
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context)!;
+    final state = ref.watch(onboardingProvider);
+    final asyncLevels = ref.watch(levelsProvider);
+
+    return Padding(
+      padding: const EdgeInsets.all(32),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const SizedBox(height: 32),
+          Text(
+            l10n.onboardingLevelTitle,
+            style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                  fontWeight: FontWeight.bold,
+                ),
+          ),
+          const SizedBox(height: 8),
+          Text(
+            l10n.onboardingLevelSubtitle,
+            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                  color: Theme.of(context).colorScheme.onSurfaceVariant,
+                ),
+          ),
+          const SizedBox(height: 24),
+          Expanded(
+            child: asyncLevels.when(
+              loading: () => const SkeletonListLoader(itemCount: 5),
+              error: (_, _) => ErrorContent(
+                message: l10n.errorLoadingContent,
+                onRetry: () => ref.invalidate(levelsProvider),
+                retryLabel: l10n.retry,
+              ),
+              data: (levels) => ListView.builder(
+                itemCount: levels.length,
+                itemBuilder: (context, index) {
+                  final level = levels[index];
+                  final locale = Localizations.localeOf(context);
+                  final name = level.localizedName(locale);
+                  final isSelected = state.selectedLevelId == level.id;
+
+                  return Semantics(
+                    button: true,
+                    selected: isSelected,
+                    label: l10n.onboardingSemanticLevel(
+                      name,
+                      l10n.unitCount(level.unitCount),
+                    ),
+                    excludeSemantics: true,
+                    child: Card(
+                      margin: const EdgeInsets.only(bottom: 8),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                        side: isSelected
+                            ? BorderSide(
+                                color:
+                                    Theme.of(context).colorScheme.primary,
+                                width: 2,
+                              )
+                            : BorderSide.none,
+                      ),
+                      child: InkWell(
+                        borderRadius: BorderRadius.circular(12),
+                        onTap: () => ref
+                            .read(onboardingProvider.notifier)
+                            .setSelectedLevel(level.id),
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 16,
+                            vertical: 12,
+                          ),
+                          child: Row(
+                            children: [
+                              Container(
+                                width: 40,
+                                height: 40,
+                                decoration: BoxDecoration(
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .primaryContainer,
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                alignment: Alignment.center,
+                                child: Text(
+                                  '${level.number}',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .titleMedium
+                                      ?.copyWith(
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .onPrimaryContainer,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                ),
+                              ),
+                              const SizedBox(width: 12),
+                              Expanded(
+                                child: Text(
+                                  name,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyLarge,
+                                ),
+                              ),
+                              if (isSelected)
+                                Icon(
+                                  Icons.check_circle,
+                                  color:
+                                      Theme.of(context).colorScheme.primary,
+                                ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                  );
+                },
+              ),
+            ),
+          ),
+          const SizedBox(height: 16),
+          SizedBox(
+            width: double.infinity,
+            child: FilledButton(
+              onPressed: state.canProceed
+                  ? () =>
+                      ref.read(onboardingProvider.notifier).nextPage()
+                  : null,
+              child: Text(l10n.onboardingNext),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _ConsentPage extends ConsumerWidget {
+  const _ConsentPage();
+
+  Future<void> _complete(
+    BuildContext context,
+    WidgetRef ref,
+    bool consent,
+  ) async {
+    ref.read(onboardingProvider.notifier).setGdprConsent(consent);
+    try {
+      await ref.read(onboardingProvider.notifier).completeOnboarding();
+      if (context.mounted) {
+        context.go('/');
+      }
+    } catch (_) {
+      if (context.mounted) {
+        final l10n = AppLocalizations.of(context)!;
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(l10n.errorLoadingContent)),
+        );
+      }
+    }
+  }
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context)!;
+    final colorScheme = Theme.of(context).colorScheme;
+
+    return Padding(
+      padding: const EdgeInsets.all(32),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Expanded(
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const SizedBox(height: 32),
+                  Icon(
+                    Icons.privacy_tip_outlined,
+                    size: 64,
+                    color: colorScheme.primary,
+                  ),
+                  const SizedBox(height: 24),
+                  Text(
+                    l10n.onboardingConsentTitle,
+                    style:
+                        Theme.of(context).textTheme.headlineSmall?.copyWith(
+                              fontWeight: FontWeight.bold,
+                            ),
+                  ),
+                  const SizedBox(height: 16),
+                  Text(
+                    l10n.onboardingConsentDescription,
+                    style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                          color: colorScheme.onSurfaceVariant,
+                        ),
+                  ),
+                  const SizedBox(height: 16),
+                  TextButton(
+                    onPressed: () => context.push('/privacy-policy'),
+                    child: Text(l10n.onboardingConsentViewPolicy),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          const SizedBox(height: 16),
+          SizedBox(
+            width: double.infinity,
+            child: FilledButton(
+              onPressed: () => _complete(context, ref, true),
+              child: Text(l10n.onboardingConsentAccept),
+            ),
+          ),
+          const SizedBox(height: 12),
+          SizedBox(
+            width: double.infinity,
+            child: OutlinedButton(
+              onPressed: () => _complete(context, ref, false),
+              child: Text(l10n.onboardingConsentRefuse),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
