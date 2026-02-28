@@ -167,6 +167,18 @@
   "exercisesGoToVocabulary": "Go to vocabulary",
   "statisticsScreenTitle": "My statistics",
   "statisticsScreenSubtitle": "Track your progress",
+  "statsActivityTitle": "Activity over 14 days",
+  "statsUpcomingTitle": "Upcoming reviews",
+  "statsUpcomingToday": "Today",
+  "statsUpcomingTomorrow": "Tomorrow",
+  "statsUpcomingWeek": "This week",
+  "statsUpcomingNone": "No reviews pending",
+  "statsUpcomingItems": "{count, plural, =0{0 item} =1{1 item} other{{count} items}}",
+  "@statsUpcomingItems": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
   "quizSummaryTitle": "Quiz Results",
   "quizSummaryScore": "{correct} / {total}",
   "@quizSummaryScore": {
@@ -378,6 +390,21 @@
   "onboardingConsentAccept": "Accept",
   "onboardingConsentRefuse": "Decline",
   "onboardingConsentViewPolicy": "Read privacy policy",
+  "onboardingMiniSessionTitle": "Content preview",
+  "onboardingMiniSessionSubtitle": "A few words from your first level",
+  "onboardingPrevious": "Back",
+  "onboardingConsentRecapMode": "Mode: {mode}",
+  "@onboardingConsentRecapMode": {
+    "placeholders": {
+      "mode": { "type": "String" }
+    }
+  },
+  "onboardingConsentRecapLevel": "Level: {level}",
+  "@onboardingConsentRecapLevel": {
+    "placeholders": {
+      "level": { "type": "String" }
+    }
+  },
   "settingsPrivacySection": "Data & Privacy",
   "settingsPrivacyConsent": "Anonymous analytics",
   "settingsPrivacyInfo": "Anonymous collection of usage events to improve the app. No personal data is included.",
@@ -429,5 +456,61 @@
   "confirmQuitTitle": "Quit session?",
   "confirmQuitMessage": "Your progress in this session will be lost.",
   "confirmQuitLeave": "Quit",
-  "confirmQuitStay": "Continue"
+  "confirmQuitStay": "Continue",
+  "matchingTitle": "Matching",
+  "matchingButton": "Matching",
+  "matchingProgress": "{matched} / {total}",
+  "@matchingProgress": {
+    "placeholders": {
+      "matched": { "type": "int" },
+      "total": { "type": "int" }
+    }
+  },
+  "matchingEmptyTitle": "Not enough words",
+  "matchingEmptyMessage": "This lesson needs at least 4 words to start a matching exercise.",
+  "matchingEmptyAction": "Back",
+  "wordOrderingTitle": "Word Ordering",
+  "wordOrderingButton": "Order",
+  "wordOrderingProgress": "{current} / {total}",
+  "@wordOrderingProgress": {
+    "placeholders": {
+      "current": { "type": "int" },
+      "total": { "type": "int" }
+    }
+  },
+  "wordOrderingInstruction": "Put the words in the right order",
+  "wordOrderingCorrect": "Correct!",
+  "wordOrderingWrong": "Not quite, try again!",
+  "wordOrderingNext": "Next",
+  "wordOrderingReset": "Reset",
+  "wordOrderingEmptyTitle": "No sentences available",
+  "wordOrderingEmptyMessage": "This lesson doesn't have word ordering exercises yet.",
+  "wordOrderingEmptyAction": "Back",
+  "dialogueTitle": "Mini-dialogue",
+  "dialogueButton": "Dialogue",
+  "dialogueProgress": "{current} / {total}",
+  "@dialogueProgress": {
+    "placeholders": {
+      "current": { "type": "int" },
+      "total": { "type": "int" }
+    }
+  },
+  "dialogueNext": "Next",
+  "dialogueEmptyTitle": "No dialogue available",
+  "dialogueEmptyMessage": "This lesson doesn't have any mini-dialogue yet.",
+  "dialogueEmptyAction": "Back",
+  "listeningTitle": "Listening Exercise",
+  "listeningButton": "Listen",
+  "listeningProgress": "{current} / {total}",
+  "@listeningProgress": {
+    "placeholders": {
+      "current": { "type": "int" },
+      "total": { "type": "int" }
+    }
+  },
+  "listeningInstruction": "Listen and choose the translation",
+  "listeningPlayButton": "Play word",
+  "listeningEmptyTitle": "Not enough words",
+  "listeningEmptyMessage": "This lesson needs at least 4 words to start a listening exercise.",
+  "listeningEmptyAction": "Back"
 }

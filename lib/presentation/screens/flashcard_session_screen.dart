@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../core/constants/animation_constants.dart';
 import '../../l10n/app_localizations.dart';
+import '../providers/content_provider.dart';
 import '../providers/flashcard_session_provider.dart';
 import '../utils/confirm_quit_session.dart';
 import '../providers/preferences_provider.dart';
@@ -13,9 +14,11 @@ import '../widgets/flashcard_widget.dart';
 import '../widgets/skeleton_loader_widget.dart';
 
 class FlashcardSessionScreen extends ConsumerStatefulWidget {
-  const FlashcardSessionScreen({required this.lessonId, super.key});
+  const FlashcardSessionScreen({this.lessonId, this.unitId, super.key})
+      : assert(lessonId != null || unitId != null);
 
-  final int lessonId;
+  final int? lessonId;
+  final int? unitId;
 
   @override
   ConsumerState<FlashcardSessionScreen> createState() =>
@@ -37,27 +40,40 @@ class _FlashcardSessionScreenState
     _loadSession();
   }
 
+  bool get _isMultiLesson => widget.unitId != null;
+
   Future<void> _loadSession() async {
-    final prefs = ref.read(sharedPreferencesSourceProvider);
-    final savedLessonId = prefs.getFlashcardSessionLessonId();
-    final savedIndex = prefs.getFlashcardSessionIndex();
+    final notifier = ref.read(flashcardSessionProvider.notifier);
 
-    int startIndex = 0;
+    if (_isMultiLesson) {
+      // Multi-lesson session: load all lessons in the unit
+      final contentRepo = ref.read(contentRepositoryProvider);
+      final lessons = await contentRepo.getLessonsByUnitId(widget.unitId!);
+      final lessonIds = lessons.map((l) => l.id).toList();
+      await notifier.startMultiLessonSession(lessonIds);
+    } else {
+      // Single-lesson session with resume support
+      final prefs = ref.read(sharedPreferencesSourceProvider);
+      final savedLessonId = prefs.getFlashcardSessionLessonId();
+      final savedIndex = prefs.getFlashcardSessionIndex();
 
-    if (savedLessonId == widget.lessonId && savedIndex != null && mounted) {
-      final shouldResume = await _showResumeDialog();
-      if (shouldResume == true) {
-        startIndex = savedIndex;
+      int startIndex = 0;
+
+      if (savedLessonId == widget.lessonId && savedIndex != null && mounted) {
+        final shouldResume = await _showResumeDialog();
+        if (shouldResume == true) {
+          startIndex = savedIndex;
+        }
+      }
+
+      await notifier.startSession(widget.lessonId!, startIndex: startIndex);
+
+      if (mounted && startIndex > 0) {
+        _pageController.jumpToPage(startIndex);
       }
     }
 
-    final notifier = ref.read(flashcardSessionProvider.notifier);
-    await notifier.startSession(widget.lessonId, startIndex: startIndex);
-
     if (mounted) {
-      if (startIndex > 0) {
-        _pageController.jumpToPage(startIndex);
-      }
       setState(() => _isLoading = false);
       _focusNode.requestFocus();
     }
@@ -119,9 +135,13 @@ class _FlashcardSessionScreenState
       final newSession = ref.read(flashcardSessionProvider);
       if (newSession != null && newSession.isCompleted) {
         if (mounted) {
-          context.pushReplacement(
-            '/session/summary/${widget.lessonId}',
-          );
+          if (_isMultiLesson) {
+            context.pop();
+          } else {
+            context.pushReplacement(
+              '/session/summary/${widget.lessonId}',
+            );
+          }
         }
       } else if (!wasLast) {
         _pageController.nextPage(

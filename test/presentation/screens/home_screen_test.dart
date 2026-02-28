@@ -24,6 +24,8 @@ import 'package:mufeed_app/presentation/providers/srs_provider.dart';
 import 'package:mufeed_app/presentation/providers/streak_provider.dart';
 import 'package:mufeed_app/presentation/screens/home_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:mufeed_app/domain/models/daily_activity_model.dart';
+import 'package:mufeed_app/domain/models/upcoming_reviews_model.dart';
 
 class FakeProgressRepository implements ProgressRepository {
   List<({int lessonId, int totalItems, int masteredCount})>
@@ -40,6 +42,8 @@ class FakeProgressRepository implements ProgressRepository {
   Future<List<ReviewableItemModel>> getReviewableItemsForLesson(
           int lessonId) async =>
       [];
+  @override
+  Future<List<ReviewableItemModel>> getReviewableItemsForLessons(List<int> lessonIds) async => [];
   @override
   Future<List<UserProgressModel>> getDueItems() async => dueItems;
   @override
@@ -77,6 +81,12 @@ class FakeProgressRepository implements ProgressRepository {
   Future<int> getCompletedLessonCount() async => 0;
   @override
   Future<bool> hasPerfectQuiz() async => false;
+
+  @override
+  Future<List<DailyActivityModel>> getReviewActivity({int days = 14}) async => [];
+  @override
+  Future<UpcomingReviewsModel> getUpcomingReviews() async =>
+      const UpcomingReviewsModel(dueToday: 0, dueTomorrow: 0, dueThisWeek: 0);
 }
 
 class FakeContentRepository implements ContentRepository {

@@ -1,7 +1,9 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../domain/models/daily_activity_model.dart';
 import '../../domain/models/lesson_progress_model.dart';
 import '../../domain/models/progress_stats_model.dart';
+import '../../domain/models/upcoming_reviews_model.dart';
 import '../../domain/models/user_progress_model.dart';
 import 'srs_provider.dart';
 
@@ -79,4 +81,13 @@ final lessonProgressProvider =
     totalItems: totalItems,
     masteredCount: masteredCount,
   );
+});
+
+final recentActivityProvider =
+    FutureProvider<List<DailyActivityModel>>((ref) {
+  return ref.watch(progressRepositoryProvider).getReviewActivity(days: 14);
+});
+
+final upcomingReviewsProvider = FutureProvider<UpcomingReviewsModel>((ref) {
+  return ref.watch(progressRepositoryProvider).getUpcomingReviews();
 });

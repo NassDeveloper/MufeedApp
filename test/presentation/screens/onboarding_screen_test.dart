@@ -12,10 +12,36 @@ import 'package:mufeed_app/domain/repositories/content_repository.dart';
 import 'package:mufeed_app/l10n/app_localizations.dart';
 import 'package:mufeed_app/presentation/providers/content_provider.dart';
 import 'package:mufeed_app/presentation/providers/locale_provider.dart';
+import 'package:mufeed_app/presentation/providers/mini_session_provider.dart';
 import 'package:mufeed_app/presentation/providers/onboarding_provider.dart';
 import 'package:mufeed_app/presentation/providers/preferences_provider.dart';
 import 'package:mufeed_app/presentation/screens/onboarding_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+WordModel _word(int id) => WordModel(
+      id: id,
+      lessonId: 1,
+      contentType: 'word',
+      arabic: 'كَلِمَة $id',
+      translationFr: 'mot $id',
+      sortOrder: id,
+    );
+
+UnitModel _unit(int id) => UnitModel(
+      id: id,
+      levelId: 1,
+      number: id,
+      nameFr: 'Unité $id',
+      nameEn: 'Unit $id',
+    );
+
+LessonModel _lesson(int id) => LessonModel(
+      id: id,
+      unitId: 1,
+      number: id,
+      nameFr: 'Leçon $id',
+      nameEn: 'Lesson $id',
+    );
 
 class FakeContentRepository implements ContentRepository {
   List<LevelModel> levels = [];
@@ -24,13 +50,16 @@ class FakeContentRepository implements ContentRepository {
   Future<List<LevelModel>> getAllLevels() async => levels;
 
   @override
-  Future<List<UnitModel>> getUnitsByLevelId(int levelId) async => [];
+  Future<List<UnitModel>> getUnitsByLevelId(int levelId) async =>
+      [_unit(1), _unit(2)];
 
   @override
-  Future<List<LessonModel>> getLessonsByUnitId(int unitId) async => [];
+  Future<List<LessonModel>> getLessonsByUnitId(int unitId) async =>
+      [_lesson(1), _lesson(2)];
 
   @override
-  Future<List<WordModel>> getWordsByLessonId(int lessonId) async => [];
+  Future<List<WordModel>> getWordsByLessonId(int lessonId) async =>
+      [_word(1), _word(2), _word(3), _word(4), _word(5)];
 
   @override
   Future<List<VerbModel>> getVerbsByLessonId(int lessonId) async => [];
@@ -82,6 +111,9 @@ void main() {
           contentRepositoryProvider.overrideWithValue(repo),
           sharedPreferencesSourceProvider.overrideWithValue(prefsSource),
           localeProvider.overrideWith(() => _FixedLocaleNotifier()),
+          miniSessionWordsProvider.overrideWith(
+            (_) async => [_word(1), _word(2), _word(3)],
+          ),
         ],
       );
     });
@@ -231,7 +263,7 @@ void main() {
       expect(find.byType(PageView), findsOneWidget);
     });
 
-    testWidgets('navigates to consent page after level selection',
+    testWidgets('navigates to mini-session page after level selection',
         (tester) async {
       await tester.pumpWidget(_buildApp(container));
       await tester.pumpAndSettle();
@@ -246,19 +278,76 @@ void main() {
       await tester.tap(find.text('Suivant'));
       await tester.pumpAndSettle();
 
-      // Level → Consent
+      // Level → Mini-session
       await tester.tap(find.text('Niveau 1'));
       await tester.pumpAndSettle();
-      // Tap the last "Suivant" button (level page)
       await tester.tap(find.widgetWithText(FilledButton, 'Suivant').last);
       await tester.pumpAndSettle();
 
-      expect(
-        find.text('Données & confidentialité'),
-        findsOneWidget,
-      );
+      expect(find.text('Aperçu de votre contenu'), findsOneWidget);
+    });
+
+    testWidgets('navigates to consent page after mini-session',
+        (tester) async {
+      await tester.pumpWidget(_buildApp(container));
+      await tester.pumpAndSettle();
+
+      // Welcome → Mode
+      await tester.tap(find.text('Commencer'));
+      await tester.pumpAndSettle();
+
+      // Mode → Level
+      await tester.tap(find.text('Autodidacte'));
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('Suivant'));
+      await tester.pumpAndSettle();
+
+      // Level → Mini-session
+      await tester.tap(find.text('Niveau 1'));
+      await tester.pumpAndSettle();
+      await tester.tap(find.widgetWithText(FilledButton, 'Suivant').last);
+      await tester.pumpAndSettle();
+
+      // Mini-session → Consent
+      await tester.tap(find.widgetWithText(FilledButton, 'Suivant').last);
+      await tester.pumpAndSettle();
+
+      expect(find.text('Données & confidentialité'), findsOneWidget);
       expect(find.text('Accepter'), findsOneWidget);
       expect(find.text('Refuser'), findsOneWidget);
+    });
+
+    testWidgets('back button not visible on welcome page', (tester) async {
+      await tester.pumpWidget(_buildApp(container));
+      await tester.pumpAndSettle();
+
+      expect(find.text('Précédent'), findsNothing);
+    });
+
+    testWidgets('back button visible on mode page', (tester) async {
+      await tester.pumpWidget(_buildApp(container));
+      await tester.pumpAndSettle();
+
+      await tester.tap(find.text('Commencer'));
+      await tester.pumpAndSettle();
+
+      expect(find.text('Précédent'), findsOneWidget);
+    });
+
+    testWidgets('back button navigates to previous page', (tester) async {
+      await tester.pumpWidget(_buildApp(container));
+      await tester.pumpAndSettle();
+
+      // Go to mode page
+      await tester.tap(find.text('Commencer'));
+      await tester.pumpAndSettle();
+      expect(find.text('Comment apprenez-vous ?'), findsOneWidget);
+
+      // Tap back
+      await tester.tap(find.text('Précédent'));
+      await tester.pumpAndSettle();
+
+      expect(find.text('Apprends l\'arabe avec méthode'), findsOneWidget);
     });
   });
 }

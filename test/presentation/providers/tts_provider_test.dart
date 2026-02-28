@@ -118,6 +118,17 @@ void main() {
       expect(fakeTts.lastSpokenText, 'كتاب');
     });
 
+    test('speak preserves Arabic diacritics for accurate TTS pronunciation',
+        () async {
+      // Diacritics must be preserved so the TTS engine can correctly
+      // resolve long vowels. e.g. الخَمِيس (kasra on mim → "mees")
+      // must NOT become الخميس (which the engine reads as "khamiy-as").
+      final notifier = container.read(ttsProvider.notifier);
+      await notifier.speak('الخَمِيس');
+
+      expect(fakeTts.lastSpokenText, 'الخَمِيس');
+    });
+
     test('speak sets error state when FlutterTts returns non-1', () async {
       fakeTts.speakResult = 0;
       final notifier = container.read(ttsProvider.notifier);

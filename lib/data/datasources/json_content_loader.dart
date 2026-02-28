@@ -85,4 +85,21 @@ class JsonContentLoader {
       return [];
     }
   }
+
+  /// Loads mini-dialogues for a level. Returns empty list if file doesn't exist.
+  Future<List<Map<String, dynamic>>> loadDialogues(int levelNumber) async {
+    try {
+      final path =
+          '$_basePath/level_${levelNumber.toString().padLeft(2, '0')}/dialogues.json';
+      final jsonString = await rootBundle.loadString(path);
+      final list = json.decode(jsonString) as List<dynamic>;
+      return list.cast<Map<String, dynamic>>();
+    } on FlutterError {
+      // dialogues.json doesn't exist for this level — that's fine
+      return [];
+    } catch (e) {
+      debugPrint('Warning: error loading dialogues for level $levelNumber: $e');
+      return [];
+    }
+  }
 }

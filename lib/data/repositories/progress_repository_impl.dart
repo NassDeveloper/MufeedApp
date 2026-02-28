@@ -1,8 +1,10 @@
 import 'package:drift/drift.dart';
 
 import '../../core/errors/app_error.dart';
+import '../../domain/models/daily_activity_model.dart';
 import '../../domain/models/reviewable_item_model.dart';
 import '../../domain/models/session_model.dart';
+import '../../domain/models/upcoming_reviews_model.dart';
 import '../../domain/models/user_progress_model.dart';
 import '../../domain/repositories/progress_repository.dart';
 import '../database/app_database.dart';
@@ -17,6 +19,13 @@ class ProgressRepositoryImpl implements ProgressRepository {
   Future<List<ReviewableItemModel>> getReviewableItemsForLesson(
       int lessonId) async {
     final rows = await _dao.getReviewableItemsForLesson(lessonId);
+    return rows.map(_rowToReviewableItem).toList();
+  }
+
+  @override
+  Future<List<ReviewableItemModel>> getReviewableItemsForLessons(
+      List<int> lessonIds) async {
+    final rows = await _dao.getReviewableItemsForLessons(lessonIds);
     return rows.map(_rowToReviewableItem).toList();
   }
 
@@ -154,6 +163,34 @@ class ProgressRepositoryImpl implements ProgressRepository {
       throw DatabaseError('Failed to check for perfect quiz',
           debugInfo: '$e');
     }
+  }
+
+  @override
+  Future<List<DailyActivityModel>> getReviewActivity({int days = 14}) async {
+    final since = DateTime.now().subtract(Duration(days: days));
+    final map = await _dao.getReviewActivityByDay(since);
+    final result = <DailyActivityModel>[];
+    final now = DateTime.now();
+    for (var i = days - 1; i >= 0; i--) {
+      final date =
+          DateTime(now.year, now.month, now.day).subtract(Duration(days: i));
+      final key =
+          '${date.year.toString().padLeft(4, '0')}-'
+          '${date.month.toString().padLeft(2, '0')}-'
+          '${date.day.toString().padLeft(2, '0')}';
+      result.add(DailyActivityModel(date: date, count: map[key] ?? 0));
+    }
+    return result;
+  }
+
+  @override
+  Future<UpcomingReviewsModel> getUpcomingReviews() async {
+    final row = await _dao.getUpcomingReviewCounts(DateTime.now());
+    return UpcomingReviewsModel(
+      dueToday: row.dueToday,
+      dueTomorrow: row.dueTomorrow,
+      dueThisWeek: row.dueThisWeek,
+    );
   }
 
   ReviewableItemModel _rowToReviewableItem(ReviewableItemRow row) {

@@ -53,6 +53,48 @@ class ProgressDao extends DatabaseAccessor<AppDatabase>
     return rows.map(ReviewableItemRow.fromRow).toList();
   }
 
+  /// Returns all reviewable items for multiple lessons with their progress state.
+  Future<List<ReviewableItemRow>> getReviewableItemsForLessons(
+      List<int> lessonIds) async {
+    if (lessonIds.isEmpty) return [];
+    final placeholders = List.filled(lessonIds.length, '?').join(', ');
+    final query = customSelect(
+      '''
+      SELECT w.id AS item_id, 'vocab' AS content_type, w.arabic AS arabic,
+             w.translation_fr AS translation_fr, w.sort_order AS sort_order,
+             NULL AS verb_past, NULL AS verb_present, NULL AS verb_imperative,
+             up.state AS progress_state, up.stability AS stability,
+             up.difficulty AS difficulty, up.next_review AS next_review,
+             up.review_count AS review_count, up.last_review AS last_review,
+             up.elapsed_days AS elapsed_days, up.scheduled_days AS scheduled_days,
+             up.reps AS reps
+      FROM words w
+      LEFT JOIN user_progress up ON up.item_id = w.id AND up.content_type = 'vocab'
+      WHERE w.lesson_id IN ($placeholders)
+      UNION ALL
+      SELECT v.id AS item_id, 'verb' AS content_type, v.masdar AS arabic,
+             v.translation_fr AS translation_fr, v.sort_order AS sort_order,
+             v.past AS verb_past, v.present AS verb_present, v.imperative AS verb_imperative,
+             up.state AS progress_state, up.stability AS stability,
+             up.difficulty AS difficulty, up.next_review AS next_review,
+             up.review_count AS review_count, up.last_review AS last_review,
+             up.elapsed_days AS elapsed_days, up.scheduled_days AS scheduled_days,
+             up.reps AS reps
+      FROM verbs v
+      LEFT JOIN user_progress up ON up.item_id = v.id AND up.content_type = 'verb'
+      WHERE v.lesson_id IN ($placeholders)
+      ORDER BY sort_order
+      ''',
+      variables: [
+        ...lessonIds.map(Variable.withInt),
+        ...lessonIds.map(Variable.withInt),
+      ],
+      readsFrom: {words, verbs, userProgress},
+    );
+    final rows = await query.get();
+    return rows.map(ReviewableItemRow.fromRow).toList();
+  }
+
   /// Returns items due for review (next_review <= now), sorted by most overdue first.
   Future<List<UserProgressData>> getDueItems(DateTime now) {
     return (select(userProgress)
@@ -317,6 +359,72 @@ class ProgressDao extends DatabaseAccessor<AppDatabase>
     final row = await query.getSingle();
     return row.read<int>('total');
   }
+
+  /// Returns the number of items reviewed per day since [since].
+  /// Uses last_review (stored as ms since epoch) from user_progress.
+  Future<Map<String, int>> getReviewActivityByDay(DateTime since) async {
+    final query = customSelect(
+      '''
+      SELECT strftime('%Y-%m-%d', last_review / 1000, 'unixepoch', 'localtime') AS day,
+             COUNT(*) AS cnt
+      FROM user_progress
+      WHERE last_review IS NOT NULL
+        AND last_review >= ?
+      GROUP BY day
+      ORDER BY day
+      ''',
+      variables: [Variable.withInt(since.millisecondsSinceEpoch)],
+      readsFrom: {userProgress},
+    );
+    final rows = await query.get();
+    return {
+      for (final row in rows)
+        row.read<String>('day'): row.read<int>('cnt'),
+    };
+  }
+
+  /// Returns counts of upcoming reviews: due today, due tomorrow, due within 7 days.
+  Future<UpcomingCountsRow> getUpcomingReviewCounts(DateTime now) async {
+    final endOfToday = DateTime(now.year, now.month, now.day, 23, 59, 59);
+    final endOfTomorrow = endOfToday.add(const Duration(days: 1));
+    final endOfWeek = endOfToday.add(const Duration(days: 7));
+    final query = customSelect(
+      '''
+      SELECT
+        SUM(CASE WHEN next_review <= ? THEN 1 ELSE 0 END) AS due_today,
+        SUM(CASE WHEN next_review > ? AND next_review <= ? THEN 1 ELSE 0 END) AS due_tomorrow,
+        SUM(CASE WHEN next_review <= ? THEN 1 ELSE 0 END) AS due_week
+      FROM user_progress
+      WHERE next_review IS NOT NULL
+      ''',
+      variables: [
+        Variable.withInt(endOfToday.millisecondsSinceEpoch),
+        Variable.withInt(endOfToday.millisecondsSinceEpoch),
+        Variable.withInt(endOfTomorrow.millisecondsSinceEpoch),
+        Variable.withInt(endOfWeek.millisecondsSinceEpoch),
+      ],
+      readsFrom: {userProgress},
+    );
+    final row = await query.getSingle();
+    return UpcomingCountsRow(
+      dueToday: row.read<int?>('due_today') ?? 0,
+      dueTomorrow: row.read<int?>('due_tomorrow') ?? 0,
+      dueThisWeek: row.read<int?>('due_week') ?? 0,
+    );
+  }
+}
+
+/// Row class for upcoming review counts query.
+class UpcomingCountsRow {
+  const UpcomingCountsRow({
+    required this.dueToday,
+    required this.dueTomorrow,
+    required this.dueThisWeek,
+  });
+
+  final int dueToday;
+  final int dueTomorrow;
+  final int dueThisWeek;
 }
 
 /// Lightweight row class for the reviewable_items union query.

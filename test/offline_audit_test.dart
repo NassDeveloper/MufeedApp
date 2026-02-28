@@ -19,8 +19,15 @@ void main() {
       RegExp(r"import\s+'package:web_socket"),
     ];
 
+    // Files allowed to use network (fire-and-forget, non-blocking)
+    const allowedFiles = {
+      'error_report_repository_impl.dart',
+    };
+
     final violations = <String>[];
     for (final file in dartFiles) {
+      final fileName = file.uri.pathSegments.last;
+      if (allowedFiles.contains(fileName)) continue;
       final content = file.readAsStringSync();
       for (final pattern in networkPatterns) {
         if (pattern.hasMatch(content)) {

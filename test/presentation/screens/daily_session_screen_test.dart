@@ -12,12 +12,17 @@ import 'package:mufeed_app/presentation/providers/preferences_provider.dart';
 import 'package:mufeed_app/presentation/providers/srs_provider.dart';
 import 'package:mufeed_app/presentation/screens/daily_session_screen.dart';
 import 'package:mufeed_app/presentation/widgets/skeleton_loader_widget.dart';
+import 'package:mufeed_app/domain/models/daily_activity_model.dart';
+import 'package:mufeed_app/domain/models/upcoming_reviews_model.dart';
 
 class FakeProgressRepository implements ProgressRepository {
   @override
   Future<List<ReviewableItemModel>> getReviewableItemsForLesson(
           int lessonId) async =>
       [];
+
+  @override
+  Future<List<ReviewableItemModel>> getReviewableItemsForLessons(List<int> lessonIds) async => [];
 
   @override
   Future<List<UserProgressModel>> getDueItems() async => [];
@@ -71,6 +76,12 @@ class FakeProgressRepository implements ProgressRepository {
   Future<int> getCompletedLessonCount() async => 0;
   @override
   Future<bool> hasPerfectQuiz() async => false;
+
+  @override
+  Future<List<DailyActivityModel>> getReviewActivity({int days = 14}) async => [];
+  @override
+  Future<UpcomingReviewsModel> getUpcomingReviews() async =>
+      const UpcomingReviewsModel(dueToday: 0, dueTomorrow: 0, dueThisWeek: 0);
 }
 
 class FakeSharedPreferencesSource implements SharedPreferencesSource {

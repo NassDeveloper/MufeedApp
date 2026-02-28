@@ -44,4 +44,8 @@ abstract final class AnimationConstants {
   static const badgeCelebrationDuration = Duration(milliseconds: 500);
   static const badgeCelebrationCurve = Curves.elasticOut;
   static const badgeCelebrationDisplayDuration = Duration(seconds: 3);
+
+  // Matching exercise
+  static const matchingFlashDuration = Duration(milliseconds: 600);
+  static const matchingSuccessDelay = Duration(milliseconds: 1000);
 }

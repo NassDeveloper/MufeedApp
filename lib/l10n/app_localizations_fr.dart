@@ -339,6 +339,36 @@ class AppLocalizationsFr extends AppLocalizations {
   String get statisticsScreenSubtitle => 'Suivez votre progression';
 
   @override
+  String get statsActivityTitle => 'Activité des 14 derniers jours';
+
+  @override
+  String get statsUpcomingTitle => 'Révisions à venir';
+
+  @override
+  String get statsUpcomingToday => 'Aujourd\'hui';
+
+  @override
+  String get statsUpcomingTomorrow => 'Demain';
+
+  @override
+  String get statsUpcomingWeek => 'Cette semaine';
+
+  @override
+  String get statsUpcomingNone => 'Aucune révision en attente';
+
+  @override
+  String statsUpcomingItems(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count items',
+      one: '1 item',
+      zero: '0 item',
+    );
+    return '$_temp0';
+  }
+
+  @override
   String get quizSummaryTitle => 'Résultat QCM';
 
   @override
@@ -752,6 +782,26 @@ class AppLocalizationsFr extends AppLocalizations {
       'Lire la politique de confidentialité';
 
   @override
+  String get onboardingMiniSessionTitle => 'Aperçu de votre contenu';
+
+  @override
+  String get onboardingMiniSessionSubtitle =>
+      'Quelques mots de votre premier niveau';
+
+  @override
+  String get onboardingPrevious => 'Précédent';
+
+  @override
+  String onboardingConsentRecapMode(String mode) {
+    return 'Mode : $mode';
+  }
+
+  @override
+  String onboardingConsentRecapLevel(String level) {
+    return 'Niveau : $level';
+  }
+
+  @override
   String get settingsPrivacySection => 'Données & confidentialité';
 
   @override
@@ -878,4 +928,112 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get confirmQuitStay => 'Continuer';
+
+  @override
+  String get matchingTitle => 'Association';
+
+  @override
+  String get matchingButton => 'Association';
+
+  @override
+  String matchingProgress(int matched, int total) {
+    return '$matched / $total';
+  }
+
+  @override
+  String get matchingEmptyTitle => 'Pas assez de mots';
+
+  @override
+  String get matchingEmptyMessage =>
+      'Cette leçon nécessite au minimum 4 mots pour lancer un exercice d\'association.';
+
+  @override
+  String get matchingEmptyAction => 'Retour';
+
+  @override
+  String get wordOrderingTitle => 'Remise en ordre';
+
+  @override
+  String get wordOrderingButton => 'Ordre';
+
+  @override
+  String wordOrderingProgress(int current, int total) {
+    return '$current / $total';
+  }
+
+  @override
+  String get wordOrderingInstruction => 'Remettez les mots dans le bon ordre';
+
+  @override
+  String get wordOrderingCorrect => 'Bonne réponse !';
+
+  @override
+  String get wordOrderingWrong => 'Pas tout à fait, réessayez !';
+
+  @override
+  String get wordOrderingNext => 'Suivant';
+
+  @override
+  String get wordOrderingReset => 'Réinitialiser';
+
+  @override
+  String get wordOrderingEmptyTitle => 'Aucune phrase disponible';
+
+  @override
+  String get wordOrderingEmptyMessage =>
+      'Cette leçon ne possède pas encore d\'exercice de remise en ordre.';
+
+  @override
+  String get wordOrderingEmptyAction => 'Retour';
+
+  @override
+  String get dialogueTitle => 'Mini-dialogue';
+
+  @override
+  String get dialogueButton => 'Dialogue';
+
+  @override
+  String dialogueProgress(int current, int total) {
+    return '$current / $total';
+  }
+
+  @override
+  String get dialogueNext => 'Suivant';
+
+  @override
+  String get dialogueEmptyTitle => 'Aucun dialogue disponible';
+
+  @override
+  String get dialogueEmptyMessage =>
+      'Cette leçon ne possède pas encore de mini-dialogue.';
+
+  @override
+  String get dialogueEmptyAction => 'Retour';
+
+  @override
+  String get listeningTitle => 'Exercice d\'écoute';
+
+  @override
+  String get listeningButton => 'Écoute';
+
+  @override
+  String listeningProgress(int current, int total) {
+    return '$current / $total';
+  }
+
+  @override
+  String get listeningInstruction => 'Écoutez et choisissez la traduction';
+
+  @override
+  String get listeningPlayButton => 'Jouer le mot';
+
+  @override
+  String get listeningEmptyTitle => 'Pas assez de mots';
+
+  @override
+  String get listeningEmptyMessage =>
+      'Cette leçon nécessite au minimum 4 mots pour lancer un exercice d\'écoute.';
+
+  @override
+  String get listeningEmptyAction => 'Retour';
 }

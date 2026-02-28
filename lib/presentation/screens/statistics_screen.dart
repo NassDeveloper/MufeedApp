@@ -6,7 +6,9 @@ import 'package:go_router/go_router.dart';
 
 import '../../core/constants/app_colors.dart';
 import '../../domain/models/badge_model.dart';
+import '../../domain/models/daily_activity_model.dart';
 import '../../domain/models/progress_stats_model.dart';
+import '../../domain/models/upcoming_reviews_model.dart';
 import '../../l10n/app_localizations.dart';
 import '../extensions/badge_type_ui.dart';
 import '../providers/badge_provider.dart';
@@ -117,7 +119,7 @@ class _EmptyState extends StatelessWidget {
   }
 }
 
-class _StatsContent extends StatelessWidget {
+class _StatsContent extends ConsumerWidget {
   const _StatsContent({
     required this.stats,
     required this.l10n,
@@ -129,7 +131,7 @@ class _StatsContent extends StatelessWidget {
   final List<BadgeModel> badges;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final colorScheme = Theme.of(context).colorScheme;
 
     final segments = [
@@ -199,6 +201,14 @@ class _StatsContent extends StatelessWidget {
             typeStats: stats.verbStats,
             l10n: l10n,
           ),
+          const SizedBox(height: 20),
+
+          // Activity chart
+          _ActivityChart(l10n: l10n),
+          const SizedBox(height: 20),
+
+          // Upcoming reviews
+          _UpcomingReviews(l10n: l10n),
 
           // Badges
           if (badges.isNotEmpty) ...[
@@ -693,4 +703,230 @@ class _DonutChartPainter extends CustomPainter {
   @override
   bool shouldRepaint(covariant _DonutChartPainter oldDelegate) =>
       total != oldDelegate.total;
+}
+
+// ──────────────────────────────────────────────────────────
+// Activity chart — 14 derniers jours
+// ──────────────────────────────────────────────────────────
+
+class _ActivityChart extends ConsumerWidget {
+  const _ActivityChart({required this.l10n});
+
+  final AppLocalizations l10n;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final asyncActivity = ref.watch(recentActivityProvider);
+
+    return asyncActivity.when(
+      loading: () => const Card(
+        child: Padding(
+          padding: EdgeInsets.all(16),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SkeletonLoader(width: 180, height: 18),
+              SizedBox(height: 12),
+              SkeletonLoader(height: 64),
+            ],
+          ),
+        ),
+      ),
+      error: (_, _) => const SizedBox.shrink(),
+      data: (days) => Card(
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                l10n.statsActivityTitle,
+                style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                      fontWeight: FontWeight.bold,
+                    ),
+              ),
+              const SizedBox(height: 16),
+              _ActivityBarChart(days: days, l10n: l10n),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _ActivityBarChart extends StatelessWidget {
+  const _ActivityBarChart({required this.days, required this.l10n});
+
+  final List<DailyActivityModel> days;
+  final AppLocalizations l10n;
+
+  @override
+  Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+    final maxCount = days.fold(0, (max, d) => d.count > max ? d.count : max);
+    final today = DateTime.now();
+
+    return SizedBox(
+      height: 60,
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: days.map((day) {
+          final ratio = maxCount == 0 ? 0.0 : day.count / maxCount;
+          final barHeight = math.max(4.0, ratio * 56);
+          final isToday = day.date.year == today.year &&
+              day.date.month == today.month &&
+              day.date.day == today.day;
+
+          return Expanded(
+            child: Semantics(
+              label: '${day.count} ${l10n.statsUpcomingItems(day.count)}',
+              excludeSemantics: true,
+              child: Container(
+                margin: const EdgeInsets.symmetric(horizontal: 1),
+                height: barHeight,
+                decoration: BoxDecoration(
+                  color: isToday
+                      ? colorScheme.primary
+                      : colorScheme.primary.withValues(alpha: 0.35),
+                  borderRadius: BorderRadius.circular(2),
+                ),
+              ),
+            ),
+          );
+        }).toList(),
+      ),
+    );
+  }
+}
+
+// ──────────────────────────────────────────────────────────
+// Upcoming reviews
+// ──────────────────────────────────────────────────────────
+
+class _UpcomingReviews extends ConsumerWidget {
+  const _UpcomingReviews({required this.l10n});
+
+  final AppLocalizations l10n;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final asyncUpcoming = ref.watch(upcomingReviewsProvider);
+
+    return asyncUpcoming.when(
+      loading: () => const Card(
+        child: Padding(
+          padding: EdgeInsets.all(16),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SkeletonLoader(width: 160, height: 18),
+              SizedBox(height: 12),
+              SkeletonLoader(height: 48),
+            ],
+          ),
+        ),
+      ),
+      error: (_, _) => const SizedBox.shrink(),
+      data: (upcoming) => _UpcomingReviewsCard(upcoming: upcoming, l10n: l10n),
+    );
+  }
+}
+
+class _UpcomingReviewsCard extends StatelessWidget {
+  const _UpcomingReviewsCard({
+    required this.upcoming,
+    required this.l10n,
+  });
+
+  final UpcomingReviewsModel upcoming;
+  final AppLocalizations l10n;
+
+  @override
+  Widget build(BuildContext context) {
+    final hasAny = upcoming.dueToday > 0 ||
+        upcoming.dueTomorrow > 0 ||
+        upcoming.dueThisWeek > 0;
+
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              l10n.statsUpcomingTitle,
+              style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                    fontWeight: FontWeight.bold,
+                  ),
+            ),
+            const SizedBox(height: 12),
+            if (!hasAny)
+              Text(
+                l10n.statsUpcomingNone,
+                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                      color: Theme.of(context).colorScheme.onSurfaceVariant,
+                    ),
+              )
+            else ...[
+              _UpcomingRow(
+                label: l10n.statsUpcomingToday,
+                count: upcoming.dueToday,
+                l10n: l10n,
+                isPrimary: upcoming.dueToday > 0,
+              ),
+              const SizedBox(height: 8),
+              _UpcomingRow(
+                label: l10n.statsUpcomingTomorrow,
+                count: upcoming.dueTomorrow,
+                l10n: l10n,
+              ),
+              const SizedBox(height: 8),
+              _UpcomingRow(
+                label: l10n.statsUpcomingWeek,
+                count: upcoming.dueThisWeek,
+                l10n: l10n,
+              ),
+            ],
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _UpcomingRow extends StatelessWidget {
+  const _UpcomingRow({
+    required this.label,
+    required this.count,
+    required this.l10n,
+    this.isPrimary = false,
+  });
+
+  final String label;
+  final int count;
+  final AppLocalizations l10n;
+  final bool isPrimary;
+
+  @override
+  Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Text(
+          label,
+          style: Theme.of(context).textTheme.bodyMedium,
+        ),
+        Text(
+          l10n.statsUpcomingItems(count),
+          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                color: isPrimary ? colorScheme.primary : null,
+                fontWeight: isPrimary ? FontWeight.bold : null,
+              ),
+        ),
+      ],
+    );
+  }
 }

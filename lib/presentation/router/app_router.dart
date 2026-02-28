@@ -18,6 +18,10 @@ import '../screens/session_summary_screen.dart';
 import '../screens/verb_table_exercise_screen.dart';
 import '../screens/daily_session_screen.dart';
 import '../screens/daily_summary_screen.dart';
+import '../screens/matching_exercise_screen.dart';
+import '../screens/word_ordering_screen.dart';
+import '../screens/dialogue_exercise_screen.dart';
+import '../screens/listening_exercise_screen.dart';
 import '../screens/settings_screen.dart';
 import '../screens/vocabulary_screen.dart';
 
@@ -63,6 +67,14 @@ GoRouter createAppRouter({
       builder: (context, state) => const DailySummaryScreen(),
     ),
     GoRoute(
+      path: '/session/flashcard/unit/:unitId',
+      parentNavigatorKey: _rootNavigatorKey,
+      builder: (context, state) {
+        final unitId = int.parse(state.pathParameters['unitId']!);
+        return FlashcardSessionScreen(unitId: unitId);
+      },
+    ),
+    GoRoute(
       path: '/session/flashcard/:lessonId',
       parentNavigatorKey: _rootNavigatorKey,
       builder: (context, state) {
@@ -100,6 +112,38 @@ GoRouter createAppRouter({
       builder: (context, state) {
         final lessonId = int.parse(state.pathParameters['lessonId']!);
         return VerbTableExerciseScreen(lessonId: lessonId);
+      },
+    ),
+    GoRoute(
+      path: '/session/matching/:lessonId',
+      parentNavigatorKey: _rootNavigatorKey,
+      builder: (context, state) {
+        final lessonId = int.parse(state.pathParameters['lessonId']!);
+        return MatchingExerciseScreen(lessonId: lessonId);
+      },
+    ),
+    GoRoute(
+      path: '/session/word-ordering/:lessonId',
+      parentNavigatorKey: _rootNavigatorKey,
+      builder: (context, state) {
+        final lessonId = int.parse(state.pathParameters['lessonId']!);
+        return WordOrderingScreen(lessonId: lessonId);
+      },
+    ),
+    GoRoute(
+      path: '/session/listening/:lessonId',
+      parentNavigatorKey: _rootNavigatorKey,
+      builder: (context, state) {
+        final lessonId = int.parse(state.pathParameters['lessonId']!);
+        return ListeningExerciseScreen(lessonId: lessonId);
+      },
+    ),
+    GoRoute(
+      path: '/session/dialogue/:lessonId',
+      parentNavigatorKey: _rootNavigatorKey,
+      builder: (context, state) {
+        final lessonId = int.parse(state.pathParameters['lessonId']!);
+        return DialogueExerciseScreen(lessonId: lessonId);
       },
     ),
     GoRoute(

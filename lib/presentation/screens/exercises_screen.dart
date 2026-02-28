@@ -6,6 +6,7 @@ import '../../domain/models/level_model.dart';
 import '../../domain/models/unit_model.dart';
 import '../../l10n/app_localizations.dart';
 import '../providers/content_provider.dart';
+import '../providers/dialogue_provider.dart';
 import '../utils/localized_name.dart';
 import '../widgets/error_content_widget.dart';
 import '../widgets/skeleton_loader_widget.dart';
@@ -137,6 +138,13 @@ class _LessonExerciseRow extends ConsumerWidget {
         asyncExercises.value?.isNotEmpty ?? false;
     final asyncVerbs = ref.watch(verbsByLessonProvider(lessonId));
     final hasVerbs = (asyncVerbs.value?.length ?? 0) >= 2;
+    final asyncWords = ref.watch(wordsByLessonProvider(lessonId));
+    final totalItems = (asyncWords.value?.length ?? 0) +
+        (asyncVerbs.value?.length ?? 0);
+    final hasEnoughForMatching = totalItems >= 4;
+    final hasEnoughForListening = totalItems >= 4;
+    final asyncDialogues = ref.watch(dialoguesByLessonProvider(lessonId));
+    final hasDialogues = asyncDialogues.value?.isNotEmpty ?? false;
 
     final buttonStyle = FilledButton.styleFrom(
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
@@ -176,6 +184,46 @@ class _LessonExerciseRow extends ConsumerWidget {
                 style: Theme.of(context).textTheme.labelSmall,
               ),
             ),
+          if (hasEnoughForMatching)
+            FilledButton.tonal(
+              onPressed: () =>
+                  context.push('/session/matching/$lessonId'),
+              style: buttonStyle,
+              child: Text(
+                l10n.matchingButton,
+                style: Theme.of(context).textTheme.labelSmall,
+              ),
+            ),
+          if (hasExercises)
+            FilledButton.tonal(
+              onPressed: () =>
+                  context.push('/session/word-ordering/$lessonId'),
+              style: buttonStyle,
+              child: Text(
+                l10n.wordOrderingButton,
+                style: Theme.of(context).textTheme.labelSmall,
+              ),
+            ),
+          if (hasEnoughForListening)
+            FilledButton.tonal(
+              onPressed: () =>
+                  context.push('/session/listening/$lessonId'),
+              style: buttonStyle,
+              child: Text(
+                l10n.listeningButton,
+                style: Theme.of(context).textTheme.labelSmall,
+              ),
+            ),
+          if (hasDialogues)
+            FilledButton.tonal(
+              onPressed: () =>
+                  context.push('/session/dialogue/$lessonId'),
+              style: buttonStyle,
+              child: Text(
+                l10n.dialogueButton,
+                style: Theme.of(context).textTheme.labelSmall,
+              ),
+            ),
           FilledButton.tonal(
             onPressed: () =>
                 context.push('/session/quiz/$lessonId'),
@@ -208,13 +256,35 @@ class _UnitLessonsSection extends ConsumerWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
-          padding: const EdgeInsets.fromLTRB(16, 8, 16, 4),
-          child: Text(
-            unitName,
-            style: Theme.of(context).textTheme.labelMedium?.copyWith(
-                  color: colorScheme.primary,
-                  fontWeight: FontWeight.w600,
+          padding: const EdgeInsets.fromLTRB(16, 8, 8, 4),
+          child: Row(
+            children: [
+              Expanded(
+                child: Text(
+                  unitName,
+                  style: Theme.of(context).textTheme.labelMedium?.copyWith(
+                        color: colorScheme.primary,
+                        fontWeight: FontWeight.w600,
+                      ),
                 ),
+              ),
+              IconButton(
+                icon: Icon(
+                  Icons.style_outlined,
+                  size: 18,
+                  color: colorScheme.primary,
+                ),
+                tooltip: AppLocalizations.of(context)!.flashcardStartSession,
+                visualDensity: VisualDensity.compact,
+                padding: EdgeInsets.zero,
+                constraints: const BoxConstraints(
+                  minWidth: 32,
+                  minHeight: 32,
+                ),
+                onPressed: () => GoRouter.of(context)
+                    .push('/session/flashcard/unit/${unit.id}'),
+              ),
+            ],
           ),
         ),
         asyncLessons.when(

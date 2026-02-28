@@ -53,6 +53,7 @@
   { "unit": 1, "lesson": 5, "arabic": "لا", "translation_fr": "non / ne...pas", "translation_en": "no / not", "grammatical_category": "particule", "sort_order": 2 },
   { "unit": 1, "lesson": 5, "arabic": "لَمْ", "translation_fr": "ne...pas (passé)", "translation_en": "did not", "grammatical_category": "particule", "sort_order": 3 },
   { "unit": 1, "lesson": 5, "arabic": "لَنْ", "translation_fr": "ne...pas (futur)", "translation_en": "will not", "grammatical_category": "particule", "sort_order": 4 },
+  { "unit": 1, "lesson": 5, "arabic": "مَا", "translation_fr": "ne...pas (passé, avec verbe conjugué)", "translation_en": "did not (with conjugated verb)", "grammatical_category": "particule", "sort_order": 5 },
 
   { "unit": 2, "lesson": 1, "arabic": "أَبٌ", "translation_fr": "père", "translation_en": "father", "grammatical_category": "nom", "sort_order": 1 },
   { "unit": 2, "lesson": 1, "arabic": "أُمٌّ", "translation_fr": "mère", "translation_en": "mother", "grammatical_category": "nom", "sort_order": 2 },

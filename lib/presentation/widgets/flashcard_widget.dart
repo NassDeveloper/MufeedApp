@@ -128,6 +128,11 @@ class _FlashcardWidgetState extends State<FlashcardWidget>
 
   Widget _buildFront(BuildContext context) {
     final theme = Theme.of(context);
+    // For verbs, show the past tense form on the front (not masdar which is
+    // studied later). Fall back to arabic (masdar) only if verbPast is absent.
+    final frontArabic = widget.item.isVerb
+        ? (widget.item.verbPast ?? widget.item.arabic)
+        : widget.item.arabic;
 
     return Card(
       elevation: 4,
@@ -141,7 +146,7 @@ class _FlashcardWidgetState extends State<FlashcardWidget>
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 ArabicText(
-                  widget.item.arabic,
+                  frontArabic,
                   style: TextStyle(
                     fontSize: 32,
                     color: theme.colorScheme.onSurface,
@@ -160,7 +165,7 @@ class _FlashcardWidgetState extends State<FlashcardWidget>
           Positioned(
             top: 8,
             left: 8,
-            child: TtsButton(text: widget.item.arabic),
+            child: TtsButton(text: frontArabic),
           ),
         ],
       ),

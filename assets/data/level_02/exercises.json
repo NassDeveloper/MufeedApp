@@ -2,99 +2,99 @@
   {
     "unit": 1,
     "lesson": 1,
-    "sentence_fr": "___ طالِبٌ.",
+    "sentence_fr": "___ est un étudiant. (Il)",
     "sentence_ar": "___ طَالِبٌ.",
-    "choices": ["أَنَا", "هُوَ", "هِيَ", "أَنْتِ"],
+    "choices": ["أَنْتَ", "هُوَ", "هِيَ", "أَنْتِ"],
     "correct_index": 1,
     "explanations": [
-      "Incorrect. أَنَا signifie « je ». La phrase deviendrait « Je suis un étudiant », mais le contexte demande « Il ».",
+      "Incorrect. أَنْتَ signifie « tu » au masculin. Le français indique « il ».",
       "Correct ! هُوَ signifie « il ». La phrase se lit : هُوَ طَالِبٌ (Il est un étudiant).",
-      "Incorrect. هِيَ signifie « elle ». On dirait هِيَ طَالِبَةٌ avec le féminin.",
-      "Incorrect. أَنْتِ signifie « tu » au féminin."
+      "Incorrect. هِيَ signifie « elle ». Le mot طَالِبٌ est au masculin.",
+      "Incorrect. أَنْتِ signifie « tu » au féminin. Le mot طَالِبٌ est au masculin."
     ]
   },
   {
     "unit": 1,
     "lesson": 1,
-    "sentence_fr": "___ مُعَلِّمَةٌ.",
+    "sentence_fr": "___ est enseignante. (Elle)",
     "sentence_ar": "___ مُعَلِّمَةٌ.",
-    "choices": ["هُوَ", "أَنْتَ", "هِيَ", "أَنَا"],
+    "choices": ["هُوَ", "أَنْتَ", "هِيَ", "أَنْتِ"],
     "correct_index": 2,
     "explanations": [
       "Incorrect. هُوَ signifie « il ». Le mot مُعَلِّمَةٌ est au féminin, il faut un pronom féminin.",
-      "Incorrect. أَنْتَ signifie « tu » au masculin.",
+      "Incorrect. أَنْتَ signifie « tu » au masculin. Le français indique « elle ».",
       "Correct ! هِيَ signifie « elle ». La phrase se lit : هِيَ مُعَلِّمَةٌ (Elle est enseignante).",
-      "Incorrect. أَنَا signifie « je »."
+      "Incorrect. أَنْتِ signifie « tu » au féminin. Le français indique « elle », pas « tu »."
     ]
   },
   {
     "unit": 1,
     "lesson": 1,
-    "sentence_fr": "___ طَبِيبٌ.",
+    "sentence_fr": "___ suis médecin. (Je)",
     "sentence_ar": "___ طَبِيبٌ.",
     "choices": ["هِيَ", "أَنَا", "أَنْتِ", "هُوَ"],
     "correct_index": 1,
     "explanations": [
       "Incorrect. هِيَ signifie « elle ». Avec le féminin, on dirait طَبِيبَةٌ.",
       "Correct ! أَنَا signifie « je ». La phrase se lit : أَنَا طَبِيبٌ (Je suis médecin).",
-      "Incorrect. أَنْتِ signifie « tu » au féminin.",
-      "Incorrect. هُوَ signifie « il ». C'est possible grammaticalement, mais le contexte demande « je »."
+      "Incorrect. أَنْتِ signifie « tu » au féminin. Le français indique « je ».",
+      "Incorrect. هُوَ signifie « il ». Le français indique « je »."
     ]
   },
   {
     "unit": 1,
     "lesson": 1,
-    "sentence_fr": "___ مُهَنْدِسٌ.",
+    "sentence_fr": "___ es ingénieur. (Tu, masc.)",
     "sentence_ar": "___ مُهَنْدِسٌ.",
-    "choices": ["هِيَ", "أَنْتِ", "أَنْتَ", "أَنَا"],
+    "choices": ["هِيَ", "أَنْتِ", "أَنْتَ", "هُوَ"],
     "correct_index": 2,
     "explanations": [
       "Incorrect. هِيَ signifie « elle ». مُهَنْدِسٌ est au masculin.",
-      "Incorrect. أَنْتِ signifie « tu » au féminin. Le mot مُهَنْدِسٌ est au masculin.",
+      "Incorrect. أَنْتِ signifie « tu » au féminin. Le français indique « tu » au masculin.",
       "Correct ! أَنْتَ signifie « tu » au masculin. La phrase se lit : أَنْتَ مُهَنْدِسٌ (Tu es ingénieur).",
-      "Incorrect. أَنَا signifie « je ». C'est possible, mais le contexte demande « tu (m.) »."
+      "Incorrect. هُوَ signifie « il ». Le français indique « tu »."
     ]
   },
   {
     "unit": 1,
     "lesson": 1,
-    "sentence_fr": "___ سَعِيدَةٌ.",
+    "sentence_fr": "___ es heureuse. (Tu, fém.)",
     "sentence_ar": "___ سَعِيدَةٌ.",
-    "choices": ["هُوَ", "أَنْتَ", "أَنَا", "أَنْتِ"],
+    "choices": ["هُوَ", "أَنْتَ", "هِيَ", "أَنْتِ"],
     "correct_index": 3,
     "explanations": [
       "Incorrect. هُوَ signifie « il ». Le mot سَعِيدَةٌ est au féminin (تاء مربوطة).",
       "Incorrect. أَنْتَ signifie « tu » au masculin. Le mot سَعِيدَةٌ est au féminin.",
-      "Incorrect. أَنَا peut être masculin ou féminin, mais le contexte demande « tu (f.) ».",
+      "Incorrect. هِيَ signifie « elle ». Le français indique « tu (féminin) ».",
       "Correct ! أَنْتِ signifie « tu » au féminin. La phrase se lit : أَنْتِ سَعِيدَةٌ (Tu es heureuse)."
     ]
   },
   {
     "unit": 1,
     "lesson": 1,
-    "sentence_fr": "___ مَرِيضٌ.",
+    "sentence_fr": "___ est malade. (Il)",
     "sentence_ar": "___ مَرِيضٌ.",
-    "choices": ["هِيَ", "هُوَ", "أَنْتِ", "أَنَا"],
+    "choices": ["هِيَ", "هُوَ", "أَنْتِ", "أَنْتَ"],
     "correct_index": 1,
     "explanations": [
       "Incorrect. هِيَ signifie « elle ». On dirait مَرِيضَةٌ au féminin.",
       "Correct ! هُوَ signifie « il ». La phrase se lit : هُوَ مَرِيضٌ (Il est malade).",
       "Incorrect. أَنْتِ signifie « tu » au féminin. Le mot مَرِيضٌ est au masculin.",
-      "Incorrect. أَنَا signifie « je ». C'est possible, mais le contexte demande « il »."
+      "Incorrect. أَنْتَ signifie « tu » au masculin. Le français indique « il »."
     ]
   },
   {
     "unit": 1,
     "lesson": 1,
-    "sentence_fr": "___ جَمِيلَةٌ.",
+    "sentence_fr": "___ est belle. (Elle)",
     "sentence_ar": "___ جَمِيلَةٌ.",
-    "choices": ["أَنْتَ", "هُوَ", "هِيَ", "أَنَا"],
+    "choices": ["أَنْتَ", "هُوَ", "هِيَ", "أَنْتِ"],
     "correct_index": 2,
     "explanations": [
       "Incorrect. أَنْتَ signifie « tu » au masculin. Le mot جَمِيلَةٌ est au féminin.",
       "Incorrect. هُوَ signifie « il ». Le mot جَمِيلَةٌ est au féminin.",
       "Correct ! هِيَ signifie « elle ». La phrase se lit : هِيَ جَمِيلَةٌ (Elle est belle).",
-      "Incorrect. أَنَا signifie « je ». Le contexte demande « elle »."
+      "Incorrect. أَنْتِ signifie « tu » au féminin. Le français indique « elle »."
     ]
   },
 

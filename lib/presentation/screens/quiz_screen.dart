@@ -104,6 +104,11 @@ class _QuizScreenState extends ConsumerState<QuizScreen>
   }
 
   Future<void> _advanceOrEnd() async {
+    // Clear confetti from previous question
+    if (_confettiParticles.isNotEmpty) {
+      setState(() => _confettiParticles.clear());
+    }
+
     final notifier = ref.read(quizSessionProvider.notifier);
     notifier.nextQuestion();
 
@@ -328,6 +333,7 @@ class _QuizScreenState extends ConsumerState<QuizScreen>
                     final choice = question.choices[index];
                     final optionState = _getOptionState(state, choice);
                     return Padding(
+                      key: ValueKey('q${state.currentIndex}_o$index'),
                       padding: const EdgeInsets.only(bottom: 12),
                       child: SizedBox(
                         width: double.infinity,
@@ -358,19 +364,21 @@ class _QuizScreenState extends ConsumerState<QuizScreen>
                 ],
               ),
             ),
-            // Confetti overlay
+            // Confetti overlay — IgnorePointer so it never blocks touches
             if (_confettiParticles.isNotEmpty)
-              AnimatedBuilder(
-                animation: _confettiController!,
-                builder: (context, _) {
-                  return CustomPaint(
-                    size: MediaQuery.sizeOf(context),
-                    painter: _ConfettiPainter(
-                      particles: _confettiParticles,
-                      progress: _confettiController!.value,
-                    ),
-                  );
-                },
+              IgnorePointer(
+                child: AnimatedBuilder(
+                  animation: _confettiController!,
+                  builder: (context, _) {
+                    return CustomPaint(
+                      size: MediaQuery.sizeOf(context),
+                      painter: _ConfettiPainter(
+                        particles: _confettiParticles,
+                        progress: _confettiController!.value,
+                      ),
+                    );
+                  },
+                ),
               ),
           ],
         ),

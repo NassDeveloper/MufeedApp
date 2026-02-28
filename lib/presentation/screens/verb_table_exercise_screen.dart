@@ -8,8 +8,10 @@ import 'package:go_router/go_router.dart';
 import '../../core/constants/app_colors.dart';
 import '../../domain/models/verb_table_row.dart';
 import '../../l10n/app_localizations.dart';
+import '../providers/error_report_provider.dart';
 import '../providers/verb_table_session_provider.dart';
 import '../utils/confirm_quit_session.dart';
+import '../widgets/error_report_dialog_widget.dart';
 import '../widgets/fade_in_widget.dart';
 import '../widgets/skeleton_loader_widget.dart';
 
@@ -125,6 +127,20 @@ class _VerbTableExerciseScreenState
     }
   }
 
+  void _showReport(BuildContext context, WidgetRef ref) {
+    showErrorReportDialog(
+      context: context,
+      onSend: (category, comment) async {
+        await ref.read(errorReportRepositoryProvider).submitReport(
+              itemId: widget.lessonId,
+              contentType: 'verb_table',
+              category: category,
+              comment: comment,
+            );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
@@ -220,6 +236,13 @@ class _VerbTableExerciseScreenState
           },
         ),
         title: Text(l10n.verbTableTitle),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.flag_outlined),
+            tooltip: l10n.reportError,
+            onPressed: () => _showReport(context, ref),
+          ),
+        ],
         bottom: PreferredSize(
           preferredSize: const Size.fromHeight(4),
           child: LinearProgressIndicator(
@@ -307,7 +330,7 @@ class _VerbTable extends StatelessWidget {
       ),
       defaultColumnWidth: const FixedColumnWidth(110),
       columnWidths: const {
-        0: FixedColumnWidth(100), // Translation
+        4: FixedColumnWidth(100), // Translation
       },
       children: [
         // Header row
@@ -317,11 +340,11 @@ class _VerbTable extends StatelessWidget {
             borderRadius: const BorderRadius.vertical(top: Radius.circular(8)),
           ),
           children: [
-            _headerCell(context, l10n.verbTableTranslation),
             _headerCell(context, 'المصدر'),
-            _headerCell(context, 'الماضي'),
-            _headerCell(context, 'المضارع'),
             _headerCell(context, 'الأمر'),
+            _headerCell(context, 'المضارع'),
+            _headerCell(context, 'الماضي'),
+            _headerCell(context, l10n.verbTableTranslation),
           ],
         ),
         // Data rows
@@ -333,11 +356,11 @@ class _VerbTable extends StatelessWidget {
                   : colorScheme.surfaceContainerHighest.withValues(alpha: 0.3),
             ),
             children: [
-              _translationCell(context, rows[i].translationFr),
               _verbCell(context, rows[i].masdar, i, VerbForm.masdar),
-              _verbCell(context, rows[i].past, i, VerbForm.past),
-              _verbCell(context, rows[i].present, i, VerbForm.present),
               _verbCell(context, rows[i].imperative, i, VerbForm.imperative),
+              _verbCell(context, rows[i].present, i, VerbForm.present),
+              _verbCell(context, rows[i].past, i, VerbForm.past),
+              _translationCell(context, rows[i].translationFr),
             ],
           ),
       ],

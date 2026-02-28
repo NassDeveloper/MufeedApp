@@ -18,7 +18,7 @@ class OnboardingState {
   final int? selectedLevelId;
   final bool? gdprConsent;
 
-  static const totalPages = 4;
+  static const totalPages = 5;
 
   bool get canProceed {
     switch (currentPage) {
@@ -29,6 +29,8 @@ class OnboardingState {
       case 2:
         return selectedLevelId != null;
       case 3:
+        return true; // Mini-session page — always can proceed
+      case 4:
         return true; // Consent page — both accept and refuse are valid
       default:
         return false;

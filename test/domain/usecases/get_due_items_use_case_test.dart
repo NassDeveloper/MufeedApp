@@ -4,6 +4,8 @@ import 'package:mufeed_app/domain/models/session_model.dart';
 import 'package:mufeed_app/domain/models/user_progress_model.dart';
 import 'package:mufeed_app/domain/repositories/progress_repository.dart';
 import 'package:mufeed_app/domain/usecases/get_due_items_use_case.dart';
+import 'package:mufeed_app/domain/models/daily_activity_model.dart';
+import 'package:mufeed_app/domain/models/upcoming_reviews_model.dart';
 
 class FakeProgressRepository implements ProgressRepository {
   List<UserProgressModel> dueItems = [];
@@ -16,6 +18,9 @@ class FakeProgressRepository implements ProgressRepository {
   @override
   Future<List<ReviewableItemModel>> getReviewableItemsForLesson(int lessonId) =>
       throw UnimplementedError();
+
+  @override
+  Future<List<ReviewableItemModel>> getReviewableItemsForLessons(List<int> lessonIds) async => [];
 
   @override
   Future<UserProgressModel?> getProgressForItem(
@@ -69,6 +74,12 @@ class FakeProgressRepository implements ProgressRepository {
   Future<int> getCompletedLessonCount() async => 0;
   @override
   Future<bool> hasPerfectQuiz() async => false;
+
+  @override
+  Future<List<DailyActivityModel>> getReviewActivity({int days = 14}) async => [];
+  @override
+  Future<UpcomingReviewsModel> getUpcomingReviews() async =>
+      const UpcomingReviewsModel(dueToday: 0, dueTomorrow: 0, dueThisWeek: 0);
 }
 
 void main() {

@@ -1,0 +1,247 @@
+[
+  {
+    "unit": 1,
+    "lesson": 1,
+    "title_fr": "Qui est-ce ?",
+    "title_en": "Who is this?",
+    "turns": [
+      {
+        "speaker": "A",
+        "arabic": "مَنْ هَذَا ؟",
+        "translation_fr": "Qui est-ce ?"
+      },
+      {
+        "speaker": "B",
+        "arabic": "___",
+        "translation_fr": "C'est un ingénieur.",
+        "choices": ["هُوَ مُهَنْدِسٌ.", "هِيَ مُعَلِّمَةٌ.", "أَنَا طَبِيبٌ."],
+        "correct_index": 0
+      }
+    ]
+  },
+  {
+    "unit": 1,
+    "lesson": 1,
+    "title_fr": "Malade ?",
+    "title_en": "Sick?",
+    "turns": [
+      {
+        "speaker": "A",
+        "arabic": "هُوَ طَبِيبٌ ؟",
+        "translation_fr": "Est-il médecin ?"
+      },
+      {
+        "speaker": "B",
+        "arabic": "___",
+        "translation_fr": "Non, il est étudiant.",
+        "choices": ["لَا، هُوَ طَالِبٌ.", "نَعَمْ، هُوَ كَبِيرٌ.", "هِيَ جَمِيلَةٌ."],
+        "correct_index": 0
+      }
+    ]
+  },
+  {
+    "unit": 1,
+    "lesson": 2,
+    "title_fr": "La maison",
+    "title_en": "The house",
+    "turns": [
+      {
+        "speaker": "A",
+        "arabic": "البَيْتُ كَبِيرٌ ؟",
+        "translation_fr": "La maison est-elle grande ?"
+      },
+      {
+        "speaker": "B",
+        "arabic": "___",
+        "translation_fr": "Non, la maison est petite.",
+        "choices": ["لَا، البَيْتُ صَغِيرٌ.", "نَعَمْ، الوَلَدُ كَبِيرٌ.", "الكِتَابُ صَغِيرٌ."],
+        "correct_index": 0
+      }
+    ]
+  },
+  {
+    "unit": 1,
+    "lesson": 2,
+    "title_fr": "L'élève",
+    "title_en": "The student",
+    "turns": [
+      {
+        "speaker": "A",
+        "arabic": "___",
+        "translation_fr": "L'élève est-il studieux ?",
+        "choices": ["الطَّالِبُ مُجْتَهِدٌ ؟", "البَيْتُ صَغِيرٌ ؟", "الرَّجُلُ قَوِيٌّ ؟"],
+        "correct_index": 0
+      },
+      {
+        "speaker": "B",
+        "arabic": "نَعَمْ، الطَّالِبُ مُجْتَهِدٌ.",
+        "translation_fr": "Oui, l'élève est studieux."
+      }
+    ]
+  },
+  {
+    "unit": 1,
+    "lesson": 3,
+    "title_fr": "Qu'est-ce que c'est ?",
+    "title_en": "What is this?",
+    "turns": [
+      {
+        "speaker": "A",
+        "arabic": "مَا هَذَا ؟",
+        "translation_fr": "Qu'est-ce que c'est ?"
+      },
+      {
+        "speaker": "B",
+        "arabic": "___",
+        "translation_fr": "C'est un livre.",
+        "choices": ["هَذَا كِتَابٌ.", "هَذِهِ سَيَّارَةٌ.", "هَذِهِ مَدْرَسَةٌ."],
+        "correct_index": 0
+      },
+      {
+        "speaker": "A",
+        "arabic": "أَيْنَ المَدْرَسَةُ ؟",
+        "translation_fr": "Où est l'école ?"
+      }
+    ]
+  },
+  {
+    "unit": 1,
+    "lesson": 3,
+    "title_fr": "Quand ?",
+    "title_en": "When?",
+    "turns": [
+      {
+        "speaker": "A",
+        "arabic": "___",
+        "translation_fr": "Quand est le cours ?",
+        "choices": ["مَتَى الدَّرْسُ ؟", "مَا هَذَا ؟", "مَنْ هَذَا ؟"],
+        "correct_index": 0
+      },
+      {
+        "speaker": "B",
+        "arabic": "الدَّرْسُ غَدًا.",
+        "translation_fr": "Le cours est demain."
+      }
+    ]
+  },
+  {
+    "unit": 1,
+    "lesson": 4,
+    "title_fr": "Le livre",
+    "title_en": "The book",
+    "turns": [
+      {
+        "speaker": "A",
+        "arabic": "أَيْنَ الكِتَابُ ؟",
+        "translation_fr": "Où est le livre ?"
+      },
+      {
+        "speaker": "B",
+        "arabic": "___",
+        "translation_fr": "Le livre est sur la table.",
+        "choices": ["الكِتَابُ فَوْقَ الطَّاوِلَةِ.", "القِطُّ تَحْتَ الطَّاوِلَةِ.", "الحَدِيقَةُ خَلْفَ البَيْتِ."],
+        "correct_index": 0
+      }
+    ]
+  },
+  {
+    "unit": 1,
+    "lesson": 4,
+    "title_fr": "La voiture",
+    "title_en": "The car",
+    "turns": [
+      {
+        "speaker": "A",
+        "arabic": "أَيْنَ السَّيَّارَةُ ؟",
+        "translation_fr": "Où est la voiture ?"
+      },
+      {
+        "speaker": "B",
+        "arabic": "___",
+        "translation_fr": "La voiture est devant la maison.",
+        "choices": ["السَّيَّارَةُ أَمَامَ البَيْتِ.", "القِطُّ تَحْتَ الطَّاوِلَةِ.", "المَسْجِدُ يَمِينَ المَدْرَسَةِ."],
+        "correct_index": 0
+      }
+    ]
+  },
+  {
+    "unit": 1,
+    "lesson": 5,
+    "title_fr": "Pas aujourd'hui",
+    "title_en": "Not today",
+    "turns": [
+      {
+        "speaker": "A",
+        "arabic": "هَلْ تَذْهَبُ إِلَى المَدْرَسَةِ ؟",
+        "translation_fr": "Vas-tu à l'école ?"
+      },
+      {
+        "speaker": "B",
+        "arabic": "___",
+        "translation_fr": "Je ne vais pas à l'école.",
+        "choices": ["لَا أَذْهَبُ إِلَى المَدْرَسَةِ.", "نَعَمْ، أَنَا طَالِبٌ.", "أَيْنَ المَدْرَسَةُ ؟"],
+        "correct_index": 0
+      }
+    ]
+  },
+  {
+    "unit": 1,
+    "lesson": 5,
+    "title_fr": "Hier",
+    "title_en": "Yesterday",
+    "turns": [
+      {
+        "speaker": "A",
+        "arabic": "هَلْ فَهِمَ الدَّرْسَ ؟",
+        "translation_fr": "A-t-il compris la leçon ?"
+      },
+      {
+        "speaker": "B",
+        "arabic": "___",
+        "translation_fr": "Non, il n'a pas compris la leçon.",
+        "choices": ["لَمْ يَفْهَمْ الدَّرْسَ.", "نَعَمْ، هُوَ مُجْتَهِدٌ.", "لَنْ يَكْتُبَ الوَاجِبَ."],
+        "correct_index": 0
+      }
+    ]
+  },
+  {
+    "unit": 1,
+    "lesson": 6,
+    "title_fr": "Hier",
+    "title_en": "Yesterday",
+    "turns": [
+      {
+        "speaker": "A",
+        "arabic": "أَيْنَ ذَهَبَ أَمْسِ ؟",
+        "translation_fr": "Où est-il allé hier ?"
+      },
+      {
+        "speaker": "B",
+        "arabic": "___",
+        "translation_fr": "Il est sorti du restaurant hier.",
+        "choices": ["خَرَجَ مِنَ المَطْعَمِ أَمْسِ.", "أَمْسِ دَرَسَ الدَّرْسَ.", "اِفْتَحْ البَابَ !"],
+        "correct_index": 0
+      }
+    ]
+  },
+  {
+    "unit": 1,
+    "lesson": 6,
+    "title_fr": "Aujourd'hui",
+    "title_en": "Today",
+    "turns": [
+      {
+        "speaker": "A",
+        "arabic": "أَيْنَ يَذْهَبُ الْيَوْمَ ؟",
+        "translation_fr": "Où va-t-il aujourd'hui ?"
+      },
+      {
+        "speaker": "B",
+        "arabic": "___",
+        "translation_fr": "Aujourd'hui, il va à l'école.",
+        "choices": ["الْيَوْمَ يَذْهَبُ إِلَى المَدْرَسَةِ.", "أَمْسِ دَخَلَ الفَصْلَ.", "اِسْمَعْ الدَّرْسَ !"],
+        "correct_index": 0
+      }
+    ]
+  }
+]

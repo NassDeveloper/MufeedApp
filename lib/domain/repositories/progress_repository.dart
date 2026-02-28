@@ -1,9 +1,12 @@
+import '../models/daily_activity_model.dart';
 import '../models/reviewable_item_model.dart';
 import '../models/session_model.dart';
+import '../models/upcoming_reviews_model.dart';
 import '../models/user_progress_model.dart';
 
 abstract class ProgressRepository {
   Future<List<ReviewableItemModel>> getReviewableItemsForLesson(int lessonId);
+  Future<List<ReviewableItemModel>> getReviewableItemsForLessons(List<int> lessonIds);
   Future<List<UserProgressModel>> getDueItems();
   Future<List<ReviewableItemModel>> getDueReviewableItems();
   Future<UserProgressModel?> getProgressForItem(int itemId, String contentType);
@@ -22,4 +25,6 @@ abstract class ProgressRepository {
   Future<int> getTotalWordsReviewed();
   Future<int> getCompletedLessonCount();
   Future<bool> hasPerfectQuiz();
+  Future<List<DailyActivityModel>> getReviewActivity({int days = 14});
+  Future<UpcomingReviewsModel> getUpcomingReviews();
 }

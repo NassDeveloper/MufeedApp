@@ -49,6 +49,21 @@ void main() {
           currentPage: 2, learningMode: 'curriculum', selectedLevelId: 1);
       expect(state.canProceed, true);
     });
+
+    test('canProceed is true on mini-session page (page 3)', () {
+      const state = OnboardingState(currentPage: 3);
+      expect(state.canProceed, true);
+    });
+
+    test('canProceed is true on consent page (page 4)', () {
+      const state = OnboardingState(currentPage: 4);
+      expect(state.canProceed, true);
+    });
+
+    test('canProceed is false on unknown page', () {
+      const state = OnboardingState(currentPage: 99);
+      expect(state.canProceed, false);
+    });
   });
 
   group('OnboardingNotifier', () {
@@ -94,8 +109,9 @@ void main() {
       notifier.nextPage(); // 1
       notifier.nextPage(); // 2
       notifier.nextPage(); // 3
-      notifier.nextPage(); // still 3
-      expect(container.read(onboardingProvider).currentPage, 3);
+      notifier.nextPage(); // 4
+      notifier.nextPage(); // still 4
+      expect(container.read(onboardingProvider).currentPage, 4);
     });
 
     test('previousPage decrements page', () {

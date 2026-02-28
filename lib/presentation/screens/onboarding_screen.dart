@@ -3,10 +3,13 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../core/constants/animation_constants.dart';
+import '../../domain/models/level_model.dart';
 import '../../l10n/app_localizations.dart';
 import '../providers/content_provider.dart';
+import '../providers/mini_session_provider.dart';
 import '../providers/onboarding_provider.dart';
 import '../utils/localized_name.dart';
+import '../widgets/arabic_text_widget.dart';
 import '../widgets/error_content_widget.dart';
 import '../widgets/mode_card_widget.dart';
 import '../widgets/skeleton_loader_widget.dart';
@@ -64,6 +67,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                   _WelcomePage(),
                   _ModePage(),
                   _LevelPage(),
+                  _MiniSessionPage(),
                   _ConsentPage(),
                 ],
               ),
@@ -72,6 +76,21 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
               padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
               child: Column(
                 children: [
+                  if (state.currentPage > 0)
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: Semantics(
+                        button: true,
+                        label: l10n.onboardingPrevious,
+                        child: TextButton.icon(
+                          onPressed: () => ref
+                              .read(onboardingProvider.notifier)
+                              .previousPage(),
+                          icon: const Icon(Icons.arrow_back, size: 18),
+                          label: Text(l10n.onboardingPrevious),
+                        ),
+                      ),
+                    ),
                   Semantics(
                     label: l10n.onboardingSemanticPage(
                       state.currentPage + 1,
@@ -366,6 +385,96 @@ class _LevelPage extends ConsumerWidget {
   }
 }
 
+class _MiniSessionPage extends ConsumerWidget {
+  const _MiniSessionPage();
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context)!;
+    final asyncWords = ref.watch(miniSessionWordsProvider);
+
+    return Padding(
+      padding: const EdgeInsets.all(32),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const SizedBox(height: 32),
+          Text(
+            l10n.onboardingMiniSessionTitle,
+            style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                  fontWeight: FontWeight.bold,
+                ),
+          ),
+          const SizedBox(height: 8),
+          Text(
+            l10n.onboardingMiniSessionSubtitle,
+            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                  color: Theme.of(context).colorScheme.onSurfaceVariant,
+                ),
+          ),
+          const SizedBox(height: 24),
+          Expanded(
+            child: asyncWords.when(
+              loading: () => const SkeletonListLoader(itemCount: 3),
+              error: (_, _) => ErrorContent(
+                message: l10n.errorLoadingContent,
+                onRetry: () => ref.invalidate(miniSessionWordsProvider),
+                retryLabel: l10n.retry,
+              ),
+              data: (words) => ListView.separated(
+                itemCount: words.length,
+                separatorBuilder: (_, _) => const SizedBox(height: 12),
+                itemBuilder: (context, index) {
+                  final word = words[index];
+                  return Semantics(
+                    label: '${word.arabic} : ${word.translationFr}',
+                    excludeSemantics: true,
+                    child: Card(
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 16,
+                          vertical: 20,
+                        ),
+                        child: Column(
+                          children: [
+                            ArabicText(
+                              word.arabic,
+                              style: Theme.of(context).textTheme.headlineMedium,
+                            ),
+                            const SizedBox(height: 8),
+                            Text(
+                              word.translationFr,
+                              style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .onSurfaceVariant,
+                                  ),
+                              textAlign: TextAlign.center,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  );
+                },
+              ),
+            ),
+          ),
+          const SizedBox(height: 16),
+          SizedBox(
+            width: double.infinity,
+            child: FilledButton(
+              onPressed: () =>
+                  ref.read(onboardingProvider.notifier).nextPage(),
+              child: Text(l10n.onboardingNext),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
 class _ConsentPage extends ConsumerStatefulWidget {
   const _ConsentPage();
 
@@ -428,6 +537,8 @@ class _ConsentPageState extends ConsumerState<_ConsentPage>
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     final colorScheme = Theme.of(context).colorScheme;
+    final state = ref.watch(onboardingProvider);
+    final asyncLevels = ref.watch(levelsProvider);
 
     if (_showCelebration) {
       return Center(
@@ -468,7 +579,9 @@ class _ConsentPageState extends ConsumerState<_ConsentPage>
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const SizedBox(height: 32),
+                  const SizedBox(height: 16),
+                  _ConsentRecap(state: state, asyncLevels: asyncLevels, l10n: l10n),
+                  const SizedBox(height: 24),
                   Icon(
                     Icons.privacy_tip_outlined,
                     size: 64,
@@ -515,6 +628,59 @@ class _ConsentPageState extends ConsumerState<_ConsentPage>
             ),
           ),
         ],
+      ),
+    );
+  }
+}
+
+class _ConsentRecap extends StatelessWidget {
+  const _ConsentRecap({
+    required this.state,
+    required this.asyncLevels,
+    required this.l10n,
+  });
+
+  final OnboardingState state;
+  final AsyncValue<List<LevelModel>> asyncLevels;
+  final AppLocalizations l10n;
+
+  @override
+  Widget build(BuildContext context) {
+    final modeLabel = state.learningMode == 'curriculum'
+        ? l10n.onboardingModeCurriculum
+        : l10n.onboardingModeAutodidact;
+
+    String? levelName;
+    if (asyncLevels case AsyncData(:final value)) {
+      try {
+        final level = value.firstWhere((l) => l.id == state.selectedLevelId);
+        levelName = Localizations.localeOf(context).languageCode == 'fr'
+            ? level.nameFr
+            : level.nameEn;
+      } catch (_) {
+        levelName = null;
+      }
+    }
+
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.all(12),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              l10n.onboardingConsentRecapMode(modeLabel),
+              style: Theme.of(context).textTheme.bodyMedium,
+            ),
+            if (levelName != null) ...[
+              const SizedBox(height: 4),
+              Text(
+                l10n.onboardingConsentRecapLevel(levelName),
+                style: Theme.of(context).textTheme.bodyMedium,
+              ),
+            ],
+          ],
+        ),
       ),
     );
   }

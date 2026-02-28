@@ -8,6 +8,7 @@ import 'data/database/app_database.dart';
 import 'data/datasources/json_content_loader.dart';
 import 'data/datasources/shared_preferences_source.dart';
 import 'data/repositories/content_repository_impl.dart';
+import 'data/repositories/dialogue_repository_impl.dart';
 import 'data/repositories/error_report_repository_impl.dart';
 import 'data/repositories/progress_repository_impl.dart';
 import 'data/repositories/badge_repository_impl.dart';
@@ -18,6 +19,7 @@ import 'presentation/providers/analytics_provider.dart';
 import 'presentation/providers/badge_provider.dart';
 import 'presentation/providers/content_provider.dart';
 import 'presentation/providers/database_provider.dart';
+import 'presentation/providers/dialogue_provider.dart';
 import 'presentation/providers/error_report_provider.dart';
 import 'presentation/providers/notification_provider.dart';
 import 'presentation/providers/preferences_provider.dart';
@@ -58,6 +60,9 @@ void main() async {
         databaseProvider.overrideWithValue(database),
         contentRepositoryProvider.overrideWithValue(
           ContentRepositoryImpl(database.contentDao, JsonContentLoader()),
+        ),
+        dialogueRepositoryProvider.overrideWithValue(
+          DialogueRepositoryImpl(database.contentDao, JsonContentLoader()),
         ),
         errorReportRepositoryProvider.overrideWithValue(
           ErrorReportRepositoryImpl(database),

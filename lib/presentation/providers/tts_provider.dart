@@ -67,18 +67,11 @@ class TtsNotifier extends Notifier<TtsState> {
     });
   }
 
-  /// Strip Arabic diacritics (harakat) that can confuse the TTS engine.
-  static final _diacriticsRegex = RegExp(
-    '[\u0610-\u061A\u064B-\u065F\u0670\u06D6-\u06DC\u06DF-\u06E4\u06E7\u06E8\u06EA-\u06ED]',
-  );
-
-  String _stripDiacritics(String text) => text.replaceAll(_diacriticsRegex, '');
-
   Future<void> speak(String text) async {
     await _initFuture;
     await _tts.stop();
     state = TtsState(status: TtsStatus.playing, currentText: text);
-    final result = await _tts.speak(_stripDiacritics(text));
+    final result = await _tts.speak(text);
     if (result != 1) {
       state = const TtsState(status: TtsStatus.error);
       _scheduleErrorRecovery();

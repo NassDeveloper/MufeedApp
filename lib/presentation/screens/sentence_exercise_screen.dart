@@ -7,8 +7,10 @@ import 'package:go_router/go_router.dart';
 
 import '../../core/constants/app_colors.dart';
 import '../../l10n/app_localizations.dart';
+import '../providers/error_report_provider.dart';
 import '../providers/sentence_exercise_session_provider.dart';
 import '../utils/confirm_quit_session.dart';
+import '../widgets/error_report_dialog_widget.dart';
 import '../widgets/fade_in_widget.dart';
 import '../widgets/skeleton_loader_widget.dart';
 
@@ -64,6 +66,20 @@ class _SentenceExerciseScreenState
     } else {
       HapticFeedback.heavyImpact();
     }
+  }
+
+  void _showReport(BuildContext context, WidgetRef ref) {
+    showErrorReportDialog(
+      context: context,
+      onSend: (category, comment) async {
+        await ref.read(errorReportRepositoryProvider).submitReport(
+              itemId: widget.lessonId,
+              contentType: 'sentence_exercise',
+              category: category,
+              comment: comment,
+            );
+      },
+    );
   }
 
   void _onNext() {
@@ -178,6 +194,13 @@ class _SentenceExerciseScreenState
             state.totalExercises,
           ),
         ),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.flag_outlined),
+            tooltip: l10n.reportError,
+            onPressed: () => _showReport(context, ref),
+          ),
+        ],
         bottom: PreferredSize(
           preferredSize: const Size.fromHeight(4),
           child: LinearProgressIndicator(

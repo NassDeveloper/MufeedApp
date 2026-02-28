@@ -85,6 +85,19 @@ class FlashcardSessionNotifier extends Notifier<FlashcardSessionState?> {
     unawaited(_savePosition());
   }
 
+  Future<void> startMultiLessonSession(List<int> lessonIds) async {
+    final repository = ref.read(progressRepositoryProvider);
+    final items = await repository.getReviewableItemsForLessons(lessonIds);
+
+    if (items.isEmpty) return;
+
+    state = FlashcardSessionState(
+      items: items,
+      currentIndex: 0,
+      lessonId: 0,
+    );
+  }
+
   void startDailySession(List<ReviewableItemModel> items) {
     if (items.isEmpty) return;
 

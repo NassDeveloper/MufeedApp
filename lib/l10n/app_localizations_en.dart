@@ -339,6 +339,36 @@ class AppLocalizationsEn extends AppLocalizations {
   String get statisticsScreenSubtitle => 'Track your progress';
 
   @override
+  String get statsActivityTitle => 'Activity over 14 days';
+
+  @override
+  String get statsUpcomingTitle => 'Upcoming reviews';
+
+  @override
+  String get statsUpcomingToday => 'Today';
+
+  @override
+  String get statsUpcomingTomorrow => 'Tomorrow';
+
+  @override
+  String get statsUpcomingWeek => 'This week';
+
+  @override
+  String get statsUpcomingNone => 'No reviews pending';
+
+  @override
+  String statsUpcomingItems(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count items',
+      one: '1 item',
+      zero: '0 item',
+    );
+    return '$_temp0';
+  }
+
+  @override
   String get quizSummaryTitle => 'Quiz Results';
 
   @override
@@ -748,6 +778,26 @@ class AppLocalizationsEn extends AppLocalizations {
   String get onboardingConsentViewPolicy => 'Read privacy policy';
 
   @override
+  String get onboardingMiniSessionTitle => 'Content preview';
+
+  @override
+  String get onboardingMiniSessionSubtitle =>
+      'A few words from your first level';
+
+  @override
+  String get onboardingPrevious => 'Back';
+
+  @override
+  String onboardingConsentRecapMode(String mode) {
+    return 'Mode: $mode';
+  }
+
+  @override
+  String onboardingConsentRecapLevel(String level) {
+    return 'Level: $level';
+  }
+
+  @override
   String get settingsPrivacySection => 'Data & Privacy';
 
   @override
@@ -874,4 +924,112 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get confirmQuitStay => 'Continue';
+
+  @override
+  String get matchingTitle => 'Matching';
+
+  @override
+  String get matchingButton => 'Matching';
+
+  @override
+  String matchingProgress(int matched, int total) {
+    return '$matched / $total';
+  }
+
+  @override
+  String get matchingEmptyTitle => 'Not enough words';
+
+  @override
+  String get matchingEmptyMessage =>
+      'This lesson needs at least 4 words to start a matching exercise.';
+
+  @override
+  String get matchingEmptyAction => 'Back';
+
+  @override
+  String get wordOrderingTitle => 'Word Ordering';
+
+  @override
+  String get wordOrderingButton => 'Order';
+
+  @override
+  String wordOrderingProgress(int current, int total) {
+    return '$current / $total';
+  }
+
+  @override
+  String get wordOrderingInstruction => 'Put the words in the right order';
+
+  @override
+  String get wordOrderingCorrect => 'Correct!';
+
+  @override
+  String get wordOrderingWrong => 'Not quite, try again!';
+
+  @override
+  String get wordOrderingNext => 'Next';
+
+  @override
+  String get wordOrderingReset => 'Reset';
+
+  @override
+  String get wordOrderingEmptyTitle => 'No sentences available';
+
+  @override
+  String get wordOrderingEmptyMessage =>
+      'This lesson doesn\'t have word ordering exercises yet.';
+
+  @override
+  String get wordOrderingEmptyAction => 'Back';
+
+  @override
+  String get dialogueTitle => 'Mini-dialogue';
+
+  @override
+  String get dialogueButton => 'Dialogue';
+
+  @override
+  String dialogueProgress(int current, int total) {
+    return '$current / $total';
+  }
+
+  @override
+  String get dialogueNext => 'Next';
+
+  @override
+  String get dialogueEmptyTitle => 'No dialogue available';
+
+  @override
+  String get dialogueEmptyMessage =>
+      'This lesson doesn\'t have any mini-dialogue yet.';
+
+  @override
+  String get dialogueEmptyAction => 'Back';
+
+  @override
+  String get listeningTitle => 'Listening Exercise';
+
+  @override
+  String get listeningButton => 'Listen';
+
+  @override
+  String listeningProgress(int current, int total) {
+    return '$current / $total';
+  }
+
+  @override
+  String get listeningInstruction => 'Listen and choose the translation';
+
+  @override
+  String get listeningPlayButton => 'Play word';
+
+  @override
+  String get listeningEmptyTitle => 'Not enough words';
+
+  @override
+  String get listeningEmptyMessage =>
+      'This lesson needs at least 4 words to start a listening exercise.';
+
+  @override
+  String get listeningEmptyAction => 'Back';
 }

@@ -133,8 +133,8 @@ void main() {
       await tester.pumpAndSettle();
 
       expect(find.text('Compl\u00e9tez la phrase :'), findsOneWidget);
-      // 4 choice InkWells + 1 close button InkWell
-      expect(find.byType(InkWell), findsNWidgets(5));
+      // 4 choice InkWells + 1 close button + 1 report button
+      expect(find.byType(InkWell), findsNWidgets(6));
     });
 
     testWidgets('shows progress text "Question 1 / 2"', (tester) async {

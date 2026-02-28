@@ -54,11 +54,35 @@ void main() {
       expect(find.text('livre'), findsOneWidget);
     });
 
-    testWidgets('shows masdar on front for verb', (tester) async {
+    testWidgets('shows past tense on front for verb (not masdar)', (tester) async {
       await tester.pumpWidget(
         testAppWrapper(
           child: FlashcardWidget(
             item: verbItem,
+            isFlipped: false,
+            onFlip: () {},
+          ),
+        ),
+      );
+
+      // Front must show verbPast, not masdar
+      expect(find.text('كَتَبَ'), findsOneWidget);
+      expect(find.text('كِتَابَة'), findsNothing);
+    });
+
+    testWidgets('shows masdar as fallback on front when verbPast is null',
+        (tester) async {
+      const verbNoForms = ReviewableItemModel(
+        itemId: 3,
+        contentType: 'verb',
+        arabic: 'كِتَابَة',
+        translationFr: 'ecrire',
+        sortOrder: 3,
+      );
+      await tester.pumpWidget(
+        testAppWrapper(
+          child: FlashcardWidget(
+            item: verbNoForms,
             isFlipped: false,
             onFlip: () {},
           ),
@@ -81,6 +105,8 @@ void main() {
 
       await tester.pumpAndSettle();
       expect(find.text('ecrire'), findsOneWidget);
+      // Masdar is shown on the back with its label
+      expect(find.text('كِتَابَة'), findsOneWidget);
       expect(find.text('كَتَبَ'), findsOneWidget);
       expect(find.text('يَكْتُبُ'), findsOneWidget);
       expect(find.text('اُكْتُبْ'), findsOneWidget);

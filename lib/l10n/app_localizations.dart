@@ -614,6 +614,48 @@ abstract class AppLocalizations {
   /// **'Suivez votre progression'**
   String get statisticsScreenSubtitle;
 
+  /// No description provided for @statsActivityTitle.
+  ///
+  /// In fr, this message translates to:
+  /// **'Activité des 14 derniers jours'**
+  String get statsActivityTitle;
+
+  /// No description provided for @statsUpcomingTitle.
+  ///
+  /// In fr, this message translates to:
+  /// **'Révisions à venir'**
+  String get statsUpcomingTitle;
+
+  /// No description provided for @statsUpcomingToday.
+  ///
+  /// In fr, this message translates to:
+  /// **'Aujourd\'hui'**
+  String get statsUpcomingToday;
+
+  /// No description provided for @statsUpcomingTomorrow.
+  ///
+  /// In fr, this message translates to:
+  /// **'Demain'**
+  String get statsUpcomingTomorrow;
+
+  /// No description provided for @statsUpcomingWeek.
+  ///
+  /// In fr, this message translates to:
+  /// **'Cette semaine'**
+  String get statsUpcomingWeek;
+
+  /// No description provided for @statsUpcomingNone.
+  ///
+  /// In fr, this message translates to:
+  /// **'Aucune révision en attente'**
+  String get statsUpcomingNone;
+
+  /// No description provided for @statsUpcomingItems.
+  ///
+  /// In fr, this message translates to:
+  /// **'{count, plural, =0{0 item} =1{1 item} other{{count} items}}'**
+  String statsUpcomingItems(int count);
+
   /// No description provided for @quizSummaryTitle.
   ///
   /// In fr, this message translates to:
@@ -1316,6 +1358,36 @@ abstract class AppLocalizations {
   /// **'Lire la politique de confidentialité'**
   String get onboardingConsentViewPolicy;
 
+  /// No description provided for @onboardingMiniSessionTitle.
+  ///
+  /// In fr, this message translates to:
+  /// **'Aperçu de votre contenu'**
+  String get onboardingMiniSessionTitle;
+
+  /// No description provided for @onboardingMiniSessionSubtitle.
+  ///
+  /// In fr, this message translates to:
+  /// **'Quelques mots de votre premier niveau'**
+  String get onboardingMiniSessionSubtitle;
+
+  /// No description provided for @onboardingPrevious.
+  ///
+  /// In fr, this message translates to:
+  /// **'Précédent'**
+  String get onboardingPrevious;
+
+  /// No description provided for @onboardingConsentRecapMode.
+  ///
+  /// In fr, this message translates to:
+  /// **'Mode : {mode}'**
+  String onboardingConsentRecapMode(String mode);
+
+  /// No description provided for @onboardingConsentRecapLevel.
+  ///
+  /// In fr, this message translates to:
+  /// **'Niveau : {level}'**
+  String onboardingConsentRecapLevel(String level);
+
   /// No description provided for @settingsPrivacySection.
   ///
   /// In fr, this message translates to:
@@ -1531,6 +1603,198 @@ abstract class AppLocalizations {
   /// In fr, this message translates to:
   /// **'Continuer'**
   String get confirmQuitStay;
+
+  /// No description provided for @matchingTitle.
+  ///
+  /// In fr, this message translates to:
+  /// **'Association'**
+  String get matchingTitle;
+
+  /// No description provided for @matchingButton.
+  ///
+  /// In fr, this message translates to:
+  /// **'Association'**
+  String get matchingButton;
+
+  /// No description provided for @matchingProgress.
+  ///
+  /// In fr, this message translates to:
+  /// **'{matched} / {total}'**
+  String matchingProgress(int matched, int total);
+
+  /// No description provided for @matchingEmptyTitle.
+  ///
+  /// In fr, this message translates to:
+  /// **'Pas assez de mots'**
+  String get matchingEmptyTitle;
+
+  /// No description provided for @matchingEmptyMessage.
+  ///
+  /// In fr, this message translates to:
+  /// **'Cette leçon nécessite au minimum 4 mots pour lancer un exercice d\'association.'**
+  String get matchingEmptyMessage;
+
+  /// No description provided for @matchingEmptyAction.
+  ///
+  /// In fr, this message translates to:
+  /// **'Retour'**
+  String get matchingEmptyAction;
+
+  /// No description provided for @wordOrderingTitle.
+  ///
+  /// In fr, this message translates to:
+  /// **'Remise en ordre'**
+  String get wordOrderingTitle;
+
+  /// No description provided for @wordOrderingButton.
+  ///
+  /// In fr, this message translates to:
+  /// **'Ordre'**
+  String get wordOrderingButton;
+
+  /// No description provided for @wordOrderingProgress.
+  ///
+  /// In fr, this message translates to:
+  /// **'{current} / {total}'**
+  String wordOrderingProgress(int current, int total);
+
+  /// No description provided for @wordOrderingInstruction.
+  ///
+  /// In fr, this message translates to:
+  /// **'Remettez les mots dans le bon ordre'**
+  String get wordOrderingInstruction;
+
+  /// No description provided for @wordOrderingCorrect.
+  ///
+  /// In fr, this message translates to:
+  /// **'Bonne réponse !'**
+  String get wordOrderingCorrect;
+
+  /// No description provided for @wordOrderingWrong.
+  ///
+  /// In fr, this message translates to:
+  /// **'Pas tout à fait, réessayez !'**
+  String get wordOrderingWrong;
+
+  /// No description provided for @wordOrderingNext.
+  ///
+  /// In fr, this message translates to:
+  /// **'Suivant'**
+  String get wordOrderingNext;
+
+  /// No description provided for @wordOrderingReset.
+  ///
+  /// In fr, this message translates to:
+  /// **'Réinitialiser'**
+  String get wordOrderingReset;
+
+  /// No description provided for @wordOrderingEmptyTitle.
+  ///
+  /// In fr, this message translates to:
+  /// **'Aucune phrase disponible'**
+  String get wordOrderingEmptyTitle;
+
+  /// No description provided for @wordOrderingEmptyMessage.
+  ///
+  /// In fr, this message translates to:
+  /// **'Cette leçon ne possède pas encore d\'exercice de remise en ordre.'**
+  String get wordOrderingEmptyMessage;
+
+  /// No description provided for @wordOrderingEmptyAction.
+  ///
+  /// In fr, this message translates to:
+  /// **'Retour'**
+  String get wordOrderingEmptyAction;
+
+  /// No description provided for @dialogueTitle.
+  ///
+  /// In fr, this message translates to:
+  /// **'Mini-dialogue'**
+  String get dialogueTitle;
+
+  /// No description provided for @dialogueButton.
+  ///
+  /// In fr, this message translates to:
+  /// **'Dialogue'**
+  String get dialogueButton;
+
+  /// No description provided for @dialogueProgress.
+  ///
+  /// In fr, this message translates to:
+  /// **'{current} / {total}'**
+  String dialogueProgress(int current, int total);
+
+  /// No description provided for @dialogueNext.
+  ///
+  /// In fr, this message translates to:
+  /// **'Suivant'**
+  String get dialogueNext;
+
+  /// No description provided for @dialogueEmptyTitle.
+  ///
+  /// In fr, this message translates to:
+  /// **'Aucun dialogue disponible'**
+  String get dialogueEmptyTitle;
+
+  /// No description provided for @dialogueEmptyMessage.
+  ///
+  /// In fr, this message translates to:
+  /// **'Cette leçon ne possède pas encore de mini-dialogue.'**
+  String get dialogueEmptyMessage;
+
+  /// No description provided for @dialogueEmptyAction.
+  ///
+  /// In fr, this message translates to:
+  /// **'Retour'**
+  String get dialogueEmptyAction;
+
+  /// No description provided for @listeningTitle.
+  ///
+  /// In fr, this message translates to:
+  /// **'Exercice d\'écoute'**
+  String get listeningTitle;
+
+  /// No description provided for @listeningButton.
+  ///
+  /// In fr, this message translates to:
+  /// **'Écoute'**
+  String get listeningButton;
+
+  /// No description provided for @listeningProgress.
+  ///
+  /// In fr, this message translates to:
+  /// **'{current} / {total}'**
+  String listeningProgress(int current, int total);
+
+  /// No description provided for @listeningInstruction.
+  ///
+  /// In fr, this message translates to:
+  /// **'Écoutez et choisissez la traduction'**
+  String get listeningInstruction;
+
+  /// No description provided for @listeningPlayButton.
+  ///
+  /// In fr, this message translates to:
+  /// **'Jouer le mot'**
+  String get listeningPlayButton;
+
+  /// No description provided for @listeningEmptyTitle.
+  ///
+  /// In fr, this message translates to:
+  /// **'Pas assez de mots'**
+  String get listeningEmptyTitle;
+
+  /// No description provided for @listeningEmptyMessage.
+  ///
+  /// In fr, this message translates to:
+  /// **'Cette leçon nécessite au minimum 4 mots pour lancer un exercice d\'écoute.'**
+  String get listeningEmptyMessage;
+
+  /// No description provided for @listeningEmptyAction.
+  ///
+  /// In fr, this message translates to:
+  /// **'Retour'**
+  String get listeningEmptyAction;
 }
 
 class _AppLocalizationsDelegate
