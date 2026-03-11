@@ -1,34 +1,50 @@
 import 'package:flutter/material.dart';
 
 abstract final class AppColors {
-  // Seed color for Material 3 ColorScheme
-  static const seedColor = Color(0xFF1B4332);
+  // === Dark Neomorphism Palette ===
 
-  // === Dark Mode Palette (from UX Specification) ===
+  // Backgrounds — deep navy/purple
+  static const darkBackground = Color(0xFF0F0F1E);
+  static const darkSurface = Color(0xFF13131F);
+  static const darkCardSurface = Color(0xFF1A1A2E);
+  static const darkElevated = Color(0xFF1F1F35);
 
-  // Backgrounds
-  static const darkBackground = Color(0xFF1B4332); // Vert profond
-  static const darkSurface = Color(0xFF1B4332);
-  static const darkCardSurface = Color(0xFF2D5A45); // Vert légèrement plus clair
+  // Primary — Violet
+  static const violet = Color(0xFF7C3AED);
+  static const violetLight = Color(0xFFA78BFA);
+  static const violetContainer = Color(0xFF2D1B69);
 
-  // Accent – Doré/ambre
-  static const gold = Color(0xFFD4A843);
-  static const goldDark = Color(0xFF9E7A2E); // Pour containers dorés
+  // Secondary — Cyan
+  static const cyan = Color(0xFF06B6D4);
+  static const cyanLight = Color(0xFF67E8F9);
+  static const cyanContainer = Color(0xFF0C4A6E);
 
-  // Texte
-  static const cream = Color(0xFFFFF8E7); // Blanc/crème
-  static const creamMuted = Color(0xFFE8DCC8); // Crème atténué
-  static const greenMuted = Color(0xFF4A7C67); // Vert atténué (outlines)
+  // Accent — Gold/Amber (série, milestones)
+  static const gold = Color(0xFFF59E0B);
+  static const goldDark = Color(0xFF78350F);
 
-  // === Light Mode Palette (from UX Specification) ===
+  // Neumorphism shadows (calibrated for darkCardSurface #1A1A2E)
+  static const neuShadowLight = Color(0xFF252542);
+  static const neuShadowDark = Color(0xFF09090F);
 
-  // Backgrounds
-  static const lightBackground = Color(0xFFFFF8E7); // Crème chaud
+  // Text
+  static const textPrimary = Color(0xFFF1F5F9);
+  static const textSecondary = Color(0xFF94A3B8);
+
+  // === Light Mode Palette (unchanged) ===
+
+  static const lightBackground = Color(0xFFFFF8E7);
   static const lightSurface = Color(0xFFFFF8E7);
-  static const lightCardSurface = Color(0xFFFFFDF5); // Blanc cassé
+  static const lightCardSurface = Color(0xFFFFFDF5);
 
-  // Accent – Vert moyen
   static const greenAccent = Color(0xFF2D6A4F);
+  static const cream = Color(0xFFFFF8E7);
+  static const creamMuted = Color(0xFFE8DCC8);
+  static const greenMuted = Color(0xFF4A7C67);
+
+  // Dark legacy aliases (kept for light theme ColorScheme compat)
+  static const darkLegacyBackground = Color(0xFF1B4332);
+  static const goldLegacyDark = Color(0xFF9E7A2E);
 
   // Evaluation colors (SRS / Quiz feedback)
   static const evaluationGreen = Color(0xFF4CAF50);
@@ -36,7 +52,7 @@ abstract final class AppColors {
   static const evaluationOrange = Color(0xFFFF7043);
   static const evaluationRed = Color(0xFFEF5350);
 
-  // Aliases kept for backward compatibility
+  // Aliases
   static const ratingEasy = evaluationGreen;
   static const ratingGood = evaluationGold;
   static const ratingHard = evaluationOrange;

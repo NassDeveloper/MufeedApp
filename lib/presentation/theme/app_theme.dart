@@ -7,48 +7,48 @@ abstract final class AppTheme {
   static const _darkColorScheme = ColorScheme(
     brightness: Brightness.dark,
 
-    // Primary = Doré/ambre (accent principal)
-    primary: AppColors.gold,
-    onPrimary: AppColors.darkBackground,
-    primaryContainer: AppColors.goldDark,
-    onPrimaryContainer: AppColors.cream,
+    // Primary = Violet
+    primary: AppColors.violet,
+    onPrimary: Colors.white,
+    primaryContainer: AppColors.violetContainer,
+    onPrimaryContainer: AppColors.violetLight,
 
-    // Secondary = Vert moyen
-    secondary: AppColors.greenMuted,
-    onSecondary: AppColors.cream,
-    secondaryContainer: AppColors.darkCardSurface,
-    onSecondaryContainer: AppColors.creamMuted,
+    // Secondary = Cyan
+    secondary: AppColors.cyan,
+    onSecondary: AppColors.darkBackground,
+    secondaryContainer: AppColors.cyanContainer,
+    onSecondaryContainer: AppColors.cyanLight,
 
-    // Tertiary = Crème chaud
-    tertiary: AppColors.creamMuted,
+    // Tertiary = Gold/Amber (série, milestones)
+    tertiary: AppColors.gold,
     onTertiary: AppColors.darkBackground,
-    tertiaryContainer: AppColors.darkCardSurface,
-    onTertiaryContainer: AppColors.cream,
+    tertiaryContainer: AppColors.goldDark,
+    onTertiaryContainer: AppColors.gold,
 
     // Error
     error: AppColors.evaluationRed,
     onError: Colors.white,
 
-    // Surface = Vert profond
+    // Surface = deep navy
     surface: AppColors.darkSurface,
-    onSurface: AppColors.cream,
-    onSurfaceVariant: AppColors.creamMuted,
+    onSurface: AppColors.textPrimary,
+    onSurfaceVariant: AppColors.textSecondary,
 
-    // Surface containers (cards, dialogs, etc.)
-    surfaceContainerLowest: Color(0xFF132E23),
-    surfaceContainerLow: Color(0xFF1B4332),
-    surfaceContainer: Color(0xFF234E3B),
-    surfaceContainerHigh: Color(0xFF2D5A45),
-    surfaceContainerHighest: Color(0xFF376650),
+    // Surface containers
+    surfaceContainerLowest: Color(0xFF0A0A18),
+    surfaceContainerLow: AppColors.darkBackground,
+    surfaceContainer: AppColors.darkCardSurface,
+    surfaceContainerHigh: AppColors.darkElevated,
+    surfaceContainerHighest: Color(0xFF252542),
 
     // Outline
-    outline: AppColors.greenMuted,
-    outlineVariant: Color(0xFF2D5A45),
+    outline: Color(0xFF334155),
+    outlineVariant: Color(0xFF1E293B),
 
     // Inverse
-    inverseSurface: AppColors.cream,
+    inverseSurface: AppColors.textPrimary,
     onInverseSurface: AppColors.darkBackground,
-    inversePrimary: AppColors.goldDark,
+    inversePrimary: AppColors.violetLight,
 
     shadow: Colors.black,
     scrim: Colors.black,
@@ -57,23 +57,23 @@ abstract final class AppTheme {
   static const _lightColorScheme = ColorScheme(
     brightness: Brightness.light,
 
-    // Primary = Vert moyen (accent principal)
+    // Primary = Vert moyen
     primary: AppColors.greenAccent,
     onPrimary: AppColors.cream,
     primaryContainer: Color(0xFFC8E6D5),
-    onPrimaryContainer: AppColors.darkBackground,
+    onPrimaryContainer: AppColors.darkLegacyBackground,
 
     // Secondary = Doré/ambre
     secondary: AppColors.gold,
-    onSecondary: AppColors.darkBackground,
+    onSecondary: AppColors.darkLegacyBackground,
     secondaryContainer: Color(0xFFF5E6C0),
-    onSecondaryContainer: AppColors.goldDark,
+    onSecondaryContainer: AppColors.goldLegacyDark,
 
     // Tertiary = Vert profond
-    tertiary: AppColors.darkBackground,
+    tertiary: AppColors.darkLegacyBackground,
     onTertiary: AppColors.cream,
     tertiaryContainer: Color(0xFFD0E8DB),
-    onTertiaryContainer: AppColors.darkBackground,
+    onTertiaryContainer: AppColors.darkLegacyBackground,
 
     // Error
     error: AppColors.evaluationRed,
@@ -81,10 +81,10 @@ abstract final class AppTheme {
 
     // Surface = Crème chaud
     surface: AppColors.lightSurface,
-    onSurface: AppColors.darkBackground,
+    onSurface: AppColors.darkLegacyBackground,
     onSurfaceVariant: AppColors.greenMuted,
 
-    // Surface containers (cards, dialogs, etc.)
+    // Surface containers
     surfaceContainerLowest: Color(0xFFFFFFFF),
     surfaceContainerLow: Color(0xFFFFFDF5),
     surfaceContainer: Color(0xFFFFF8E7),
@@ -96,9 +96,9 @@ abstract final class AppTheme {
     outlineVariant: Color(0xFFD0D8D3),
 
     // Inverse
-    inverseSurface: AppColors.darkBackground,
+    inverseSurface: AppColors.darkLegacyBackground,
     onInverseSurface: AppColors.cream,
-    inversePrimary: AppColors.gold,
+    inversePrimary: AppColors.goldLegacyDark,
 
     shadow: Colors.black,
     scrim: Colors.black,
@@ -118,7 +118,7 @@ abstract final class AppTheme {
     ),
     appBarTheme: const AppBarTheme(
       backgroundColor: AppColors.lightBackground,
-      foregroundColor: AppColors.darkBackground,
+      foregroundColor: AppColors.darkLegacyBackground,
       elevation: 0,
       scrolledUnderElevation: 0,
     ),
@@ -142,24 +142,29 @@ abstract final class AppTheme {
     cardTheme: CardThemeData(
       color: AppColors.darkCardSurface,
       elevation: 0,
+      shadowColor: Colors.transparent,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(16),
+        side: BorderSide(
+          color: AppColors.violet.withValues(alpha: 0.10),
+          width: 1,
+        ),
       ),
     ),
     appBarTheme: const AppBarTheme(
       backgroundColor: AppColors.darkBackground,
-      foregroundColor: AppColors.cream,
+      foregroundColor: AppColors.textPrimary,
       elevation: 0,
       scrolledUnderElevation: 0,
     ),
     navigationBarTheme: NavigationBarThemeData(
       backgroundColor: AppColors.darkBackground,
-      indicatorColor: AppColors.gold.withValues(alpha: 0.2),
+      indicatorColor: AppColors.violet.withValues(alpha: 0.25),
     ),
     filledButtonTheme: FilledButtonThemeData(
       style: FilledButton.styleFrom(
-        backgroundColor: AppColors.gold,
-        foregroundColor: AppColors.darkBackground,
+        backgroundColor: AppColors.violet,
+        foregroundColor: Colors.white,
       ),
     ),
   );
