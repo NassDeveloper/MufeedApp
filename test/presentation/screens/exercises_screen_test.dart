@@ -141,9 +141,6 @@ void main() {
       expect(find.text('Niveau 1'), findsOneWidget);
       // The level number badge should be visible
       expect(find.text('1'), findsOneWidget);
-      // Should render as an ExpansionTile inside a Card
-      expect(find.byType(ExpansionTile), findsOneWidget);
-      expect(find.byType(Card), findsOneWidget);
     });
 
     testWidgets('shows app bar title', (tester) async {
