@@ -10,6 +10,7 @@ import '../providers/dialogue_provider.dart';
 import '../providers/progress_provider.dart';
 import '../utils/localized_name.dart';
 import '../widgets/error_content_widget.dart';
+import '../widgets/neu_card_widget.dart';
 import '../widgets/skeleton_loader_widget.dart';
 
 class ExercisesScreen extends ConsumerWidget {
@@ -58,74 +59,136 @@ class ExercisesScreen extends ConsumerWidget {
   }
 }
 
-class _LevelExpansionTile extends ConsumerWidget {
+class _LevelExpansionTile extends ConsumerStatefulWidget {
   const _LevelExpansionTile({required this.level});
 
   final LevelModel level;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<_LevelExpansionTile> createState() =>
+      _LevelExpansionTileState();
+}
+
+class _LevelExpansionTileState extends ConsumerState<_LevelExpansionTile> {
+  bool _expanded = false;
+
+  @override
+  Widget build(BuildContext context) {
     final locale = Localizations.localeOf(context);
     final colorScheme = Theme.of(context).colorScheme;
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     final l10n = AppLocalizations.of(context)!;
-    final name = level.localizedName(locale);
-    final asyncUnits = ref.watch(unitsByLevelProvider(level.id));
-    final progressAsync = ref.watch(levelProgressProvider(level.id));
+    final name = widget.level.localizedName(locale);
+    final asyncUnits = ref.watch(unitsByLevelProvider(widget.level.id));
+    final progressAsync = ref.watch(levelProgressProvider(widget.level.id));
 
-    String subtitleText = l10n.unitCount(level.unitCount);
+    String subtitleText = l10n.unitCount(widget.level.unitCount);
     progressAsync.whenData((p) {
       if (p.totalItems > 0) {
-        subtitleText = l10n.levelProgressLabel(p.masteredItems, p.totalItems);
+        subtitleText =
+            l10n.levelProgressLabel(p.masteredItems, p.totalItems);
       }
     });
 
-    return Card(
-      margin: const EdgeInsets.only(bottom: 12),
-      clipBehavior: Clip.antiAlias,
-      child: ExpansionTile(
-        leading: Container(
-          width: 40,
-          height: 40,
-          decoration: BoxDecoration(
-            color: colorScheme.primaryContainer,
-            borderRadius: BorderRadius.circular(10),
-          ),
-          alignment: Alignment.center,
-          child: Text(
-            '${level.number}',
-            style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                  color: colorScheme.onPrimaryContainer,
-                  fontWeight: FontWeight.bold,
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 12),
+      child: NeuCard(
+        clipBehavior: Clip.antiAlias,
+        child: Column(
+          children: [
+            // Header — layout identique à _LevelCard du vocabulaire
+            InkWell(
+              onTap: () => setState(() => _expanded = !_expanded),
+              child: Padding(
+                padding: const EdgeInsets.all(16),
+                child: Row(
+                  children: [
+                    Container(
+                      width: 48,
+                      height: 48,
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                          colors: isDark
+                              ? [
+                                  colorScheme.primary.withValues(alpha: 0.55),
+                                  colorScheme.primaryContainer
+                                      .withValues(alpha: 0.40),
+                                ]
+                              : [
+                                  colorScheme.primaryContainer,
+                                  colorScheme.primaryContainer,
+                                ],
+                        ),
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      alignment: Alignment.center,
+                      child: Text(
+                        '${widget.level.number}',
+                        style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                              color: isDark
+                                  ? colorScheme.primary
+                                  : colorScheme.onPrimaryContainer,
+                              fontWeight: FontWeight.bold,
+                            ),
+                      ),
+                    ),
+                    const SizedBox(width: 16),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            name,
+                            style: Theme.of(context).textTheme.titleMedium,
+                          ),
+                          const SizedBox(height: 2),
+                          Text(
+                            subtitleText,
+                            style:
+                                Theme.of(context).textTheme.bodySmall?.copyWith(
+                                      color: colorScheme.onSurfaceVariant,
+                                    ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    AnimatedRotation(
+                      turns: _expanded ? 0.5 : 0,
+                      duration: const Duration(milliseconds: 200),
+                      child: Icon(
+                        Icons.keyboard_arrow_down,
+                        size: 20,
+                        color: colorScheme.onSurfaceVariant,
+                      ),
+                    ),
+                  ],
                 ),
-          ),
-        ),
-        title: Text(name, style: Theme.of(context).textTheme.titleSmall),
-        subtitle: Text(
-          subtitleText,
-          style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                color: colorScheme.onSurfaceVariant,
               ),
+            ),
+            // Contenu expandable
+            if (_expanded)
+              asyncUnits.when(
+                loading: () => const Padding(
+                  padding: EdgeInsets.all(16),
+                  child: Center(child: CircularProgressIndicator.adaptive()),
+                ),
+                error: (_, _) => Padding(
+                  padding: const EdgeInsets.all(16),
+                  child: Text(l10n.errorLoadingContent),
+                ),
+                data: (units) => Column(
+                  children: units
+                      .map((unit) => _UnitLessonsSection(
+                            unit: unit,
+                            levelId: widget.level.id,
+                          ))
+                      .toList(),
+                ),
+              ),
+          ],
         ),
-        children: [
-          asyncUnits.when(
-            loading: () => const Padding(
-              padding: EdgeInsets.all(16),
-              child: Center(child: CircularProgressIndicator.adaptive()),
-            ),
-            error: (_, _) => Padding(
-              padding: const EdgeInsets.all(16),
-              child: Text(l10n.errorLoadingContent),
-            ),
-            data: (units) => Column(
-              children: units
-                  .map((unit) => _UnitLessonsSection(
-                        unit: unit,
-                        levelId: level.id,
-                      ))
-                  .toList(),
-            ),
-          ),
-        ],
       ),
     );
   }
@@ -148,9 +211,19 @@ class _UnitLessonsSection extends ConsumerWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
-          padding: const EdgeInsets.fromLTRB(16, 8, 8, 4),
+          padding: const EdgeInsets.fromLTRB(16, 10, 8, 4),
           child: Row(
             children: [
+              // Violet accent dot
+              Container(
+                width: 3,
+                height: 14,
+                decoration: BoxDecoration(
+                  color: colorScheme.primary,
+                  borderRadius: BorderRadius.circular(2),
+                ),
+              ),
+              const SizedBox(width: 8),
               Expanded(
                 child: Text(
                   unitName,
@@ -185,21 +258,26 @@ class _UnitLessonsSection extends ConsumerWidget {
           data: (lessons) => Column(
             children: lessons.map((lesson) {
               final lessonName = lesson.localizedName(locale);
-              return _LessonCard(
+              return _LessonRow(
                 lessonId: lesson.id,
                 lessonName: lessonName,
               );
             }).toList(),
           ),
         ),
-        const Divider(height: 1, indent: 16, endIndent: 16),
+        Divider(
+          height: 1,
+          indent: 16,
+          endIndent: 16,
+          color: colorScheme.outlineVariant.withValues(alpha: 0.5),
+        ),
       ],
     );
   }
 }
 
-class _LessonCard extends ConsumerWidget {
-  const _LessonCard({
+class _LessonRow extends ConsumerWidget {
+  const _LessonRow({
     required this.lessonId,
     required this.lessonName,
   });
@@ -213,50 +291,82 @@ class _LessonCard extends ConsumerWidget {
     final progressAsync = ref.watch(lessonProgressProvider(lessonId));
 
     String? badgeText;
+    double? progressPct;
     progressAsync.whenData((p) {
       if (p.totalItems > 0) {
         badgeText = '${p.masteredCount}/${p.totalItems}';
+        progressPct = p.masteredCount / p.totalItems;
       }
     });
 
     return Semantics(
       button: true,
       label: lessonName,
-      child: ListTile(
-        contentPadding:
-            const EdgeInsets.symmetric(horizontal: 16, vertical: 2),
-        title: Text(
-          lessonName,
-          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                fontWeight: FontWeight.w500,
-              ),
-        ),
-        trailing: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            if (badgeText != null) ...[
-              Text(
-                badgeText!,
-                style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                      color: colorScheme.onSurfaceVariant,
-                    ),
-              ),
-              const SizedBox(width: 4),
-            ],
-            Icon(
-              Icons.chevron_right,
-              size: 18,
-              color: colorScheme.onSurfaceVariant,
-            ),
-          ],
-        ),
+      child: InkWell(
         onTap: () => showModalBottomSheet<void>(
           context: context,
           isScrollControlled: true,
           useSafeArea: true,
+          backgroundColor: Theme.of(context).brightness == Brightness.dark
+              ? const Color(0xFF13131F)
+              : null,
           builder: (_) => _LessonActivitiesSheet(
             lessonId: lessonId,
             lessonName: lessonName,
+          ),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+          child: Row(
+            children: [
+              Expanded(
+                child: Text(
+                  lessonName,
+                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                        fontWeight: FontWeight.w500,
+                      ),
+                ),
+              ),
+              if (badgeText != null) ...[
+                // Progress bar + text
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    Text(
+                      badgeText!,
+                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                            color: progressPct == 1.0
+                                ? colorScheme.primary
+                                : colorScheme.onSurfaceVariant,
+                            fontWeight: progressPct == 1.0
+                                ? FontWeight.bold
+                                : FontWeight.normal,
+                          ),
+                    ),
+                    const SizedBox(height: 2),
+                    SizedBox(
+                      width: 48,
+                      child: LinearProgressIndicator(
+                        value: progressPct,
+                        minHeight: 2,
+                        borderRadius: BorderRadius.circular(1),
+                        color: progressPct == 1.0
+                            ? colorScheme.primary
+                            : colorScheme.tertiary,
+                        backgroundColor:
+                            colorScheme.outlineVariant.withValues(alpha: 0.4),
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(width: 4),
+              ],
+              Icon(
+                Icons.chevron_right,
+                size: 18,
+                color: colorScheme.onSurfaceVariant,
+              ),
+            ],
           ),
         ),
       ),
@@ -277,6 +387,7 @@ class _LessonActivitiesSheet extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final l10n = AppLocalizations.of(context)!;
     final colorScheme = Theme.of(context).colorScheme;
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     final progressAsync = ref.watch(lessonProgressProvider(lessonId));
 
     final asyncExercises = ref.watch(exercisesByLessonProvider(lessonId));
@@ -292,9 +403,13 @@ class _LessonActivitiesSheet extends ConsumerWidget {
     final hasDialogues = asyncDialogues.value?.isNotEmpty ?? false;
 
     String progressSubtitle = '';
+    double? progressPct;
     progressAsync.whenData((p) {
       progressSubtitle =
           l10n.lessonActivitiesProgress(p.masteredCount, p.totalItems);
+      if (p.totalItems > 0) {
+        progressPct = p.masteredCount / p.totalItems;
+      }
     });
 
     void navigate(String route) {
@@ -316,10 +431,12 @@ class _LessonActivitiesSheet extends ConsumerWidget {
             child: Padding(
               padding: const EdgeInsets.only(top: 12, bottom: 8),
               child: Container(
-                width: 32,
+                width: 36,
                 height: 4,
                 decoration: BoxDecoration(
-                  color: colorScheme.onSurfaceVariant.withValues(alpha: 0.4),
+                  color: isDark
+                      ? colorScheme.primary.withValues(alpha: 0.4)
+                      : colorScheme.onSurfaceVariant.withValues(alpha: 0.4),
                   borderRadius: BorderRadius.circular(2),
                 ),
               ),
@@ -327,7 +444,7 @@ class _LessonActivitiesSheet extends ConsumerWidget {
           ),
           // Header
           Padding(
-            padding: const EdgeInsets.fromLTRB(20, 4, 20, 4),
+            padding: const EdgeInsets.fromLTRB(20, 4, 20, 0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -337,92 +454,95 @@ class _LessonActivitiesSheet extends ConsumerWidget {
                         fontWeight: FontWeight.bold,
                       ),
                 ),
-                if (progressSubtitle.isNotEmpty)
-                  Text(
-                    progressSubtitle,
-                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                          color: colorScheme.onSurfaceVariant,
+                if (progressSubtitle.isNotEmpty) ...[
+                  const SizedBox(height: 4),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Text(
+                          progressSubtitle,
+                          style:
+                              Theme.of(context).textTheme.bodySmall?.copyWith(
+                                    color: colorScheme.onSurfaceVariant,
+                                  ),
                         ),
+                      ),
+                      if (progressPct != null)
+                        SizedBox(
+                          width: 80,
+                          child: LinearProgressIndicator(
+                            value: progressPct,
+                            minHeight: 3,
+                            borderRadius: BorderRadius.circular(2),
+                            color: progressPct == 1.0
+                                ? colorScheme.primary
+                                : colorScheme.tertiary,
+                            backgroundColor: colorScheme.outlineVariant
+                                .withValues(alpha: 0.3),
+                          ),
+                        ),
+                    ],
                   ),
+                ],
               ],
             ),
           ),
-          const Divider(height: 16),
+          const SizedBox(height: 12),
+          Divider(
+            height: 1,
+            color: colorScheme.outlineVariant.withValues(alpha: 0.4),
+          ),
           // Activities list
           Expanded(
             child: ListView(
               controller: scrollController,
               children: [
-                // Flashcards (always)
-                ListTile(
-                  leading:
-                      Icon(Icons.style_outlined, color: colorScheme.primary),
-                  title: Text(l10n.activityFlashcards),
-                  trailing: const Icon(Icons.chevron_right, size: 18),
+                _ActivityTile(
+                  icon: Icons.style_outlined,
+                  label: l10n.activityFlashcards,
                   onTap: () => navigate('/session/flashcard/$lessonId'),
                 ),
-                // Phrases (conditional)
                 if (hasExercises)
-                  ListTile(
-                    leading: Icon(Icons.edit_note_outlined,
-                        color: colorScheme.primary),
-                    title: Text(l10n.activityPhrases),
-                    trailing: const Icon(Icons.chevron_right, size: 18),
+                  _ActivityTile(
+                    icon: Icons.edit_note_outlined,
+                    label: l10n.activityPhrases,
                     onTap: () =>
                         navigate('/session/sentence-exercise/$lessonId'),
                   ),
-                // Verb table (conditional)
                 if (hasVerbs)
-                  ListTile(
-                    leading: Icon(Icons.table_rows_outlined,
-                        color: colorScheme.primary),
-                    title: Text(l10n.activityVerbTable),
-                    trailing: const Icon(Icons.chevron_right, size: 18),
+                  _ActivityTile(
+                    icon: Icons.table_rows_outlined,
+                    label: l10n.activityVerbTable,
                     onTap: () => navigate('/session/verb-table/$lessonId'),
                   ),
-                // Matching (conditional)
                 if (hasEnoughForMatching)
-                  ListTile(
-                    leading:
-                        Icon(Icons.link_outlined, color: colorScheme.primary),
-                    title: Text(l10n.activityMatching),
-                    trailing: const Icon(Icons.chevron_right, size: 18),
+                  _ActivityTile(
+                    icon: Icons.link_outlined,
+                    label: l10n.activityMatching,
                     onTap: () => navigate('/session/matching/$lessonId'),
                   ),
-                // Word ordering (conditional)
                 if (hasExercises)
-                  ListTile(
-                    leading:
-                        Icon(Icons.sort_outlined, color: colorScheme.primary),
-                    title: Text(l10n.activityWordOrdering),
-                    trailing: const Icon(Icons.chevron_right, size: 18),
+                  _ActivityTile(
+                    icon: Icons.sort_outlined,
+                    label: l10n.activityWordOrdering,
                     onTap: () =>
                         navigate('/session/word-ordering/$lessonId'),
                   ),
-                // Listening (conditional)
                 if (hasEnoughForListening)
-                  ListTile(
-                    leading: Icon(Icons.hearing_outlined,
-                        color: colorScheme.primary),
-                    title: Text(l10n.activityListening),
-                    trailing: const Icon(Icons.chevron_right, size: 18),
+                  _ActivityTile(
+                    icon: Icons.hearing_outlined,
+                    label: l10n.activityListening,
                     onTap: () => navigate('/session/listening/$lessonId'),
                   ),
-                // Dialogue (conditional)
                 if (hasDialogues)
-                  ListTile(
-                    leading: Icon(Icons.chat_bubble_outline,
-                        color: colorScheme.primary),
-                    title: Text(l10n.activityDialogue),
-                    trailing: const Icon(Icons.chevron_right, size: 18),
+                  _ActivityTile(
+                    icon: Icons.chat_bubble_outline,
+                    label: l10n.activityDialogue,
                     onTap: () => navigate('/session/dialogue/$lessonId'),
                   ),
-                // Quiz (always)
-                ListTile(
-                  leading:
-                      Icon(Icons.quiz_outlined, color: colorScheme.primary),
-                  title: Text(l10n.activityQuiz),
-                  trailing: const Icon(Icons.chevron_right, size: 18),
+                _ActivityTile(
+                  icon: Icons.quiz_outlined,
+                  label: l10n.activityQuiz,
                   onTap: () => navigate('/session/quiz/$lessonId'),
                 ),
               ],
@@ -430,6 +550,43 @@ class _LessonActivitiesSheet extends ConsumerWidget {
           ),
         ],
       ),
+    );
+  }
+}
+
+/// A single activity row in the bottom sheet.
+class _ActivityTile extends StatelessWidget {
+  const _ActivityTile({
+    required this.icon,
+    required this.label,
+    required this.onTap,
+  });
+
+  final IconData icon;
+  final String label;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+
+    return ListTile(
+      leading: Container(
+        width: 36,
+        height: 36,
+        decoration: BoxDecoration(
+          color: colorScheme.primaryContainer.withValues(alpha: 0.5),
+          borderRadius: BorderRadius.circular(8),
+        ),
+        child: Icon(icon, size: 18, color: colorScheme.primary),
+      ),
+      title: Text(label),
+      trailing: Icon(
+        Icons.chevron_right,
+        size: 18,
+        color: colorScheme.onSurfaceVariant,
+      ),
+      onTap: onTap,
     );
   }
 }

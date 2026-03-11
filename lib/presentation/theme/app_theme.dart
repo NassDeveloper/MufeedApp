@@ -7,11 +7,11 @@ abstract final class AppTheme {
   static const _darkColorScheme = ColorScheme(
     brightness: Brightness.dark,
 
-    // Primary = Violet
-    primary: AppColors.violet,
-    onPrimary: Colors.white,
-    primaryContainer: AppColors.violetContainer,
-    onPrimaryContainer: AppColors.violetLight,
+    // Primary = Gold/Amber
+    primary: AppColors.gold,
+    onPrimary: AppColors.darkBackground,
+    primaryContainer: AppColors.goldContainer,
+    onPrimaryContainer: AppColors.goldLight,
 
     // Secondary = Cyan
     secondary: AppColors.cyan,
@@ -19,11 +19,11 @@ abstract final class AppTheme {
     secondaryContainer: AppColors.cyanContainer,
     onSecondaryContainer: AppColors.cyanLight,
 
-    // Tertiary = Gold/Amber (série, milestones)
-    tertiary: AppColors.gold,
-    onTertiary: AppColors.darkBackground,
-    tertiaryContainer: AppColors.goldDark,
-    onTertiaryContainer: AppColors.gold,
+    // Tertiary = Violet (milestones, streaks)
+    tertiary: AppColors.violet,
+    onTertiary: Colors.white,
+    tertiaryContainer: AppColors.violetContainer,
+    onTertiaryContainer: AppColors.violetLight,
 
     // Error
     error: AppColors.evaluationRed,
@@ -39,7 +39,7 @@ abstract final class AppTheme {
     surfaceContainerLow: AppColors.darkBackground,
     surfaceContainer: AppColors.darkCardSurface,
     surfaceContainerHigh: AppColors.darkElevated,
-    surfaceContainerHighest: Color(0xFF252542),
+    surfaceContainerHighest: Color(0xFF25252E),
 
     // Outline
     outline: Color(0xFF334155),
@@ -48,7 +48,7 @@ abstract final class AppTheme {
     // Inverse
     inverseSurface: AppColors.textPrimary,
     onInverseSurface: AppColors.darkBackground,
-    inversePrimary: AppColors.violetLight,
+    inversePrimary: AppColors.goldLight,
 
     shadow: Colors.black,
     scrim: Colors.black,
@@ -121,6 +121,7 @@ abstract final class AppTheme {
       foregroundColor: AppColors.darkLegacyBackground,
       elevation: 0,
       scrolledUnderElevation: 0,
+      centerTitle: false,
     ),
     navigationBarTheme: NavigationBarThemeData(
       backgroundColor: AppColors.lightBackground,
@@ -146,7 +147,7 @@ abstract final class AppTheme {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(16),
         side: BorderSide(
-          color: AppColors.violet.withValues(alpha: 0.10),
+          color: AppColors.gold.withValues(alpha: 0.12),
           width: 1,
         ),
       ),
@@ -156,15 +157,35 @@ abstract final class AppTheme {
       foregroundColor: AppColors.textPrimary,
       elevation: 0,
       scrolledUnderElevation: 0,
+      centerTitle: false,
     ),
     navigationBarTheme: NavigationBarThemeData(
       backgroundColor: AppColors.darkBackground,
-      indicatorColor: AppColors.violet.withValues(alpha: 0.25),
+      indicatorColor: AppColors.gold.withValues(alpha: 0.20),
+      iconTheme: WidgetStateProperty.resolveWith((states) {
+        if (states.contains(WidgetState.selected)) {
+          return const IconThemeData(color: AppColors.gold);
+        }
+        return const IconThemeData(color: AppColors.textSecondary);
+      }),
+      labelTextStyle: WidgetStateProperty.resolveWith((states) {
+        if (states.contains(WidgetState.selected)) {
+          return const TextStyle(
+            color: AppColors.gold,
+            fontSize: 12,
+            fontWeight: FontWeight.w600,
+          );
+        }
+        return const TextStyle(
+          color: AppColors.textSecondary,
+          fontSize: 12,
+        );
+      }),
     ),
     filledButtonTheme: FilledButtonThemeData(
       style: FilledButton.styleFrom(
-        backgroundColor: AppColors.violet,
-        foregroundColor: Colors.white,
+        backgroundColor: AppColors.gold,
+        foregroundColor: AppColors.darkBackground,
       ),
     ),
   );

@@ -145,7 +145,9 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
 }
 
 // ---------------------------------------------------------------------------
-// Background with decorative blobs
+// Background
+// Dark: solid deep navy + subtle accent orbs (no heavy blur)
+// Light: decorative blobs with soft blur
 // ---------------------------------------------------------------------------
 
 class _HomeBackground extends StatelessWidget {
@@ -157,11 +159,76 @@ class _HomeBackground extends StatelessWidget {
     final colorScheme = Theme.of(context).colorScheme;
     final size = MediaQuery.sizeOf(context);
 
+    if (isDark) {
+      return SizedBox.expand(
+        child: Stack(
+          children: [
+            // Solid dark base
+            Container(color: const Color(0xFF0F0F1E)),
+            // Top-right violet orb
+            Positioned(
+              top: -80,
+              right: -80,
+              child: Container(
+                width: 280,
+                height: 280,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  gradient: RadialGradient(
+                    colors: [
+                      colorScheme.primary.withValues(alpha: 0.18),
+                      Colors.transparent,
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            // Bottom-left cyan orb
+            Positioned(
+              bottom: size.height * 0.12,
+              left: -60,
+              child: Container(
+                width: 200,
+                height: 200,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  gradient: RadialGradient(
+                    colors: [
+                      colorScheme.secondary.withValues(alpha: 0.12),
+                      Colors.transparent,
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            // Center-right gold orb (subtle)
+            Positioned(
+              top: size.height * 0.40,
+              right: -40,
+              child: Container(
+                width: 160,
+                height: 160,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  gradient: RadialGradient(
+                    colors: [
+                      colorScheme.tertiary.withValues(alpha: 0.08),
+                      Colors.transparent,
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      );
+    }
+
+    // Light mode: blobs with soft blur (unchanged)
     return SizedBox.expand(
       child: Stack(
         children: [
           Container(color: Theme.of(context).scaffoldBackgroundColor),
-          // Top-right blob (primary)
           Positioned(
             top: -90,
             right: -90,
@@ -172,14 +239,13 @@ class _HomeBackground extends StatelessWidget {
                 shape: BoxShape.circle,
                 gradient: RadialGradient(
                   colors: [
-                    colorScheme.primary.withValues(alpha: isDark ? 0.50 : 0.35),
+                    colorScheme.primary.withValues(alpha: 0.35),
                     colorScheme.primary.withValues(alpha: 0),
                   ],
                 ),
               ),
             ),
           ),
-          // Middle-left blob (secondary)
           Positioned(
             top: size.height * 0.28,
             left: -100,
@@ -190,15 +256,13 @@ class _HomeBackground extends StatelessWidget {
                 shape: BoxShape.circle,
                 gradient: RadialGradient(
                   colors: [
-                    colorScheme.secondary
-                        .withValues(alpha: isDark ? 0.40 : 0.28),
+                    colorScheme.secondary.withValues(alpha: 0.28),
                     colorScheme.secondary.withValues(alpha: 0),
                   ],
                 ),
               ),
             ),
           ),
-          // Bottom-right blob (tertiary)
           Positioned(
             bottom: size.height * 0.08,
             right: -70,
@@ -209,15 +273,13 @@ class _HomeBackground extends StatelessWidget {
                 shape: BoxShape.circle,
                 gradient: RadialGradient(
                   colors: [
-                    colorScheme.tertiary
-                        .withValues(alpha: isDark ? 0.35 : 0.22),
+                    colorScheme.tertiary.withValues(alpha: 0.22),
                     colorScheme.tertiary.withValues(alpha: 0),
                   ],
                 ),
               ),
             ),
           ),
-          // Single blur layer over all blobs — one BackdropFilter for the whole screen
           Positioned.fill(
             child: BackdropFilter(
               filter: ImageFilter.blur(sigmaX: 40, sigmaY: 40),
@@ -231,7 +293,8 @@ class _HomeBackground extends StatelessWidget {
 }
 
 // ---------------------------------------------------------------------------
-// Glass card — reusable container with blur + translucency
+// Neumorphic card — dark: solid raised card with twin shadows
+//                  light: glass card with translucency
 // ---------------------------------------------------------------------------
 
 class _GlassCard extends StatelessWidget {
@@ -253,7 +316,7 @@ class _GlassCard extends StatelessWidget {
 
     final effectiveColor = color ??
         (isDark
-            ? colorScheme.surfaceContainer.withValues(alpha: 0.72)
+            ? const Color(0xFF1A1A2E)
             : Colors.white.withValues(alpha: 0.68));
 
     return Material(
@@ -263,9 +326,33 @@ class _GlassCard extends StatelessWidget {
         decoration: BoxDecoration(
           color: effectiveColor,
           borderRadius: _radius,
+          boxShadow: isDark
+              ? [
+                  // Light shadow (top-left — simulates light source)
+                  const BoxShadow(
+                    color: Color(0xFF252542),
+                    offset: Offset(-5, -5),
+                    blurRadius: 12,
+                    spreadRadius: -2,
+                  ),
+                  // Dark shadow (bottom-right — depth)
+                  const BoxShadow(
+                    color: Color(0xFF09090F),
+                    offset: Offset(5, 5),
+                    blurRadius: 12,
+                    spreadRadius: -2,
+                  ),
+                ]
+              : [
+                  BoxShadow(
+                    color: Colors.black.withValues(alpha: 0.07),
+                    blurRadius: 16,
+                    offset: const Offset(0, 4),
+                  ),
+                ],
           border: Border.all(
             color: isDark
-                ? Colors.white.withValues(alpha: 0.09)
+                ? colorScheme.primary.withValues(alpha: 0.12)
                 : Colors.white.withValues(alpha: 0.75),
             width: 1.0,
           ),
@@ -456,13 +543,13 @@ class _ProgressOverview extends ConsumerWidget {
                         valueColor: AlwaysStoppedAnimation(
                             AppColors.ratingHard.withValues(alpha: 0.6)),
                       ),
-                      // Maîtrisés (couleur primaire)
+                      // Maîtrisés (vert)
                       LinearProgressIndicator(
                         value: progress,
                         minHeight: 8,
                         backgroundColor: Colors.transparent,
-                        valueColor:
-                            AlwaysStoppedAnimation(colorScheme.primary),
+                        valueColor: const AlwaysStoppedAnimation(
+                            AppColors.ratingEasy),
                       ),
                     ],
                   ),
@@ -823,9 +910,24 @@ class _DailySessionCard extends StatelessWidget {
                     ],
                   ),
                 ),
-                FilledButton(
-                  onPressed: () => context.push('/session/daily'),
-                  child: Text(l10n.dailySessionCta),
+                DecoratedBox(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    boxShadow: isDark
+                        ? [
+                            BoxShadow(
+                              color: colorScheme.primary
+                                  .withValues(alpha: 0.45),
+                              blurRadius: 20,
+                              spreadRadius: -4,
+                            ),
+                          ]
+                        : [],
+                  ),
+                  child: FilledButton(
+                    onPressed: () => context.push('/session/daily'),
+                    child: Text(l10n.dailySessionCta),
+                  ),
                 ),
               ],
             ),

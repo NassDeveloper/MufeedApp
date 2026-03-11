@@ -11,6 +11,7 @@ import '../providers/onboarding_provider.dart';
 import '../utils/localized_name.dart';
 import '../widgets/arabic_text_widget.dart';
 import '../widgets/error_content_widget.dart';
+import '../widgets/neu_card_widget.dart';
 import '../widgets/skeleton_loader_widget.dart';
 
 class OnboardingScreen extends ConsumerStatefulWidget {
@@ -47,6 +48,8 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
   Widget build(BuildContext context) {
     final state = ref.watch(onboardingProvider);
     final l10n = AppLocalizations.of(context)!;
+    final colorScheme = Theme.of(context).colorScheme;
+    final isDark = Theme.of(context).brightness == Brightness.dark;
 
     ref.listen<OnboardingState>(onboardingProvider, (previous, next) {
       if (previous != null && previous.currentPage != next.currentPage) {
@@ -55,60 +58,103 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
     });
 
     return Scaffold(
-      body: SafeArea(
-        child: Column(
-          children: [
-            Expanded(
-              child: PageView(
-                controller: _pageController,
-                physics: const NeverScrollableScrollPhysics(),
-                children: const [
-                  _WelcomePage(),
-                  _LevelPage(),
-                  _MiniSessionPage(),
-                  _ConsentPage(),
-                ],
+      body: Stack(
+        children: [
+          // Subtle background orbs (dark mode only)
+          if (isDark) ...[
+            Positioned(
+              top: -60,
+              right: -60,
+              child: Container(
+                width: 220,
+                height: 220,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  gradient: RadialGradient(
+                    colors: [
+                      colorScheme.primary.withValues(alpha: 0.15),
+                      Colors.transparent,
+                    ],
+                  ),
+                ),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-              child: Column(
-                children: [
-                  if (state.currentPage > 0)
-                    Align(
-                      alignment: Alignment.centerLeft,
-                      child: Semantics(
-                        button: true,
-                        label: l10n.onboardingPrevious,
-                        child: TextButton.icon(
-                          onPressed: () => ref
-                              .read(onboardingProvider.notifier)
-                              .previousPage(),
-                          icon: const Icon(Icons.arrow_back, size: 18),
-                          label: Text(l10n.onboardingPrevious),
-                        ),
-                      ),
-                    ),
-                  Semantics(
-                    label: l10n.onboardingSemanticPage(
-                      state.currentPage + 1,
-                      OnboardingState.totalPages,
-                    ),
-                    excludeSemantics: true,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: List.generate(
-                        OnboardingState.totalPages,
-                        (index) => _PageDot(isActive: index == state.currentPage),
-                      ),
-                    ),
+            Positioned(
+              bottom: 80,
+              left: -50,
+              child: Container(
+                width: 180,
+                height: 180,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  gradient: RadialGradient(
+                    colors: [
+                      colorScheme.secondary.withValues(alpha: 0.10),
+                      Colors.transparent,
+                    ],
                   ),
-                  const SizedBox(height: 16),
-                ],
+                ),
               ),
             ),
           ],
-        ),
+          SafeArea(
+            child: Column(
+              children: [
+                Expanded(
+                  child: PageView(
+                    controller: _pageController,
+                    physics: const NeverScrollableScrollPhysics(),
+                    children: const [
+                      _WelcomePage(),
+                      _LevelPage(),
+                      _MiniSessionPage(),
+                      _ConsentPage(),
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+                  child: Column(
+                    children: [
+                      if (state.currentPage > 0)
+                        Align(
+                          alignment: Alignment.centerLeft,
+                          child: Semantics(
+                            button: true,
+                            label: l10n.onboardingPrevious,
+                            child: TextButton.icon(
+                              onPressed: () => ref
+                                  .read(onboardingProvider.notifier)
+                                  .previousPage(),
+                              icon: const Icon(Icons.arrow_back, size: 18),
+                              label: Text(l10n.onboardingPrevious),
+                            ),
+                          ),
+                        ),
+                      Semantics(
+                        label: l10n.onboardingSemanticPage(
+                          state.currentPage + 1,
+                          OnboardingState.totalPages,
+                        ),
+                        excludeSemantics: true,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: List.generate(
+                            OnboardingState.totalPages,
+                            (index) =>
+                                _PageDot(isActive: index == state.currentPage),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 16),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -121,15 +167,27 @@ class _PageDot extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    final colorScheme = Theme.of(context).colorScheme;
+    return AnimatedContainer(
+      duration: const Duration(milliseconds: 250),
+      curve: Curves.easeOut,
       margin: const EdgeInsets.symmetric(horizontal: 4),
       width: isActive ? 24 : 8,
       height: 8,
       decoration: BoxDecoration(
         color: isActive
-            ? Theme.of(context).colorScheme.primary
-            : Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.3),
+            ? colorScheme.primary
+            : colorScheme.onSurface.withValues(alpha: 0.3),
         borderRadius: BorderRadius.circular(4),
+        boxShadow: isActive
+            ? [
+                BoxShadow(
+                  color: colorScheme.primary.withValues(alpha: 0.5),
+                  blurRadius: 6,
+                  spreadRadius: 0,
+                ),
+              ]
+            : null,
       ),
     );
   }
@@ -142,6 +200,7 @@ class _WelcomePage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final l10n = AppLocalizations.of(context)!;
     final colorScheme = Theme.of(context).colorScheme;
+    final isDark = Theme.of(context).brightness == Brightness.dark;
 
     return Padding(
       padding: const EdgeInsets.all(32),
@@ -149,12 +208,32 @@ class _WelcomePage extends ConsumerWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           const Spacer(),
-          Icon(
-            Icons.menu_book,
-            size: 96,
-            color: colorScheme.primary,
+          // Glowing icon
+          Container(
+            width: 120,
+            height: 120,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              color: colorScheme.primaryContainer.withValues(
+                alpha: isDark ? 0.25 : 0.4,
+              ),
+              boxShadow: isDark
+                  ? [
+                      BoxShadow(
+                        color: colorScheme.primary.withValues(alpha: 0.45),
+                        blurRadius: 48,
+                        spreadRadius: 4,
+                      ),
+                    ]
+                  : [],
+            ),
+            child: Icon(
+              Icons.menu_book_rounded,
+              size: 64,
+              color: colorScheme.primary,
+            ),
           ),
-          const SizedBox(height: 32),
+          const SizedBox(height: 40),
           Text(
             l10n.onboardingWelcomeTitle,
             style: Theme.of(context).textTheme.headlineMedium?.copyWith(
@@ -171,12 +250,27 @@ class _WelcomePage extends ConsumerWidget {
             textAlign: TextAlign.center,
           ),
           const Spacer(),
-          SizedBox(
-            width: double.infinity,
-            child: FilledButton(
-              onPressed: () =>
-                  ref.read(onboardingProvider.notifier).nextPage(),
-              child: Text(l10n.onboardingStart),
+          // CTA with violet glow
+          DecoratedBox(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20),
+              boxShadow: isDark
+                  ? [
+                      BoxShadow(
+                        color: colorScheme.primary.withValues(alpha: 0.45),
+                        blurRadius: 20,
+                        spreadRadius: -4,
+                      ),
+                    ]
+                  : [],
+            ),
+            child: SizedBox(
+              width: double.infinity,
+              child: FilledButton(
+                onPressed: () =>
+                    ref.read(onboardingProvider.notifier).nextPage(),
+                child: Text(l10n.onboardingStart),
+              ),
             ),
           ),
         ],
@@ -194,6 +288,8 @@ class _LevelPage extends ConsumerWidget {
     final l10n = AppLocalizations.of(context)!;
     final state = ref.watch(onboardingProvider);
     final asyncLevels = ref.watch(levelsProvider);
+    final colorScheme = Theme.of(context).colorScheme;
+    final isDark = Theme.of(context).brightness == Brightness.dark;
 
     return Padding(
       padding: const EdgeInsets.all(32),
@@ -211,7 +307,7 @@ class _LevelPage extends ConsumerWidget {
           Text(
             l10n.onboardingLevelSubtitle,
             style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                  color: Theme.of(context).colorScheme.onSurfaceVariant,
+                  color: colorScheme.onSurfaceVariant,
                 ),
           ),
           const SizedBox(height: 24),
@@ -239,70 +335,72 @@ class _LevelPage extends ConsumerWidget {
                       l10n.unitCount(level.unitCount),
                     ),
                     excludeSemantics: true,
-                    child: Card(
-                      margin: const EdgeInsets.only(bottom: 8),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
-                        side: isSelected
+                    child: Padding(
+                      padding: const EdgeInsets.only(bottom: 8),
+                      child: NeuCard(
+                        borderSide: isSelected
                             ? BorderSide(
-                                color:
-                                    Theme.of(context).colorScheme.primary,
+                                color: colorScheme.primary,
                                 width: 2,
                               )
-                            : BorderSide.none,
-                      ),
-                      child: InkWell(
-                        borderRadius: BorderRadius.circular(12),
+                            : null,
                         onTap: () => ref
                             .read(onboardingProvider.notifier)
                             .setSelectedLevel(level.id),
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 16,
-                            vertical: 12,
-                          ),
-                          child: Row(
-                            children: [
-                              Container(
-                                width: 40,
-                                height: 40,
-                                decoration: BoxDecoration(
-                                  color: Theme.of(context)
-                                      .colorScheme
-                                      .primaryContainer,
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                                alignment: Alignment.center,
-                                child: Text(
-                                  '${level.number}',
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .titleMedium
-                                      ?.copyWith(
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .onPrimaryContainer,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                ),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 16,
+                          vertical: 12,
+                        ),
+                        child: Row(
+                          children: [
+                            Container(
+                              width: 40,
+                              height: 40,
+                              decoration: BoxDecoration(
+                                gradient: isSelected
+                                    ? LinearGradient(
+                                        begin: Alignment.topLeft,
+                                        end: Alignment.bottomRight,
+                                        colors: [
+                                          colorScheme.primary.withValues(
+                                              alpha: isDark ? 0.55 : 1.0),
+                                          colorScheme.primaryContainer,
+                                        ],
+                                      )
+                                    : null,
+                                color: isSelected
+                                    ? null
+                                    : colorScheme.primaryContainer,
+                                borderRadius: BorderRadius.circular(10),
                               ),
-                              const SizedBox(width: 12),
-                              Expanded(
-                                child: Text(
-                                  name,
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodyLarge,
-                                ),
+                              alignment: Alignment.center,
+                              child: Text(
+                                '${level.number}',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .titleMedium
+                                    ?.copyWith(
+                                      color: isSelected && isDark
+                                          ? colorScheme.primary
+                                          : colorScheme.onPrimaryContainer,
+                                      fontWeight: FontWeight.bold,
+                                    ),
                               ),
-                              if (isSelected)
-                                Icon(
-                                  Icons.check_circle,
-                                  color:
-                                      Theme.of(context).colorScheme.primary,
-                                ),
-                            ],
-                          ),
+                            ),
+                            const SizedBox(width: 12),
+                            Expanded(
+                              child: Text(
+                                name,
+                                style:
+                                    Theme.of(context).textTheme.bodyLarge,
+                              ),
+                            ),
+                            if (isSelected)
+                              Icon(
+                                Icons.check_circle,
+                                color: colorScheme.primary,
+                              ),
+                          ],
                         ),
                       ),
                     ),
@@ -312,14 +410,28 @@ class _LevelPage extends ConsumerWidget {
             ),
           ),
           const SizedBox(height: 16),
-          SizedBox(
-            width: double.infinity,
-            child: FilledButton(
-              onPressed: state.canProceed
-                  ? () =>
-                      ref.read(onboardingProvider.notifier).nextPage()
-                  : null,
-              child: Text(l10n.onboardingNext),
+          DecoratedBox(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20),
+              boxShadow: isDark && state.canProceed
+                  ? [
+                      BoxShadow(
+                        color: colorScheme.primary.withValues(alpha: 0.45),
+                        blurRadius: 20,
+                        spreadRadius: -4,
+                      ),
+                    ]
+                  : [],
+            ),
+            child: SizedBox(
+              width: double.infinity,
+              child: FilledButton(
+                onPressed: state.canProceed
+                    ? () =>
+                        ref.read(onboardingProvider.notifier).nextPage()
+                    : null,
+                child: Text(l10n.onboardingNext),
+              ),
             ),
           ),
         ],
@@ -335,6 +447,8 @@ class _MiniSessionPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final l10n = AppLocalizations.of(context)!;
     final asyncWords = ref.watch(miniSessionWordsProvider);
+    final colorScheme = Theme.of(context).colorScheme;
+    final isDark = Theme.of(context).brightness == Brightness.dark;
 
     return Padding(
       padding: const EdgeInsets.all(32),
@@ -352,7 +466,7 @@ class _MiniSessionPage extends ConsumerWidget {
           Text(
             l10n.onboardingMiniSessionSubtitle,
             style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                  color: Theme.of(context).colorScheme.onSurfaceVariant,
+                  color: colorScheme.onSurfaceVariant,
                 ),
           ),
           const SizedBox(height: 24),
@@ -372,30 +486,32 @@ class _MiniSessionPage extends ConsumerWidget {
                   return Semantics(
                     label: '${word.arabic} : ${word.translationFr}',
                     excludeSemantics: true,
-                    child: Card(
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 16,
-                          vertical: 20,
-                        ),
-                        child: Column(
-                          children: [
-                            ArabicText(
-                              word.arabic,
-                              style: Theme.of(context).textTheme.headlineMedium,
-                            ),
-                            const SizedBox(height: 8),
-                            Text(
-                              word.translationFr,
-                              style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .onSurfaceVariant,
-                                  ),
-                              textAlign: TextAlign.center,
-                            ),
-                          ],
-                        ),
+                    child: NeuCard(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 16,
+                        vertical: 20,
+                      ),
+                      child: Column(
+                        children: [
+                          ArabicText(
+                            word.arabic,
+                            style: Theme.of(context)
+                                .textTheme
+                                .headlineMedium
+                                ?.copyWith(
+                                  color: colorScheme.primary,
+                                ),
+                          ),
+                          const SizedBox(height: 8),
+                          Text(
+                            word.translationFr,
+                            style:
+                                Theme.of(context).textTheme.bodyLarge?.copyWith(
+                                      color: colorScheme.onSurfaceVariant,
+                                    ),
+                            textAlign: TextAlign.center,
+                          ),
+                        ],
                       ),
                     ),
                   );
@@ -404,12 +520,26 @@ class _MiniSessionPage extends ConsumerWidget {
             ),
           ),
           const SizedBox(height: 16),
-          SizedBox(
-            width: double.infinity,
-            child: FilledButton(
-              onPressed: () =>
-                  ref.read(onboardingProvider.notifier).nextPage(),
-              child: Text(l10n.onboardingNext),
+          DecoratedBox(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20),
+              boxShadow: isDark
+                  ? [
+                      BoxShadow(
+                        color: colorScheme.primary.withValues(alpha: 0.45),
+                        blurRadius: 20,
+                        spreadRadius: -4,
+                      ),
+                    ]
+                  : [],
+            ),
+            child: SizedBox(
+              width: double.infinity,
+              child: FilledButton(
+                onPressed: () =>
+                    ref.read(onboardingProvider.notifier).nextPage(),
+                child: Text(l10n.onboardingNext),
+              ),
             ),
           ),
         ],
@@ -480,6 +610,7 @@ class _ConsentPageState extends ConsumerState<_ConsentPage>
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     final colorScheme = Theme.of(context).colorScheme;
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     final state = ref.watch(onboardingProvider);
     final asyncLevels = ref.watch(levelsProvider);
 
@@ -492,10 +623,28 @@ class _ConsentPageState extends ConsumerState<_ConsentPage>
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Icon(
-                  Icons.check_circle,
-                  size: 96,
-                  color: colorScheme.primary,
+                Container(
+                  width: 120,
+                  height: 120,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: colorScheme.primaryContainer
+                        .withValues(alpha: isDark ? 0.25 : 0.4),
+                    boxShadow: isDark
+                        ? [
+                            BoxShadow(
+                              color: colorScheme.primary.withValues(alpha: 0.5),
+                              blurRadius: 48,
+                              spreadRadius: 4,
+                            ),
+                          ]
+                        : [],
+                  ),
+                  child: Icon(
+                    Icons.check_circle,
+                    size: 64,
+                    color: colorScheme.primary,
+                  ),
                 ),
                 const SizedBox(height: 24),
                 Text(
@@ -523,7 +672,8 @@ class _ConsentPageState extends ConsumerState<_ConsentPage>
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const SizedBox(height: 16),
-                  _ConsentRecap(state: state, asyncLevels: asyncLevels, l10n: l10n),
+                  _ConsentRecap(
+                      state: state, asyncLevels: asyncLevels, l10n: l10n),
                   const SizedBox(height: 24),
                   Icon(
                     Icons.privacy_tip_outlined,
@@ -555,11 +705,25 @@ class _ConsentPageState extends ConsumerState<_ConsentPage>
             ),
           ),
           const SizedBox(height: 16),
-          SizedBox(
-            width: double.infinity,
-            child: FilledButton(
-              onPressed: () => _complete(true),
-              child: Text(l10n.onboardingConsentAccept),
+          DecoratedBox(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20),
+              boxShadow: isDark
+                  ? [
+                      BoxShadow(
+                        color: colorScheme.primary.withValues(alpha: 0.45),
+                        blurRadius: 20,
+                        spreadRadius: -4,
+                      ),
+                    ]
+                  : [],
+            ),
+            child: SizedBox(
+              width: double.infinity,
+              child: FilledButton(
+                onPressed: () => _complete(true),
+                child: Text(l10n.onboardingConsentAccept),
+              ),
             ),
           ),
           const SizedBox(height: 12),
@@ -603,13 +767,11 @@ class _ConsentRecap extends StatelessWidget {
 
     if (levelName == null) return const SizedBox.shrink();
 
-    return Card(
-      child: Padding(
-        padding: const EdgeInsets.all(12),
-        child: Text(
-          l10n.onboardingConsentRecapLevel(levelName),
-          style: Theme.of(context).textTheme.bodyMedium,
-        ),
+    return NeuCard(
+      padding: const EdgeInsets.all(12),
+      child: Text(
+        l10n.onboardingConsentRecapLevel(levelName),
+        style: Theme.of(context).textTheme.bodyMedium,
       ),
     );
   }

@@ -11,6 +11,7 @@ import '../providers/preferences_provider.dart';
 import '../providers/progress_provider.dart';
 import '../utils/localized_name.dart';
 import '../widgets/error_content_widget.dart';
+import '../widgets/neu_card_widget.dart';
 import '../widgets/skeleton_loader_widget.dart';
 
 class LessonsScreen extends ConsumerWidget {
@@ -86,36 +87,33 @@ class _LessonCard extends ConsumerWidget {
     return Semantics(
       button: true,
       label: name,
-      child: Card(
-        margin: const EdgeInsets.only(bottom: 12),
-        clipBehavior: Clip.antiAlias,
-        child: InkWell(
+      child: Padding(
+        padding: const EdgeInsets.only(bottom: 12),
+        child: NeuCard(
           onTap: onTap,
-          child: Padding(
-            padding: const EdgeInsets.all(16),
-            child: Row(
-              children: [
-                asyncProgress.when(
-                  loading: () =>
-                      _ProgressRing(number: lesson.number, progress: null),
-                  error: (_, _) =>
-                      _ProgressRing(number: lesson.number, progress: null),
-                  data: (progress) =>
-                      _ProgressRing(number: lesson.number, progress: progress),
+          padding: const EdgeInsets.all(16),
+          child: Row(
+            children: [
+              asyncProgress.when(
+                loading: () =>
+                    _ProgressRing(number: lesson.number, progress: null),
+                error: (_, _) =>
+                    _ProgressRing(number: lesson.number, progress: null),
+                data: (progress) =>
+                    _ProgressRing(number: lesson.number, progress: progress),
+              ),
+              const SizedBox(width: 16),
+              Expanded(
+                child: Text(
+                  name,
+                  style: Theme.of(context).textTheme.titleMedium,
                 ),
-                const SizedBox(width: 16),
-                Expanded(
-                  child: Text(
-                    name,
-                    style: Theme.of(context).textTheme.titleMedium,
-                  ),
-                ),
-                Icon(
-                  Icons.chevron_right,
-                  color: Theme.of(context).colorScheme.onSurfaceVariant,
-                ),
-              ],
-            ),
+              ),
+              Icon(
+                Icons.chevron_right,
+                color: Theme.of(context).colorScheme.onSurfaceVariant,
+              ),
+            ],
           ),
         ),
       ),

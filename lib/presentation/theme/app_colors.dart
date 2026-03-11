@@ -3,24 +3,28 @@ import 'package:flutter/material.dart';
 abstract final class AppColors {
   // === Dark Neomorphism Palette ===
 
-  // Backgrounds — deep navy/purple
-  static const darkBackground = Color(0xFF0F0F1E);
-  static const darkSurface = Color(0xFF13131F);
-  static const darkCardSurface = Color(0xFF1A1A2E);
-  static const darkElevated = Color(0xFF1F1F35);
+  // Backgrounds — deep navy
+  static const darkBackground = Color(0xFF0F0F1A);
+  static const darkSurface = Color(0xFF13131E);
+  static const darkCardSurface = Color(0xFF1A1A28);
+  static const darkElevated = Color(0xFF1F1F32);
 
-  // Primary — Violet
-  static const violet = Color(0xFF7C3AED);
-  static const violetLight = Color(0xFFA78BFA);
-  static const violetContainer = Color(0xFF2D1B69);
+  // Primary — Gold (metallic)
+  static const gold = Color(0xFFD4AF37);     // metallic gold
+  static const goldLight = Color(0xFFF0CB6A); // bright gold accent
+  static const goldContainer = Color(0xFF2A1C00); // deep warm dark
 
-  // Secondary — Cyan
+  // Secondary — Cyan (contrast)
   static const cyan = Color(0xFF06B6D4);
   static const cyanLight = Color(0xFF67E8F9);
   static const cyanContainer = Color(0xFF0C4A6E);
 
-  // Accent — Gold/Amber (série, milestones)
-  static const gold = Color(0xFFF59E0B);
+  // Accent — Violet (kept for tertiary/milestones)
+  static const violet = Color(0xFF7C3AED);
+  static const violetLight = Color(0xFFA78BFA);
+  static const violetContainer = Color(0xFF2D1B69);
+
+  // Legacy gold dark (kept for light theme)
   static const goldDark = Color(0xFF78350F);
 
   // Neumorphism shadows (calibrated for darkCardSurface #1A1A2E)

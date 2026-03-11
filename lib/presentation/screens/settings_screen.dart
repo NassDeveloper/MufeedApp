@@ -11,6 +11,7 @@ import '../providers/notification_provider.dart';
 import '../providers/theme_provider.dart';
 import '../providers/progress_provider.dart';
 import '../utils/localized_name.dart';
+import '../widgets/neu_card_widget.dart';
 
 class SettingsScreen extends ConsumerWidget {
   const SettingsScreen({super.key});
@@ -43,15 +44,10 @@ class SettingsScreen extends ConsumerWidget {
           ),
         ),
         data: (modeState) => ListView(
-          padding: const EdgeInsets.all(16),
+          padding: const EdgeInsets.fromLTRB(16, 8, 16, 24),
           children: [
             // Active level section
-            Text(
-              l10n.settingsActiveLevel,
-              style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                    fontWeight: FontWeight.bold,
-                  ),
-            ),
+            _SectionHeader(label: l10n.settingsActiveLevel),
             const SizedBox(height: 12),
             levelsAsync.when(
               loading: () =>
@@ -68,49 +64,41 @@ class SettingsScreen extends ConsumerWidget {
                           label: level.localizedName(
                               Localizations.localeOf(context)),
                           excludeSemantics: true,
-                          child: Card(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(12),
-                              side: level.id == modeState.activeLevelId
-                                  ? BorderSide(
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .primary,
-                                      width: 2,
-                                    )
-                                  : BorderSide.none,
+                          child: NeuCard(
+                            borderSide: level.id == modeState.activeLevelId
+                                ? BorderSide(
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .primary,
+                                    width: 2,
+                                  )
+                                : null,
+                            onTap: () => ref
+                                .read(learningModeProvider.notifier)
+                                .setActiveLevelId(level.id),
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 16,
+                              vertical: 12,
                             ),
-                            child: InkWell(
-                              borderRadius: BorderRadius.circular(12),
-                              onTap: () => ref
-                                  .read(learningModeProvider.notifier)
-                                  .setActiveLevelId(level.id),
-                              child: Padding(
-                                padding: const EdgeInsets.symmetric(
-                                  horizontal: 16,
-                                  vertical: 12,
+                            child: Row(
+                              children: [
+                                Expanded(
+                                  child: Text(
+                                    level.localizedName(
+                                        Localizations.localeOf(context)),
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodyLarge,
+                                  ),
                                 ),
-                                child: Row(
-                                  children: [
-                                    Expanded(
-                                      child: Text(
-                                        level.localizedName(
-                                            Localizations.localeOf(context)),
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .bodyLarge,
-                                      ),
-                                    ),
-                                    if (level.id == modeState.activeLevelId)
-                                      Icon(
-                                        Icons.check_circle,
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .primary,
-                                      ),
-                                  ],
-                                ),
-                              ),
+                                if (level.id == modeState.activeLevelId)
+                                  Icon(
+                                    Icons.check_circle,
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .primary,
+                                  ),
+                              ],
                             ),
                           ),
                         ),
@@ -122,12 +110,7 @@ class SettingsScreen extends ConsumerWidget {
             const SizedBox(height: 24),
 
             // Learning section
-            Text(
-              l10n.settingsLearningSection,
-              style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                    fontWeight: FontWeight.bold,
-                  ),
-            ),
+            _SectionHeader(label: l10n.settingsLearningSection),
             const SizedBox(height: 8),
             ListTile(
               contentPadding: EdgeInsets.zero,
@@ -157,12 +140,7 @@ class SettingsScreen extends ConsumerWidget {
             const SizedBox(height: 24),
 
             // Notifications section
-            Text(
-              l10n.settingsNotificationsSection,
-              style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                    fontWeight: FontWeight.bold,
-                  ),
-            ),
+            _SectionHeader(label: l10n.settingsNotificationsSection),
             const SizedBox(height: 12),
             Semantics(
               toggled: notifPrefs.enabled,
@@ -231,12 +209,7 @@ class SettingsScreen extends ConsumerWidget {
             const SizedBox(height: 24),
 
             // Language section
-            Text(
-              l10n.settingsLanguageSection,
-              style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                    fontWeight: FontWeight.bold,
-                  ),
-            ),
+            _SectionHeader(label: l10n.settingsLanguageSection),
             const SizedBox(height: 12),
             _OptionCard(
               label: l10n.settingsLanguageFr,
@@ -256,12 +229,7 @@ class SettingsScreen extends ConsumerWidget {
             const SizedBox(height: 24),
 
             // Theme section
-            Text(
-              l10n.settingsThemeSection,
-              style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                    fontWeight: FontWeight.bold,
-                  ),
-            ),
+            _SectionHeader(label: l10n.settingsThemeSection),
             const SizedBox(height: 12),
             _OptionCard(
               label: l10n.settingsThemeSystem,
@@ -292,12 +260,7 @@ class SettingsScreen extends ConsumerWidget {
             const SizedBox(height: 24),
 
             // Privacy section
-            Text(
-              l10n.settingsPrivacySection,
-              style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                    fontWeight: FontWeight.bold,
-                  ),
-            ),
+            _SectionHeader(label: l10n.settingsPrivacySection),
             const SizedBox(height: 12),
             Semantics(
               toggled: gdprConsent ?? false,
@@ -337,6 +300,38 @@ class SettingsScreen extends ConsumerWidget {
   }
 }
 
+/// Styled section header with a violet accent line.
+class _SectionHeader extends StatelessWidget {
+  const _SectionHeader({required this.label});
+
+  final String label;
+
+  @override
+  Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+
+    return Row(
+      children: [
+        Container(
+          width: 3,
+          height: 18,
+          decoration: BoxDecoration(
+            color: colorScheme.primary,
+            borderRadius: BorderRadius.circular(2),
+          ),
+        ),
+        const SizedBox(width: 8),
+        Text(
+          label,
+          style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                fontWeight: FontWeight.bold,
+              ),
+        ),
+      ],
+    );
+  }
+}
+
 class _OptionCard extends StatelessWidget {
   const _OptionCard({
     required this.label,
@@ -357,44 +352,33 @@ class _OptionCard extends StatelessWidget {
       selected: isSelected,
       label: label,
       excludeSemantics: true,
-      child: Card(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12),
-          side: isSelected
-              ? BorderSide(
-                  color: Theme.of(context).colorScheme.primary,
-                  width: 2,
-                )
-              : BorderSide.none,
-        ),
-        child: InkWell(
-          borderRadius: BorderRadius.circular(12),
-          onTap: onTap,
-          child: Padding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 16,
-              vertical: 12,
+      child: NeuCard(
+        borderSide: isSelected
+            ? BorderSide(
+                color: Theme.of(context).colorScheme.primary,
+                width: 2,
+              )
+            : null,
+        onTap: onTap,
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+        child: Row(
+          children: [
+            if (icon != null) ...[
+              Icon(icon, size: 20),
+              const SizedBox(width: 12),
+            ],
+            Expanded(
+              child: Text(
+                label,
+                style: Theme.of(context).textTheme.bodyLarge,
+              ),
             ),
-            child: Row(
-              children: [
-                if (icon != null) ...[
-                  Icon(icon, size: 20),
-                  const SizedBox(width: 12),
-                ],
-                Expanded(
-                  child: Text(
-                    label,
-                    style: Theme.of(context).textTheme.bodyLarge,
-                  ),
-                ),
-                if (isSelected)
-                  Icon(
-                    Icons.check_circle,
-                    color: Theme.of(context).colorScheme.primary,
-                  ),
-              ],
-            ),
-          ),
+            if (isSelected)
+              Icon(
+                Icons.check_circle,
+                color: Theme.of(context).colorScheme.primary,
+              ),
+          ],
         ),
       ),
     );

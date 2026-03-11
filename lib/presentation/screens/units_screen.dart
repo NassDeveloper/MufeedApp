@@ -7,6 +7,7 @@ import '../../l10n/app_localizations.dart';
 import '../providers/content_provider.dart';
 import '../utils/localized_name.dart';
 import '../widgets/error_content_widget.dart';
+import '../widgets/neu_card_widget.dart';
 import '../widgets/skeleton_loader_widget.dart';
 
 class UnitsScreen extends ConsumerWidget {
@@ -73,52 +74,65 @@ class _UnitCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final locale = Localizations.localeOf(context);
     final colorScheme = Theme.of(context).colorScheme;
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     final name = unit.localizedName(locale);
 
     return Semantics(
       button: true,
       label: name,
-      child: Card(
-        margin: const EdgeInsets.only(bottom: 12),
-        child: InkWell(
-          borderRadius: BorderRadius.circular(12),
+      child: Padding(
+        padding: const EdgeInsets.only(bottom: 12),
+        child: NeuCard(
           onTap: () => context.push(
             '/vocabulary/level/$levelId/unit/${unit.id}',
             extra: name,
           ),
-          child: Padding(
-            padding: const EdgeInsets.all(16),
-            child: Row(
-              children: [
-                Container(
-                  width: 48,
-                  height: 48,
-                  decoration: BoxDecoration(
-                    color: colorScheme.secondaryContainer,
-                    borderRadius: BorderRadius.circular(12),
+          padding: const EdgeInsets.all(16),
+          child: Row(
+            children: [
+              Container(
+                width: 48,
+                height: 48,
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                    colors: isDark
+                        ? [
+                            colorScheme.primary.withValues(alpha: 0.55),
+                            colorScheme.primaryContainer
+                                .withValues(alpha: 0.40),
+                          ]
+                        : [
+                            colorScheme.primaryContainer,
+                            colorScheme.primaryContainer,
+                          ],
                   ),
-                  alignment: Alignment.center,
-                  child: Text(
-                    '${unit.number}',
-                    style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                          color: colorScheme.onSecondaryContainer,
-                          fontWeight: FontWeight.bold,
-                        ),
-                  ),
+                  borderRadius: BorderRadius.circular(12),
                 ),
-                const SizedBox(width: 16),
-                Expanded(
-                  child: Text(
-                    name,
-                    style: Theme.of(context).textTheme.titleMedium,
-                  ),
+                alignment: Alignment.center,
+                child: Text(
+                  '${unit.number}',
+                  style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                        color: isDark
+                            ? colorScheme.primary
+                            : colorScheme.onPrimaryContainer,
+                        fontWeight: FontWeight.bold,
+                      ),
                 ),
-                Icon(
-                  Icons.chevron_right,
-                  color: colorScheme.onSurfaceVariant,
+              ),
+              const SizedBox(width: 16),
+              Expanded(
+                child: Text(
+                  name,
+                  style: Theme.of(context).textTheme.titleMedium,
                 ),
-              ],
-            ),
+              ),
+              Icon(
+                Icons.chevron_right,
+                color: colorScheme.onSurfaceVariant,
+              ),
+            ],
           ),
         ),
       ),
