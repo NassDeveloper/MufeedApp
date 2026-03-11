@@ -5,6 +5,7 @@ import '../../domain/models/lesson_progress_model.dart';
 import '../../domain/models/progress_stats_model.dart';
 import '../../domain/models/upcoming_reviews_model.dart';
 import '../../domain/models/user_progress_model.dart';
+import '../providers/preferences_provider.dart';
 import 'srs_provider.dart';
 
 ContentTypeStats _buildTypeStats({
@@ -91,3 +92,31 @@ final recentActivityProvider =
 final upcomingReviewsProvider = FutureProvider<UpcomingReviewsModel>((ref) {
   return ref.watch(progressRepositoryProvider).getUpcomingReviews();
 });
+
+/// Aggregated progress (mastered / total items) for an entire level.
+final levelProgressProvider =
+    FutureProvider.family<({int totalItems, int masteredItems}), int>(
+        (ref, levelId) async {
+  final summaries = await ref
+      .watch(progressRepositoryProvider)
+      .getLessonProgressSummaryForLevel(levelId);
+  final total = summaries.fold(0, (s, e) => s + e.totalItems);
+  final mastered = summaries.fold(0, (s, e) => s + e.masteredCount);
+  return (totalItems: total, masteredItems: mastered);
+});
+
+/// Number of new words to introduce per day (configurable in settings).
+class NewWordsPerDayNotifier extends Notifier<int> {
+  @override
+  int build() {
+    return ref.read(sharedPreferencesSourceProvider).getNewWordsPerDay();
+  }
+
+  Future<void> setValue(int value) async {
+    await ref.read(sharedPreferencesSourceProvider).setNewWordsPerDay(value);
+    state = value;
+  }
+}
+
+final newWordsPerDayProvider =
+    NotifierProvider<NewWordsPerDayNotifier, int>(NewWordsPerDayNotifier.new);

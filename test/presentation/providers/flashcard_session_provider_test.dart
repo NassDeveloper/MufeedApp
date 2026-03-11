@@ -90,6 +90,18 @@ class FakeProgressRepository implements ProgressRepository {
   @override
   Future<UpcomingReviewsModel> getUpcomingReviews() async =>
       const UpcomingReviewsModel(dueToday: 0, dueTomorrow: 0, dueThisWeek: 0);
+
+  @override
+  Future<List<ReviewableItemModel>> getNewWordsForLevel(int levelId, int limit) =>
+      Future.value([]);
+
+  @override
+  Future<({int lessonId, int totalItems, int masteredCount})>
+      getLessonProgressSummary(int lessonId) =>
+      Future.value((lessonId: lessonId, totalItems: 0, masteredCount: 0));
+  @override
+  Future<int> getNewWordsIntroducedTodayCount() => Future.value(0);
+
 }
 
 class FakeStreakRepository implements StreakRepository {
@@ -245,9 +257,7 @@ void main() {
 
       notifier.goToPage(2);
       expect(container.read(flashcardSessionProvider)!.currentIndex, 2);
-      expect(
-          container.read(flashcardSessionProvider)!.currentItem.contentType,
-          'verb');
+      // Items are shuffled; only verify the index, not specific content.
     });
 
     test('goToPage ignores invalid indices', () async {
@@ -276,14 +286,17 @@ void main() {
           container.read(flashcardSessionProvider.notifier);
       await notifier.startSession(1);
 
-      expect(
-          container.read(flashcardSessionProvider)!.currentItem.arabic,
-          'كتاب');
+      // Items are shuffled; verify index advances correctly.
+      final firstItem =
+          container.read(flashcardSessionProvider)!.currentItem;
+      expect(firstItem, isNotNull);
 
       notifier.nextCard();
+      final secondItem =
+          container.read(flashcardSessionProvider)!.currentItem;
+      expect(secondItem.arabic, isNot(firstItem.arabic));
       expect(
-          container.read(flashcardSessionProvider)!.currentItem.arabic,
-          'قلم');
+          container.read(flashcardSessionProvider)!.currentIndex, 1);
     });
 
     test('isFirst and isLast are correct', () async {
@@ -336,9 +349,11 @@ void main() {
 
       await notifier.rateCard(3);
 
+      // The saved item corresponds to whichever item was first after shuffle.
+      final firstItemId =
+          container.read(flashcardSessionProvider)!.items.first.itemId;
       expect(fakeRepo.savedProgress, hasLength(1));
-      expect(fakeRepo.savedProgress.first.itemId, 1);
-      expect(fakeRepo.savedProgress.first.contentType, 'vocab');
+      expect(fakeRepo.savedProgress.first.itemId, firstItemId);
     });
 
     test('rateCard advances to next card', () async {

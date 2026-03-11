@@ -18,19 +18,17 @@ class OnboardingState {
   final int? selectedLevelId;
   final bool? gdprConsent;
 
-  static const totalPages = 5;
+  static const totalPages = 4;
 
   bool get canProceed {
     switch (currentPage) {
       case 0:
         return true; // Welcome page — always can proceed
       case 1:
-        return learningMode != null;
+        return selectedLevelId != null; // Level selection
       case 2:
-        return selectedLevelId != null;
-      case 3:
         return true; // Mini-session page — always can proceed
-      case 4:
+      case 3:
         return true; // Consent page — both accept and refuse are valid
       default:
         return false;
@@ -81,11 +79,11 @@ class OnboardingNotifier extends Notifier<OnboardingState> {
   }
 
   Future<void> completeOnboarding() async {
-    if (state.learningMode == null || state.selectedLevelId == null) return;
+    if (state.selectedLevelId == null) return;
 
     final prefs = ref.read(sharedPreferencesSourceProvider);
     final locale = ref.read(localeProvider);
-    await prefs.setLearningMode(state.learningMode!);
+    await prefs.setLearningMode('curriculum');
     await prefs.setActiveLevelId(state.selectedLevelId!);
     await prefs.setLocale(locale.languageCode);
     if (state.gdprConsent != null) {

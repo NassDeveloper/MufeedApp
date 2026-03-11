@@ -1,579 +1,686 @@
 [
-  {"unit": 1, "lesson": 1,
-   "sentence_fr": "C'est ___ (un stylo).",
-   "sentence_ar": "هَذَا ___.",
-   "choices": ["قَلَمٌ", "جَبَلٌ", "بَابٌ", "دَفْتَرٌ"],
-   "correct_index": 0,
-   "explanations": [
-     "Correct ! قَلَمٌ signifie bien « stylo ».",
-     "Incorrect. جَبَلٌ signifie « montagne », pas « stylo ».",
-     "Incorrect. بَابٌ signifie « porte », pas « stylo ».",
-     "Incorrect. دَفْتَرٌ signifie « cahier », pas « stylo »."
-   ]},
-  {"unit": 1, "lesson": 1,
-   "sentence_fr": "C'est ___ (un arbre).",
-   "sentence_ar": "هَذِهِ ___.",
-   "choices": ["سَمَكَةٌ", "بَقَرَةٌ", "شَجَرَةٌ", "جَرَسٌ"],
-   "correct_index": 2,
-   "explanations": [
-     "Incorrect. سَمَكَةٌ signifie « poisson », pas « arbre ».",
-     "Incorrect. بَقَرَةٌ signifie « vache », pas « arbre ».",
-     "Correct ! شَجَرَةٌ signifie bien « arbre ».",
-     "Incorrect. جَرَسٌ signifie « cloche », pas « arbre »."
-   ]},
-  {"unit": 1, "lesson": 1,
-   "sentence_fr": "C'est ___ (une maison).",
-   "sentence_ar": "هَذَا ___.",
-   "choices": ["أَسَدٌ", "بَيْتٌ", "طَبَقٌ", "جَرَسٌ"],
-   "correct_index": 1,
-   "explanations": [
-     "Incorrect. أَسَدٌ signifie « lion », pas « maison ».",
-     "Correct ! بَيْتٌ signifie bien « maison ».",
-     "Incorrect. طَبَقٌ signifie « assiette », pas « maison ».",
-     "Incorrect. جَرَسٌ signifie « cloche », pas « maison »."
-   ]},
-
-  {"unit": 1, "lesson": 2,
-   "sentence_fr": "C'est ___ (un enfant).",
-   "sentence_ar": "هَذَا ___.",
-   "choices": ["قِرْدٌ", "جِسْرٌ", "طِفْلٌ", "عِنَبٌ"],
-   "correct_index": 2,
-   "explanations": [
-     "Incorrect. قِرْدٌ signifie « singe », pas « enfant ».",
-     "Incorrect. جِسْرٌ signifie « pont », pas « enfant ».",
-     "Correct ! طِفْلٌ signifie bien « enfant ».",
-     "Incorrect. عِنَبٌ signifie « raisin », pas « enfant »."
-   ]},
-  {"unit": 1, "lesson": 2,
-   "sentence_fr": "C'est ___ (une trousse).",
-   "sentence_ar": "هَذِهِ ___.",
-   "choices": ["مِسْطَرَةٌ", "مِقْلَمَةٌ", "مِنْشَفَةٌ", "مِغْرَفَةٌ"],
-   "correct_index": 1,
-   "explanations": [
-     "Incorrect. مِسْطَرَةٌ signifie « règle », pas « trousse ».",
-     "Correct ! مِقْلَمَةٌ signifie bien « trousse ».",
-     "Incorrect. مِنْشَفَةٌ signifie « serviette », pas « trousse ».",
-     "Incorrect. مِغْرَفَةٌ signifie « louche », pas « trousse »."
-   ]},
-  {"unit": 1, "lesson": 2,
-   "sentence_fr": "C'est ___ (du raisin).",
-   "sentence_ar": "هَذَا ___.",
-   "choices": ["مِشْمِشٌ", "مِصْعَدٌ", "جِسْرٌ", "عِنَبٌ"],
-   "correct_index": 3,
-   "explanations": [
-     "Incorrect. مِشْمِشٌ signifie « abricot », pas « raisin ».",
-     "Incorrect. مِصْعَدٌ signifie « ascenseur », pas « raisin ».",
-     "Incorrect. جِسْرٌ signifie « pont », pas « raisin ».",
-     "Correct ! عِنَبٌ signifie bien « raisin »."
-   ]},
-
-  {"unit": 1, "lesson": 3,
-   "sentence_fr": "C'est ___ (un ballon).",
-   "sentence_ar": "هَذِهِ ___.",
-   "choices": ["لُعْبَةٌ", "ذُرَةٌ", "كُرَةٌ", "أُذُنٌ"],
-   "correct_index": 2,
-   "explanations": [
-     "Incorrect. لُعْبَةٌ signifie « jouet », pas « ballon ».",
-     "Incorrect. ذُرَةٌ signifie « maïs », pas « ballon ».",
-     "Correct ! كُرَةٌ signifie bien « ballon ».",
-     "Incorrect. أُذُنٌ signifie « oreille », pas « ballon »."
-   ]},
-  {"unit": 1, "lesson": 3,
-   "sentence_fr": "C'est ___ (du pain).",
-   "sentence_ar": "هَذَا ___.",
-   "choices": ["خُبْزٌ", "فُرْنٌ", "بُرْجٌ", "قُفْلٌ"],
-   "correct_index": 0,
-   "explanations": [
-     "Correct ! خُبْزٌ signifie bien « pain ».",
-     "Incorrect. فُرْنٌ signifie « four », pas « pain ».",
-     "Incorrect. بُرْجٌ signifie « tour », pas « pain ».",
-     "Incorrect. قُفْلٌ signifie « cadenas », pas « pain »."
-   ]},
-  {"unit": 1, "lesson": 3,
-   "sentence_fr": "C'est ___ (un Coran).",
-   "sentence_ar": "هَذَا ___.",
-   "choices": ["كُتُبٌ", "فُرْنٌ", "قُفْلٌ", "مُصْحَفٌ"],
-   "correct_index": 3,
-   "explanations": [
-     "Incorrect. كُتُبٌ signifie « livres », pas « Coran ».",
-     "Incorrect. فُرْنٌ signifie « four », pas « Coran ».",
-     "Incorrect. قُفْلٌ signifie « cadenas », pas « Coran ».",
-     "Correct ! مُصْحَفٌ signifie bien « Coran »."
-   ]},
-
-  {"unit": 1, "lesson": 4,
-   "sentence_fr": "C'est ___ (une étoile).",
-   "sentence_ar": "هَذَا ___.",
-   "choices": ["شَمْسٌ", "نَجْمٌ", "عَيْنٌ", "أَنْفٌ"],
-   "correct_index": 1,
-   "explanations": [
-     "Incorrect. شَمْسٌ signifie « soleil », pas « étoile ».",
-     "Correct ! نَجْمٌ signifie bien « étoile ».",
-     "Incorrect. عَيْنٌ signifie « œil », pas « étoile ».",
-     "Incorrect. أَنْفٌ signifie « nez », pas « étoile »."
-   ]},
-  {"unit": 1, "lesson": 4,
-   "sentence_fr": "C'est ___ (un bureau).",
-   "sentence_ar": "هَذَا ___.",
-   "choices": ["ثَوْبٌ", "وَرْدَةٌ", "مَسْجِدٌ", "مَكْتَبٌ"],
-   "correct_index": 3,
-   "explanations": [
-     "Incorrect. ثَوْبٌ signifie « vêtement », pas « bureau ».",
-     "Incorrect. وَرْدَةٌ signifie « rose », pas « bureau ».",
-     "Incorrect. مَسْجِدٌ signifie « mosquée », pas « bureau ».",
-     "Correct ! مَكْتَبٌ signifie bien « bureau »."
-   ]},
-  {"unit": 1, "lesson": 4,
-   "sentence_fr": "C'est ___ (une rose).",
-   "sentence_ar": "هَذِهِ ___.",
-   "choices": ["وَرْدَةٌ", "شَوْكَةٌ", "أَرْنَبٌ", "مَكْتَبٌ"],
-   "correct_index": 0,
-   "explanations": [
-     "Correct ! وَرْدَةٌ signifie bien « rose ».",
-     "Incorrect. شَوْكَةٌ signifie « fourchette », pas « rose ».",
-     "Incorrect. أَرْنَبٌ signifie « lapin », pas « rose ».",
-     "Incorrect. مَكْتَبٌ signifie « bureau », pas « rose »."
-   ]},
-
-  {"unit": 1, "lesson": 5,
-   "sentence_fr": "C'est ___ (un livre).",
-   "sentence_ar": "هَذَا ___.",
-   "choices": ["مِفْتَاحٌ", "حِذَاءٌ", "كِتَابٌ", "تَاجٌ"],
-   "correct_index": 2,
-   "explanations": [
-     "Incorrect. مِفْتَاحٌ signifie « clé », pas « livre ».",
-     "Incorrect. حِذَاءٌ signifie « chaussure », pas « livre ».",
-     "Correct ! كِتَابٌ signifie bien « livre ».",
-     "Incorrect. تَاجٌ signifie « couronne », pas « livre »."
-   ]},
-  {"unit": 1, "lesson": 5,
-   "sentence_fr": "C'est ___ (un bus).",
-   "sentence_ar": "هَذِهِ ___.",
-   "choices": ["حَافِلَةٌ", "نَافِذَةٌ", "ثُعْبَانٌ", "مِفْتَاحٌ"],
-   "correct_index": 0,
-   "explanations": [
-     "Correct ! حَافِلَةٌ signifie bien « bus ».",
-     "Incorrect. نَافِذَةٌ signifie « fenêtre », pas « bus ».",
-     "Incorrect. ثُعْبَانٌ signifie « serpent », pas « bus ».",
-     "Incorrect. مِفْتَاحٌ signifie « clé », pas « bus »."
-   ]},
-  {"unit": 1, "lesson": 5,
-   "sentence_fr": "C'est ___ (un conducteur).",
-   "sentence_ar": "هَذَا ___.",
-   "choices": ["تِمْسَاحٌ", "ذِرَاعٌ", "ثُعْبَانٌ", "سَائِقٌ"],
-   "correct_index": 3,
-   "explanations": [
-     "Incorrect. تِمْسَاحٌ signifie « crocodile », pas « conducteur ».",
-     "Incorrect. ذِرَاعٌ signifie « bras », pas « conducteur ».",
-     "Incorrect. ثُعْبَانٌ signifie « serpent », pas « conducteur ».",
-     "Correct ! سَائِقٌ signifie bien « conducteur »."
-   ]},
-
-  {"unit": 2, "lesson": 1,
-   "sentence_fr": "وَاحِد ، اِثْنَان ، ___ (trois) ...",
-   "sentence_ar": "وَاحِد ، اِثْنَان ، ___ ...",
-   "choices": ["خَمْسَة", "ثَلَاثَة", "سِتَّة", "أَرْبَعَة"],
-   "correct_index": 1,
-   "explanations": [
-     "Incorrect. خَمْسَة signifie « cinq (5) », la séquence attend « trois (3) ».",
-     "Correct ! ثَلَاثَة signifie bien « trois (3) ».",
-     "Incorrect. سِتَّة signifie « six (6) », la séquence attend « trois (3) ».",
-     "Incorrect. أَرْبَعَة signifie « quatre (4) », la séquence attend « trois (3) »."
-   ]},
-  {"unit": 2, "lesson": 1,
-   "sentence_fr": "خَمْسَة ، سِتَّة ، ___ (sept) ...",
-   "sentence_ar": "خَمْسَة ، سِتَّة ، ___ ...",
-   "choices": ["تِسْعَة", "ثَمَانِيَة", "سَبْعَة", "عَشَرَة"],
-   "correct_index": 2,
-   "explanations": [
-     "Incorrect. تِسْعَة signifie « neuf (9) », la séquence attend « sept (7) ».",
-     "Incorrect. ثَمَانِيَة signifie « huit (8) », la séquence attend « sept (7) ».",
-     "Correct ! سَبْعَة signifie bien « sept (7) ».",
-     "Incorrect. عَشَرَة signifie « dix (10) », la séquence attend « sept (7) »."
-   ]},
-  {"unit": 2, "lesson": 1,
-   "sentence_fr": "ثَمَانِيَة ، تِسْعَة ، ___ (dix) ...",
-   "sentence_ar": "ثَمَانِيَة ، تِسْعَة ، ___ ...",
-   "choices": ["اِثْنَان", "وَاحِد", "أَرْبَعَة", "عَشَرَة"],
-   "correct_index": 3,
-   "explanations": [
-     "Incorrect. اِثْنَان signifie « deux (2) », la séquence attend « dix (10) ».",
-     "Incorrect. وَاحِد signifie « un (1) », la séquence attend « dix (10) ».",
-     "Incorrect. أَرْبَعَة signifie « quatre (4) », la séquence attend « dix (10) ».",
-     "Correct ! عَشَرَة signifie bien « dix (10) »."
-   ]},
-
-  {"unit": 2, "lesson": 2,
-   "sentence_fr": "أَحَدَ عَشَرَ ، اِثْنَا عَشَرَ ، ___ (treize) ...",
-   "sentence_ar": "أَحَدَ عَشَرَ ، اِثْنَا عَشَرَ ، ___ ...",
-   "choices": ["خَمْسَةَ عَشَرَ", "ثَلَاثَةَ عَشَرَ", "أَرْبَعَةَ عَشَرَ", "سِتَّةَ عَشَرَ"],
-   "correct_index": 1,
-   "explanations": [
-     "Incorrect. خَمْسَةَ عَشَرَ signifie « quinze (15) », la séquence attend « treize (13) ».",
-     "Correct ! ثَلَاثَةَ عَشَرَ signifie bien « treize (13) ».",
-     "Incorrect. أَرْبَعَةَ عَشَرَ signifie « quatorze (14) », la séquence attend « treize (13) ».",
-     "Incorrect. سِتَّةَ عَشَرَ signifie « seize (16) », la séquence attend « treize (13) »."
-   ]},
-  {"unit": 2, "lesson": 2,
-   "sentence_fr": "خَمْسَةَ عَشَرَ ، سِتَّةَ عَشَرَ ، ___ (dix-sept) ...",
-   "sentence_ar": "خَمْسَةَ عَشَرَ ، سِتَّةَ عَشَرَ ، ___ ...",
-   "choices": ["سَبْعَةَ عَشَرَ", "ثَمَانِيَةَ عَشَرَ", "تِسْعَةَ عَشَرَ", "أَحَدَ عَشَرَ"],
-   "correct_index": 0,
-   "explanations": [
-     "Correct ! سَبْعَةَ عَشَرَ signifie bien « dix-sept (17) ».",
-     "Incorrect. ثَمَانِيَةَ عَشَرَ signifie « dix-huit (18) », la séquence attend « dix-sept (17) ».",
-     "Incorrect. تِسْعَةَ عَشَرَ signifie « dix-neuf (19) », la séquence attend « dix-sept (17) ».",
-     "Incorrect. أَحَدَ عَشَرَ signifie « onze (11) », la séquence attend « dix-sept (17) »."
-   ]},
-  {"unit": 2, "lesson": 2,
-   "sentence_fr": "تِسْعَةَ عَشَرَ ، ___ (vingt) ...",
-   "sentence_ar": "تِسْعَةَ عَشَرَ ، ___ ...",
-   "choices": ["عِشْرُون", "سَبْعَةَ عَشَرَ", "ثَمَانِيَةَ عَشَرَ", "اِثْنَا عَشَرَ"],
-   "correct_index": 0,
-   "explanations": [
-     "Correct ! عِشْرُون signifie bien « vingt (20) ».",
-     "Incorrect. سَبْعَةَ عَشَرَ signifie « dix-sept (17) », la séquence attend « vingt (20) ».",
-     "Incorrect. ثَمَانِيَةَ عَشَرَ signifie « dix-huit (18) », la séquence attend « vingt (20) ».",
-     "Incorrect. اِثْنَا عَشَرَ signifie « douze (12) », la séquence attend « vingt (20) »."
-   ]},
-
-  {"unit": 2, "lesson": 3,
-   "sentence_fr": "Après السَّبْت (samedi) vient ___ (dimanche).",
-   "sentence_ar": "بَعْدَ السَّبْت يَأْتِي ___.",
-   "choices": ["الإِثْنَيْن", "الثُّلَاثَاء", "الأَحَد", "الأَرْبِعَاء"],
-   "correct_index": 2,
-   "explanations": [
-     "Incorrect. الإِثْنَيْن signifie « lundi », pas « dimanche ».",
-     "Incorrect. الثُّلَاثَاء signifie « mardi », pas « dimanche ».",
-     "Correct ! الأَحَد signifie bien « dimanche ».",
-     "Incorrect. الأَرْبِعَاء signifie « mercredi », pas « dimanche »."
-   ]},
-  {"unit": 2, "lesson": 3,
-   "sentence_fr": "Après الثُّلَاثَاء (mardi) vient ___ (mercredi).",
-   "sentence_ar": "بَعْدَ الثُّلَاثَاء يَأْتِي ___.",
-   "choices": ["الأَرْبِعَاء", "الخَمِيس", "الجُمُعَة", "الإِثْنَيْن"],
-   "correct_index": 0,
-   "explanations": [
-     "Correct ! الأَرْبِعَاء signifie bien « mercredi ».",
-     "Incorrect. الخَمِيس signifie « jeudi », pas « mercredi ».",
-     "Incorrect. الجُمُعَة signifie « vendredi », pas « mercredi ».",
-     "Incorrect. الإِثْنَيْن signifie « lundi », pas « mercredi »."
-   ]},
-  {"unit": 2, "lesson": 3,
-   "sentence_fr": "Le dernier jour de la semaine arabe est ___ (vendredi).",
-   "sentence_ar": "آخِرُ أَيَّامِ الأُسْبُوعِ هُوَ ___.",
-   "choices": ["السَّبْت", "الجُمُعَة", "الخَمِيس", "الأَحَد"],
-   "correct_index": 1,
-   "explanations": [
-     "Incorrect. السَّبْت signifie « samedi », c'est le premier jour, pas le dernier.",
-     "Correct ! الجُمُعَة signifie bien « vendredi », dernier jour de la semaine arabe.",
-     "Incorrect. الخَمِيس signifie « jeudi », pas « vendredi ».",
-     "Incorrect. الأَحَد signifie « dimanche », pas « vendredi »."
-   ]},
-
-  {"unit": 2, "lesson": 4,
-   "sentence_fr": "Le premier mois hégirien est ___ (Mouharram).",
-   "sentence_ar": "أَوَّلُ شَهْرٍ هِجْرِيٍّ هُوَ ___.",
-   "choices": ["رَجَب", "صَفَر", "مُحَرَّم", "رَمَضَان"],
-   "correct_index": 2,
-   "explanations": [
-     "Incorrect. رَجَب est le 7e mois hégirien, pas le premier.",
-     "Incorrect. صَفَر est le 2e mois hégirien, pas le premier.",
-     "Correct ! مُحَرَّم est bien le premier mois hégirien.",
-     "Incorrect. رَمَضَان est le 9e mois hégirien, pas le premier."
-   ]},
-  {"unit": 2, "lesson": 4,
-   "sentence_fr": "Le neuvième mois hégirien est ___ (Ramadan).",
-   "sentence_ar": "الشَّهْرُ التَّاسِعُ مِنَ التَّقْوِيمِ الهِجْرِيِّ هُوَ ___.",
-   "choices": ["شَعْبَان", "رَمَضَان", "شَوَّال", "رَجَب"],
-   "correct_index": 1,
-   "explanations": [
-     "Incorrect. شَعْبَان est le 8e mois hégirien, pas le 9e.",
-     "Correct ! رَمَضَان est bien le 9e mois hégirien.",
-     "Incorrect. شَوَّال est le 10e mois hégirien, pas le 9e.",
-     "Incorrect. رَجَب est le 7e mois hégirien, pas le 9e."
-   ]},
-  {"unit": 2, "lesson": 4,
-   "sentence_fr": "Après صَفَر (Safar) vient ___ (Rabi al-Awwal).",
-   "sentence_ar": "بَعْدَ صَفَر يَأْتِي ___.",
-   "choices": ["رَبِيع الأَوَّل", "مُحَرَّم", "جُمَادَى الأُولَى", "رَجَب"],
-   "correct_index": 0,
-   "explanations": [
-     "Correct ! رَبِيع الأَوَّل est bien le 3e mois hégirien, qui suit صَفَر.",
-     "Incorrect. مُحَرَّم est le 1er mois hégirien, il précède صَفَر.",
-     "Incorrect. جُمَادَى الأُولَى est le 5e mois hégirien.",
-     "Incorrect. رَجَب est le 7e mois hégirien."
-   ]},
-
-  {"unit": 2, "lesson": 5,
-   "sentence_fr": "Le premier mois de l'année est ___ (janvier).",
-   "sentence_ar": "أَوَّلُ شَهْرٍ فِي السَّنَةِ هُوَ ___.",
-   "choices": ["فَبْرَايِر", "يَنَايِر", "مَارِس", "أَبْرِيل"],
-   "correct_index": 1,
-   "explanations": [
-     "Incorrect. فَبْرَايِر est le 2e mois de l'année, pas le premier.",
-     "Correct ! يَنَايِر est bien le premier mois de l'année.",
-     "Incorrect. مَارِس est le 3e mois de l'année, pas le premier.",
-     "Incorrect. أَبْرِيل est le 4e mois de l'année, pas le premier."
-   ]},
-  {"unit": 2, "lesson": 5,
-   "sentence_fr": "Après يَنَايِر (janvier) vient ___ (février).",
-   "sentence_ar": "بَعْدَ يَنَايِر يَأْتِي ___.",
-   "choices": ["فَبْرَايِر", "مَارِس", "دِيسَمْبَر", "أَبْرِيل"],
-   "correct_index": 0,
-   "explanations": [
-     "Correct ! فَبْرَايِر est bien le 2e mois de l'année, qui suit يَنَايِر.",
-     "Incorrect. مَارِس est le 3e mois de l'année.",
-     "Incorrect. دِيسَمْبَر est le 12e et dernier mois de l'année.",
-     "Incorrect. أَبْرِيل est le 4e mois de l'année."
-   ]},
-  {"unit": 2, "lesson": 5,
-   "sentence_fr": "Le dernier mois de l'année est ___ (décembre).",
-   "sentence_ar": "___ هُوَ آخِرُ شَهْرٍ فِي السَّنَةِ.",
-   "choices": ["نُوفَمْبَر", "أُكْتُوبَر", "دِيسَمْبَر", "سِبْتَمْبَر"],
-   "correct_index": 2,
-   "explanations": [
-     "Incorrect. نُوفَمْبَر est le 11e mois de l'année, pas le dernier.",
-     "Incorrect. أُكْتُوبَر est le 10e mois de l'année, pas le dernier.",
-     "Correct ! دِيسَمْبَر est bien le 12e et dernier mois de l'année.",
-     "Incorrect. سِبْتَمْبَر est le 9e mois de l'année, pas le dernier."
-   ]},
-
-  {"unit": 3, "lesson": 1,
-   "sentence_fr": "La couleur de la tomate est ___ (rouge).",
-   "sentence_ar": "لَوْنُ الطَّمَاطِمِ ___.",
-   "choices": ["أَصْفَر", "أَخْضَر", "أَحْمَر", "اللَّمْس"],
-   "correct_index": 2,
-   "explanations": [
-     "Incorrect. أَصْفَر signifie « jaune », pas « rouge ».",
-     "Incorrect. أَخْضَر signifie « vert », pas « rouge ».",
-     "Correct ! أَحْمَر signifie bien « rouge ».",
-     "Incorrect. اللَّمْس signifie « le toucher », ce n'est pas une couleur."
-   ]},
-  {"unit": 3, "lesson": 1,
-   "sentence_fr": "On utilise ___ (l'ouïe) pour entendre les sons.",
-   "sentence_ar": "نَسْتَخْدِمُ ___ لِسَمَاعِ الأَصْوَاتِ.",
-   "choices": ["البَصَر", "الشَّمّ", "السَّمْع", "التَّذَوُّق"],
-   "correct_index": 2,
-   "explanations": [
-     "Incorrect. البَصَر signifie « la vue », pour voir.",
-     "Incorrect. الشَّمّ signifie « l'odorat », pour sentir.",
-     "Correct ! السَّمْع signifie bien « l'ouïe », pour entendre.",
-     "Incorrect. التَّذَوُّق signifie « le goût », pour goûter."
-   ]},
-  {"unit": 3, "lesson": 1,
-   "sentence_fr": "La couleur de l'herbe est ___ (vert).",
-   "sentence_ar": "لَوْنُ العُشْبِ ___.",
-   "choices": ["أَحْمَر", "أَخْضَر", "أَصْفَر", "البَصَر"],
-   "correct_index": 1,
-   "explanations": [
-     "Incorrect. أَحْمَر signifie « rouge », pas « vert ».",
-     "Correct ! أَخْضَر signifie bien « vert ».",
-     "Incorrect. أَصْفَر signifie « jaune », pas « vert ».",
-     "Incorrect. البَصَر signifie « la vue », ce n'est pas une couleur."
-   ]},
-
-  {"unit": 3, "lesson": 2,
-   "sentence_fr": "La direction opposée au sud est ___ (le nord).",
-   "sentence_ar": "عَكْسُ الجَنُوبِ هُوَ ___.",
-   "choices": ["الشَّرْق", "الغَرْب", "الجَنُوب", "الشَّمَال"],
-   "correct_index": 3,
-   "explanations": [
-     "Incorrect. الشَّرْق signifie « l'est », ce n'est pas l'opposé du sud.",
-     "Incorrect. الغَرْب signifie « l'ouest », ce n'est pas l'opposé du sud.",
-     "Incorrect. الجَنُوب signifie « le sud », c'est son propre opposé.",
-     "Correct ! الشَّمَال signifie bien « le nord », opposé du sud."
-   ]},
-  {"unit": 3, "lesson": 2,
-   "sentence_fr": "L'oiseau est ___ l'arbre (au-dessus).",
-   "sentence_ar": "الطَّائِرُ ___ الشَّجَرَةِ.",
-   "choices": ["تَحْت", "خَلْف", "أَمَام", "فَوْق"],
-   "correct_index": 3,
-   "explanations": [
-     "Incorrect. تَحْت signifie « en-dessous », pas « au-dessus ».",
-     "Incorrect. خَلْف signifie « derrière », pas « au-dessus ».",
-     "Incorrect. أَمَام signifie « devant », pas « au-dessus ».",
-     "Correct ! فَوْق signifie bien « au-dessus »."
-   ]},
-  {"unit": 3, "lesson": 2,
-   "sentence_fr": "C'est ___ (la droite), opposé de la gauche.",
-   "sentence_ar": "هَذَا ___، عَكْسُ اليَسَارِ.",
-   "choices": ["يَسَارٌ", "بَيْن", "خَلْف", "يَمِينٌ"],
-   "correct_index": 3,
-   "explanations": [
-     "Incorrect. يَسَارٌ signifie « gauche », c'est l'opposé de ce qu'on cherche.",
-     "Incorrect. بَيْن signifie « entre », pas « droite ».",
-     "Incorrect. خَلْف signifie « derrière », pas « droite ».",
-     "Correct ! يَمِينٌ signifie bien « droite »."
-   ]},
-
-  {"unit": 3, "lesson": 3,
-   "sentence_fr": "C'est ___ (un renard).",
-   "sentence_ar": "هَذَا ___.",
-   "choices": ["ذِئْبٌ", "ثَعْلَبٌ", "غَزَالٌ", "دُبٌّ"],
-   "correct_index": 1,
-   "explanations": [
-     "Incorrect. ذِئْبٌ signifie « loup », pas « renard ».",
-     "Correct ! ثَعْلَبٌ signifie bien « renard ».",
-     "Incorrect. غَزَالٌ signifie « gazelle », pas « renard ».",
-     "Incorrect. دُبٌّ signifie « ours », pas « renard »."
-   ]},
-  {"unit": 3, "lesson": 3,
-   "sentence_fr": "C'est ___ (une girafe).",
-   "sentence_ar": "هَذِهِ ___.",
-   "choices": ["زَرَافَةٌ", "ضَبُعٌ", "خُفَّاشٌ", "قُنْفُذٌ"],
-   "correct_index": 0,
-   "explanations": [
-     "Correct ! زَرَافَةٌ signifie bien « girafe ».",
-     "Incorrect. ضَبُعٌ signifie « hyène », pas « girafe ».",
-     "Incorrect. خُفَّاشٌ signifie « chauve-souris », pas « girafe ».",
-     "Incorrect. قُنْفُذٌ signifie « hérisson », pas « girafe »."
-   ]},
-  {"unit": 3, "lesson": 3,
-   "sentence_fr": "C'est ___ (un tigre).",
-   "sentence_ar": "هَذَا ___.",
-   "choices": ["فَهْدٌ", "كَلْبٌ", "وَحِيدُ الْقَرْنِ", "نَمِرٌ"],
-   "correct_index": 3,
-   "explanations": [
-     "Incorrect. فَهْدٌ signifie « guépard », pas « tigre ».",
-     "Incorrect. كَلْبٌ signifie « chien », pas « tigre ».",
-     "Incorrect. وَحِيدُ الْقَرْنِ signifie « rhinocéros », pas « tigre ».",
-     "Correct ! نَمِرٌ signifie bien « tigre »."
-   ]},
-
-  {"unit": 3, "lesson": 4,
-   "sentence_fr": "C'est ___ (un chameau).",
-   "sentence_ar": "هَذَا ___.",
-   "choices": ["حِصَانٌ", "جَمَلٌ", "حِمَارٌ", "ثَوْرٌ"],
-   "correct_index": 1,
-   "explanations": [
-     "Incorrect. حِصَانٌ signifie « cheval », pas « chameau ».",
-     "Correct ! جَمَلٌ signifie bien « chameau ».",
-     "Incorrect. حِمَارٌ signifie « âne », pas « chameau ».",
-     "Incorrect. ثَوْرٌ signifie « taureau », pas « chameau »."
-   ]},
-  {"unit": 3, "lesson": 4,
-   "sentence_fr": "C'est ___ (un chat).",
-   "sentence_ar": "هَذِهِ ___.",
-   "choices": ["فَأْرٌ", "لَامَةٌ", "قِطَّةٌ", "سُلَحْفَاةٌ"],
-   "correct_index": 2,
-   "explanations": [
-     "Incorrect. فَأْرٌ signifie « souris », pas « chat ».",
-     "Incorrect. لَامَةٌ signifie « lama », pas « chat ».",
-     "Correct ! قِطَّةٌ signifie bien « chat ».",
-     "Incorrect. سُلَحْفَاةٌ signifie « tortue », pas « chat »."
-   ]},
-  {"unit": 3, "lesson": 4,
-   "sentence_fr": "C'est ___ (un éléphant).",
-   "sentence_ar": "هَذَا ___.",
-   "choices": ["فِيلٌ", "جَامُوسٌ", "خَرُوفٌ", "سِنْجَابٌ"],
-   "correct_index": 0,
-   "explanations": [
-     "Correct ! فِيلٌ signifie bien « éléphant ».",
-     "Incorrect. جَامُوسٌ signifie « buffle », pas « éléphant ».",
-     "Incorrect. خَرُوفٌ signifie « mouton », pas « éléphant ».",
-     "Incorrect. سِنْجَابٌ signifie « écureuil », pas « éléphant »."
-   ]},
-
-  {"unit": 3, "lesson": 5,
-   "sentence_fr": "C'est ___ (un moineau).",
-   "sentence_ar": "هَذَا ___.",
-   "choices": ["دِيكٌ", "نَسْرٌ", "عُصْفُورٌ", "بَبَّغَاءٌ"],
-   "correct_index": 2,
-   "explanations": [
-     "Incorrect. دِيكٌ signifie « coq », pas « moineau ».",
-     "Incorrect. نَسْرٌ signifie « aigle », pas « moineau ».",
-     "Correct ! عُصْفُورٌ signifie bien « moineau ».",
-     "Incorrect. بَبَّغَاءٌ signifie « perroquet », pas « moineau »."
-   ]},
-  {"unit": 3, "lesson": 5,
-   "sentence_fr": "C'est ___ (une chouette).",
-   "sentence_ar": "هَذِهِ ___.",
-   "choices": ["حَمَامَةٌ", "نَعَامَةٌ", "بُومَةٌ", "دَجَاجَةٌ"],
-   "correct_index": 2,
-   "explanations": [
-     "Incorrect. حَمَامَةٌ signifie « pigeon », pas « chouette ».",
-     "Incorrect. نَعَامَةٌ signifie « autruche », pas « chouette ».",
-     "Correct ! بُومَةٌ signifie bien « chouette ».",
-     "Incorrect. دَجَاجَةٌ signifie « poule », pas « chouette »."
-   ]},
-  {"unit": 3, "lesson": 5,
-   "sentence_fr": "C'est ___ (un paon).",
-   "sentence_ar": "هَذَا ___.",
-   "choices": ["صَقْرٌ", "غُرَابٌ", "بَجَعَةٌ", "طَاوُوسٌ"],
-   "correct_index": 3,
-   "explanations": [
-     "Incorrect. صَقْرٌ signifie « faucon », pas « paon ».",
-     "Incorrect. غُرَابٌ signifie « corbeau », pas « paon ».",
-     "Incorrect. بَجَعَةٌ signifie « pélican », pas « paon ».",
-     "Correct ! طَاوُوسٌ signifie bien « paon »."
-   ]},
-
-  {"unit": 3, "lesson": 6,
-   "sentence_fr": "C'est ___ (un papillon).",
-   "sentence_ar": "هَذِهِ ___.",
-   "choices": ["نَحْلَةٌ", "فَرَاشَةٌ", "نَمْلَةٌ", "ذُبَابَةٌ"],
-   "correct_index": 1,
-   "explanations": [
-     "Incorrect. نَحْلَةٌ signifie « abeille », pas « papillon ».",
-     "Correct ! فَرَاشَةٌ signifie bien « papillon ».",
-     "Incorrect. نَمْلَةٌ signifie « fourmi », pas « papillon ».",
-     "Incorrect. ذُبَابَةٌ signifie « mouche », pas « papillon »."
-   ]},
-  {"unit": 3, "lesson": 6,
-   "sentence_fr": "C'est ___ (un scorpion).",
-   "sentence_ar": "هَذَا ___.",
-   "choices": ["وَزَغَةٌ", "صُرْصُورٌ", "عَظَاءَةٌ", "عَقْرَبٌ"],
-   "correct_index": 3,
-   "explanations": [
-     "Incorrect. وَزَغَةٌ signifie « gecko », pas « scorpion ».",
-     "Incorrect. صُرْصُورٌ signifie « cafard », pas « scorpion ».",
-     "Incorrect. عَظَاءَةٌ signifie « lézard », pas « scorpion ».",
-     "Correct ! عَقْرَبٌ signifie bien « scorpion »."
-   ]},
-  {"unit": 3, "lesson": 6,
-   "sentence_fr": "C'est ___ (un caméléon).",
-   "sentence_ar": "هَذَا ___.",
-   "choices": ["حِرْبَاءٌ", "خُنْفُسَاءٌ", "عَنْكَبُوتٌ", "جَرَادَةٌ"],
-   "correct_index": 0,
-   "explanations": [
-     "Correct ! حِرْبَاءٌ signifie bien « caméléon ».",
-     "Incorrect. خُنْفُسَاءٌ signifie « scarabée », pas « caméléon ».",
-     "Incorrect. عَنْكَبُوتٌ signifie « araignée », pas « caméléon ».",
-     "Incorrect. جَرَادَةٌ signifie « sauterelle », pas « caméléon »."
-   ]},
-
-  {"unit": 3, "lesson": 7,
-   "sentence_fr": "C'est ___ (un requin).",
-   "sentence_ar": "هَذَا ___.",
-   "choices": ["حُوتٌ", "دُولْفِينٌ", "قِرْشٌ", "أُخْطُبُوطٌ"],
-   "correct_index": 2,
-   "explanations": [
-     "Incorrect. حُوتٌ signifie « baleine », pas « requin ».",
-     "Incorrect. دُولْفِينٌ signifie « dauphin », pas « requin ».",
-     "Correct ! قِرْشٌ signifie bien « requin ».",
-     "Incorrect. أُخْطُبُوطٌ signifie « pieuvre », pas « requin »."
-   ]},
-  {"unit": 3, "lesson": 7,
-   "sentence_fr": "C'est ___ (de l'or).",
-   "sentence_ar": "هَذَا ___.",
-   "choices": ["حَدِيدٌ", "فِضَّةٌ", "نُحَاسٌ", "ذَهَبٌ"],
-   "correct_index": 3,
-   "explanations": [
-     "Incorrect. حَدِيدٌ signifie « fer », pas « or ».",
-     "Incorrect. فِضَّةٌ signifie « argent », pas « or ».",
-     "Incorrect. نُحَاسٌ signifie « cuivre », pas « or ».",
-     "Correct ! ذَهَبٌ signifie bien « or »."
-   ]},
-  {"unit": 3, "lesson": 7,
-   "sentence_fr": "C'est ___ (une baleine).",
-   "sentence_ar": "هَذَا ___.",
-   "choices": ["حُوتٌ", "أَلُومِنْيُومٌ", "قِرْشٌ", "دُولْفِينٌ"],
-   "correct_index": 0,
-   "explanations": [
-     "Correct ! حُوتٌ signifie bien « baleine ».",
-     "Incorrect. أَلُومِنْيُومٌ signifie « aluminium », pas « baleine ».",
-     "Incorrect. قِرْشٌ signifie « requin », pas « baleine ».",
-     "Incorrect. دُولْفِينٌ signifie « dauphin », pas « baleine »."
-   ]}
+  {
+    "unit": 1,
+    "lesson": 1,
+    "sentence_fr": "وَاحِد ، اِثْنَان ، ___ (trois) ...",
+    "sentence_ar": "وَاحِد ، اِثْنَان ، ___ ...",
+    "choices": [
+      "خَمْسَة",
+      "ثَلَاثَة",
+      "سِتَّة",
+      "أَرْبَعَة"
+    ],
+    "correct_index": 1,
+    "explanations": [
+      "Incorrect. خَمْسَة signifie « cinq (5) », la séquence attend « trois (3) ».",
+      "Correct ! ثَلَاثَة signifie bien « trois (3) ».",
+      "Incorrect. سِتَّة signifie « six (6) », la séquence attend « trois (3) ».",
+      "Incorrect. أَرْبَعَة signifie « quatre (4) », la séquence attend « trois (3) »."
+    ]
+  },
+  {
+    "unit": 1,
+    "lesson": 1,
+    "sentence_fr": "خَمْسَة ، سِتَّة ، ___ (sept) ...",
+    "sentence_ar": "خَمْسَة ، سِتَّة ، ___ ...",
+    "choices": [
+      "تِسْعَة",
+      "ثَمَانِيَة",
+      "سَبْعَة",
+      "عَشَرَة"
+    ],
+    "correct_index": 2,
+    "explanations": [
+      "Incorrect. تِسْعَة signifie « neuf (9) », la séquence attend « sept (7) ».",
+      "Incorrect. ثَمَانِيَة signifie « huit (8) », la séquence attend « sept (7) ».",
+      "Correct ! سَبْعَة signifie bien « sept (7) ».",
+      "Incorrect. عَشَرَة signifie « dix (10) », la séquence attend « sept (7) »."
+    ]
+  },
+  {
+    "unit": 1,
+    "lesson": 1,
+    "sentence_fr": "ثَمَانِيَة ، تِسْعَة ، ___ (dix) ...",
+    "sentence_ar": "ثَمَانِيَة ، تِسْعَة ، ___ ...",
+    "choices": [
+      "اِثْنَان",
+      "وَاحِد",
+      "أَرْبَعَة",
+      "عَشَرَة"
+    ],
+    "correct_index": 3,
+    "explanations": [
+      "Incorrect. اِثْنَان signifie « deux (2) », la séquence attend « dix (10) ».",
+      "Incorrect. وَاحِد signifie « un (1) », la séquence attend « dix (10) ».",
+      "Incorrect. أَرْبَعَة signifie « quatre (4) », la séquence attend « dix (10) ».",
+      "Correct ! عَشَرَة signifie bien « dix (10) »."
+    ]
+  },
+  {
+    "unit": 1,
+    "lesson": 2,
+    "sentence_fr": "أَحَدَ عَشَرَ ، اِثْنَا عَشَرَ ، ___ (treize) ...",
+    "sentence_ar": "أَحَدَ عَشَرَ ، اِثْنَا عَشَرَ ، ___ ...",
+    "choices": [
+      "خَمْسَةَ عَشَرَ",
+      "ثَلَاثَةَ عَشَرَ",
+      "أَرْبَعَةَ عَشَرَ",
+      "سِتَّةَ عَشَرَ"
+    ],
+    "correct_index": 1,
+    "explanations": [
+      "Incorrect. خَمْسَةَ عَشَرَ signifie « quinze (15) », la séquence attend « treize (13) ».",
+      "Correct ! ثَلَاثَةَ عَشَرَ signifie bien « treize (13) ».",
+      "Incorrect. أَرْبَعَةَ عَشَرَ signifie « quatorze (14) », la séquence attend « treize (13) ».",
+      "Incorrect. سِتَّةَ عَشَرَ signifie « seize (16) », la séquence attend « treize (13) »."
+    ]
+  },
+  {
+    "unit": 1,
+    "lesson": 2,
+    "sentence_fr": "خَمْسَةَ عَشَرَ ، سِتَّةَ عَشَرَ ، ___ (dix-sept) ...",
+    "sentence_ar": "خَمْسَةَ عَشَرَ ، سِتَّةَ عَشَرَ ، ___ ...",
+    "choices": [
+      "سَبْعَةَ عَشَرَ",
+      "ثَمَانِيَةَ عَشَرَ",
+      "تِسْعَةَ عَشَرَ",
+      "أَحَدَ عَشَرَ"
+    ],
+    "correct_index": 0,
+    "explanations": [
+      "Correct ! سَبْعَةَ عَشَرَ signifie bien « dix-sept (17) ».",
+      "Incorrect. ثَمَانِيَةَ عَشَرَ signifie « dix-huit (18) », la séquence attend « dix-sept (17) ».",
+      "Incorrect. تِسْعَةَ عَشَرَ signifie « dix-neuf (19) », la séquence attend « dix-sept (17) ».",
+      "Incorrect. أَحَدَ عَشَرَ signifie « onze (11) », la séquence attend « dix-sept (17) »."
+    ]
+  },
+  {
+    "unit": 1,
+    "lesson": 2,
+    "sentence_fr": "تِسْعَةَ عَشَرَ ، ___ (vingt) ...",
+    "sentence_ar": "تِسْعَةَ عَشَرَ ، ___ ...",
+    "choices": [
+      "عِشْرُون",
+      "سَبْعَةَ عَشَرَ",
+      "ثَمَانِيَةَ عَشَرَ",
+      "اِثْنَا عَشَرَ"
+    ],
+    "correct_index": 0,
+    "explanations": [
+      "Correct ! عِشْرُون signifie bien « vingt (20) ».",
+      "Incorrect. سَبْعَةَ عَشَرَ signifie « dix-sept (17) », la séquence attend « vingt (20) ».",
+      "Incorrect. ثَمَانِيَةَ عَشَرَ signifie « dix-huit (18) », la séquence attend « vingt (20) ».",
+      "Incorrect. اِثْنَا عَشَرَ signifie « douze (12) », la séquence attend « vingt (20) »."
+    ]
+  },
+  {
+    "unit": 1,
+    "lesson": 3,
+    "sentence_fr": "Après السَّبْت (samedi) vient ___ (dimanche).",
+    "sentence_ar": "بَعْدَ السَّبْت يَأْتِي ___.",
+    "choices": [
+      "الإِثْنَيْن",
+      "الثُّلَاثَاء",
+      "الأَحَد",
+      "الأَرْبِعَاء"
+    ],
+    "correct_index": 2,
+    "explanations": [
+      "Incorrect. الإِثْنَيْن signifie « lundi », pas « dimanche ».",
+      "Incorrect. الثُّلَاثَاء signifie « mardi », pas « dimanche ».",
+      "Correct ! الأَحَد signifie bien « dimanche ».",
+      "Incorrect. الأَرْبِعَاء signifie « mercredi », pas « dimanche »."
+    ]
+  },
+  {
+    "unit": 1,
+    "lesson": 3,
+    "sentence_fr": "Après الثُّلَاثَاء (mardi) vient ___ (mercredi).",
+    "sentence_ar": "بَعْدَ الثُّلَاثَاء يَأْتِي ___.",
+    "choices": [
+      "الأَرْبِعَاء",
+      "الخَمِيس",
+      "الجُمُعَة",
+      "الإِثْنَيْن"
+    ],
+    "correct_index": 0,
+    "explanations": [
+      "Correct ! الأَرْبِعَاء signifie bien « mercredi ».",
+      "Incorrect. الخَمِيس signifie « jeudi », pas « mercredi ».",
+      "Incorrect. الجُمُعَة signifie « vendredi », pas « mercredi ».",
+      "Incorrect. الإِثْنَيْن signifie « lundi », pas « mercredi »."
+    ]
+  },
+  {
+    "unit": 1,
+    "lesson": 3,
+    "sentence_fr": "Le dernier jour de la semaine arabe est ___ (vendredi).",
+    "sentence_ar": "آخِرُ أَيَّامِ الأُسْبُوعِ هُوَ ___.",
+    "choices": [
+      "السَّبْت",
+      "الجُمُعَة",
+      "الخَمِيس",
+      "الأَحَد"
+    ],
+    "correct_index": 1,
+    "explanations": [
+      "Incorrect. السَّبْت signifie « samedi », c'est le premier jour, pas le dernier.",
+      "Correct ! الجُمُعَة signifie bien « vendredi », dernier jour de la semaine arabe.",
+      "Incorrect. الخَمِيس signifie « jeudi », pas « vendredi ».",
+      "Incorrect. الأَحَد signifie « dimanche », pas « vendredi »."
+    ]
+  },
+  {
+    "unit": 1,
+    "lesson": 4,
+    "sentence_fr": "Le premier mois hégirien est ___ (Mouharram).",
+    "sentence_ar": "أَوَّلُ شَهْرٍ هِجْرِيٍّ هُوَ ___.",
+    "choices": [
+      "رَجَب",
+      "صَفَر",
+      "مُحَرَّم",
+      "رَمَضَان"
+    ],
+    "correct_index": 2,
+    "explanations": [
+      "Incorrect. رَجَب est le 7e mois hégirien, pas le premier.",
+      "Incorrect. صَفَر est le 2e mois hégirien, pas le premier.",
+      "Correct ! مُحَرَّم est bien le premier mois hégirien.",
+      "Incorrect. رَمَضَان est le 9e mois hégirien, pas le premier."
+    ]
+  },
+  {
+    "unit": 1,
+    "lesson": 4,
+    "sentence_fr": "Le neuvième mois hégirien est ___ (Ramadan).",
+    "sentence_ar": "الشَّهْرُ التَّاسِعُ مِنَ التَّقْوِيمِ الهِجْرِيِّ هُوَ ___.",
+    "choices": [
+      "شَعْبَان",
+      "رَمَضَان",
+      "شَوَّال",
+      "رَجَب"
+    ],
+    "correct_index": 1,
+    "explanations": [
+      "Incorrect. شَعْبَان est le 8e mois hégirien, pas le 9e.",
+      "Correct ! رَمَضَان est bien le 9e mois hégirien.",
+      "Incorrect. شَوَّال est le 10e mois hégirien, pas le 9e.",
+      "Incorrect. رَجَب est le 7e mois hégirien, pas le 9e."
+    ]
+  },
+  {
+    "unit": 1,
+    "lesson": 4,
+    "sentence_fr": "Après صَفَر (Safar) vient ___ (Rabi al-Awwal).",
+    "sentence_ar": "بَعْدَ صَفَر يَأْتِي ___.",
+    "choices": [
+      "رَبِيع الأَوَّل",
+      "مُحَرَّم",
+      "جُمَادَى الأُولَى",
+      "رَجَب"
+    ],
+    "correct_index": 0,
+    "explanations": [
+      "Correct ! رَبِيع الأَوَّل est bien le 3e mois hégirien, qui suit صَفَر.",
+      "Incorrect. مُحَرَّم est le 1er mois hégirien, il précède صَفَر.",
+      "Incorrect. جُمَادَى الأُولَى est le 5e mois hégirien.",
+      "Incorrect. رَجَب est le 7e mois hégirien."
+    ]
+  },
+  {
+    "unit": 1,
+    "lesson": 5,
+    "sentence_fr": "Le premier mois de l'année est ___ (janvier).",
+    "sentence_ar": "أَوَّلُ شَهْرٍ فِي السَّنَةِ هُوَ ___.",
+    "choices": [
+      "فَبْرَايِر",
+      "يَنَايِر",
+      "مَارِس",
+      "أَبْرِيل"
+    ],
+    "correct_index": 1,
+    "explanations": [
+      "Incorrect. فَبْرَايِر est le 2e mois de l'année, pas le premier.",
+      "Correct ! يَنَايِر est bien le premier mois de l'année.",
+      "Incorrect. مَارِس est le 3e mois de l'année, pas le premier.",
+      "Incorrect. أَبْرِيل est le 4e mois de l'année, pas le premier."
+    ]
+  },
+  {
+    "unit": 1,
+    "lesson": 5,
+    "sentence_fr": "Après يَنَايِر (janvier) vient ___ (février).",
+    "sentence_ar": "بَعْدَ يَنَايِر يَأْتِي ___.",
+    "choices": [
+      "فَبْرَايِر",
+      "مَارِس",
+      "دِيسَمْبَر",
+      "أَبْرِيل"
+    ],
+    "correct_index": 0,
+    "explanations": [
+      "Correct ! فَبْرَايِر est bien le 2e mois de l'année, qui suit يَنَايِر.",
+      "Incorrect. مَارِس est le 3e mois de l'année.",
+      "Incorrect. دِيسَمْبَر est le 12e et dernier mois de l'année.",
+      "Incorrect. أَبْرِيل est le 4e mois de l'année."
+    ]
+  },
+  {
+    "unit": 1,
+    "lesson": 5,
+    "sentence_fr": "Le dernier mois de l'année est ___ (décembre).",
+    "sentence_ar": "___ هُوَ آخِرُ شَهْرٍ فِي السَّنَةِ.",
+    "choices": [
+      "نُوفَمْبَر",
+      "أُكْتُوبَر",
+      "دِيسَمْبَر",
+      "سِبْتَمْبَر"
+    ],
+    "correct_index": 2,
+    "explanations": [
+      "Incorrect. نُوفَمْبَر est le 11e mois de l'année, pas le dernier.",
+      "Incorrect. أُكْتُوبَر est le 10e mois de l'année, pas le dernier.",
+      "Correct ! دِيسَمْبَر est bien le 12e et dernier mois de l'année.",
+      "Incorrect. سِبْتَمْبَر est le 9e mois de l'année, pas le dernier."
+    ]
+  },
+  {
+    "unit": 2,
+    "lesson": 1,
+    "sentence_fr": "La couleur de la tomate est ___ (rouge).",
+    "sentence_ar": "لَوْنُ الطَّمَاطِمِ ___.",
+    "choices": [
+      "أَصْفَر",
+      "أَخْضَر",
+      "أَحْمَر",
+      "اللَّمْس"
+    ],
+    "correct_index": 2,
+    "explanations": [
+      "Incorrect. أَصْفَر signifie « jaune », pas « rouge ».",
+      "Incorrect. أَخْضَر signifie « vert », pas « rouge ».",
+      "Correct ! أَحْمَر signifie bien « rouge ».",
+      "Incorrect. اللَّمْس signifie « le toucher », ce n'est pas une couleur."
+    ]
+  },
+  {
+    "unit": 2,
+    "lesson": 1,
+    "sentence_fr": "On utilise ___ (l'ouïe) pour entendre les sons.",
+    "sentence_ar": "نَسْتَخْدِمُ ___ لِسَمَاعِ الأَصْوَاتِ.",
+    "choices": [
+      "البَصَر",
+      "الشَّمّ",
+      "السَّمْع",
+      "التَّذَوُّق"
+    ],
+    "correct_index": 2,
+    "explanations": [
+      "Incorrect. البَصَر signifie « la vue », pour voir.",
+      "Incorrect. الشَّمّ signifie « l'odorat », pour sentir.",
+      "Correct ! السَّمْع signifie bien « l'ouïe », pour entendre.",
+      "Incorrect. التَّذَوُّق signifie « le goût », pour goûter."
+    ]
+  },
+  {
+    "unit": 2,
+    "lesson": 1,
+    "sentence_fr": "La couleur de l'herbe est ___ (vert).",
+    "sentence_ar": "لَوْنُ العُشْبِ ___.",
+    "choices": [
+      "أَحْمَر",
+      "أَخْضَر",
+      "أَصْفَر",
+      "البَصَر"
+    ],
+    "correct_index": 1,
+    "explanations": [
+      "Incorrect. أَحْمَر signifie « rouge », pas « vert ».",
+      "Correct ! أَخْضَر signifie bien « vert ».",
+      "Incorrect. أَصْفَر signifie « jaune », pas « vert ».",
+      "Incorrect. البَصَر signifie « la vue », ce n'est pas une couleur."
+    ]
+  },
+  {
+    "unit": 2,
+    "lesson": 2,
+    "sentence_fr": "La direction opposée au sud est ___ (le nord).",
+    "sentence_ar": "عَكْسُ الجَنُوبِ هُوَ ___.",
+    "choices": [
+      "الشَّرْق",
+      "الغَرْب",
+      "الجَنُوب",
+      "الشَّمَال"
+    ],
+    "correct_index": 3,
+    "explanations": [
+      "Incorrect. الشَّرْق signifie « l'est », ce n'est pas l'opposé du sud.",
+      "Incorrect. الغَرْب signifie « l'ouest », ce n'est pas l'opposé du sud.",
+      "Incorrect. الجَنُوب signifie « le sud », c'est son propre opposé.",
+      "Correct ! الشَّمَال signifie bien « le nord », opposé du sud."
+    ]
+  },
+  {
+    "unit": 2,
+    "lesson": 2,
+    "sentence_fr": "L'oiseau est ___ l'arbre (au-dessus).",
+    "sentence_ar": "الطَّائِرُ ___ الشَّجَرَةِ.",
+    "choices": [
+      "تَحْت",
+      "خَلْف",
+      "أَمَام",
+      "فَوْق"
+    ],
+    "correct_index": 3,
+    "explanations": [
+      "Incorrect. تَحْت signifie « en-dessous », pas « au-dessus ».",
+      "Incorrect. خَلْف signifie « derrière », pas « au-dessus ».",
+      "Incorrect. أَمَام signifie « devant », pas « au-dessus ».",
+      "Correct ! فَوْق signifie bien « au-dessus »."
+    ]
+  },
+  {
+    "unit": 2,
+    "lesson": 2,
+    "sentence_fr": "C'est ___ (la droite), opposé de la gauche.",
+    "sentence_ar": "هَذَا ___، عَكْسُ اليَسَارِ.",
+    "choices": [
+      "يَسَارٌ",
+      "بَيْن",
+      "خَلْف",
+      "يَمِينٌ"
+    ],
+    "correct_index": 3,
+    "explanations": [
+      "Incorrect. يَسَارٌ signifie « gauche », c'est l'opposé de ce qu'on cherche.",
+      "Incorrect. بَيْن signifie « entre », pas « droite ».",
+      "Incorrect. خَلْف signifie « derrière », pas « droite ».",
+      "Correct ! يَمِينٌ signifie bien « droite »."
+    ]
+  },
+  {
+    "unit": 2,
+    "lesson": 3,
+    "sentence_fr": "C'est ___ (un renard).",
+    "sentence_ar": "هَذَا ___.",
+    "choices": [
+      "ذِئْبٌ",
+      "ثَعْلَبٌ",
+      "غَزَالٌ",
+      "دُبٌّ"
+    ],
+    "correct_index": 1,
+    "explanations": [
+      "Incorrect. ذِئْبٌ signifie « loup », pas « renard ».",
+      "Correct ! ثَعْلَبٌ signifie bien « renard ».",
+      "Incorrect. غَزَالٌ signifie « gazelle », pas « renard ».",
+      "Incorrect. دُبٌّ signifie « ours », pas « renard »."
+    ]
+  },
+  {
+    "unit": 2,
+    "lesson": 3,
+    "sentence_fr": "C'est ___ (une girafe).",
+    "sentence_ar": "هَذِهِ ___.",
+    "choices": [
+      "زَرَافَةٌ",
+      "ضَبُعٌ",
+      "خُفَّاشٌ",
+      "قُنْفُذٌ"
+    ],
+    "correct_index": 0,
+    "explanations": [
+      "Correct ! زَرَافَةٌ signifie bien « girafe ».",
+      "Incorrect. ضَبُعٌ signifie « hyène », pas « girafe ».",
+      "Incorrect. خُفَّاشٌ signifie « chauve-souris », pas « girafe ».",
+      "Incorrect. قُنْفُذٌ signifie « hérisson », pas « girafe »."
+    ]
+  },
+  {
+    "unit": 2,
+    "lesson": 3,
+    "sentence_fr": "C'est ___ (un tigre).",
+    "sentence_ar": "هَذَا ___.",
+    "choices": [
+      "فَهْدٌ",
+      "كَلْبٌ",
+      "وَحِيدُ الْقَرْنِ",
+      "نَمِرٌ"
+    ],
+    "correct_index": 3,
+    "explanations": [
+      "Incorrect. فَهْدٌ signifie « guépard », pas « tigre ».",
+      "Incorrect. كَلْبٌ signifie « chien », pas « tigre ».",
+      "Incorrect. وَحِيدُ الْقَرْنِ signifie « rhinocéros », pas « tigre ».",
+      "Correct ! نَمِرٌ signifie bien « tigre »."
+    ]
+  },
+  {
+    "unit": 2,
+    "lesson": 4,
+    "sentence_fr": "C'est ___ (un chameau).",
+    "sentence_ar": "هَذَا ___.",
+    "choices": [
+      "حِصَانٌ",
+      "جَمَلٌ",
+      "حِمَارٌ",
+      "ثَوْرٌ"
+    ],
+    "correct_index": 1,
+    "explanations": [
+      "Incorrect. حِصَانٌ signifie « cheval », pas « chameau ».",
+      "Correct ! جَمَلٌ signifie bien « chameau ».",
+      "Incorrect. حِمَارٌ signifie « âne », pas « chameau ».",
+      "Incorrect. ثَوْرٌ signifie « taureau », pas « chameau »."
+    ]
+  },
+  {
+    "unit": 2,
+    "lesson": 4,
+    "sentence_fr": "C'est ___ (un chat).",
+    "sentence_ar": "هَذِهِ ___.",
+    "choices": [
+      "فَأْرٌ",
+      "لَامَةٌ",
+      "قِطَّةٌ",
+      "سُلَحْفَاةٌ"
+    ],
+    "correct_index": 2,
+    "explanations": [
+      "Incorrect. فَأْرٌ signifie « souris », pas « chat ».",
+      "Incorrect. لَامَةٌ signifie « lama », pas « chat ».",
+      "Correct ! قِطَّةٌ signifie bien « chat ».",
+      "Incorrect. سُلَحْفَاةٌ signifie « tortue », pas « chat »."
+    ]
+  },
+  {
+    "unit": 2,
+    "lesson": 4,
+    "sentence_fr": "C'est ___ (un éléphant).",
+    "sentence_ar": "هَذَا ___.",
+    "choices": [
+      "فِيلٌ",
+      "جَامُوسٌ",
+      "خَرُوفٌ",
+      "سِنْجَابٌ"
+    ],
+    "correct_index": 0,
+    "explanations": [
+      "Correct ! فِيلٌ signifie bien « éléphant ».",
+      "Incorrect. جَامُوسٌ signifie « buffle », pas « éléphant ».",
+      "Incorrect. خَرُوفٌ signifie « mouton », pas « éléphant ».",
+      "Incorrect. سِنْجَابٌ signifie « écureuil », pas « éléphant »."
+    ]
+  },
+  {
+    "unit": 2,
+    "lesson": 5,
+    "sentence_fr": "C'est ___ (un moineau).",
+    "sentence_ar": "هَذَا ___.",
+    "choices": [
+      "دِيكٌ",
+      "نَسْرٌ",
+      "عُصْفُورٌ",
+      "بَبَّغَاءٌ"
+    ],
+    "correct_index": 2,
+    "explanations": [
+      "Incorrect. دِيكٌ signifie « coq », pas « moineau ».",
+      "Incorrect. نَسْرٌ signifie « aigle », pas « moineau ».",
+      "Correct ! عُصْفُورٌ signifie bien « moineau ».",
+      "Incorrect. بَبَّغَاءٌ signifie « perroquet », pas « moineau »."
+    ]
+  },
+  {
+    "unit": 2,
+    "lesson": 5,
+    "sentence_fr": "C'est ___ (une chouette).",
+    "sentence_ar": "هَذِهِ ___.",
+    "choices": [
+      "حَمَامَةٌ",
+      "نَعَامَةٌ",
+      "بُومَةٌ",
+      "دَجَاجَةٌ"
+    ],
+    "correct_index": 2,
+    "explanations": [
+      "Incorrect. حَمَامَةٌ signifie « pigeon », pas « chouette ».",
+      "Incorrect. نَعَامَةٌ signifie « autruche », pas « chouette ».",
+      "Correct ! بُومَةٌ signifie bien « chouette ».",
+      "Incorrect. دَجَاجَةٌ signifie « poule », pas « chouette »."
+    ]
+  },
+  {
+    "unit": 2,
+    "lesson": 5,
+    "sentence_fr": "C'est ___ (un paon).",
+    "sentence_ar": "هَذَا ___.",
+    "choices": [
+      "صَقْرٌ",
+      "غُرَابٌ",
+      "بَجَعَةٌ",
+      "طَاوُوسٌ"
+    ],
+    "correct_index": 3,
+    "explanations": [
+      "Incorrect. صَقْرٌ signifie « faucon », pas « paon ».",
+      "Incorrect. غُرَابٌ signifie « corbeau », pas « paon ».",
+      "Incorrect. بَجَعَةٌ signifie « pélican », pas « paon ».",
+      "Correct ! طَاوُوسٌ signifie bien « paon »."
+    ]
+  },
+  {
+    "unit": 2,
+    "lesson": 6,
+    "sentence_fr": "C'est ___ (un papillon).",
+    "sentence_ar": "هَذِهِ ___.",
+    "choices": [
+      "نَحْلَةٌ",
+      "فَرَاشَةٌ",
+      "نَمْلَةٌ",
+      "ذُبَابَةٌ"
+    ],
+    "correct_index": 1,
+    "explanations": [
+      "Incorrect. نَحْلَةٌ signifie « abeille », pas « papillon ».",
+      "Correct ! فَرَاشَةٌ signifie bien « papillon ».",
+      "Incorrect. نَمْلَةٌ signifie « fourmi », pas « papillon ».",
+      "Incorrect. ذُبَابَةٌ signifie « mouche », pas « papillon »."
+    ]
+  },
+  {
+    "unit": 2,
+    "lesson": 6,
+    "sentence_fr": "C'est ___ (un scorpion).",
+    "sentence_ar": "هَذَا ___.",
+    "choices": [
+      "وَزَغَةٌ",
+      "صُرْصُورٌ",
+      "عَظَاءَةٌ",
+      "عَقْرَبٌ"
+    ],
+    "correct_index": 3,
+    "explanations": [
+      "Incorrect. وَزَغَةٌ signifie « gecko », pas « scorpion ».",
+      "Incorrect. صُرْصُورٌ signifie « cafard », pas « scorpion ».",
+      "Incorrect. عَظَاءَةٌ signifie « lézard », pas « scorpion ».",
+      "Correct ! عَقْرَبٌ signifie bien « scorpion »."
+    ]
+  },
+  {
+    "unit": 2,
+    "lesson": 6,
+    "sentence_fr": "C'est ___ (un caméléon).",
+    "sentence_ar": "هَذَا ___.",
+    "choices": [
+      "حِرْبَاءٌ",
+      "خُنْفُسَاءٌ",
+      "عَنْكَبُوتٌ",
+      "جَرَادَةٌ"
+    ],
+    "correct_index": 0,
+    "explanations": [
+      "Correct ! حِرْبَاءٌ signifie bien « caméléon ».",
+      "Incorrect. خُنْفُسَاءٌ signifie « scarabée », pas « caméléon ».",
+      "Incorrect. عَنْكَبُوتٌ signifie « araignée », pas « caméléon ».",
+      "Incorrect. جَرَادَةٌ signifie « sauterelle », pas « caméléon »."
+    ]
+  },
+  {
+    "unit": 2,
+    "lesson": 7,
+    "sentence_fr": "C'est ___ (un requin).",
+    "sentence_ar": "هَذَا ___.",
+    "choices": [
+      "حُوتٌ",
+      "دُولْفِينٌ",
+      "قِرْشٌ",
+      "أُخْطُبُوطٌ"
+    ],
+    "correct_index": 2,
+    "explanations": [
+      "Incorrect. حُوتٌ signifie « baleine », pas « requin ».",
+      "Incorrect. دُولْفِينٌ signifie « dauphin », pas « requin ».",
+      "Correct ! قِرْشٌ signifie bien « requin ».",
+      "Incorrect. أُخْطُبُوطٌ signifie « pieuvre », pas « requin »."
+    ]
+  },
+  {
+    "unit": 2,
+    "lesson": 7,
+    "sentence_fr": "C'est ___ (de l'or).",
+    "sentence_ar": "هَذَا ___.",
+    "choices": [
+      "حَدِيدٌ",
+      "فِضَّةٌ",
+      "نُحَاسٌ",
+      "ذَهَبٌ"
+    ],
+    "correct_index": 3,
+    "explanations": [
+      "Incorrect. حَدِيدٌ signifie « fer », pas « or ».",
+      "Incorrect. فِضَّةٌ signifie « argent », pas « or ».",
+      "Incorrect. نُحَاسٌ signifie « cuivre », pas « or ».",
+      "Correct ! ذَهَبٌ signifie bien « or »."
+    ]
+  },
+  {
+    "unit": 2,
+    "lesson": 7,
+    "sentence_fr": "C'est ___ (une baleine).",
+    "sentence_ar": "هَذَا ___.",
+    "choices": [
+      "حُوتٌ",
+      "أَلُومِنْيُومٌ",
+      "قِرْشٌ",
+      "دُولْفِينٌ"
+    ],
+    "correct_index": 0,
+    "explanations": [
+      "Correct ! حُوتٌ signifie bien « baleine ».",
+      "Incorrect. أَلُومِنْيُومٌ signifie « aluminium », pas « baleine ».",
+      "Incorrect. قِرْشٌ signifie « requin », pas « baleine ».",
+      "Incorrect. دُولْفِينٌ signifie « dauphin », pas « baleine »."
+    ]
+  }
 ]

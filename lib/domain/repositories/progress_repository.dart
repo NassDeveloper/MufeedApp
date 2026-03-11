@@ -27,4 +27,8 @@ abstract class ProgressRepository {
   Future<bool> hasPerfectQuiz();
   Future<List<DailyActivityModel>> getReviewActivity({int days = 14});
   Future<UpcomingReviewsModel> getUpcomingReviews();
+  Future<List<ReviewableItemModel>> getNewWordsForLevel(int levelId, int limit);
+  Future<({int lessonId, int totalItems, int masteredCount})>
+      getLessonProgressSummary(int lessonId);
+  Future<int> getNewWordsIntroducedTodayCount();
 }

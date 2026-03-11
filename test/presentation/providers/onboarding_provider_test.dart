@@ -27,36 +27,23 @@ void main() {
       expect(state.canProceed, true);
     });
 
-    test('canProceed is false on mode page without selection', () {
+    test('canProceed is false on level page without selection', () {
       const state = OnboardingState(currentPage: 1);
       expect(state.canProceed, false);
     });
 
-    test('canProceed is true on mode page with selection', () {
-      const state =
-          OnboardingState(currentPage: 1, learningMode: 'curriculum');
-      expect(state.canProceed, true);
-    });
-
-    test('canProceed is false on level page without selection', () {
-      const state =
-          OnboardingState(currentPage: 2, learningMode: 'curriculum');
-      expect(state.canProceed, false);
-    });
-
     test('canProceed is true on level page with selection', () {
-      const state = OnboardingState(
-          currentPage: 2, learningMode: 'curriculum', selectedLevelId: 1);
+      const state = OnboardingState(currentPage: 1, selectedLevelId: 1);
       expect(state.canProceed, true);
     });
 
-    test('canProceed is true on mini-session page (page 3)', () {
+    test('canProceed is true on mini-session page (page 2)', () {
+      const state = OnboardingState(currentPage: 2);
+      expect(state.canProceed, true);
+    });
+
+    test('canProceed is true on consent page (page 3)', () {
       const state = OnboardingState(currentPage: 3);
-      expect(state.canProceed, true);
-    });
-
-    test('canProceed is true on consent page (page 4)', () {
-      const state = OnboardingState(currentPage: 4);
       expect(state.canProceed, true);
     });
 
@@ -109,9 +96,8 @@ void main() {
       notifier.nextPage(); // 1
       notifier.nextPage(); // 2
       notifier.nextPage(); // 3
-      notifier.nextPage(); // 4
-      notifier.nextPage(); // still 4
-      expect(container.read(onboardingProvider).currentPage, 4);
+      notifier.nextPage(); // still 3 (totalPages - 1)
+      expect(container.read(onboardingProvider).currentPage, 3);
     });
 
     test('previousPage decrements page', () {

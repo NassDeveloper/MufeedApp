@@ -74,6 +74,18 @@ class FakeProgressRepository implements ProgressRepository {
   @override
   Future<UpcomingReviewsModel> getUpcomingReviews() async =>
       const UpcomingReviewsModel(dueToday: 0, dueTomorrow: 0, dueThisWeek: 0);
+
+  @override
+  Future<List<ReviewableItemModel>> getNewWordsForLevel(int levelId, int limit) =>
+      Future.value([]);
+
+  @override
+  Future<({int lessonId, int totalItems, int masteredCount})>
+      getLessonProgressSummary(int lessonId) =>
+      Future.value((lessonId: lessonId, totalItems: 0, masteredCount: 0));
+  @override
+  Future<int> getNewWordsIntroducedTodayCount() => Future.value(0);
+
 }
 
 class FakeContentRepository implements ContentRepository {
@@ -129,7 +141,7 @@ Widget _buildApp({
 
 void main() {
   group('SettingsScreen', () {
-    testWidgets('shows title and mode section', (tester) async {
+    testWidgets('shows title and learning section', (tester) async {
       SharedPreferences.setMockInitialValues({
         'learning_mode': 'curriculum',
         'active_level_id': 1,
@@ -141,9 +153,8 @@ void main() {
       await tester.pumpAndSettle();
 
       expect(find.text('Paramètres'), findsOneWidget);
-      expect(find.text("Mode d'apprentissage"), findsOneWidget);
-      expect(find.text('Cursus (sélection libre)'), findsOneWidget);
-      expect(find.text('Autodidacte (progression guidée)'), findsOneWidget);
+      expect(find.text('Apprentissage'), findsOneWidget);
+      expect(find.text('Nouveaux mots par jour'), findsOneWidget);
     });
 
     testWidgets('shows level selector with levels', (tester) async {
@@ -187,7 +198,7 @@ void main() {
       expect(find.byIcon(Icons.check_circle), findsWidgets);
     });
 
-    testWidgets('curriculum mode card is selected by default', (tester) async {
+    testWidgets('shows new words per day segmented button', (tester) async {
       SharedPreferences.setMockInitialValues({
         'learning_mode': 'curriculum',
         'active_level_id': 1,
@@ -198,13 +209,12 @@ void main() {
           _buildApp(prefsSource: SharedPreferencesSource(prefs)));
       await tester.pumpAndSettle();
 
-      // The ModeCard for curriculum should show check_circle
-      expect(find.byIcon(Icons.check_circle), findsWidgets);
-      expect(find.byIcon(Icons.school), findsOneWidget);
-      expect(find.byIcon(Icons.self_improvement), findsOneWidget);
+      expect(find.byType(SegmentedButton<int>), findsOneWidget);
+      // Default value is 5
+      expect(find.text('5'), findsOneWidget);
     });
 
-    testWidgets('tapping autodidact card switches mode', (tester) async {
+    testWidgets('tapping new words per day updates preference', (tester) async {
       SharedPreferences.setMockInitialValues({
         'learning_mode': 'curriculum',
         'active_level_id': 1,
@@ -215,14 +225,12 @@ void main() {
           _buildApp(prefsSource: SharedPreferencesSource(prefs)));
       await tester.pumpAndSettle();
 
-      // Tap the autodidact card
-      await tester.tap(find.text('Autodidacte (progression guidée)'));
+      // Tap the 10 segment
+      await tester.tap(find.text('10'));
       await tester.pumpAndSettle();
 
-      // Verify the SharedPreferences were updated
-      final savedMode =
-          SharedPreferencesSource(prefs).getLearningMode();
-      expect(savedMode, 'autodidact');
+      final savedValue = SharedPreferencesSource(prefs).getNewWordsPerDay();
+      expect(savedValue, 10);
     });
   });
 }

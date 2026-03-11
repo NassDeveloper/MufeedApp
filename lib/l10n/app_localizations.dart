@@ -1795,6 +1795,90 @@ abstract class AppLocalizations {
   /// In fr, this message translates to:
   /// **'Retour'**
   String get listeningEmptyAction;
+
+  /// No description provided for @settingsLearningSection.
+  ///
+  /// In fr, this message translates to:
+  /// **'Apprentissage'**
+  String get settingsLearningSection;
+
+  /// No description provided for @settingsNewWordsPerDay.
+  ///
+  /// In fr, this message translates to:
+  /// **'Nouveaux mots par jour'**
+  String get settingsNewWordsPerDay;
+
+  /// No description provided for @settingsNewWordsPerDayDesc.
+  ///
+  /// In fr, this message translates to:
+  /// **'Mots introduits chaque jour en session quotidienne'**
+  String get settingsNewWordsPerDayDesc;
+
+  /// No description provided for @levelProgressLabel.
+  ///
+  /// In fr, this message translates to:
+  /// **'{mastered} / {total} mots'**
+  String levelProgressLabel(int mastered, int total);
+
+  /// No description provided for @lessonActivitiesTitle.
+  ///
+  /// In fr, this message translates to:
+  /// **'Activités'**
+  String get lessonActivitiesTitle;
+
+  /// No description provided for @lessonActivitiesProgress.
+  ///
+  /// In fr, this message translates to:
+  /// **'{mastered} / {total} maîtrisés'**
+  String lessonActivitiesProgress(int mastered, int total);
+
+  /// No description provided for @activityFlashcards.
+  ///
+  /// In fr, this message translates to:
+  /// **'Flashcards'**
+  String get activityFlashcards;
+
+  /// No description provided for @activityPhrases.
+  ///
+  /// In fr, this message translates to:
+  /// **'Compléter les phrases'**
+  String get activityPhrases;
+
+  /// No description provided for @activityVerbTable.
+  ///
+  /// In fr, this message translates to:
+  /// **'Table de conjugaison'**
+  String get activityVerbTable;
+
+  /// No description provided for @activityMatching.
+  ///
+  /// In fr, this message translates to:
+  /// **'Association'**
+  String get activityMatching;
+
+  /// No description provided for @activityWordOrdering.
+  ///
+  /// In fr, this message translates to:
+  /// **'Ordre de mots'**
+  String get activityWordOrdering;
+
+  /// No description provided for @activityListening.
+  ///
+  /// In fr, this message translates to:
+  /// **'Écoute'**
+  String get activityListening;
+
+  /// No description provided for @activityDialogue.
+  ///
+  /// In fr, this message translates to:
+  /// **'Mini-dialogue'**
+  String get activityDialogue;
+
+  /// No description provided for @activityQuiz.
+  ///
+  /// In fr, this message translates to:
+  /// **'QCM'**
+  String get activityQuiz;
 }
 
 class _AppLocalizationsDelegate

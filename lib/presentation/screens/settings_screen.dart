@@ -9,8 +9,8 @@ import '../providers/analytics_provider.dart';
 import '../providers/locale_provider.dart';
 import '../providers/notification_provider.dart';
 import '../providers/theme_provider.dart';
+import '../providers/progress_provider.dart';
 import '../utils/localized_name.dart';
-import '../widgets/mode_card_widget.dart';
 
 class SettingsScreen extends ConsumerWidget {
   const SettingsScreen({super.key});
@@ -45,35 +45,6 @@ class SettingsScreen extends ConsumerWidget {
         data: (modeState) => ListView(
           padding: const EdgeInsets.all(16),
           children: [
-            // Learning mode section
-            Text(
-              l10n.settingsLearningMode,
-              style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                    fontWeight: FontWeight.bold,
-                  ),
-            ),
-            const SizedBox(height: 12),
-            ModeCard(
-              title: l10n.settingsModeCurriculum,
-              description: l10n.settingsModeCurriculumDescription,
-              icon: Icons.school,
-              isSelected: modeState.isCurriculum,
-              onTap: () => ref
-                  .read(learningModeProvider.notifier)
-                  .setMode('curriculum'),
-            ),
-            const SizedBox(height: 12),
-            ModeCard(
-              title: l10n.settingsModeAutodidact,
-              description: l10n.settingsModeAutodidactDescription,
-              icon: Icons.self_improvement,
-              isSelected: modeState.isAutodidact,
-              onTap: () => ref
-                  .read(learningModeProvider.notifier)
-                  .setMode('autodidact'),
-            ),
-            const SizedBox(height: 24),
-
             // Active level section
             Text(
               l10n.settingsActiveLevel,
@@ -146,6 +117,41 @@ class SettingsScreen extends ConsumerWidget {
                       ),
                     )
                     .toList(),
+              ),
+            ),
+            const SizedBox(height: 24),
+
+            // Learning section
+            Text(
+              l10n.settingsLearningSection,
+              style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                    fontWeight: FontWeight.bold,
+                  ),
+            ),
+            const SizedBox(height: 8),
+            ListTile(
+              contentPadding: EdgeInsets.zero,
+              title: Text(l10n.settingsNewWordsPerDay),
+              subtitle: Text(l10n.settingsNewWordsPerDayDesc),
+            ),
+            Semantics(
+              label: l10n.settingsNewWordsPerDay,
+              child: Padding(
+                padding: const EdgeInsets.only(bottom: 8),
+                child: SegmentedButton<int>(
+                  segments: const [
+                    ButtonSegment(value: 3, label: Text('3')),
+                    ButtonSegment(value: 5, label: Text('5')),
+                    ButtonSegment(value: 10, label: Text('10')),
+                    ButtonSegment(value: 15, label: Text('15')),
+                  ],
+                  selected: {ref.watch(newWordsPerDayProvider)},
+                  onSelectionChanged: (selected) {
+                    ref
+                        .read(newWordsPerDayProvider.notifier)
+                        .setValue(selected.first);
+                  },
+                ),
               ),
             ),
             const SizedBox(height: 24),

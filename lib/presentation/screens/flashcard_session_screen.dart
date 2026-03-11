@@ -31,13 +31,16 @@ class _FlashcardSessionScreenState
   late FocusNode _focusNode;
   bool _isLoading = true;
   bool _isRating = false;
+  Object? _loadError;
 
   @override
   void initState() {
     super.initState();
     _pageController = PageController();
     _focusNode = FocusNode();
-    _loadSession();
+    // Defer to post-frame: startSession modifies provider state synchronously,
+    // which is forbidden during the build phase (initState runs within it).
+    WidgetsBinding.instance.addPostFrameCallback((_) => _loadSession());
   }
 
   bool get _isMultiLesson => widget.unitId != null;
@@ -45,32 +48,37 @@ class _FlashcardSessionScreenState
   Future<void> _loadSession() async {
     final notifier = ref.read(flashcardSessionProvider.notifier);
 
-    if (_isMultiLesson) {
-      // Multi-lesson session: load all lessons in the unit
-      final contentRepo = ref.read(contentRepositoryProvider);
-      final lessons = await contentRepo.getLessonsByUnitId(widget.unitId!);
-      final lessonIds = lessons.map((l) => l.id).toList();
-      await notifier.startMultiLessonSession(lessonIds);
-    } else {
-      // Single-lesson session with resume support
-      final prefs = ref.read(sharedPreferencesSourceProvider);
-      final savedLessonId = prefs.getFlashcardSessionLessonId();
-      final savedIndex = prefs.getFlashcardSessionIndex();
+    try {
+      if (_isMultiLesson) {
+        // Multi-lesson session: load all lessons in the unit
+        final contentRepo = ref.read(contentRepositoryProvider);
+        final lessons = await contentRepo.getLessonsByUnitId(widget.unitId!);
+        final lessonIds = lessons.map((l) => l.id).toList();
+        await notifier.startMultiLessonSession(lessonIds);
+      } else {
+        // Single-lesson session with resume support
+        final prefs = ref.read(sharedPreferencesSourceProvider);
+        final savedLessonId = prefs.getFlashcardSessionLessonId();
+        final savedIndex = prefs.getFlashcardSessionIndex();
 
-      int startIndex = 0;
+        int startIndex = 0;
 
-      if (savedLessonId == widget.lessonId && savedIndex != null && mounted) {
-        final shouldResume = await _showResumeDialog();
-        if (shouldResume == true) {
-          startIndex = savedIndex;
+        if (savedLessonId == widget.lessonId && savedIndex != null && mounted) {
+          final shouldResume = await _showResumeDialog();
+          if (shouldResume == true) {
+            startIndex = savedIndex;
+          }
+        }
+
+        await notifier.startSession(widget.lessonId!, startIndex: startIndex);
+
+        if (mounted && startIndex > 0) {
+          _pageController.jumpToPage(startIndex);
         }
       }
-
-      await notifier.startSession(widget.lessonId!, startIndex: startIndex);
-
-      if (mounted && startIndex > 0) {
-        _pageController.jumpToPage(startIndex);
-      }
+    } catch (e, st) {
+      debugPrint('FlashcardSession load error: $e\n$st');
+      _loadError = e;
     }
 
     if (mounted) {
@@ -149,6 +157,13 @@ class _FlashcardSessionScreenState
           curve: AnimationConstants.flipCurve,
         );
       }
+    } catch (e, st) {
+      debugPrint('Rating error: $e\n$st');
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Erreur: $e'), backgroundColor: Colors.red),
+        );
+      }
     } finally {
       _isRating = false;
     }
@@ -182,7 +197,20 @@ class _FlashcardSessionScreenState
             onPressed: () => context.pop(),
           ),
         ),
-        body: Center(child: Text(l10n.flashcardEmpty)),
+        body: Center(
+          child: Padding(
+            padding: const EdgeInsets.all(24),
+            child: _loadError != null
+                ? SelectableText(
+                    'Erreur de chargement:\n$_loadError',
+                    style: TextStyle(
+                      color: Theme.of(context).colorScheme.error,
+                      fontSize: 12,
+                    ),
+                  )
+                : Text(l10n.flashcardEmpty),
+          ),
+        ),
       );
     }
 

@@ -82,6 +82,18 @@ class FakeProgressRepository implements ProgressRepository {
   @override
   Future<UpcomingReviewsModel> getUpcomingReviews() async =>
       const UpcomingReviewsModel(dueToday: 0, dueTomorrow: 0, dueThisWeek: 0);
+
+  @override
+  Future<List<ReviewableItemModel>> getNewWordsForLevel(int levelId, int limit) =>
+      Future.value([]);
+
+  @override
+  Future<({int lessonId, int totalItems, int masteredCount})>
+      getLessonProgressSummary(int lessonId) =>
+      Future.value((lessonId: lessonId, totalItems: 0, masteredCount: 0));
+  @override
+  Future<int> getNewWordsIntroducedTodayCount() => Future.value(0);
+
 }
 
 class FakeSharedPreferencesSource implements SharedPreferencesSource {
@@ -181,6 +193,15 @@ class FakeSharedPreferencesSource implements SharedPreferencesSource {
 
   @override
   Future<void> setNotificationMinute(int minute) async {}
+
+  @override
+  int getNewWordsPerDay() => 5;
+
+  @override
+  Future<void> setNewWordsPerDay(int value) async {}
+
+  @override
+  Future<void> clearActiveLessonId() async {}
 }
 
 Widget _buildApp({List<ReviewableItemModel> dailyItems = const []}) {

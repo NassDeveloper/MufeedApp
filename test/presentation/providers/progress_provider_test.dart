@@ -95,6 +95,18 @@ class FakeProgressRepository implements ProgressRepository {
 
   @override
   Future<UpcomingReviewsModel> getUpcomingReviews() async => upcomingData;
+
+  @override
+  Future<List<ReviewableItemModel>> getNewWordsForLevel(int levelId, int limit) =>
+      Future.value([]);
+
+  @override
+  Future<({int lessonId, int totalItems, int masteredCount})>
+      getLessonProgressSummary(int lessonId) =>
+      Future.value((lessonId: lessonId, totalItems: 0, masteredCount: 0));
+  @override
+  Future<int> getNewWordsIntroducedTodayCount() => Future.value(0);
+
 }
 
 void main() {

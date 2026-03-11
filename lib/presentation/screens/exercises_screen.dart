@@ -7,6 +7,7 @@ import '../../domain/models/unit_model.dart';
 import '../../l10n/app_localizations.dart';
 import '../providers/content_provider.dart';
 import '../providers/dialogue_provider.dart';
+import '../providers/progress_provider.dart';
 import '../utils/localized_name.dart';
 import '../widgets/error_content_widget.dart';
 import '../widgets/skeleton_loader_widget.dart';
@@ -47,8 +48,9 @@ class ExercisesScreen extends ConsumerWidget {
           }
           return ListView(
             padding: const EdgeInsets.all(16),
-            children:
-                levels.map((level) => _LevelExpansionTile(level: level)).toList(),
+            children: levels
+                .map((level) => _LevelExpansionTile(level: level))
+                .toList(),
           );
         },
       ),
@@ -68,6 +70,14 @@ class _LevelExpansionTile extends ConsumerWidget {
     final l10n = AppLocalizations.of(context)!;
     final name = level.localizedName(locale);
     final asyncUnits = ref.watch(unitsByLevelProvider(level.id));
+    final progressAsync = ref.watch(levelProgressProvider(level.id));
+
+    String subtitleText = l10n.unitCount(level.unitCount);
+    progressAsync.whenData((p) {
+      if (p.totalItems > 0) {
+        subtitleText = l10n.levelProgressLabel(p.masteredItems, p.totalItems);
+      }
+    });
 
     return Card(
       margin: const EdgeInsets.only(bottom: 12),
@@ -91,7 +101,7 @@ class _LevelExpansionTile extends ConsumerWidget {
         ),
         title: Text(name, style: Theme.of(context).textTheme.titleSmall),
         subtitle: Text(
-          l10n.unitCount(level.unitCount),
+          subtitleText,
           style: Theme.of(context).textTheme.bodySmall?.copyWith(
                 color: colorScheme.onSurfaceVariant,
               ),
@@ -113,124 +123,6 @@ class _LevelExpansionTile extends ConsumerWidget {
                         levelId: level.id,
                       ))
                   .toList(),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class _LessonExerciseRow extends ConsumerWidget {
-  const _LessonExerciseRow({
-    required this.lessonId,
-    required this.lessonName,
-  });
-
-  final int lessonId;
-  final String lessonName;
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final l10n = AppLocalizations.of(context)!;
-    final asyncExercises = ref.watch(exercisesByLessonProvider(lessonId));
-    final hasExercises =
-        asyncExercises.value?.isNotEmpty ?? false;
-    final asyncVerbs = ref.watch(verbsByLessonProvider(lessonId));
-    final hasVerbs = (asyncVerbs.value?.length ?? 0) >= 2;
-    final asyncWords = ref.watch(wordsByLessonProvider(lessonId));
-    final totalItems = (asyncWords.value?.length ?? 0) +
-        (asyncVerbs.value?.length ?? 0);
-    final hasEnoughForMatching = totalItems >= 4;
-    final hasEnoughForListening = totalItems >= 4;
-    final asyncDialogues = ref.watch(dialoguesByLessonProvider(lessonId));
-    final hasDialogues = asyncDialogues.value?.isNotEmpty ?? false;
-
-    final buttonStyle = FilledButton.styleFrom(
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-      minimumSize: Size.zero,
-      tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-    );
-
-    return ListTile(
-      dense: true,
-      contentPadding: const EdgeInsets.symmetric(horizontal: 16),
-      title: Text(
-        lessonName,
-        style: Theme.of(context).textTheme.bodyMedium,
-      ),
-      trailing: Wrap(
-        spacing: 6,
-        runSpacing: 4,
-        alignment: WrapAlignment.end,
-        children: [
-          if (hasExercises)
-            FilledButton.tonal(
-              onPressed: () => context
-                  .push('/session/sentence-exercise/$lessonId'),
-              style: buttonStyle,
-              child: Text(
-                l10n.sentenceExerciseButton,
-                style: Theme.of(context).textTheme.labelSmall,
-              ),
-            ),
-          if (hasVerbs)
-            FilledButton.tonal(
-              onPressed: () => context
-                  .push('/session/verb-table/$lessonId'),
-              style: buttonStyle,
-              child: Text(
-                l10n.verbTableButton,
-                style: Theme.of(context).textTheme.labelSmall,
-              ),
-            ),
-          if (hasEnoughForMatching)
-            FilledButton.tonal(
-              onPressed: () =>
-                  context.push('/session/matching/$lessonId'),
-              style: buttonStyle,
-              child: Text(
-                l10n.matchingButton,
-                style: Theme.of(context).textTheme.labelSmall,
-              ),
-            ),
-          if (hasExercises)
-            FilledButton.tonal(
-              onPressed: () =>
-                  context.push('/session/word-ordering/$lessonId'),
-              style: buttonStyle,
-              child: Text(
-                l10n.wordOrderingButton,
-                style: Theme.of(context).textTheme.labelSmall,
-              ),
-            ),
-          if (hasEnoughForListening)
-            FilledButton.tonal(
-              onPressed: () =>
-                  context.push('/session/listening/$lessonId'),
-              style: buttonStyle,
-              child: Text(
-                l10n.listeningButton,
-                style: Theme.of(context).textTheme.labelSmall,
-              ),
-            ),
-          if (hasDialogues)
-            FilledButton.tonal(
-              onPressed: () =>
-                  context.push('/session/dialogue/$lessonId'),
-              style: buttonStyle,
-              child: Text(
-                l10n.dialogueButton,
-                style: Theme.of(context).textTheme.labelSmall,
-              ),
-            ),
-          FilledButton.tonal(
-            onPressed: () =>
-                context.push('/session/quiz/$lessonId'),
-            style: buttonStyle,
-            child: Text(
-              l10n.quizTitle,
-              style: Theme.of(context).textTheme.labelSmall,
             ),
           ),
         ],
@@ -293,7 +185,7 @@ class _UnitLessonsSection extends ConsumerWidget {
           data: (lessons) => Column(
             children: lessons.map((lesson) {
               final lessonName = lesson.localizedName(locale);
-              return _LessonExerciseRow(
+              return _LessonCard(
                 lessonId: lesson.id,
                 lessonName: lessonName,
               );
@@ -302,6 +194,242 @@ class _UnitLessonsSection extends ConsumerWidget {
         ),
         const Divider(height: 1, indent: 16, endIndent: 16),
       ],
+    );
+  }
+}
+
+class _LessonCard extends ConsumerWidget {
+  const _LessonCard({
+    required this.lessonId,
+    required this.lessonName,
+  });
+
+  final int lessonId;
+  final String lessonName;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final colorScheme = Theme.of(context).colorScheme;
+    final progressAsync = ref.watch(lessonProgressProvider(lessonId));
+
+    String? badgeText;
+    progressAsync.whenData((p) {
+      if (p.totalItems > 0) {
+        badgeText = '${p.masteredCount}/${p.totalItems}';
+      }
+    });
+
+    return Semantics(
+      button: true,
+      label: lessonName,
+      child: ListTile(
+        contentPadding:
+            const EdgeInsets.symmetric(horizontal: 16, vertical: 2),
+        title: Text(
+          lessonName,
+          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                fontWeight: FontWeight.w500,
+              ),
+        ),
+        trailing: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            if (badgeText != null) ...[
+              Text(
+                badgeText!,
+                style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                      color: colorScheme.onSurfaceVariant,
+                    ),
+              ),
+              const SizedBox(width: 4),
+            ],
+            Icon(
+              Icons.chevron_right,
+              size: 18,
+              color: colorScheme.onSurfaceVariant,
+            ),
+          ],
+        ),
+        onTap: () => showModalBottomSheet<void>(
+          context: context,
+          isScrollControlled: true,
+          useSafeArea: true,
+          builder: (_) => _LessonActivitiesSheet(
+            lessonId: lessonId,
+            lessonName: lessonName,
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _LessonActivitiesSheet extends ConsumerWidget {
+  const _LessonActivitiesSheet({
+    required this.lessonId,
+    required this.lessonName,
+  });
+
+  final int lessonId;
+  final String lessonName;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context)!;
+    final colorScheme = Theme.of(context).colorScheme;
+    final progressAsync = ref.watch(lessonProgressProvider(lessonId));
+
+    final asyncExercises = ref.watch(exercisesByLessonProvider(lessonId));
+    final hasExercises = asyncExercises.value?.isNotEmpty ?? false;
+    final asyncVerbs = ref.watch(verbsByLessonProvider(lessonId));
+    final hasVerbs = (asyncVerbs.value?.length ?? 0) >= 2;
+    final asyncWords = ref.watch(wordsByLessonProvider(lessonId));
+    final totalItems =
+        (asyncWords.value?.length ?? 0) + (asyncVerbs.value?.length ?? 0);
+    final hasEnoughForMatching = totalItems >= 4;
+    final hasEnoughForListening = totalItems >= 4;
+    final asyncDialogues = ref.watch(dialoguesByLessonProvider(lessonId));
+    final hasDialogues = asyncDialogues.value?.isNotEmpty ?? false;
+
+    String progressSubtitle = '';
+    progressAsync.whenData((p) {
+      progressSubtitle =
+          l10n.lessonActivitiesProgress(p.masteredCount, p.totalItems);
+    });
+
+    void navigate(String route) {
+      final router = GoRouter.of(context);
+      Navigator.of(context).pop();
+      router.push(route);
+    }
+
+    return DraggableScrollableSheet(
+      initialChildSize: 0.6,
+      minChildSize: 0.4,
+      maxChildSize: 0.9,
+      expand: false,
+      builder: (_, scrollController) => Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // Drag handle
+          Center(
+            child: Padding(
+              padding: const EdgeInsets.only(top: 12, bottom: 8),
+              child: Container(
+                width: 32,
+                height: 4,
+                decoration: BoxDecoration(
+                  color: colorScheme.onSurfaceVariant.withValues(alpha: 0.4),
+                  borderRadius: BorderRadius.circular(2),
+                ),
+              ),
+            ),
+          ),
+          // Header
+          Padding(
+            padding: const EdgeInsets.fromLTRB(20, 4, 20, 4),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  lessonName,
+                  style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                        fontWeight: FontWeight.bold,
+                      ),
+                ),
+                if (progressSubtitle.isNotEmpty)
+                  Text(
+                    progressSubtitle,
+                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                          color: colorScheme.onSurfaceVariant,
+                        ),
+                  ),
+              ],
+            ),
+          ),
+          const Divider(height: 16),
+          // Activities list
+          Expanded(
+            child: ListView(
+              controller: scrollController,
+              children: [
+                // Flashcards (always)
+                ListTile(
+                  leading:
+                      Icon(Icons.style_outlined, color: colorScheme.primary),
+                  title: Text(l10n.activityFlashcards),
+                  trailing: const Icon(Icons.chevron_right, size: 18),
+                  onTap: () => navigate('/session/flashcard/$lessonId'),
+                ),
+                // Phrases (conditional)
+                if (hasExercises)
+                  ListTile(
+                    leading: Icon(Icons.edit_note_outlined,
+                        color: colorScheme.primary),
+                    title: Text(l10n.activityPhrases),
+                    trailing: const Icon(Icons.chevron_right, size: 18),
+                    onTap: () =>
+                        navigate('/session/sentence-exercise/$lessonId'),
+                  ),
+                // Verb table (conditional)
+                if (hasVerbs)
+                  ListTile(
+                    leading: Icon(Icons.table_rows_outlined,
+                        color: colorScheme.primary),
+                    title: Text(l10n.activityVerbTable),
+                    trailing: const Icon(Icons.chevron_right, size: 18),
+                    onTap: () => navigate('/session/verb-table/$lessonId'),
+                  ),
+                // Matching (conditional)
+                if (hasEnoughForMatching)
+                  ListTile(
+                    leading:
+                        Icon(Icons.link_outlined, color: colorScheme.primary),
+                    title: Text(l10n.activityMatching),
+                    trailing: const Icon(Icons.chevron_right, size: 18),
+                    onTap: () => navigate('/session/matching/$lessonId'),
+                  ),
+                // Word ordering (conditional)
+                if (hasExercises)
+                  ListTile(
+                    leading:
+                        Icon(Icons.sort_outlined, color: colorScheme.primary),
+                    title: Text(l10n.activityWordOrdering),
+                    trailing: const Icon(Icons.chevron_right, size: 18),
+                    onTap: () =>
+                        navigate('/session/word-ordering/$lessonId'),
+                  ),
+                // Listening (conditional)
+                if (hasEnoughForListening)
+                  ListTile(
+                    leading: Icon(Icons.hearing_outlined,
+                        color: colorScheme.primary),
+                    title: Text(l10n.activityListening),
+                    trailing: const Icon(Icons.chevron_right, size: 18),
+                    onTap: () => navigate('/session/listening/$lessonId'),
+                  ),
+                // Dialogue (conditional)
+                if (hasDialogues)
+                  ListTile(
+                    leading: Icon(Icons.chat_bubble_outline,
+                        color: colorScheme.primary),
+                    title: Text(l10n.activityDialogue),
+                    trailing: const Icon(Icons.chevron_right, size: 18),
+                    onTap: () => navigate('/session/dialogue/$lessonId'),
+                  ),
+                // Quiz (always)
+                ListTile(
+                  leading:
+                      Icon(Icons.quiz_outlined, color: colorScheme.primary),
+                  title: Text(l10n.activityQuiz),
+                  trailing: const Icon(Icons.chevron_right, size: 18),
+                  onTap: () => navigate('/session/quiz/$lessonId'),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

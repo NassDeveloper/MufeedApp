@@ -4,55 +4,13 @@
     "name_fr": "Les bases de l'arabe",
     "name_en": "Arabic Foundations",
     "name_ar": "أَسَاسِيَّاتُ العَرَبِيَّة",
-    "unit_count": 3
+    "unit_count": 2
   },
   "units": [
     {
       "number": 1,
-      "name_fr": "Unité 1 - Les voyelles",
-      "name_en": "Unit 1 - Vowel marks",
-      "lessons": [
-        {
-          "number": 1,
-          "name_fr": "Leçon 1 - La Fatha",
-          "name_en": "Lesson 1 - The Fatha",
-          "description_fr": "Découvrez des mots contenant la voyelle fatha (ـَ), qui produit le son « a » court. Vous apprendrez des noms courants comme جَبَل (montagne), قَلَم (stylo) et بَيْت (maison).",
-          "description_en": "Discover words containing the fatha vowel mark (ـَ), which produces the short 'a' sound. You will learn common nouns such as جَبَل (mountain), قَلَم (pen), and بَيْت (house)."
-        },
-        {
-          "number": 2,
-          "name_fr": "Leçon 2 - La Kasra",
-          "name_en": "Lesson 2 - The Kasra",
-          "description_fr": "Apprenez des mots contenant la voyelle kasra (ـِ), qui produit le son « i » court. Vous découvrirez des mots comme طِفْل (enfant), جِسْر (pont) et عِنَب (raisin).",
-          "description_en": "Learn words containing the kasra vowel mark (ـِ), which produces the short 'i' sound. You will discover words such as طِفْل (child), جِسْر (bridge), and عِنَب (grapes)."
-        },
-        {
-          "number": 3,
-          "name_fr": "Leçon 3 - La Damma",
-          "name_en": "Lesson 3 - The Damma",
-          "description_fr": "Apprenez des mots contenant la voyelle damma (ـُ), qui produit le son « ou » court. Vous découvrirez des mots comme كُتُب (livres), كُرَة (ballon) et خُبْز (pain).",
-          "description_en": "Learn words containing the damma vowel mark (ـُ), which produces the short 'u' sound. You will discover words such as كُتُب (books), كُرَة (ball), and خُبْز (bread)."
-        },
-        {
-          "number": 4,
-          "name_fr": "Leçon 4 - Le Soukoun",
-          "name_en": "Lesson 4 - The Sukoon",
-          "description_fr": "Découvrez le soukoun (ـْ), un signe indiquant l'absence de voyelle sur une consonne. Vous pratiquerez avec des mots comme نَجْم (étoile), شَمْس (soleil) et مَسْجِد (mosquée).",
-          "description_en": "Discover the sukoon (ـْ), a sign indicating the absence of a vowel on a consonant. You will practise with words such as نَجْم (star), شَمْس (sun), and مَسْجِد (mosque)."
-        },
-        {
-          "number": 5,
-          "name_fr": "Leçon 5 - Le Madd",
-          "name_en": "Lesson 5 - The Madd",
-          "description_fr": "Apprenez le madd (prolongation vocalique), qui allonge le son d'une voyelle. Vous pratiquerez avec des mots comme كِتَاب (livre), حِذَاء (chaussure) et مِفْتَاح (clé).",
-          "description_en": "Learn the madd (vowel elongation), which lengthens a vowel sound. You will practise with words such as كِتَاب (book), حِذَاء (shoe), and مِفْتَاح (key)."
-        }
-      ]
-    },
-    {
-      "number": 2,
-      "name_fr": "Unité 2 - Les nombres et le calendrier",
-      "name_en": "Unit 2 - Numbers and calendar",
+      "name_fr": "Unité 1 - Les nombres et le calendrier",
+      "name_en": "Unit 1 - Numbers and calendar",
       "lessons": [
         {
           "number": 1,
@@ -92,9 +50,9 @@
       ]
     },
     {
-      "number": 3,
-      "name_fr": "Unité 3 - Le monde autour de nous",
-      "name_en": "Unit 3 - The world around us",
+      "number": 2,
+      "name_fr": "Unité 2 - Le monde autour de nous",
+      "name_en": "Unit 2 - The world around us",
       "lessons": [
         {
           "number": 1,

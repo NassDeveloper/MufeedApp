@@ -1,171 +1,290 @@
 [
-  {"unit": 1, "lesson": 1,
-   "title_fr": "Qu'est-ce que c'est ?",
-   "title_en": "What is this?",
-   "turns": [
-     {"speaker": "A", "arabic": "مَا هَذَا ؟", "translation_fr": "Qu'est-ce que c'est ?"},
-     {"speaker": "B", "arabic": "___", "translation_fr": "C'est un stylo.",
-      "choices": ["هَذَا قَلَمٌ.", "هَذَا جَبَلٌ.", "هَذَا بَيْتٌ."],
-      "correct_index": 0}
-   ]},
-
-  {"unit": 1, "lesson": 2,
-   "title_fr": "À l'école",
-   "title_en": "At school",
-   "turns": [
-     {"speaker": "A", "arabic": "مَا هَذِهِ ؟", "translation_fr": "Qu'est-ce que c'est ?"},
-     {"speaker": "B", "arabic": "___", "translation_fr": "C'est une trousse.",
-      "choices": ["هَذِهِ مِقْلَمَةٌ.", "هَذِهِ مِسْطَرَةٌ.", "هَذِهِ مِنْشَفَةٌ."],
-      "correct_index": 0}
-   ]},
-
-  {"unit": 1, "lesson": 3,
-   "title_fr": "À la cuisine",
-   "title_en": "In the kitchen",
-   "turns": [
-     {"speaker": "A", "arabic": "مَا هَذَا ؟", "translation_fr": "Qu'est-ce que c'est ?"},
-     {"speaker": "B", "arabic": "___", "translation_fr": "C'est du pain.",
-      "choices": ["هَذَا فُرْنٌ.", "هَذَا خُبْزٌ.", "هَذِهِ كُرَةٌ."],
-      "correct_index": 1}
-   ]},
-
-  {"unit": 1, "lesson": 4,
-   "title_fr": "Dans le bureau",
-   "title_en": "In the office",
-   "turns": [
-     {"speaker": "A", "arabic": "أَيْنَ الكِتَابُ ؟", "translation_fr": "Où est le livre ?"},
-     {"speaker": "B", "arabic": "___", "translation_fr": "Il est sur le bureau.",
-      "choices": ["هُوَ عَلَى المَكْتَبِ.", "هُوَ فِي المَسْجِدِ.", "هُوَ تَحْتَ الشَّمْسِ."],
-      "correct_index": 0}
-   ]},
-
-  {"unit": 1, "lesson": 5,
-   "title_fr": "Dans les transports",
-   "title_en": "On transport",
-   "turns": [
-     {"speaker": "A", "arabic": "هَلْ هَذِهِ حَافِلَةٌ ؟", "translation_fr": "Est-ce un bus ?"},
-     {"speaker": "B", "arabic": "___", "translation_fr": "Oui, c'est un bus.",
-      "choices": ["نَعَمْ ، هَذِهِ حَافِلَةٌ.", "لَا ، هَذِهِ نَافِذَةٌ.", "لَا ، هَذَا كِتَابٌ."],
-      "correct_index": 0}
-   ]},
-
-  {"unit": 2, "lesson": 1,
-   "title_fr": "Comptons !",
-   "title_en": "Let's count!",
-   "turns": [
-     {"speaker": "A", "arabic": "كَمِ الأَقْلَامُ ؟", "translation_fr": "Combien y a-t-il de stylos ?"},
-     {"speaker": "B", "arabic": "___", "translation_fr": "Il y en a cinq.",
-      "choices": ["هِيَ خَمْسَة.", "هِيَ ثَلَاثَة.", "هِيَ سَبْعَة."],
-      "correct_index": 0}
-   ]},
-
-  {"unit": 2, "lesson": 2,
-   "title_fr": "Quel âge as-tu ?",
-   "title_en": "How old are you?",
-   "turns": [
-     {"speaker": "A", "arabic": "كَمْ عُمْرُكَ ؟", "translation_fr": "Quel est ton âge ?"},
-     {"speaker": "B", "arabic": "___", "translation_fr": "J'ai quinze ans.",
-      "choices": ["عُمْرِي خَمْسَةَ عَشَرَ سَنَةً.", "عُمْرِي اِثْنَا عَشَرَ سَنَةً.", "عُمْرِي عِشْرُون سَنَةً."],
-      "correct_index": 0}
-   ]},
-
-  {"unit": 2, "lesson": 3,
-   "title_fr": "Quel jour est-on ?",
-   "title_en": "What day is it?",
-   "turns": [
-     {"speaker": "A", "arabic": "مَا اليَوْمُ ؟", "translation_fr": "Quel jour est-on ?"},
-     {"speaker": "B", "arabic": "___", "translation_fr": "Aujourd'hui, c'est lundi.",
-      "choices": ["اليَوْمُ الإِثْنَيْن.", "اليَوْمُ الثُّلَاثَاء.", "اليَوْمُ الجُمُعَة."],
-      "correct_index": 0}
-   ]},
-
-  {"unit": 2, "lesson": 4,
-   "title_fr": "Le mois du jeûne",
-   "title_en": "The month of fasting",
-   "turns": [
-     {"speaker": "A", "arabic": "مَا هُوَ شَهْرُ الصِّيَامِ ؟", "translation_fr": "Quel est le mois du jeûne ?"},
-     {"speaker": "B", "arabic": "___", "translation_fr": "C'est le mois de Ramadan.",
-      "choices": ["هُوَ شَهْرُ رَمَضَان.", "هُوَ شَهْرُ مُحَرَّم.", "هُوَ شَهْرُ شَعْبَان."],
-      "correct_index": 0}
-   ]},
-
-  {"unit": 2, "lesson": 5,
-   "title_fr": "Le premier mois",
-   "title_en": "The first month",
-   "turns": [
-     {"speaker": "A", "arabic": "مَا هُوَ أَوَّلُ شَهْرٍ فِي السَّنَةِ ؟", "translation_fr": "Quel est le premier mois de l'année ?"},
-     {"speaker": "B", "arabic": "___", "translation_fr": "C'est janvier.",
-      "choices": ["هُوَ يَنَايِر.", "هُوَ فَبْرَايِر.", "هُوَ دِيسَمْبَر."],
-      "correct_index": 0}
-   ]},
-
-  {"unit": 3, "lesson": 1,
-   "title_fr": "Les couleurs",
-   "title_en": "Colors",
-   "turns": [
-     {"speaker": "A", "arabic": "مَا لَوْنُ العُشْبِ ؟", "translation_fr": "De quelle couleur est l'herbe ?"},
-     {"speaker": "B", "arabic": "___", "translation_fr": "L'herbe est verte.",
-      "choices": ["هُوَ أَخْضَر.", "هُوَ أَحْمَر.", "هُوَ أَصْفَر."],
-      "correct_index": 0}
-   ]},
-
-  {"unit": 3, "lesson": 2,
-   "title_fr": "Où est la mosquée ?",
-   "title_en": "Where is the mosque?",
-   "turns": [
-     {"speaker": "A", "arabic": "أَيْنَ المَسْجِدُ ؟", "translation_fr": "Où est la mosquée ?"},
-     {"speaker": "B", "arabic": "___", "translation_fr": "La mosquée est devant l'école.",
-      "choices": ["المَسْجِدُ أَمَامَ المَدْرَسَةِ.", "المَسْجِدُ خَلْفَ المَدْرَسَةِ.", "المَسْجِدُ فَوْقَ المَدْرَسَةِ."],
-      "correct_index": 0}
-   ]},
-
-  {"unit": 3, "lesson": 3,
-   "title_fr": "Au zoo",
-   "title_en": "At the zoo",
-   "turns": [
-     {"speaker": "A", "arabic": "مَا هَذَا الحَيَوَانُ ؟", "translation_fr": "Quel est cet animal ?"},
-     {"speaker": "B", "arabic": "___", "translation_fr": "C'est un renard.",
-      "choices": ["هَذَا ثَعْلَبٌ.", "هَذَا ذِئْبٌ.", "هَذَا دُبٌّ."],
-      "correct_index": 0}
-   ]},
-
-  {"unit": 3, "lesson": 4,
-   "title_fr": "À la ferme",
-   "title_en": "On the farm",
-   "turns": [
-     {"speaker": "A", "arabic": "مَا هَذَا ؟", "translation_fr": "Qu'est-ce que c'est ?"},
-     {"speaker": "B", "arabic": "___", "translation_fr": "C'est un chameau.",
-      "choices": ["هَذَا جَمَلٌ.", "هَذَا حِمَارٌ.", "هَذَا حِصَانٌ."],
-      "correct_index": 0}
-   ]},
-
-  {"unit": 3, "lesson": 5,
-   "title_fr": "Les oiseaux du jardin",
-   "title_en": "Garden birds",
-   "turns": [
-     {"speaker": "A", "arabic": "مَا هَذَا الطَّائِرُ ؟", "translation_fr": "Quel est cet oiseau ?"},
-     {"speaker": "B", "arabic": "___", "translation_fr": "C'est un aigle.",
-      "choices": ["هَذَا نَسْرٌ.", "هَذَا عُصْفُورٌ.", "هَذَا غُرَابٌ."],
-      "correct_index": 0}
-   ]},
-
-  {"unit": 3, "lesson": 6,
-   "title_fr": "Les insectes du jardin",
-   "title_en": "Garden insects",
-   "turns": [
-     {"speaker": "A", "arabic": "مَا هَذِهِ الحَشَرَةُ ؟", "translation_fr": "Quel est cet insecte ?"},
-     {"speaker": "B", "arabic": "___", "translation_fr": "C'est un papillon.",
-      "choices": ["هَذِهِ فَرَاشَةٌ.", "هَذِهِ نَحْلَةٌ.", "هَذِهِ نَمْلَةٌ."],
-      "correct_index": 0}
-   ]},
-
-  {"unit": 3, "lesson": 7,
-   "title_fr": "Sous l'océan",
-   "title_en": "Under the ocean",
-   "turns": [
-     {"speaker": "A", "arabic": "مَا هَذَا ؟", "translation_fr": "Qu'est-ce que c'est ?"},
-     {"speaker": "B", "arabic": "___", "translation_fr": "C'est un requin.",
-      "choices": ["هَذَا قِرْشٌ.", "هَذَا حُوتٌ.", "هَذَا دُولْفِينٌ."],
-      "correct_index": 0}
-   ]}
+  {
+    "unit": 1,
+    "lesson": 1,
+    "title_fr": "Comptons !",
+    "title_en": "Let's count!",
+    "turns": [
+      {
+        "speaker": "A",
+        "arabic": "كَمِ الأَقْلَامُ ؟",
+        "translation_fr": "Combien y a-t-il de stylos ?"
+      },
+      {
+        "speaker": "B",
+        "arabic": "___",
+        "translation_fr": "Il y en a cinq.",
+        "choices": [
+          "هِيَ خَمْسَة.",
+          "هِيَ ثَلَاثَة.",
+          "هِيَ سَبْعَة."
+        ],
+        "correct_index": 0
+      }
+    ]
+  },
+  {
+    "unit": 1,
+    "lesson": 2,
+    "title_fr": "Quel âge as-tu ?",
+    "title_en": "How old are you?",
+    "turns": [
+      {
+        "speaker": "A",
+        "arabic": "كَمْ عُمْرُكَ ؟",
+        "translation_fr": "Quel est ton âge ?"
+      },
+      {
+        "speaker": "B",
+        "arabic": "___",
+        "translation_fr": "J'ai quinze ans.",
+        "choices": [
+          "عُمْرِي خَمْسَةَ عَشَرَ سَنَةً.",
+          "عُمْرِي اِثْنَا عَشَرَ سَنَةً.",
+          "عُمْرِي عِشْرُون سَنَةً."
+        ],
+        "correct_index": 0
+      }
+    ]
+  },
+  {
+    "unit": 1,
+    "lesson": 3,
+    "title_fr": "Quel jour est-on ?",
+    "title_en": "What day is it?",
+    "turns": [
+      {
+        "speaker": "A",
+        "arabic": "مَا اليَوْمُ ؟",
+        "translation_fr": "Quel jour est-on ?"
+      },
+      {
+        "speaker": "B",
+        "arabic": "___",
+        "translation_fr": "Aujourd'hui, c'est lundi.",
+        "choices": [
+          "اليَوْمُ الإِثْنَيْن.",
+          "اليَوْمُ الثُّلَاثَاء.",
+          "اليَوْمُ الجُمُعَة."
+        ],
+        "correct_index": 0
+      }
+    ]
+  },
+  {
+    "unit": 1,
+    "lesson": 4,
+    "title_fr": "Le mois du jeûne",
+    "title_en": "The month of fasting",
+    "turns": [
+      {
+        "speaker": "A",
+        "arabic": "مَا هُوَ شَهْرُ الصِّيَامِ ؟",
+        "translation_fr": "Quel est le mois du jeûne ?"
+      },
+      {
+        "speaker": "B",
+        "arabic": "___",
+        "translation_fr": "C'est le mois de Ramadan.",
+        "choices": [
+          "هُوَ شَهْرُ رَمَضَان.",
+          "هُوَ شَهْرُ مُحَرَّم.",
+          "هُوَ شَهْرُ شَعْبَان."
+        ],
+        "correct_index": 0
+      }
+    ]
+  },
+  {
+    "unit": 1,
+    "lesson": 5,
+    "title_fr": "Le premier mois",
+    "title_en": "The first month",
+    "turns": [
+      {
+        "speaker": "A",
+        "arabic": "مَا هُوَ أَوَّلُ شَهْرٍ فِي السَّنَةِ ؟",
+        "translation_fr": "Quel est le premier mois de l'année ?"
+      },
+      {
+        "speaker": "B",
+        "arabic": "___",
+        "translation_fr": "C'est janvier.",
+        "choices": [
+          "هُوَ يَنَايِر.",
+          "هُوَ فَبْرَايِر.",
+          "هُوَ دِيسَمْبَر."
+        ],
+        "correct_index": 0
+      }
+    ]
+  },
+  {
+    "unit": 2,
+    "lesson": 1,
+    "title_fr": "Les couleurs",
+    "title_en": "Colors",
+    "turns": [
+      {
+        "speaker": "A",
+        "arabic": "مَا لَوْنُ العُشْبِ ؟",
+        "translation_fr": "De quelle couleur est l'herbe ?"
+      },
+      {
+        "speaker": "B",
+        "arabic": "___",
+        "translation_fr": "L'herbe est verte.",
+        "choices": [
+          "هُوَ أَخْضَر.",
+          "هُوَ أَحْمَر.",
+          "هُوَ أَصْفَر."
+        ],
+        "correct_index": 0
+      }
+    ]
+  },
+  {
+    "unit": 2,
+    "lesson": 2,
+    "title_fr": "Où est la mosquée ?",
+    "title_en": "Where is the mosque?",
+    "turns": [
+      {
+        "speaker": "A",
+        "arabic": "أَيْنَ المَسْجِدُ ؟",
+        "translation_fr": "Où est la mosquée ?"
+      },
+      {
+        "speaker": "B",
+        "arabic": "___",
+        "translation_fr": "La mosquée est devant l'école.",
+        "choices": [
+          "المَسْجِدُ أَمَامَ المَدْرَسَةِ.",
+          "المَسْجِدُ خَلْفَ المَدْرَسَةِ.",
+          "المَسْجِدُ فَوْقَ المَدْرَسَةِ."
+        ],
+        "correct_index": 0
+      }
+    ]
+  },
+  {
+    "unit": 2,
+    "lesson": 3,
+    "title_fr": "Au zoo",
+    "title_en": "At the zoo",
+    "turns": [
+      {
+        "speaker": "A",
+        "arabic": "مَا هَذَا الحَيَوَانُ ؟",
+        "translation_fr": "Quel est cet animal ?"
+      },
+      {
+        "speaker": "B",
+        "arabic": "___",
+        "translation_fr": "C'est un renard.",
+        "choices": [
+          "هَذَا ثَعْلَبٌ.",
+          "هَذَا ذِئْبٌ.",
+          "هَذَا دُبٌّ."
+        ],
+        "correct_index": 0
+      }
+    ]
+  },
+  {
+    "unit": 2,
+    "lesson": 4,
+    "title_fr": "À la ferme",
+    "title_en": "On the farm",
+    "turns": [
+      {
+        "speaker": "A",
+        "arabic": "مَا هَذَا ؟",
+        "translation_fr": "Qu'est-ce que c'est ?"
+      },
+      {
+        "speaker": "B",
+        "arabic": "___",
+        "translation_fr": "C'est un chameau.",
+        "choices": [
+          "هَذَا جَمَلٌ.",
+          "هَذَا حِمَارٌ.",
+          "هَذَا حِصَانٌ."
+        ],
+        "correct_index": 0
+      }
+    ]
+  },
+  {
+    "unit": 2,
+    "lesson": 5,
+    "title_fr": "Les oiseaux du jardin",
+    "title_en": "Garden birds",
+    "turns": [
+      {
+        "speaker": "A",
+        "arabic": "مَا هَذَا الطَّائِرُ ؟",
+        "translation_fr": "Quel est cet oiseau ?"
+      },
+      {
+        "speaker": "B",
+        "arabic": "___",
+        "translation_fr": "C'est un aigle.",
+        "choices": [
+          "هَذَا نَسْرٌ.",
+          "هَذَا عُصْفُورٌ.",
+          "هَذَا غُرَابٌ."
+        ],
+        "correct_index": 0
+      }
+    ]
+  },
+  {
+    "unit": 2,
+    "lesson": 6,
+    "title_fr": "Les insectes du jardin",
+    "title_en": "Garden insects",
+    "turns": [
+      {
+        "speaker": "A",
+        "arabic": "مَا هَذِهِ الحَشَرَةُ ؟",
+        "translation_fr": "Quel est cet insecte ?"
+      },
+      {
+        "speaker": "B",
+        "arabic": "___",
+        "translation_fr": "C'est un papillon.",
+        "choices": [
+          "هَذِهِ فَرَاشَةٌ.",
+          "هَذِهِ نَحْلَةٌ.",
+          "هَذِهِ نَمْلَةٌ."
+        ],
+        "correct_index": 0
+      }
+    ]
+  },
+  {
+    "unit": 2,
+    "lesson": 7,
+    "title_fr": "Sous l'océan",
+    "title_en": "Under the ocean",
+    "turns": [
+      {
+        "speaker": "A",
+        "arabic": "مَا هَذَا ؟",
+        "translation_fr": "Qu'est-ce que c'est ?"
+      },
+      {
+        "speaker": "B",
+        "arabic": "___",
+        "translation_fr": "C'est un requin.",
+        "choices": [
+          "هَذَا قِرْشٌ.",
+          "هَذَا حُوتٌ.",
+          "هَذَا دُولْفِينٌ."
+        ],
+        "correct_index": 0
+      }
+    ]
+  }
 ]

@@ -1,7 +1,10 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../core/constants/app_colors.dart';
 import '../../domain/models/lesson_model.dart';
 import '../../domain/models/streak_model.dart';
 import '../../l10n/app_localizations.dart';
@@ -49,7 +52,9 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
     final learningModeAsync = ref.watch(learningModeProvider);
 
     return Scaffold(
+      extendBodyBehindAppBar: true,
       appBar: AppBar(
+        backgroundColor: Colors.transparent,
         title: Text(l10n.appTitle),
         actions: [
           Semantics(
@@ -64,77 +69,218 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
           ),
         ],
       ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _StaggeredItem(
-              index: 0,
-              controller: _staggerController,
-              child: const _WelcomeBanner(),
-            ),
-            const SizedBox(height: 16),
-            _StaggeredItem(
-              index: 1,
-              controller: _staggerController,
-              child: const _StreakSection(),
-            ),
-            const SizedBox(height: 16),
-            _StaggeredItem(
-              index: 2,
-              controller: _staggerController,
-              child: const _ProgressOverview(),
-            ),
-            const SizedBox(height: 16),
-            _StaggeredItem(
-              index: 3,
-              controller: _staggerController,
-              child: const _DailySessionSection(),
-            ),
-            const SizedBox(height: 16),
-            _StaggeredItem(
-              index: 4,
-              controller: _staggerController,
-              child: learningModeAsync.when(
-                loading: () => const SizedBox.shrink(),
-                error: (_, _) => const SizedBox.shrink(),
-                data: (modeState) => Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    if (modeState.isAutodidact &&
-                        modeState.suggestedLessonId != null)
-                      _SuggestedLessonCard(
-                        activeLevelId: modeState.activeLevelId,
-                        suggestedLessonId: modeState.suggestedLessonId!,
-                      )
-                    else if (modeState.isAutodidact &&
-                        modeState.suggestedLessonId == null)
-                      _NextLevelCard(activeLevelId: modeState.activeLevelId)
-                    else if (lastLessonName != null && lastLessonRoute != null)
-                      _ResumeCard(
-                        lessonName: lastLessonName,
-                        onTap: () => context.push(
-                          lastLessonRoute,
-                          extra: lastLessonName,
-                        ),
+      body: Stack(
+        children: [
+          const RepaintBoundary(child: _HomeBackground()),
+          SafeArea(
+            child: SingleChildScrollView(
+              padding: const EdgeInsets.all(16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  _StaggeredItem(
+                    index: 0,
+                    controller: _staggerController,
+                    child: const _WelcomeBanner(),
+                  ),
+                  const SizedBox(height: 16),
+                  _StaggeredItem(
+                    index: 1,
+                    controller: _staggerController,
+                    child: const _StreakSection(),
+                  ),
+                  const SizedBox(height: 16),
+                  _StaggeredItem(
+                    index: 2,
+                    controller: _staggerController,
+                    child: const _ProgressOverview(),
+                  ),
+                  const SizedBox(height: 16),
+                  _StaggeredItem(
+                    index: 3,
+                    controller: _staggerController,
+                    child: const _DailySessionSection(),
+                  ),
+                  const SizedBox(height: 16),
+                  _StaggeredItem(
+                    index: 4,
+                    controller: _staggerController,
+                    child: learningModeAsync.when(
+                      loading: () => const SizedBox.shrink(),
+                      error: (_, _) => const SizedBox.shrink(),
+                      data: (modeState) => Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          if (modeState.isAutodidact &&
+                              modeState.suggestedLessonId != null)
+                            _SuggestedLessonCard(
+                              activeLevelId: modeState.activeLevelId,
+                              suggestedLessonId: modeState.suggestedLessonId!,
+                            )
+                          else if (modeState.isAutodidact &&
+                              modeState.suggestedLessonId == null)
+                            _NextLevelCard(activeLevelId: modeState.activeLevelId)
+                          else if (lastLessonName != null &&
+                              lastLessonRoute != null)
+                            _ResumeCard(
+                              lessonName: lastLessonName,
+                              onTap: () => context.push(
+                                lastLessonRoute,
+                                extra: lastLessonName,
+                              ),
+                            ),
+                        ],
                       ),
-                  ],
-                ),
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+                ],
               ),
             ),
-            const SizedBox(height: 16),
-            _StaggeredItem(
-              index: 5,
-              controller: _staggerController,
-              child: _QuickActions(),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
 }
+
+// ---------------------------------------------------------------------------
+// Background with decorative blobs
+// ---------------------------------------------------------------------------
+
+class _HomeBackground extends StatelessWidget {
+  const _HomeBackground();
+
+  @override
+  Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    final colorScheme = Theme.of(context).colorScheme;
+    final size = MediaQuery.sizeOf(context);
+
+    return SizedBox.expand(
+      child: Stack(
+        children: [
+          Container(color: Theme.of(context).scaffoldBackgroundColor),
+          // Top-right blob (primary)
+          Positioned(
+            top: -90,
+            right: -90,
+            child: Container(
+              width: 300,
+              height: 300,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                gradient: RadialGradient(
+                  colors: [
+                    colorScheme.primary.withValues(alpha: isDark ? 0.50 : 0.35),
+                    colorScheme.primary.withValues(alpha: 0),
+                  ],
+                ),
+              ),
+            ),
+          ),
+          // Middle-left blob (secondary)
+          Positioned(
+            top: size.height * 0.28,
+            left: -100,
+            child: Container(
+              width: 260,
+              height: 260,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                gradient: RadialGradient(
+                  colors: [
+                    colorScheme.secondary
+                        .withValues(alpha: isDark ? 0.40 : 0.28),
+                    colorScheme.secondary.withValues(alpha: 0),
+                  ],
+                ),
+              ),
+            ),
+          ),
+          // Bottom-right blob (tertiary)
+          Positioned(
+            bottom: size.height * 0.08,
+            right: -70,
+            child: Container(
+              width: 220,
+              height: 220,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                gradient: RadialGradient(
+                  colors: [
+                    colorScheme.tertiary
+                        .withValues(alpha: isDark ? 0.35 : 0.22),
+                    colorScheme.tertiary.withValues(alpha: 0),
+                  ],
+                ),
+              ),
+            ),
+          ),
+          // Single blur layer over all blobs — one BackdropFilter for the whole screen
+          Positioned.fill(
+            child: BackdropFilter(
+              filter: ImageFilter.blur(sigmaX: 40, sigmaY: 40),
+              child: const SizedBox.expand(),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Glass card — reusable container with blur + translucency
+// ---------------------------------------------------------------------------
+
+class _GlassCard extends StatelessWidget {
+  const _GlassCard({
+    required this.child,
+    this.color,
+    this.padding,
+  });
+
+  final Widget child;
+  final Color? color;
+  final EdgeInsetsGeometry? padding;
+  static final BorderRadius _radius = BorderRadius.circular(20);
+
+  @override
+  Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    final colorScheme = Theme.of(context).colorScheme;
+
+    final effectiveColor = color ??
+        (isDark
+            ? colorScheme.surfaceContainer.withValues(alpha: 0.72)
+            : Colors.white.withValues(alpha: 0.68));
+
+    return Material(
+      type: MaterialType.transparency,
+      borderRadius: _radius,
+      child: Container(
+        decoration: BoxDecoration(
+          color: effectiveColor,
+          borderRadius: _radius,
+          border: Border.all(
+            color: isDark
+                ? Colors.white.withValues(alpha: 0.09)
+                : Colors.white.withValues(alpha: 0.75),
+            width: 1.0,
+          ),
+        ),
+        child: padding != null
+            ? Padding(padding: padding!, child: child)
+            : child,
+      ),
+    );
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Stagger animation wrapper
+// ---------------------------------------------------------------------------
 
 class _StaggeredItem extends StatelessWidget {
   const _StaggeredItem({
@@ -169,6 +315,10 @@ class _StaggeredItem extends StatelessWidget {
   }
 }
 
+// ---------------------------------------------------------------------------
+// Welcome banner
+// ---------------------------------------------------------------------------
+
 class _WelcomeBanner extends ConsumerWidget {
   const _WelcomeBanner();
 
@@ -177,30 +327,41 @@ class _WelcomeBanner extends ConsumerWidget {
     final l10n = AppLocalizations.of(context)!;
     final colorScheme = Theme.of(context).colorScheme;
     final isDark = Theme.of(context).brightness == Brightness.dark;
-    final modeAsync = ref.watch(learningModeProvider);
 
     return Container(
       width: double.infinity,
-      padding: const EdgeInsets.all(20),
+      padding: const EdgeInsets.all(24),
       decoration: BoxDecoration(
         gradient: LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
           colors: isDark
-              ? [colorScheme.primaryContainer, colorScheme.surface]
-              : [colorScheme.primary, colorScheme.primary.withValues(alpha: 0.85)],
+              ? [
+                  colorScheme.primary.withValues(alpha: 0.55),
+                  colorScheme.primaryContainer.withValues(alpha: 0.40),
+                ]
+              : [
+                  colorScheme.primary,
+                  colorScheme.primary.withValues(alpha: 0.80),
+                ],
         ),
-        borderRadius: BorderRadius.circular(20),
+        borderRadius: BorderRadius.circular(24),
+        border: Border.all(
+          color: isDark
+              ? colorScheme.primary.withValues(alpha: 0.40)
+              : Colors.white.withValues(alpha: 0.45),
+          width: 1.0,
+        ),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            '\u0628\u0650\u0633\u0652\u0645\u0650 \u0627\u0644\u0644\u0651\u064e\u0647\u0650 \u0627\u0644\u0631\u0651\u064e\u062d\u0652\u0645\u064e\u0646\u0650 \u0627\u0644\u0631\u0651\u064e\u062d\u0650\u064a\u0645\u0650',
+            '\u0628\u0650\u0633\u0652\u0645\u0650 \u0627\u0644\u0644\u0647\u0650 \u0627\u0644\u0631\u0651\u064e\u062d\u0652\u0645\u064e\u0646\u0650 \u0627\u0644\u0631\u0651\u064e\u062d\u0650\u064a\u0645\u0650',
             style: Theme.of(context).textTheme.titleMedium?.copyWith(
                   color: isDark
-                      ? colorScheme.onSurface.withValues(alpha: 0.7)
-                      : colorScheme.onPrimary.withValues(alpha: 0.8),
+                      ? colorScheme.onSurface.withValues(alpha: 0.70)
+                      : colorScheme.onPrimary.withValues(alpha: 0.80),
                 ),
           ),
           const SizedBox(height: 8),
@@ -213,29 +374,15 @@ class _WelcomeBanner extends ConsumerWidget {
                   fontWeight: FontWeight.bold,
                 ),
           ),
-          const SizedBox(height: 4),
-          modeAsync.when(
-            loading: () => const SizedBox.shrink(),
-            error: (_, _) => const SizedBox.shrink(),
-            data: (modeState) {
-              final modeName = modeState.isCurriculum
-                  ? l10n.homeModeCurriculum
-                  : l10n.homeModeAutodidact;
-              return Text(
-                l10n.homeCurrentMode(modeName),
-                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                      color: isDark
-                          ? colorScheme.onSurface.withValues(alpha: 0.7)
-                          : colorScheme.onPrimary.withValues(alpha: 0.8),
-                    ),
-              );
-            },
-          ),
         ],
       ),
     );
   }
 }
+
+// ---------------------------------------------------------------------------
+// Progress overview
+// ---------------------------------------------------------------------------
 
 class _ProgressOverview extends ConsumerWidget {
   const _ProgressOverview();
@@ -255,67 +402,139 @@ class _ProgressOverview extends ConsumerWidget {
         final mastered = stats.reviewCount;
         final total = stats.totalItems;
         final progress = total > 0 ? mastered / total : 0.0;
+        final progressWithLearning =
+            total > 0 ? (mastered + stats.learningCount) / total : 0.0;
 
-        return Card(
-          child: Padding(
-            padding: const EdgeInsets.all(16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  children: [
-                    Icon(
-                      Icons.auto_graph,
-                      size: 20,
-                      color: colorScheme.primary,
-                    ),
-                    const SizedBox(width: 8),
-                    Text(
-                      l10n.statsOverview,
-                      style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                            color: colorScheme.onSurfaceVariant,
-                          ),
-                    ),
-                    const Spacer(),
-                    Text(
-                      '$mastered / $total',
-                      style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                            fontWeight: FontWeight.bold,
-                          ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 12),
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(6),
-                  child: LinearProgressIndicator(
-                    value: progress,
-                    minHeight: 8,
-                    backgroundColor:
-                        colorScheme.outline.withValues(alpha: 0.15),
+        return _GlassCard(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  Icon(
+                    Icons.auto_graph,
+                    size: 20,
                     color: colorScheme.primary,
                   ),
+                  const SizedBox(width: 8),
+                  Text(
+                    l10n.statsOverview,
+                    style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                          color: colorScheme.onSurfaceVariant,
+                        ),
+                  ),
+                  const Spacer(),
+                  Text(
+                    '$mastered / $total',
+                    style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                          fontWeight: FontWeight.bold,
+                        ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 12),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(6),
+                child: SizedBox(
+                  height: 8,
+                  child: Stack(
+                    children: [
+                      // Background
+                      LinearProgressIndicator(
+                        value: 1,
+                        minHeight: 8,
+                        backgroundColor: colorScheme.surfaceContainerHighest,
+                        valueColor: AlwaysStoppedAnimation(
+                            colorScheme.surfaceContainerHighest),
+                      ),
+                      // En cours (orange)
+                      LinearProgressIndicator(
+                        value: progressWithLearning,
+                        minHeight: 8,
+                        backgroundColor: Colors.transparent,
+                        valueColor: AlwaysStoppedAnimation(
+                            AppColors.ratingHard.withValues(alpha: 0.6)),
+                      ),
+                      // Maîtrisés (couleur primaire)
+                      LinearProgressIndicator(
+                        value: progress,
+                        minHeight: 8,
+                        backgroundColor: Colors.transparent,
+                        valueColor:
+                            AlwaysStoppedAnimation(colorScheme.primary),
+                      ),
+                    ],
+                  ),
                 ),
-                const SizedBox(height: 8),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      l10n.statsWordsTotal(total),
-                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                            color: colorScheme.onSurfaceVariant,
+              ),
+              const SizedBox(height: 10),
+              // Stacked breakdown: unseen | relearning | learning | mastered
+              ClipRRect(
+                borderRadius: BorderRadius.circular(6),
+                child: SizedBox(
+                  height: 10,
+                  child: Row(
+                    children: [
+                      if (stats.newCount > 0)
+                        Expanded(
+                          flex: stats.newCount,
+                          child: ColoredBox(
+                            color: colorScheme.outline.withValues(alpha: 0.25),
                           ),
-                    ),
-                    Text(
-                      l10n.statsSessionsCompleted(stats.sessionCount),
-                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                            color: colorScheme.onSurfaceVariant,
-                          ),
-                    ),
-                  ],
+                        ),
+                      if (stats.relearningCount > 0)
+                        Expanded(
+                          flex: stats.relearningCount,
+                          child: const ColoredBox(color: AppColors.ratingAgain),
+                        ),
+                      if (stats.learningCount > 0)
+                        Expanded(
+                          flex: stats.learningCount,
+                          child: const ColoredBox(color: AppColors.ratingHard),
+                        ),
+                      if (stats.reviewCount > 0)
+                        Expanded(
+                          flex: stats.reviewCount,
+                          child: const ColoredBox(color: AppColors.ratingEasy),
+                        ),
+                    ],
+                  ),
                 ),
-              ],
-            ),
+              ),
+              const SizedBox(height: 10),
+              // Legend
+              Wrap(
+                spacing: 12,
+                runSpacing: 4,
+                children: [
+                  if (stats.newCount > 0)
+                    _ProgressLegendItem(
+                      color: colorScheme.outline.withValues(alpha: 0.5),
+                      label: l10n.statsNew,
+                      count: stats.newCount,
+                    ),
+                  if (stats.relearningCount > 0)
+                    _ProgressLegendItem(
+                      color: AppColors.ratingAgain,
+                      label: l10n.statsRelearning,
+                      count: stats.relearningCount,
+                    ),
+                  if (stats.learningCount > 0)
+                    _ProgressLegendItem(
+                      color: AppColors.ratingHard,
+                      label: l10n.statsLearning,
+                      count: stats.learningCount,
+                    ),
+                  if (stats.reviewCount > 0)
+                    _ProgressLegendItem(
+                      color: AppColors.ratingEasy,
+                      label: l10n.statsReview,
+                      count: stats.reviewCount,
+                    ),
+                ],
+              ),
+            ],
           ),
         );
       },
@@ -323,93 +542,12 @@ class _ProgressOverview extends ConsumerWidget {
   }
 }
 
-class _QuickActions extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
-    final colorScheme = Theme.of(context).colorScheme;
+// ---------------------------------------------------------------------------
+// Quick actions
 
-    return Row(
-      children: [
-        Expanded(
-          child: _QuickActionCard(
-            icon: Icons.menu_book_outlined,
-            label: l10n.tabVocabulary,
-            color: colorScheme.primary,
-            onTap: () => context.go('/vocabulary'),
-          ),
-        ),
-        const SizedBox(width: 12),
-        Expanded(
-          child: _QuickActionCard(
-            icon: Icons.quiz_outlined,
-            label: l10n.tabExercises,
-            color: colorScheme.secondary,
-            onTap: () => context.go('/exercises'),
-          ),
-        ),
-        const SizedBox(width: 12),
-        Expanded(
-          child: _QuickActionCard(
-            icon: Icons.bar_chart_outlined,
-            label: l10n.tabStatistics,
-            color: colorScheme.tertiary,
-            onTap: () => context.go('/statistics'),
-          ),
-        ),
-      ],
-    );
-  }
-}
-
-class _QuickActionCard extends StatelessWidget {
-  const _QuickActionCard({
-    required this.icon,
-    required this.label,
-    required this.color,
-    required this.onTap,
-  });
-
-  final IconData icon;
-  final String label;
-  final Color color;
-  final VoidCallback onTap;
-
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      child: InkWell(
-        borderRadius: BorderRadius.circular(16),
-        onTap: onTap,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 8),
-          child: Column(
-            children: [
-              Container(
-                width: 44,
-                height: 44,
-                decoration: BoxDecoration(
-                  color: color.withValues(alpha: 0.15),
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                alignment: Alignment.center,
-                child: Icon(icon, color: color, size: 22),
-              ),
-              const SizedBox(height: 8),
-              Text(
-                label,
-                style: Theme.of(context).textTheme.labelSmall,
-                textAlign: TextAlign.center,
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
+// ---------------------------------------------------------------------------
+// Suggested lesson card
+// ---------------------------------------------------------------------------
 
 class _SuggestedLessonCard extends ConsumerWidget {
   const _SuggestedLessonCard({
@@ -447,9 +585,9 @@ class _SuggestedLessonCard extends ConsumerWidget {
     return Semantics(
       button: true,
       label: '${l10n.homeSuggestedLesson} $lessonName',
-      child: Card(
-        clipBehavior: Clip.antiAlias,
+      child: _GlassCard(
         child: InkWell(
+          borderRadius: BorderRadius.circular(20),
           onTap: navigateToLesson,
           child: Padding(
             padding: const EdgeInsets.all(16),
@@ -500,6 +638,10 @@ class _SuggestedLessonCard extends ConsumerWidget {
   }
 }
 
+// ---------------------------------------------------------------------------
+// Next level card
+// ---------------------------------------------------------------------------
+
 class _NextLevelCard extends ConsumerWidget {
   const _NextLevelCard({required this.activeLevelId});
 
@@ -521,50 +663,51 @@ class _NextLevelCard extends ConsumerWidget {
       button: true,
       label: l10n.homeNextLevelSemanticLabel,
       excludeSemantics: true,
-      child: Card(
-        clipBehavior: Clip.antiAlias,
-        child: Padding(
-          padding: const EdgeInsets.all(16),
-          child: hasNextLevel
-              ? Row(
-                  children: [
-                    Icon(Icons.emoji_events,
-                        color: colorScheme.primary, size: 32),
-                    const SizedBox(width: 16),
-                    Expanded(
-                      child: Text(
-                        l10n.homeNextLevelSuggestion,
-                        style: Theme.of(context).textTheme.titleMedium,
-                      ),
-                    ),
-                    FilledButton(
-                      onPressed: () {
-                        final nextLevel = levels[currentIndex + 1];
-                        ref
-                            .read(learningModeProvider.notifier)
-                            .setActiveLevelId(nextLevel.id);
-                      },
-                      child: Text(l10n.homeGoToNextLevel),
-                    ),
-                  ],
-                )
-              : Column(
-                  children: [
-                    Icon(Icons.emoji_events,
-                        color: colorScheme.primary, size: 48),
-                    const SizedBox(height: 12),
-                    Text(
-                      l10n.homeAllLevelsMastered,
+      child: _GlassCard(
+        padding: const EdgeInsets.all(16),
+        child: hasNextLevel
+            ? Row(
+                children: [
+                  Icon(Icons.emoji_events,
+                      color: colorScheme.primary, size: 32),
+                  const SizedBox(width: 16),
+                  Expanded(
+                    child: Text(
+                      l10n.homeNextLevelSuggestion,
                       style: Theme.of(context).textTheme.titleMedium,
-                      textAlign: TextAlign.center,
                     ),
-            ],
-          ),
-        ),
+                  ),
+                  FilledButton(
+                    onPressed: () {
+                      final nextLevel = levels[currentIndex + 1];
+                      ref
+                          .read(learningModeProvider.notifier)
+                          .setActiveLevelId(nextLevel.id);
+                    },
+                    child: Text(l10n.homeGoToNextLevel),
+                  ),
+                ],
+              )
+            : Column(
+                children: [
+                  Icon(Icons.emoji_events,
+                      color: colorScheme.primary, size: 48),
+                  const SizedBox(height: 12),
+                  Text(
+                    l10n.homeAllLevelsMastered,
+                    style: Theme.of(context).textTheme.titleMedium,
+                    textAlign: TextAlign.center,
+                  ),
+                ],
+              ),
       ),
     );
   }
 }
+
+// ---------------------------------------------------------------------------
+// Daily session section
+// ---------------------------------------------------------------------------
 
 class _DailySessionSection extends ConsumerStatefulWidget {
   const _DailySessionSection();
@@ -580,7 +723,7 @@ class _DailySessionSectionState extends ConsumerState<_DailySessionSection> {
   @override
   Widget build(BuildContext context) {
     final resumeAsync = ref.watch(isResumeNeededProvider);
-    final dueCountAsync = ref.watch(dueItemCountProvider);
+    final dailySessionAsync = ref.watch(dailySessionProvider);
     final statsAsync = ref.watch(progressStatsProvider);
 
     return resumeAsync.when(
@@ -593,12 +736,12 @@ class _DailySessionSectionState extends ConsumerState<_DailySessionSection> {
           );
         }
 
-        return dueCountAsync.when(
+        return dailySessionAsync.when(
           loading: () => const SizedBox.shrink(),
           error: (_, _) => const SizedBox.shrink(),
-          data: (dueCount) {
-            if (dueCount > 0) {
-              return _DailySessionCard(dueCount: dueCount);
+          data: (dailySession) {
+            if (dailySession.isNotEmpty) {
+              return _DailySessionCard(dueCount: dailySession.length);
             }
             return statsAsync.when(
               loading: () => const SizedBox.shrink(),
@@ -626,15 +769,18 @@ class _DailySessionCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     final colorScheme = Theme.of(context).colorScheme;
+    final isDark = Theme.of(context).brightness == Brightness.dark;
 
     return Semantics(
       button: true,
       label: l10n.dailySessionSemanticCta(dueCount),
       excludeSemantics: true,
-      child: Card(
-        clipBehavior: Clip.antiAlias,
-        color: colorScheme.primaryContainer,
+      child: _GlassCard(
+        color: isDark
+            ? colorScheme.primaryContainer.withValues(alpha: 0.55)
+            : colorScheme.primaryContainer.withValues(alpha: 0.65),
         child: InkWell(
+          borderRadius: BorderRadius.circular(20),
           onTap: () => context.push('/session/daily'),
           child: Padding(
             padding: const EdgeInsets.all(20),
@@ -699,72 +845,66 @@ class _ResumeSessionCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     final colorScheme = Theme.of(context).colorScheme;
+    final isDark = Theme.of(context).brightness == Brightness.dark;
 
-    return Card(
-      clipBehavior: Clip.antiAlias,
-      color: colorScheme.tertiaryContainer,
-      child: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          children: [
-            Row(
-              children: [
-                Container(
-                  width: 48,
-                  height: 48,
-                  decoration: BoxDecoration(
-                    color: colorScheme.tertiary,
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  alignment: Alignment.center,
-                  child: Icon(Icons.wb_sunny, color: colorScheme.onTertiary),
+    return _GlassCard(
+      color: isDark
+          ? colorScheme.tertiaryContainer.withValues(alpha: 0.50)
+          : colorScheme.tertiaryContainer.withValues(alpha: 0.60),
+      padding: const EdgeInsets.all(16),
+      child: Column(
+        children: [
+          Row(
+            children: [
+              Container(
+                width: 48,
+                height: 48,
+                decoration: BoxDecoration(
+                  color: colorScheme.tertiary,
+                  borderRadius: BorderRadius.circular(12),
                 ),
-                const SizedBox(width: 16),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        l10n.resumeWelcomeTitle,
-                        style: Theme.of(context)
-                            .textTheme
-                            .titleMedium
-                            ?.copyWith(
-                              color: colorScheme.onTertiaryContainer,
-                            ),
-                      ),
-                      const SizedBox(height: 4),
-                      Text(
-                        l10n.resumeWelcomeSubtitle,
-                        style: Theme.of(context)
-                            .textTheme
-                            .bodyMedium
-                            ?.copyWith(
-                              color: colorScheme.onTertiaryContainer,
-                            ),
-                      ),
-                    ],
-                  ),
+                alignment: Alignment.center,
+                child: Icon(Icons.wb_sunny, color: colorScheme.onTertiary),
+              ),
+              const SizedBox(width: 16),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      l10n.resumeWelcomeTitle,
+                      style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                            color: colorScheme.onTertiaryContainer,
+                          ),
+                    ),
+                    const SizedBox(height: 4),
+                    Text(
+                      l10n.resumeWelcomeSubtitle,
+                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                            color: colorScheme.onTertiaryContainer,
+                          ),
+                    ),
+                  ],
                 ),
-              ],
-            ),
-            const SizedBox(height: 12),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                TextButton(
-                  onPressed: onDismiss,
-                  child: Text(l10n.resumeDismissButton),
-                ),
-                const SizedBox(width: 8),
-                FilledButton(
-                  onPressed: () => context.push('/session/daily'),
-                  child: Text(l10n.resumeCtaButton),
-                ),
-              ],
-            ),
-          ],
-        ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 12),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              TextButton(
+                onPressed: onDismiss,
+                child: Text(l10n.resumeDismissButton),
+              ),
+              const SizedBox(width: 8),
+              FilledButton(
+                onPressed: () => context.push('/session/daily'),
+                child: Text(l10n.resumeCtaButton),
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }
@@ -781,58 +921,59 @@ class _AllReviewedCard extends ConsumerWidget {
     final activeLessonId = modeAsync.value?.activeLessonId ??
         modeAsync.value?.suggestedLessonId;
 
-    return Card(
-      clipBehavior: Clip.antiAlias,
-      child: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          children: [
-            Icon(
-              Icons.check_circle_outline,
-              size: 48,
-              color: colorScheme.primary,
-            ),
-            const SizedBox(height: 12),
-            Text(l10n.allReviewedTitle,
-                style: Theme.of(context).textTheme.titleMedium),
-            const SizedBox(height: 4),
-            Text(
-              l10n.allReviewedSubtitle,
-              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                    color: colorScheme.onSurfaceVariant,
-                  ),
-            ),
-            const SizedBox(height: 16),
-            Wrap(
-              spacing: 8,
-              runSpacing: 8,
-              alignment: WrapAlignment.center,
-              children: [
-                OutlinedButton.icon(
-                  onPressed: () => context.go('/vocabulary'),
-                  icon: const Icon(Icons.menu_book, size: 18),
-                  label: Text(l10n.allReviewedExplore),
+    return _GlassCard(
+      padding: const EdgeInsets.all(16),
+      child: Column(
+        children: [
+          Icon(
+            Icons.check_circle_outline,
+            size: 48,
+            color: colorScheme.primary,
+          ),
+          const SizedBox(height: 12),
+          Text(l10n.allReviewedTitle,
+              style: Theme.of(context).textTheme.titleMedium),
+          const SizedBox(height: 4),
+          Text(
+            l10n.allReviewedSubtitle,
+            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                  color: colorScheme.onSurfaceVariant,
                 ),
-                if (activeLessonId != null)
-                  OutlinedButton.icon(
-                    onPressed: () =>
-                        context.push('/session/flashcard/$activeLessonId'),
-                    icon: const Icon(Icons.replay, size: 18),
-                    label: Text(l10n.allReviewedReviewEarly),
-                  ),
+          ),
+          const SizedBox(height: 16),
+          Wrap(
+            spacing: 8,
+            runSpacing: 8,
+            alignment: WrapAlignment.center,
+            children: [
+              OutlinedButton.icon(
+                onPressed: () => context.go('/vocabulary'),
+                icon: const Icon(Icons.menu_book, size: 18),
+                label: Text(l10n.allReviewedExplore),
+              ),
+              if (activeLessonId != null)
                 OutlinedButton.icon(
-                  onPressed: () => context.go('/exercises'),
-                  icon: const Icon(Icons.quiz, size: 18),
-                  label: Text(l10n.allReviewedQuiz),
+                  onPressed: () =>
+                      context.push('/session/flashcard/$activeLessonId'),
+                  icon: const Icon(Icons.replay, size: 18),
+                  label: Text(l10n.allReviewedReviewEarly),
                 ),
-              ],
-            ),
-          ],
-        ),
+              OutlinedButton.icon(
+                onPressed: () => context.go('/exercises'),
+                icon: const Icon(Icons.quiz, size: 18),
+                label: Text(l10n.allReviewedQuiz),
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }
 }
+
+// ---------------------------------------------------------------------------
+// Streak section
+// ---------------------------------------------------------------------------
 
 class _StreakSection extends ConsumerStatefulWidget {
   const _StreakSection();
@@ -894,61 +1035,57 @@ class _StreakSectionState extends ConsumerState<_StreakSection> {
         streak.longestStreak,
         freezeLabel,
       ),
-      child: Card(
-        clipBehavior: Clip.antiAlias,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
-          child: Row(
-            children: [
-              if (isMilestone)
-                _MilestoneFireIcon()
-              else
-                Container(
-                  width: 44,
-                  height: 44,
-                  decoration: BoxDecoration(
-                    color: streak.currentStreak > 0
-                        ? colorScheme.primary.withValues(alpha: 0.15)
-                        : colorScheme.outline.withValues(alpha: 0.1),
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  alignment: Alignment.center,
-                  child: Icon(
-                    Icons.local_fire_department,
-                    size: 24,
-                    color: streak.currentStreak > 0
-                        ? colorScheme.primary
-                        : colorScheme.onSurfaceVariant,
-                  ),
+      child: _GlassCard(
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+        child: Row(
+          children: [
+            if (isMilestone)
+              _MilestoneFireIcon()
+            else
+              Container(
+                width: 44,
+                height: 44,
+                decoration: BoxDecoration(
+                  color: streak.currentStreak > 0
+                      ? colorScheme.primary.withValues(alpha: 0.15)
+                      : colorScheme.outline.withValues(alpha: 0.10),
+                  borderRadius: BorderRadius.circular(12),
                 ),
-              const SizedBox(width: 12),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      streak.currentStreak > 0
-                          ? l10n.streakDaysCount(streak.currentStreak)
-                          : l10n.streakEncouragement,
-                      style: Theme.of(context).textTheme.titleSmall,
-                    ),
-                    if (streak.longestStreak > 0)
-                      Padding(
-                        padding: const EdgeInsets.only(top: 2),
-                        child: Text(
-                          l10n.streakRecord(streak.longestStreak),
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodySmall
-                              ?.copyWith(color: colorScheme.onSurfaceVariant),
-                        ),
-                      ),
-                  ],
+                alignment: Alignment.center,
+                child: Icon(
+                  Icons.local_fire_department,
+                  size: 24,
+                  color: streak.currentStreak > 0
+                      ? colorScheme.primary
+                      : colorScheme.onSurfaceVariant,
                 ),
               ),
-              _FreezeIndicator(streak: streak),
-            ],
-          ),
+            const SizedBox(width: 12),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    streak.currentStreak > 0
+                        ? l10n.streakDaysCount(streak.currentStreak)
+                        : l10n.streakEncouragement,
+                    style: Theme.of(context).textTheme.titleSmall,
+                  ),
+                  if (streak.longestStreak > 0)
+                    Padding(
+                      padding: const EdgeInsets.only(top: 2),
+                      child: Text(
+                        l10n.streakRecord(streak.longestStreak),
+                        style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                              color: colorScheme.onSurfaceVariant,
+                            ),
+                      ),
+                    ),
+                ],
+              ),
+            ),
+            _FreezeIndicator(streak: streak),
+          ],
         ),
       ),
     );
@@ -989,48 +1126,49 @@ class _StreakBrokenCard extends StatelessWidget {
     final l10n = AppLocalizations.of(context)!;
     final colorScheme = Theme.of(context).colorScheme;
 
-    return Card(
-      clipBehavior: Clip.antiAlias,
-      child: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          children: [
-            Row(
-              children: [
-                Icon(Icons.favorite, size: 36, color: colorScheme.primary),
-                const SizedBox(width: 12),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(l10n.streakBrokenTitle,
-                          style: Theme.of(context).textTheme.titleMedium),
-                      const SizedBox(height: 4),
-                      Text(
-                        l10n.streakBrokenMessage,
-                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                              color: colorScheme.onSurfaceVariant,
-                            ),
-                      ),
-                    ],
-                  ),
+    return _GlassCard(
+      padding: const EdgeInsets.all(16),
+      child: Column(
+        children: [
+          Row(
+            children: [
+              Icon(Icons.favorite, size: 36, color: colorScheme.primary),
+              const SizedBox(width: 12),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(l10n.streakBrokenTitle,
+                        style: Theme.of(context).textTheme.titleMedium),
+                    const SizedBox(height: 4),
+                    Text(
+                      l10n.streakBrokenMessage,
+                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                            color: colorScheme.onSurfaceVariant,
+                          ),
+                    ),
+                  ],
                 ),
-              ],
-            ),
-            const SizedBox(height: 12),
-            Align(
-              alignment: Alignment.centerRight,
-              child: FilledButton(
-                onPressed: onDismiss,
-                child: Text(l10n.streakBrokenCta),
               ),
+            ],
+          ),
+          const SizedBox(height: 12),
+          Align(
+            alignment: Alignment.centerRight,
+            child: FilledButton(
+              onPressed: onDismiss,
+              child: Text(l10n.streakBrokenCta),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
 }
+
+// ---------------------------------------------------------------------------
+// Resume card
+// ---------------------------------------------------------------------------
 
 class _ResumeCard extends StatelessWidget {
   const _ResumeCard({required this.lessonName, required this.onTap});
@@ -1046,9 +1184,9 @@ class _ResumeCard extends StatelessWidget {
     return Semantics(
       button: true,
       label: '${l10n.resumeLastLesson} $lessonName',
-      child: Card(
-        clipBehavior: Clip.antiAlias,
+      child: _GlassCard(
         child: InkWell(
+          borderRadius: BorderRadius.circular(20),
           onTap: onTap,
           child: Padding(
             padding: const EdgeInsets.all(16),
@@ -1096,9 +1234,50 @@ class _ResumeCard extends StatelessWidget {
   }
 }
 
+// ---------------------------------------------------------------------------
+// Milestone fire icon (animated)
+// ---------------------------------------------------------------------------
+
 class _MilestoneFireIcon extends StatefulWidget {
   @override
   State<_MilestoneFireIcon> createState() => _MilestoneFireIconState();
+}
+
+// ---------------------------------------------------------------------------
+// Progress legend item
+// ---------------------------------------------------------------------------
+
+class _ProgressLegendItem extends StatelessWidget {
+  const _ProgressLegendItem({
+    required this.color,
+    required this.label,
+    required this.count,
+  });
+
+  final Color color;
+  final String label;
+  final int count;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Container(
+          width: 8,
+          height: 8,
+          decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+        ),
+        const SizedBox(width: 4),
+        Text(
+          '$label ($count)',
+          style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                color: Theme.of(context).colorScheme.onSurfaceVariant,
+              ),
+        ),
+      ],
+    );
+  }
 }
 
 class _MilestoneFireIconState extends State<_MilestoneFireIcon>
@@ -1132,7 +1311,7 @@ class _MilestoneFireIconState extends State<_MilestoneFireIcon>
         width: 44,
         height: 44,
         decoration: BoxDecoration(
-          color: Colors.orange.withValues(alpha: 0.2),
+          color: Colors.orange.withValues(alpha: 0.20),
           borderRadius: BorderRadius.circular(12),
         ),
         alignment: Alignment.center,

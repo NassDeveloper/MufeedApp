@@ -11,7 +11,6 @@ import '../providers/onboarding_provider.dart';
 import '../utils/localized_name.dart';
 import '../widgets/arabic_text_widget.dart';
 import '../widgets/error_content_widget.dart';
-import '../widgets/mode_card_widget.dart';
 import '../widgets/skeleton_loader_widget.dart';
 
 class OnboardingScreen extends ConsumerStatefulWidget {
@@ -65,7 +64,6 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                 physics: const NeverScrollableScrollPhysics(),
                 children: const [
                   _WelcomePage(),
-                  _ModePage(),
                   _LevelPage(),
                   _MiniSessionPage(),
                   _ConsentPage(),
@@ -187,61 +185,6 @@ class _WelcomePage extends ConsumerWidget {
   }
 }
 
-class _ModePage extends ConsumerWidget {
-  const _ModePage();
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final l10n = AppLocalizations.of(context)!;
-    final state = ref.watch(onboardingProvider);
-
-    return Padding(
-      padding: const EdgeInsets.all(32),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const SizedBox(height: 32),
-          Text(
-            l10n.onboardingModeTitle,
-            style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                  fontWeight: FontWeight.bold,
-                ),
-          ),
-          const SizedBox(height: 32),
-          ModeCard(
-            title: l10n.onboardingModeCurriculum,
-            description: l10n.onboardingModeCurriculumDescription,
-            icon: Icons.school,
-            isSelected: state.learningMode == 'curriculum',
-            onTap: () => ref
-                .read(onboardingProvider.notifier)
-                .setLearningMode('curriculum'),
-          ),
-          const SizedBox(height: 16),
-          ModeCard(
-            title: l10n.onboardingModeAutodidact,
-            description: l10n.onboardingModeAutodidactDescription,
-            icon: Icons.self_improvement,
-            isSelected: state.learningMode == 'autodidact',
-            onTap: () => ref
-                .read(onboardingProvider.notifier)
-                .setLearningMode('autodidact'),
-          ),
-          const Spacer(),
-          SizedBox(
-            width: double.infinity,
-            child: FilledButton(
-              onPressed: state.canProceed
-                  ? () => ref.read(onboardingProvider.notifier).nextPage()
-                  : null,
-              child: Text(l10n.onboardingNext),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
 
 class _LevelPage extends ConsumerWidget {
   const _LevelPage();
@@ -646,10 +589,6 @@ class _ConsentRecap extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final modeLabel = state.learningMode == 'curriculum'
-        ? l10n.onboardingModeCurriculum
-        : l10n.onboardingModeAutodidact;
-
     String? levelName;
     if (asyncLevels case AsyncData(:final value)) {
       try {
@@ -662,24 +601,14 @@ class _ConsentRecap extends StatelessWidget {
       }
     }
 
+    if (levelName == null) return const SizedBox.shrink();
+
     return Card(
       child: Padding(
         padding: const EdgeInsets.all(12),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              l10n.onboardingConsentRecapMode(modeLabel),
-              style: Theme.of(context).textTheme.bodyMedium,
-            ),
-            if (levelName != null) ...[
-              const SizedBox(height: 4),
-              Text(
-                l10n.onboardingConsentRecapLevel(levelName),
-                style: Theme.of(context).textTheme.bodyMedium,
-              ),
-            ],
-          ],
+        child: Text(
+          l10n.onboardingConsentRecapLevel(levelName),
+          style: Theme.of(context).textTheme.bodyMedium,
         ),
       ),
     );

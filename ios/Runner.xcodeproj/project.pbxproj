@@ -381,7 +381,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# Clear iCloud-added extended attributes that prevent re-signing of native assets\nxattr -cr \"${PROJECT_DIR}/build/native_assets/\" 2>/dev/null || true\n/bin/sh \"$FLUTTER_ROOT/packages/flutter_tools/bin/xcode_backend.sh\" build";
+			shellScript = "/bin/sh \"$FLUTTER_ROOT/packages/flutter_tools/bin/xcode_backend.sh\" build\n# Clear iCloud-added resource forks from all build artifacts (macOS 26 / Xcode 26 workaround)\nfind \"${PROJECT_DIR}/build\" -name '*.framework' -exec xattr -cr {} \\; 2>/dev/null || true\nfind \"${BUILT_PRODUCTS_DIR}\" -name '*.framework' -exec xattr -cr {} \\; 2>/dev/null || true\nxattr -cr \"${PROJECT_DIR}/build/\" 2>/dev/null || true";
 		};
 /* End PBXShellScriptBuildPhase section */
 

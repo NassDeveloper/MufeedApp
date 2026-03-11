@@ -453,32 +453,39 @@ class _ChoicesWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
 
-    return Wrap(
-      spacing: 8,
-      runSpacing: 8,
-      children: [
-        for (var i = 0; i < choices.length; i++)
-          InkWell(
-            borderRadius: BorderRadius.circular(12),
-            onTap: () => onSelect(i),
-            child: AnimatedContainer(
-              duration: AnimationConstants.quizOptionColorDuration,
-              padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
-              decoration: BoxDecoration(
-                color: colorScheme.surfaceContainerHighest,
+    return SizedBox(
+      width: double.infinity,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          for (var i = 0; i < choices.length; i++)
+            Padding(
+              padding: const EdgeInsets.only(bottom: 10),
+              child: InkWell(
                 borderRadius: BorderRadius.circular(12),
-                border: Border.all(color: colorScheme.outline),
-              ),
-              child: ArabicText(
-                choices[i],
-                style: TextStyle(
-                  fontSize: 15,
-                  color: colorScheme.onSurface,
+                onTap: () => onSelect(i),
+                child: AnimatedContainer(
+                  duration: AnimationConstants.quizOptionColorDuration,
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 16, vertical: 14),
+                  decoration: BoxDecoration(
+                    color: colorScheme.surfaceContainerHighest,
+                    borderRadius: BorderRadius.circular(12),
+                    border: Border.all(color: colorScheme.outline),
+                  ),
+                  child: ArabicText(
+                    choices[i],
+                    style: TextStyle(
+                      fontSize: 18,
+                      color: colorScheme.onSurface,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
                 ),
               ),
             ),
-          ),
-      ],
+        ],
+      ),
     );
   }
 }

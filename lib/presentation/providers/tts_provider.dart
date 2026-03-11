@@ -42,7 +42,7 @@ class TtsNotifier extends Notifier<TtsState> {
   }
 
   Future<void> _initTts() async {
-    await _tts.setLanguage('ar');
+    await _tts.setLanguage('ar-SA');
     await _tts.setSpeechRate(0.5);
 
     _tts.setCompletionHandler(() {

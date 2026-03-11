@@ -289,9 +289,12 @@ class _MatchingColumnState extends State<_MatchingColumn> {
         for (var i = 0; i < widget.items.length; i++)
           Padding(
             padding: const EdgeInsets.only(bottom: 8),
-            child: _MatchingTile(
-              data: widget.items[i],
-              onTap: () => widget.onTap(i),
+            child: SizedBox(
+              height: 80,
+              child: _MatchingTile(
+                data: widget.items[i],
+                onTap: () => widget.onTap(i),
+              ),
             ),
           ),
       ],
@@ -345,40 +348,39 @@ class _MatchingTile extends StatelessWidget {
       child: InkWell(
         borderRadius: BorderRadius.circular(12),
         onTap: data.isMatched ? null : onTap,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 12),
-          child: Row(
-            mainAxisAlignment: data.isArabic
-                ? MainAxisAlignment.end
-                : MainAxisAlignment.spaceBetween,
-            children: [
-              if (!data.isArabic && trailingIcon != null) trailingIcon,
-              Expanded(
+        child: Stack(
+          children: [
+            Center(
+              child: Padding(
+                padding: const EdgeInsets.all(10),
                 child: data.isArabic
                     ? ArabicText(
                         data.text,
                         style: TextStyle(
-                          fontSize: 18,
+                          fontSize: 22,
                           color: textColor,
                         ),
-                        textAlign: TextAlign.right,
+                        textAlign: TextAlign.center,
                       )
                     : Text(
                         data.text,
                         style: TextStyle(
-                          fontSize: 14,
+                          fontSize: 15,
                           color: textColor,
                         ),
-                        maxLines: 2,
+                        textAlign: TextAlign.center,
+                        maxLines: 3,
                         overflow: TextOverflow.ellipsis,
                       ),
               ),
-              if (data.isArabic && trailingIcon != null) ...[
-                const SizedBox(width: 4),
-                trailingIcon,
-              ],
-            ],
-          ),
+            ),
+            if (trailingIcon != null)
+              Positioned(
+                top: 6,
+                right: 6,
+                child: trailingIcon,
+              ),
+          ],
         ),
       ),
     );

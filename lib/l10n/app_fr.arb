@@ -512,5 +512,43 @@
   "listeningPlayButton": "Jouer le mot",
   "listeningEmptyTitle": "Pas assez de mots",
   "listeningEmptyMessage": "Cette leçon nécessite au minimum 4 mots pour lancer un exercice d'écoute.",
-  "listeningEmptyAction": "Retour"
+  "listeningEmptyAction": "Retour",
+  "settingsLearningSection": "Apprentissage",
+  "@settingsLearningSection": {},
+  "settingsNewWordsPerDay": "Nouveaux mots par jour",
+  "@settingsNewWordsPerDay": {},
+  "settingsNewWordsPerDayDesc": "Mots introduits chaque jour en session quotidienne",
+  "@settingsNewWordsPerDayDesc": {},
+  "levelProgressLabel": "{mastered} / {total} mots",
+  "@levelProgressLabel": {
+    "placeholders": {
+      "mastered": { "type": "int" },
+      "total": { "type": "int" }
+    }
+  },
+  "lessonActivitiesTitle": "Activités",
+  "@lessonActivitiesTitle": {},
+  "lessonActivitiesProgress": "{mastered} / {total} maîtrisés",
+  "@lessonActivitiesProgress": {
+    "placeholders": {
+      "mastered": { "type": "int" },
+      "total": { "type": "int" }
+    }
+  },
+  "activityFlashcards": "Flashcards",
+  "@activityFlashcards": {},
+  "activityPhrases": "Compléter les phrases",
+  "@activityPhrases": {},
+  "activityVerbTable": "Table de conjugaison",
+  "@activityVerbTable": {},
+  "activityMatching": "Association",
+  "@activityMatching": {},
+  "activityWordOrdering": "Ordre de mots",
+  "@activityWordOrdering": {},
+  "activityListening": "Écoute",
+  "@activityListening": {},
+  "activityDialogue": "Mini-dialogue",
+  "@activityDialogue": {},
+  "activityQuiz": "QCM",
+  "@activityQuiz": {}
 }

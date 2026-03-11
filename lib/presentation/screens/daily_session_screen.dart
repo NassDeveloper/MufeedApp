@@ -38,18 +38,13 @@ class _DailySessionScreenState extends ConsumerState<DailySessionScreen> {
   Future<void> _loadSession() async {
     final items = await ref.read(dailySessionProvider.future);
 
-    if (items.isEmpty) {
-      if (mounted) {
-        setState(() => _isLoading = false);
-      }
-      return;
-    }
-
+    // Always call startDailySession so it resets any stale isCompleted state,
+    // even when items is empty (the notifier resets to null in that case).
     ref.read(flashcardSessionProvider.notifier).startDailySession(items);
 
     if (mounted) {
       setState(() => _isLoading = false);
-      _focusNode.requestFocus();
+      if (items.isNotEmpty) _focusNode.requestFocus();
     }
   }
 

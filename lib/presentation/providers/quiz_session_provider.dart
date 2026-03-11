@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../core/errors/app_error.dart';
 import '../../domain/models/session_model.dart';
 import '../../domain/models/verb_model.dart';
 import '../../domain/models/word_model.dart';
@@ -189,15 +188,19 @@ class QuizSessionNotifier extends Notifier<QuizSessionState?> {
       resultsJson: resultsJson,
     );
 
-    await ref.read(progressRepositoryProvider).createSession(session);
+    try {
+      await ref.read(progressRepositoryProvider).createSession(session);
+    } catch (e) {
+      debugPrint('Session record creation failed: $e');
+    }
 
-    // Update streak + check badges
+    // Update streak + check badges — non-fatal if it fails.
     try {
       final result = await processStreakOnSessionComplete(ref);
       if (result.newBadges.isNotEmpty) {
         ref.read(newBadgesProvider.notifier).set(result.newBadges);
       }
-    } on AppError catch (e) {
+    } catch (e) {
       debugPrint('Streak update failed: $e');
     }
   }

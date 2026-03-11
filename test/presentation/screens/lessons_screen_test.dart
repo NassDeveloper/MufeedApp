@@ -222,7 +222,12 @@ void main() {
       );
       await tester.pumpAndSettle();
 
-      expect(find.text('12 / 20'), findsOneWidget);
+      // Progress is shown as a circular ring (CircularProgressIndicator) with
+      // a non-zero value when mastered count > 0.
+      final progressIndicator = tester.widget<CircularProgressIndicator>(
+        find.byType(CircularProgressIndicator),
+      );
+      expect(progressIndicator.value, greaterThan(0));
     });
   });
 }

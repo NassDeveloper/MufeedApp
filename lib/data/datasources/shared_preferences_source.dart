@@ -21,6 +21,7 @@ class SharedPreferencesSource {
   static const _notificationEnabledKey = 'notification_enabled';
   static const _notificationHourKey = 'notification_hour';
   static const _notificationMinuteKey = 'notification_minute';
+  static const _newWordsPerDayKey = 'new_words_per_day';
 
   int getContentVersion() => _prefs.getInt(_contentVersionKey) ?? 0;
 
@@ -93,6 +94,8 @@ class SharedPreferencesSource {
   Future<void> setActiveLessonId(int lessonId) =>
       _prefs.setInt(_activeLessonIdKey, lessonId);
 
+  Future<void> clearActiveLessonId() => _prefs.remove(_activeLessonIdKey);
+
   // Locale preference
 
   String? getLocale() => _prefs.getString(_localeKey);
@@ -131,4 +134,11 @@ class SharedPreferencesSource {
 
   Future<void> setNotificationMinute(int minute) =>
       _prefs.setInt(_notificationMinuteKey, minute);
+
+  // New words per day setting
+
+  int getNewWordsPerDay() => _prefs.getInt(_newWordsPerDayKey) ?? 5;
+
+  Future<void> setNewWordsPerDay(int value) =>
+      _prefs.setInt(_newWordsPerDayKey, value);
 }

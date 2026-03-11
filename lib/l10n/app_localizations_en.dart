@@ -1032,4 +1032,51 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get listeningEmptyAction => 'Back';
+
+  @override
+  String get settingsLearningSection => 'Learning';
+
+  @override
+  String get settingsNewWordsPerDay => 'New words per day';
+
+  @override
+  String get settingsNewWordsPerDayDesc =>
+      'Words introduced each day in the daily session';
+
+  @override
+  String levelProgressLabel(int mastered, int total) {
+    return '$mastered / $total words';
+  }
+
+  @override
+  String get lessonActivitiesTitle => 'Activities';
+
+  @override
+  String lessonActivitiesProgress(int mastered, int total) {
+    return '$mastered / $total mastered';
+  }
+
+  @override
+  String get activityFlashcards => 'Flashcards';
+
+  @override
+  String get activityPhrases => 'Complete sentences';
+
+  @override
+  String get activityVerbTable => 'Conjugation table';
+
+  @override
+  String get activityMatching => 'Matching';
+
+  @override
+  String get activityWordOrdering => 'Word ordering';
+
+  @override
+  String get activityListening => 'Listening';
+
+  @override
+  String get activityDialogue => 'Mini-dialogue';
+
+  @override
+  String get activityQuiz => 'Quiz';
 }

@@ -68,12 +68,18 @@ class AppDatabase extends _$AppDatabase {
             await _seedBadges();
           }
           if (from < 6) {
-            await customStatement(
-              'ALTER TABLE lessons ADD COLUMN description_fr TEXT',
-            );
-            await customStatement(
-              'ALTER TABLE lessons ADD COLUMN description_en TEXT',
-            );
+            // Idempotent: columns may already exist on devices that were
+            // fresh-installed with a schema that already included them.
+            try {
+              await customStatement(
+                'ALTER TABLE lessons ADD COLUMN description_fr TEXT',
+              );
+            } catch (_) {}
+            try {
+              await customStatement(
+                'ALTER TABLE lessons ADD COLUMN description_en TEXT',
+              );
+            } catch (_) {}
           }
         },
       );

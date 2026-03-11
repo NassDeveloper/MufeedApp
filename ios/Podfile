@@ -44,4 +44,8 @@ post_install do |installer|
       config.build_settings['CODE_SIGNING_ALLOWED'] = 'NO'
     end
   end
+  # macOS 26 / iCloud Drive workaround: make sqlite3 source files user-writable
+  # so that Flutter's xattr -c -r on the project directory succeeds (exit 0).
+  sqlite_dir = File.join(installer.sandbox.root, 'sqlite3')
+  system("chmod -R u+w '#{sqlite_dir}'") if Dir.exist?(sqlite_dir)
 end

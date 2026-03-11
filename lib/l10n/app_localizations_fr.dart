@@ -1036,4 +1036,51 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get listeningEmptyAction => 'Retour';
+
+  @override
+  String get settingsLearningSection => 'Apprentissage';
+
+  @override
+  String get settingsNewWordsPerDay => 'Nouveaux mots par jour';
+
+  @override
+  String get settingsNewWordsPerDayDesc =>
+      'Mots introduits chaque jour en session quotidienne';
+
+  @override
+  String levelProgressLabel(int mastered, int total) {
+    return '$mastered / $total mots';
+  }
+
+  @override
+  String get lessonActivitiesTitle => 'Activités';
+
+  @override
+  String lessonActivitiesProgress(int mastered, int total) {
+    return '$mastered / $total maîtrisés';
+  }
+
+  @override
+  String get activityFlashcards => 'Flashcards';
+
+  @override
+  String get activityPhrases => 'Compléter les phrases';
+
+  @override
+  String get activityVerbTable => 'Table de conjugaison';
+
+  @override
+  String get activityMatching => 'Association';
+
+  @override
+  String get activityWordOrdering => 'Ordre de mots';
+
+  @override
+  String get activityListening => 'Écoute';
+
+  @override
+  String get activityDialogue => 'Mini-dialogue';
+
+  @override
+  String get activityQuiz => 'QCM';
 }

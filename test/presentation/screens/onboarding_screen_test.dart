@@ -128,24 +128,24 @@ void main() {
       expect(find.text('Commencer'), findsOneWidget);
     });
 
-    testWidgets('navigates to mode page on start', (tester) async {
+    testWidgets('navigates to level page on start', (tester) async {
       await tester.pumpWidget(_buildApp(container));
       await tester.pumpAndSettle();
 
       await tester.tap(find.text('Commencer'));
       await tester.pumpAndSettle();
 
-      expect(find.text('Comment apprenez-vous ?'), findsOneWidget);
-      expect(
-          find.text('J\'étudie auprès d\'un institut'), findsOneWidget);
-      expect(find.text('Autodidacte'), findsOneWidget);
+      expect(find.text('Choisissez votre niveau'), findsOneWidget);
+      expect(find.text('Niveau 1'), findsOneWidget);
+      expect(find.text('Niveau 2'), findsOneWidget);
+      expect(find.text('Niveau 3'), findsOneWidget);
     });
 
-    testWidgets('next button disabled without mode selection', (tester) async {
+    testWidgets('next button disabled without level selection', (tester) async {
       await tester.pumpWidget(_buildApp(container));
       await tester.pumpAndSettle();
 
-      // Go to mode page
+      // Go to level page
       await tester.tap(find.text('Commencer'));
       await tester.pumpAndSettle();
 
@@ -156,14 +156,15 @@ void main() {
       expect(nextButton.onPressed, isNull);
     });
 
-    testWidgets('selecting mode enables next button', (tester) async {
+    testWidgets('selecting level enables next button', (tester) async {
       await tester.pumpWidget(_buildApp(container));
       await tester.pumpAndSettle();
 
+      // Go to level page
       await tester.tap(find.text('Commencer'));
       await tester.pumpAndSettle();
 
-      await tester.tap(find.text('Autodidacte'));
+      await tester.tap(find.text('Niveau 1'));
       await tester.pumpAndSettle();
 
       final nextButton = tester.widget<FilledButton>(
@@ -172,73 +173,21 @@ void main() {
       expect(nextButton.onPressed, isNotNull);
     });
 
-    testWidgets('navigates to level page after mode', (tester) async {
+    testWidgets('selecting level 2 enables next button', (tester) async {
       await tester.pumpWidget(_buildApp(container));
       await tester.pumpAndSettle();
 
+      // Go to level page
       await tester.tap(find.text('Commencer'));
-      await tester.pumpAndSettle();
-
-      await tester.tap(find.text('Autodidacte'));
-      await tester.pumpAndSettle();
-
-      await tester.tap(find.text('Suivant'));
-      await tester.pumpAndSettle();
-
-      expect(find.text('Choisissez votre niveau'), findsOneWidget);
-      expect(find.text('Niveau 1'), findsOneWidget);
-      expect(find.text('Niveau 2'), findsOneWidget);
-      expect(find.text('Niveau 3'), findsOneWidget);
-    });
-
-    testWidgets('next button disabled without level selection',
-        (tester) async {
-      await tester.pumpWidget(_buildApp(container));
-      await tester.pumpAndSettle();
-
-      await tester.tap(find.text('Commencer'));
-      await tester.pumpAndSettle();
-
-      await tester
-          .tap(find.text('J\'étudie auprès d\'un institut'));
-      await tester.pumpAndSettle();
-
-      await tester.tap(find.text('Suivant'));
-      await tester.pumpAndSettle();
-
-      // Both mode page and level page have "Suivant"; get the last one (level page).
-      final nextButtons = tester
-          .widgetList<FilledButton>(
-            find.widgetWithText(FilledButton, 'Suivant'),
-          )
-          .toList();
-      expect(nextButtons.last.onPressed, isNull);
-    });
-
-    testWidgets('selecting level enables next button', (tester) async {
-      await tester.pumpWidget(_buildApp(container));
-      await tester.pumpAndSettle();
-
-      await tester.tap(find.text('Commencer'));
-      await tester.pumpAndSettle();
-
-      await tester
-          .tap(find.text('J\'étudie auprès d\'un institut'));
-      await tester.pumpAndSettle();
-
-      await tester.tap(find.text('Suivant'));
       await tester.pumpAndSettle();
 
       await tester.tap(find.text('Niveau 2'));
       await tester.pumpAndSettle();
 
-      // Both mode page and level page have "Suivant"; get the last one (level page).
-      final nextButtons = tester
-          .widgetList<FilledButton>(
-            find.widgetWithText(FilledButton, 'Suivant'),
-          )
-          .toList();
-      expect(nextButtons.last.onPressed, isNotNull);
+      final nextButton = tester.widget<FilledButton>(
+        find.widgetWithText(FilledButton, 'Suivant'),
+      );
+      expect(nextButton.onPressed, isNotNull);
     });
 
     testWidgets('completing onboarding saves preferences including locale',
@@ -268,20 +217,14 @@ void main() {
       await tester.pumpWidget(_buildApp(container));
       await tester.pumpAndSettle();
 
-      // Welcome → Mode
+      // Welcome → Level
       await tester.tap(find.text('Commencer'));
-      await tester.pumpAndSettle();
-
-      // Mode → Level
-      await tester.tap(find.text('Autodidacte'));
-      await tester.pumpAndSettle();
-      await tester.tap(find.text('Suivant'));
       await tester.pumpAndSettle();
 
       // Level → Mini-session
       await tester.tap(find.text('Niveau 1'));
       await tester.pumpAndSettle();
-      await tester.tap(find.widgetWithText(FilledButton, 'Suivant').last);
+      await tester.tap(find.widgetWithText(FilledButton, 'Suivant'));
       await tester.pumpAndSettle();
 
       expect(find.text('Aperçu de votre contenu'), findsOneWidget);
@@ -292,24 +235,18 @@ void main() {
       await tester.pumpWidget(_buildApp(container));
       await tester.pumpAndSettle();
 
-      // Welcome → Mode
+      // Welcome → Level
       await tester.tap(find.text('Commencer'));
-      await tester.pumpAndSettle();
-
-      // Mode → Level
-      await tester.tap(find.text('Autodidacte'));
-      await tester.pumpAndSettle();
-      await tester.tap(find.text('Suivant'));
       await tester.pumpAndSettle();
 
       // Level → Mini-session
       await tester.tap(find.text('Niveau 1'));
       await tester.pumpAndSettle();
-      await tester.tap(find.widgetWithText(FilledButton, 'Suivant').last);
+      await tester.tap(find.widgetWithText(FilledButton, 'Suivant'));
       await tester.pumpAndSettle();
 
       // Mini-session → Consent
-      await tester.tap(find.widgetWithText(FilledButton, 'Suivant').last);
+      await tester.tap(find.widgetWithText(FilledButton, 'Suivant'));
       await tester.pumpAndSettle();
 
       expect(find.text('Données & confidentialité'), findsOneWidget);
@@ -324,7 +261,7 @@ void main() {
       expect(find.text('Précédent'), findsNothing);
     });
 
-    testWidgets('back button visible on mode page', (tester) async {
+    testWidgets('back button visible on level page', (tester) async {
       await tester.pumpWidget(_buildApp(container));
       await tester.pumpAndSettle();
 
@@ -338,10 +275,10 @@ void main() {
       await tester.pumpWidget(_buildApp(container));
       await tester.pumpAndSettle();
 
-      // Go to mode page
+      // Go to level page
       await tester.tap(find.text('Commencer'));
       await tester.pumpAndSettle();
-      expect(find.text('Comment apprenez-vous ?'), findsOneWidget);
+      expect(find.text('Choisissez votre niveau'), findsOneWidget);
 
       // Tap back
       await tester.tap(find.text('Précédent'));

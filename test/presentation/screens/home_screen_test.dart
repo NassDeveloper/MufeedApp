@@ -87,6 +87,18 @@ class FakeProgressRepository implements ProgressRepository {
   @override
   Future<UpcomingReviewsModel> getUpcomingReviews() async =>
       const UpcomingReviewsModel(dueToday: 0, dueTomorrow: 0, dueThisWeek: 0);
+
+  @override
+  Future<List<ReviewableItemModel>> getNewWordsForLevel(int levelId, int limit) =>
+      Future.value([]);
+
+  @override
+  Future<({int lessonId, int totalItems, int masteredCount})>
+      getLessonProgressSummary(int lessonId) =>
+      Future.value((lessonId: lessonId, totalItems: 0, masteredCount: 0));
+  @override
+  Future<int> getNewWordsIntroducedTodayCount() => Future.value(0);
+
 }
 
 class FakeContentRepository implements ContentRepository {
@@ -221,7 +233,7 @@ void main() {
           _buildApp(prefsSource: SharedPreferencesSource(prefs)));
       await tester.pumpAndSettle();
 
-      expect(find.text('Mode : Cursus'), findsOneWidget);
+      expect(find.text('Bon retour !'), findsOneWidget);
     });
 
     testWidgets('does not show resume card when no last visited lesson',
@@ -321,24 +333,27 @@ void main() {
     testWidgets('shows daily session CTA when due items exist',
         (tester) async {
       final progressRepo = FakeProgressRepository();
-      progressRepo.dueItems = [
-        const UserProgressModel(
+      progressRepo.dueReviewableItems = [
+        ReviewableItemModel(
           itemId: 1,
           contentType: 'vocab',
-          state: 'review',
-          nextReview: null,
+          arabic: 'كلمة',
+          translationFr: 'mot',
+          sortOrder: 1,
         ),
-        const UserProgressModel(
+        ReviewableItemModel(
           itemId: 2,
           contentType: 'vocab',
-          state: 'review',
-          nextReview: null,
+          arabic: 'كتاب',
+          translationFr: 'livre',
+          sortOrder: 2,
         ),
-        const UserProgressModel(
+        ReviewableItemModel(
           itemId: 3,
           contentType: 'vocab',
-          state: 'learning',
-          nextReview: null,
+          arabic: 'بيت',
+          translationFr: 'maison',
+          sortOrder: 3,
         ),
       ];
 
@@ -407,7 +422,7 @@ void main() {
           _buildApp(prefsSource: SharedPreferencesSource(prefs)));
       await tester.pumpAndSettle();
 
-      expect(find.text('Mode : Autodidacte'), findsOneWidget);
+      expect(find.text('Bon retour !'), findsOneWidget);
     });
 
     testWidgets('shows resume session card when absence detected',

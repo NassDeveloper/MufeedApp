@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../domain/models/lesson_model.dart';
+import '../../domain/models/lesson_progress_model.dart';
 import '../../l10n/app_localizations.dart';
 import '../providers/content_provider.dart';
 import '../providers/learning_mode_provider.dart';
@@ -79,8 +80,6 @@ class _LessonCard extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final locale = Localizations.localeOf(context);
-    final colorScheme = Theme.of(context).colorScheme;
-    final l10n = AppLocalizations.of(context)!;
     final name = lesson.localizedName(locale);
     final asyncProgress = ref.watch(lessonProgressProvider(lesson.id));
 
@@ -96,66 +95,95 @@ class _LessonCard extends ConsumerWidget {
             padding: const EdgeInsets.all(16),
             child: Row(
               children: [
-                Container(
-                  width: 48,
-                  height: 48,
-                  decoration: BoxDecoration(
-                    color: colorScheme.tertiaryContainer,
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  alignment: Alignment.center,
-                  child: Text(
-                    '${lesson.number}',
-                    style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                          color: colorScheme.onTertiaryContainer,
-                          fontWeight: FontWeight.bold,
-                        ),
-                  ),
+                asyncProgress.when(
+                  loading: () =>
+                      _ProgressRing(number: lesson.number, progress: null),
+                  error: (_, _) =>
+                      _ProgressRing(number: lesson.number, progress: null),
+                  data: (progress) =>
+                      _ProgressRing(number: lesson.number, progress: progress),
                 ),
                 const SizedBox(width: 16),
                 Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        name,
-                        style: Theme.of(context).textTheme.titleMedium,
-                      ),
-                      asyncProgress.when(
-                        loading: () => const SizedBox.shrink(),
-                        error: (_, _) => const SizedBox.shrink(),
-                        data: (progress) {
-                          if (progress.masteredCount == 0) {
-                            return const SizedBox.shrink();
-                          }
-                          return Padding(
-                            padding: const EdgeInsets.only(top: 4),
-                            child: Text(
-                              l10n.statsLessonProgress(
-                                progress.masteredCount,
-                                progress.totalItems,
-                              ),
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodySmall
-                                  ?.copyWith(
-                                    color: colorScheme.onSurfaceVariant,
-                                  ),
-                            ),
-                          );
-                        },
-                      ),
-                    ],
+                  child: Text(
+                    name,
+                    style: Theme.of(context).textTheme.titleMedium,
                   ),
                 ),
                 Icon(
                   Icons.chevron_right,
-                  color: colorScheme.onSurfaceVariant,
+                  color: Theme.of(context).colorScheme.onSurfaceVariant,
                 ),
               ],
             ),
           ),
         ),
+      ),
+    );
+  }
+}
+
+/// Circular progress ring with lesson number inside.
+/// - Empty ring: lesson not started
+/// - Colored arc: lesson in progress
+/// - Full ring + checkmark: lesson complete
+class _ProgressRing extends StatelessWidget {
+  const _ProgressRing({required this.number, required this.progress});
+
+  final int number;
+  final LessonProgressModel? progress;
+
+  @override
+  Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+    final pct = (progress != null && progress!.totalItems > 0)
+        ? progress!.masteredPercentage
+        : 0.0;
+    final hasStarted = pct > 0;
+    final isComplete = pct >= 1.0;
+
+    final ringColor = isComplete
+        ? colorScheme.primary
+        : hasStarted
+            ? colorScheme.tertiary
+            : colorScheme.outlineVariant;
+
+    return SizedBox(
+      width: 52,
+      height: 52,
+      child: Stack(
+        alignment: Alignment.center,
+        children: [
+          // Background circle fill
+          Container(
+            width: 52,
+            height: 52,
+            decoration: BoxDecoration(
+              color: isComplete
+                  ? colorScheme.primaryContainer
+                  : colorScheme.surfaceContainerHighest,
+              shape: BoxShape.circle,
+            ),
+          ),
+          // Progress arc
+          CircularProgressIndicator(
+            value: pct,
+            strokeWidth: 3.5,
+            backgroundColor: colorScheme.outlineVariant.withValues(alpha: 0.3),
+            valueColor: AlwaysStoppedAnimation(ringColor),
+            strokeCap: StrokeCap.round,
+          ),
+          // Center: checkmark if complete, number otherwise
+          isComplete
+              ? Icon(Icons.check_rounded, size: 22, color: colorScheme.primary)
+              : Text(
+                  '$number',
+                  style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                        fontWeight: FontWeight.bold,
+                        color: colorScheme.onSurfaceVariant,
+                      ),
+                ),
+        ],
       ),
     );
   }

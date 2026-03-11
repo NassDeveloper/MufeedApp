@@ -83,7 +83,7 @@ void main() {
     test('configures language to Arabic on init', () async {
       container.read(ttsProvider);
       await Future.microtask(() {});
-      expect(fakeTts.language, 'ar');
+      expect(fakeTts.language, 'ar-SA');
     });
 
     test('configures speech rate to 0.5 on init', () async {
@@ -97,7 +97,7 @@ void main() {
       await notifier.speak('مرحبا');
 
       // Init should have completed before speak
-      expect(fakeTts.language, 'ar');
+      expect(fakeTts.language, 'ar-SA');
       expect(fakeTts.speechRate, 0.5);
       expect(fakeTts.lastSpokenText, 'مرحبا');
     });

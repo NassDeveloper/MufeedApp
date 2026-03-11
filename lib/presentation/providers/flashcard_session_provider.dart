@@ -1,10 +1,10 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:math';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../core/errors/app_error.dart';
 import '../../domain/models/reviewable_item_model.dart';
 import '../../domain/models/session_model.dart';
 import 'badge_provider.dart';
@@ -71,14 +71,16 @@ class FlashcardSessionNotifier extends Notifier<FlashcardSessionState?> {
   FlashcardSessionState? build() => null;
 
   Future<void> startSession(int lessonId, {int startIndex = 0}) async {
+    state = null; // Reset any stale state before loading
     final repository = ref.read(progressRepositoryProvider);
     final items = await repository.getReviewableItemsForLesson(lessonId);
 
     if (items.isEmpty) return;
 
-    final clampedIndex = startIndex.clamp(0, items.length - 1);
+    final shuffled = List.of(items)..shuffle(Random());
+    final clampedIndex = startIndex.clamp(0, shuffled.length - 1);
     state = FlashcardSessionState(
-      items: items,
+      items: shuffled,
       currentIndex: clampedIndex,
       lessonId: lessonId,
     );
@@ -86,6 +88,7 @@ class FlashcardSessionNotifier extends Notifier<FlashcardSessionState?> {
   }
 
   Future<void> startMultiLessonSession(List<int> lessonIds) async {
+    state = null; // Reset any stale state before loading
     final repository = ref.read(progressRepositoryProvider);
     final items = await repository.getReviewableItemsForLessons(lessonIds);
 
@@ -99,6 +102,7 @@ class FlashcardSessionNotifier extends Notifier<FlashcardSessionState?> {
   }
 
   void startDailySession(List<ReviewableItemModel> items) {
+    state = null; // Reset any stale state before loading
     if (items.isEmpty) return;
 
     state = FlashcardSessionState(
@@ -189,23 +193,28 @@ class FlashcardSessionNotifier extends Notifier<FlashcardSessionState?> {
       unawaited(_clearSavedPosition());
     }
 
-    await repository.createSession(SessionModel(
-      sessionType: state!.isDailySession ? 'daily' : 'flashcard',
-      startedAt: state!.startedAt,
-      completedAt: DateTime.now(),
-      itemsReviewed: state!.totalItems,
-      resultsJson: jsonEncode(state!.ratingCounts.map(
-        (key, value) => MapEntry(key.toString(), value),
-      )),
-    ));
+    // Save session record — non-fatal if it fails (e.g. DB error).
+    try {
+      await repository.createSession(SessionModel(
+        sessionType: state!.isDailySession ? 'daily' : 'flashcard',
+        startedAt: state!.startedAt,
+        completedAt: DateTime.now(),
+        itemsReviewed: state!.totalItems,
+        resultsJson: jsonEncode(state!.ratingCounts.map(
+          (key, value) => MapEntry(key.toString(), value),
+        )),
+      ));
+    } catch (e) {
+      debugPrint('Session record creation failed: $e');
+    }
 
-    // Update streak + check badges
+    // Update streak + check badges — non-fatal if it fails.
     try {
       final result = await processStreakOnSessionComplete(ref);
       if (result.newBadges.isNotEmpty) {
         ref.read(newBadgesProvider.notifier).set(result.newBadges);
       }
-    } on AppError catch (e) {
+    } catch (e) {
       debugPrint('Streak update failed: $e');
     }
 

@@ -193,6 +193,28 @@ class ProgressRepositoryImpl implements ProgressRepository {
     );
   }
 
+  @override
+  Future<List<ReviewableItemModel>> getNewWordsForLevel(
+      int levelId, int limit) async {
+    final rows = await _dao.getNewWordsForLevel(levelId, limit);
+    return rows.map(_rowToReviewableItem).toList();
+  }
+
+  @override
+  Future<int> getNewWordsIntroducedTodayCount() =>
+      _dao.getNewWordsIntroducedTodayCount();
+
+  @override
+  Future<({int lessonId, int totalItems, int masteredCount})>
+      getLessonProgressSummary(int lessonId) async {
+    final row = await _dao.getLessonProgressSummary(lessonId);
+    return (
+      lessonId: row.lessonId,
+      totalItems: row.totalItems,
+      masteredCount: row.masteredCount,
+    );
+  }
+
   ReviewableItemModel _rowToReviewableItem(ReviewableItemRow row) {
     final hasProgress = row.progressState != null;
     return ReviewableItemModel(

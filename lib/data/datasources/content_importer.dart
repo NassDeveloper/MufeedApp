@@ -16,7 +16,7 @@ class ContentImporter {
   final JsonContentLoader jsonLoader;
   final SharedPreferencesSource prefsSource;
 
-  static const currentContentVersion = 5;
+  static const currentContentVersion = 7;
 
   Future<void> importIfNeeded() async {
     final installedVersion = prefsSource.getContentVersion();
@@ -42,6 +42,8 @@ class ContentImporter {
       });
 
       await prefsSource.setContentVersion(currentContentVersion);
+      // Clear stale lesson reference — IDs change on every reimport
+      await prefsSource.clearActiveLessonId();
     } on AppError {
       rethrow;
     } catch (e) {

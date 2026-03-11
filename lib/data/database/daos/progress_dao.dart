@@ -113,8 +113,16 @@ class ProgressDao extends DatabaseAccessor<AppDatabase>
   }
 
   /// Inserts or updates a user_progress record.
+  /// Uses (item_id, content_type) as the conflict target since that is the
+  /// semantic unique key — the auto-increment id is absent on first insert.
   Future<void> upsertProgress(UserProgressCompanion data) {
-    return into(userProgress).insertOnConflictUpdate(data);
+    return into(userProgress).insert(
+      data,
+      onConflict: DoUpdate(
+        (_) => data,
+        target: [userProgress.itemId, userProgress.contentType],
+      ),
+    );
   }
 
   /// Inserts a new session record and returns the generated id.
@@ -344,6 +352,94 @@ class ProgressDao extends DatabaseAccessor<AppDatabase>
     } catch (_) {
       return false;
     }
+  }
+
+  /// Returns new (never reviewed) words and verbs for a level, up to [limit].
+  /// Ordered by sort_order to follow the natural curriculum progression.
+  Future<List<ReviewableItemRow>> getNewWordsForLevel(
+      int levelId, int limit) async {
+    final query = customSelect(
+      '''
+      SELECT w.id AS item_id, 'vocab' AS content_type, w.arabic AS arabic,
+             w.translation_fr AS translation_fr, w.sort_order AS sort_order,
+             NULL AS verb_past, NULL AS verb_present, NULL AS verb_imperative,
+             NULL AS progress_state, NULL AS stability,
+             NULL AS difficulty, NULL AS next_review,
+             NULL AS review_count, NULL AS last_review,
+             NULL AS elapsed_days, NULL AS scheduled_days,
+             NULL AS reps
+      FROM words w
+      INNER JOIN lessons l ON l.id = w.lesson_id
+      INNER JOIN units u ON u.id = l.unit_id
+      LEFT JOIN user_progress up ON up.item_id = w.id AND up.content_type = 'vocab'
+      WHERE u.level_id = ? AND up.item_id IS NULL
+      UNION ALL
+      SELECT v.id AS item_id, 'verb' AS content_type, v.masdar AS arabic,
+             v.translation_fr AS translation_fr, v.sort_order AS sort_order,
+             v.past AS verb_past, v.present AS verb_present, v.imperative AS verb_imperative,
+             NULL AS progress_state, NULL AS stability,
+             NULL AS difficulty, NULL AS next_review,
+             NULL AS review_count, NULL AS last_review,
+             NULL AS elapsed_days, NULL AS scheduled_days,
+             NULL AS reps
+      FROM verbs v
+      INNER JOIN lessons l ON l.id = v.lesson_id
+      INNER JOIN units u ON u.id = l.unit_id
+      LEFT JOIN user_progress up ON up.item_id = v.id AND up.content_type = 'verb'
+      WHERE u.level_id = ? AND up.item_id IS NULL
+      ORDER BY sort_order ASC
+      LIMIT ?
+      ''',
+      variables: [
+        Variable.withInt(levelId),
+        Variable.withInt(levelId),
+        Variable.withInt(limit),
+      ],
+      readsFrom: {words, verbs, userProgress},
+    );
+    final rows = await query.get();
+    return rows.map(ReviewableItemRow.fromRow).toList();
+  }
+
+  /// Returns progress summary (total items + mastered count) for a single lesson.
+  Future<LessonProgressSummaryRow> getLessonProgressSummary(
+      int lessonId) async {
+    final query = customSelect(
+      '''
+      SELECT ? AS lesson_id,
+             (SELECT COUNT(*) FROM words w WHERE w.lesson_id = ?)
+             + (SELECT COUNT(*) FROM verbs v WHERE v.lesson_id = ?) AS total_items,
+             (SELECT COUNT(*) FROM user_progress up
+              WHERE up.state = 'review'
+                AND ((EXISTS (SELECT 1 FROM words w WHERE w.lesson_id = ? AND w.id = up.item_id AND up.content_type = 'vocab'))
+                  OR (EXISTS (SELECT 1 FROM verbs v WHERE v.lesson_id = ? AND v.id = up.item_id AND up.content_type = 'verb')))
+             ) AS mastered_count
+      ''',
+      variables: [
+        Variable.withInt(lessonId),
+        Variable.withInt(lessonId),
+        Variable.withInt(lessonId),
+        Variable.withInt(lessonId),
+        Variable.withInt(lessonId),
+      ],
+      readsFrom: {words, verbs, userProgress},
+    );
+    final row = await query.getSingle();
+    return LessonProgressSummaryRow.fromRow(row);
+  }
+
+  /// Returns the number of new words introduced today (first review this day).
+  Future<int> getNewWordsIntroducedTodayCount() async {
+    final now = DateTime.now();
+    final startOfToday =
+        DateTime(now.year, now.month, now.day).millisecondsSinceEpoch;
+    final query = customSelect(
+      'SELECT COUNT(*) AS cnt FROM user_progress WHERE last_review >= ? AND reps = 1',
+      variables: [Variable.withInt(startOfToday)],
+      readsFrom: {userProgress},
+    );
+    final row = await query.getSingle();
+    return row.read<int>('cnt');
   }
 
   /// Returns total number of items (words + verbs) for a lesson.
