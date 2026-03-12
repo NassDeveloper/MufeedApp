@@ -74,7 +74,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
                     ),
               ),
               Text(
-                'مُفيد',
+                'مفيد',
                 style: Theme.of(context).textTheme.labelSmall?.copyWith(
                       color: Colors.white,
                       letterSpacing: 1.0,
