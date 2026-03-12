@@ -550,5 +550,7 @@
   "activityDialogue": "Mini-dialogue",
   "@activityDialogue": {},
   "activityQuiz": "Quiz",
-  "@activityQuiz": {}
+  "@activityQuiz": {},
+  "activityLesson": "Lesson",
+  "@activityLesson": {}
 }

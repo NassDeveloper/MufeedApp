@@ -60,9 +60,8 @@ void main() {
     );
     await tester.pumpAndSettle();
 
-    // Verify navigation bar is visible with 4 tabs (fr locale)
+    // Verify navigation bar is visible with 3 tabs (fr locale)
     expect(find.text('Accueil'), findsWidgets);
-    expect(find.text('Vocabulaire'), findsWidgets);
     expect(find.text('Exercices'), findsWidgets);
     expect(find.text('Statistiques'), findsWidgets);
   });

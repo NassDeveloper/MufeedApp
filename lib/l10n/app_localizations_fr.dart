@@ -1083,4 +1083,7 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get activityQuiz => 'QCM';
+
+  @override
+  String get activityLesson => 'Leçon';
 }

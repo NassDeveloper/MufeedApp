@@ -205,66 +205,66 @@ class _UnitLessonsSection extends ConsumerWidget {
     final locale = Localizations.localeOf(context);
     final colorScheme = Theme.of(context).colorScheme;
     final unitName = unit.localizedName(locale);
-    final asyncLessons = ref.watch(lessonsByUnitProvider(unit.id));
+    final lessons = ref.watch(lessonsByUnitProvider(unit.id)).value ?? [];
+
+    final allMastered = lessons.isNotEmpty &&
+        lessons.every((lesson) {
+          final p = ref.watch(lessonProgressProvider(lesson.id)).value;
+          return p != null && p.totalItems > 0 && p.masteredCount == p.totalItems;
+        });
+    final opacity = allMastered ? 0.45 : 1.0;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Padding(
-          padding: const EdgeInsets.fromLTRB(16, 10, 8, 4),
-          child: Row(
-            children: [
-              // Violet accent dot
-              Container(
-                width: 3,
-                height: 14,
-                decoration: BoxDecoration(
-                  color: colorScheme.primary,
-                  borderRadius: BorderRadius.circular(2),
+        Opacity(
+          opacity: opacity,
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(16, 10, 8, 4),
+            child: Row(
+              children: [
+                Container(
+                  width: 3,
+                  height: 14,
+                  decoration: BoxDecoration(
+                    color: colorScheme.primary,
+                    borderRadius: BorderRadius.circular(2),
+                  ),
                 ),
-              ),
-              const SizedBox(width: 8),
-              Expanded(
-                child: Text(
-                  unitName,
-                  style: Theme.of(context).textTheme.labelMedium?.copyWith(
-                        color: colorScheme.primary,
-                        fontWeight: FontWeight.w600,
-                      ),
+                const SizedBox(width: 8),
+                Expanded(
+                  child: Text(
+                    unitName,
+                    style: Theme.of(context).textTheme.labelMedium?.copyWith(
+                          color: colorScheme.primary,
+                          fontWeight: FontWeight.w600,
+                        ),
+                  ),
                 ),
-              ),
-              IconButton(
-                icon: Icon(
-                  Icons.style_outlined,
-                  size: 18,
-                  color: colorScheme.primary,
+                IconButton(
+                  icon: Icon(
+                    Icons.style_outlined,
+                    size: 18,
+                    color: colorScheme.primary,
+                  ),
+                  tooltip: AppLocalizations.of(context)!.flashcardStartSession,
+                  visualDensity: VisualDensity.compact,
+                  padding: EdgeInsets.zero,
+                  constraints: const BoxConstraints(minWidth: 32, minHeight: 32),
+                  onPressed: () => GoRouter.of(context)
+                      .push('/session/flashcard/unit/${unit.id}'),
                 ),
-                tooltip: AppLocalizations.of(context)!.flashcardStartSession,
-                visualDensity: VisualDensity.compact,
-                padding: EdgeInsets.zero,
-                constraints: const BoxConstraints(
-                  minWidth: 32,
-                  minHeight: 32,
-                ),
-                onPressed: () => GoRouter.of(context)
-                    .push('/session/flashcard/unit/${unit.id}'),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
-        asyncLessons.when(
-          loading: () => const SizedBox.shrink(),
-          error: (_, _) => const SizedBox.shrink(),
-          data: (lessons) => Column(
-            children: lessons.map((lesson) {
-              final lessonName = lesson.localizedName(locale);
-              return _LessonRow(
-                lessonId: lesson.id,
-                lessonName: lessonName,
-              );
-            }).toList(),
-          ),
-        ),
+        ...lessons.map((lesson) {
+          final lessonName = lesson.localizedName(locale);
+          return Opacity(
+            opacity: opacity,
+            child: _LessonRow(lessonId: lesson.id, lessonName: lessonName),
+          );
+        }),
         Divider(
           height: 1,
           indent: 16,
@@ -498,6 +498,11 @@ class _LessonActivitiesSheet extends ConsumerWidget {
               controller: scrollController,
               children: [
                 _ActivityTile(
+                  icon: Icons.menu_book_outlined,
+                  label: l10n.activityLesson,
+                  onTap: () => navigate('/lesson/$lessonId'),
+                ),
+                _ActivityTile(
                   icon: Icons.style_outlined,
                   label: l10n.activityFlashcards,
                   onTap: () => navigate('/session/flashcard/$lessonId'),
@@ -540,11 +545,6 @@ class _LessonActivitiesSheet extends ConsumerWidget {
                     label: l10n.activityDialogue,
                     onTap: () => navigate('/session/dialogue/$lessonId'),
                   ),
-                _ActivityTile(
-                  icon: Icons.quiz_outlined,
-                  label: l10n.activityQuiz,
-                  onTap: () => navigate('/session/quiz/$lessonId'),
-                ),
               ],
             ),
           ),

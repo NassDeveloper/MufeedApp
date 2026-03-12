@@ -1879,6 +1879,12 @@ abstract class AppLocalizations {
   /// In fr, this message translates to:
   /// **'QCM'**
   String get activityQuiz;
+
+  /// No description provided for @activityLesson.
+  ///
+  /// In fr, this message translates to:
+  /// **'Leçon'**
+  String get activityLesson;
 }
 
 class _AppLocalizationsDelegate

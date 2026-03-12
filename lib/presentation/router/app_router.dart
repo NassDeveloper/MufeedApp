@@ -5,11 +5,9 @@ import '../../l10n/app_localizations.dart';
 import '../screens/exercises_screen.dart';
 import '../screens/home_screen.dart';
 import '../screens/lesson_detail_screen.dart';
-import '../screens/lessons_screen.dart';
 import '../screens/onboarding_screen.dart';
 import '../screens/privacy_policy_screen.dart';
 import '../screens/statistics_screen.dart';
-import '../screens/units_screen.dart';
 import '../screens/flashcard_session_screen.dart';
 import '../screens/quiz_screen.dart';
 import '../screens/quiz_summary_screen.dart';
@@ -23,7 +21,6 @@ import '../screens/word_ordering_screen.dart';
 import '../screens/dialogue_exercise_screen.dart';
 import '../screens/listening_exercise_screen.dart';
 import '../screens/settings_screen.dart';
-import '../screens/vocabulary_screen.dart';
 
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
 
@@ -154,6 +151,15 @@ GoRouter createAppRouter({
         return SessionSummaryScreen(lessonId: lessonId);
       },
     ),
+    GoRoute(
+      path: '/lesson/:lessonId',
+      parentNavigatorKey: _rootNavigatorKey,
+      builder: (context, state) {
+        final lessonId = int.parse(state.pathParameters['lessonId']!);
+        final lessonName = state.extra as String? ?? '';
+        return LessonDetailScreen(lessonId: lessonId, lessonName: lessonName);
+      },
+    ),
     StatefulShellRoute.indexedStack(
       builder: (context, state, navigationShell) {
         return ScaffoldWithNavBar(navigationShell: navigationShell);
@@ -164,60 +170,6 @@ GoRouter createAppRouter({
             GoRoute(
               path: '/',
               builder: (context, state) => const HomeScreen(),
-            ),
-          ],
-        ),
-        StatefulShellBranch(
-          routes: [
-            GoRoute(
-              path: '/vocabulary',
-              builder: (context, state) => const VocabularyScreen(),
-              routes: [
-                GoRoute(
-                  path: 'level/:levelId',
-                  builder: (context, state) {
-                    final levelId =
-                        int.parse(state.pathParameters['levelId']!);
-                    final levelName = state.extra as String? ??
-                        AppLocalizations.of(context)!.levelTitle(levelId);
-                    return UnitsScreen(
-                        levelId: levelId, levelName: levelName);
-                  },
-                  routes: [
-                    GoRoute(
-                      path: 'unit/:unitId',
-                      builder: (context, state) {
-                        final unitId =
-                            int.parse(state.pathParameters['unitId']!);
-                        final levelId =
-                            int.parse(state.pathParameters['levelId']!);
-                        final unitName = state.extra as String? ??
-                            AppLocalizations.of(context)!.unitTitle(unitId);
-                        return LessonsScreen(
-                            levelId: levelId,
-                            unitId: unitId,
-                            unitName: unitName);
-                      },
-                      routes: [
-                        GoRoute(
-                          path: 'lesson/:lessonId',
-                          builder: (context, state) {
-                            final lessonId = int.parse(
-                                state.pathParameters['lessonId']!);
-                            final lessonName = state.extra as String? ??
-                                AppLocalizations.of(context)!
-                                    .lessonTitle(lessonId);
-                            return LessonDetailScreen(
-                              lessonId: lessonId,
-                              lessonName: lessonName,
-                            );
-                          },
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ],
             ),
           ],
         ),
@@ -270,13 +222,8 @@ class ScaffoldWithNavBar extends StatelessWidget {
                   label: Text(l10n.tabHome),
                 ),
                 NavigationRailDestination(
-                  icon: const Icon(Icons.menu_book_outlined),
-                  selectedIcon: const Icon(Icons.menu_book),
-                  label: Text(l10n.tabVocabulary),
-                ),
-                NavigationRailDestination(
-                  icon: const Icon(Icons.quiz_outlined),
-                  selectedIcon: const Icon(Icons.quiz),
+                  icon: const Icon(Icons.school_outlined),
+                  selectedIcon: const Icon(Icons.school),
                   label: Text(l10n.tabExercises),
                 ),
                 NavigationRailDestination(
@@ -305,13 +252,8 @@ class ScaffoldWithNavBar extends StatelessWidget {
             label: l10n.tabHome,
           ),
           NavigationDestination(
-            icon: const Icon(Icons.menu_book_outlined),
-            selectedIcon: const Icon(Icons.menu_book),
-            label: l10n.tabVocabulary,
-          ),
-          NavigationDestination(
-            icon: const Icon(Icons.quiz_outlined),
-            selectedIcon: const Icon(Icons.quiz),
+            icon: const Icon(Icons.school_outlined),
+            selectedIcon: const Icon(Icons.school),
             label: l10n.tabExercises,
           ),
           NavigationDestination(

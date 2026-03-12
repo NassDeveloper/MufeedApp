@@ -1079,4 +1079,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get activityQuiz => 'Quiz';
+
+  @override
+  String get activityLesson => 'Lesson';
 }
