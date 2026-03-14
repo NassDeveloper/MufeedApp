@@ -36,13 +36,23 @@ class VerbCard extends StatelessWidget {
                     trailing: TtsButton(text: verb.masdar),
                   ),
                   const Divider(height: 16),
-                  _VerbFormRow(label: l10n.verbFormPast, arabic: verb.past),
+                  _VerbFormRow(
+                    label: l10n.verbFormPast,
+                    arabic: verb.past,
+                    trailing: TtsButton(text: verb.past),
+                  ),
                   const Divider(height: 16),
                   _VerbFormRow(
-                      label: l10n.verbFormPresent, arabic: verb.present),
+                    label: l10n.verbFormPresent,
+                    arabic: verb.present,
+                    trailing: TtsButton(text: verb.present),
+                  ),
                   const Divider(height: 16),
                   _VerbFormRow(
-                      label: l10n.verbFormImperative, arabic: verb.imperative),
+                    label: l10n.verbFormImperative,
+                    arabic: verb.imperative,
+                    trailing: TtsButton(text: verb.imperative),
+                  ),
                   const SizedBox(height: 16),
                   Text(
                     verb.translationFr,

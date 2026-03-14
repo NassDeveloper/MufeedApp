@@ -166,7 +166,7 @@ abstract final class AppTheme {
         if (states.contains(WidgetState.selected)) {
           return const IconThemeData(color: AppColors.gold);
         }
-        return const IconThemeData(color: AppColors.textSecondary);
+        return IconThemeData(color: AppColors.gold.withValues(alpha: 0.45));
       }),
       labelTextStyle: WidgetStateProperty.resolveWith((states) {
         if (states.contains(WidgetState.selected)) {
@@ -176,8 +176,8 @@ abstract final class AppTheme {
             fontWeight: FontWeight.w600,
           );
         }
-        return const TextStyle(
-          color: AppColors.textSecondary,
+        return TextStyle(
+          color: AppColors.gold.withValues(alpha: 0.45),
           fontSize: 12,
         );
       }),

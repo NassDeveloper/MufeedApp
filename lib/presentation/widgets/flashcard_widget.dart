@@ -239,12 +239,13 @@ class _FlashcardWidgetState extends State<FlashcardWidget>
       child: Row(
         children: [
           SizedBox(
-            width: 120,
+            width: 100,
             child: Text(label, style: labelStyle),
           ),
           Expanded(
             child: ArabicText(arabic, style: const TextStyle(fontSize: 24)),
           ),
+          TtsButton(text: arabic),
         ],
       ),
     );

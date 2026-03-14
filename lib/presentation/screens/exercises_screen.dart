@@ -26,7 +26,13 @@ class ExercisesScreen extends ConsumerWidget {
         title: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(l10n.exercisesScreenTitle),
+            Text(
+              l10n.exercisesScreenTitle,
+              style: TextStyle(
+                color: Theme.of(context).colorScheme.primary,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
             Text(
               l10n.exercisesScreenSubtitle,
               style: Theme.of(context).textTheme.bodySmall?.copyWith(

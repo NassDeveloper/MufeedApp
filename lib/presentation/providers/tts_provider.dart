@@ -42,7 +42,7 @@ class TtsNotifier extends Notifier<TtsState> {
   }
 
   Future<void> _initTts() async {
-    await _tts.setLanguage('ar-SA');
+    await _setupArabicLanguage();
     await _tts.setSpeechRate(0.5);
 
     _tts.setCompletionHandler(() {
@@ -67,8 +67,19 @@ class TtsNotifier extends Notifier<TtsState> {
     });
   }
 
+  Future<void> _setupArabicLanguage() async {
+    // Try preferred variant first, then fallback to any available Arabic voice.
+    for (final lang in ['ar-SA', 'ar-AE', 'ar-EG', 'ar']) {
+      final result = await _tts.setLanguage(lang);
+      if (result == 1) return;
+    }
+    // No Arabic voice installed on this device/simulator — mark as error.
+    state = const TtsState(status: TtsStatus.error);
+  }
+
   Future<void> speak(String text) async {
     await _initFuture;
+    if (state.status == TtsStatus.error) return;
     await _tts.stop();
     state = TtsState(status: TtsStatus.playing, currentText: text);
     final result = await _tts.speak(text);

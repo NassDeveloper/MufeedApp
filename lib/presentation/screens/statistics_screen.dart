@@ -30,7 +30,13 @@ class StatisticsScreen extends ConsumerWidget {
         title: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(l10n.statisticsScreenTitle),
+            Text(
+              l10n.statisticsScreenTitle,
+              style: TextStyle(
+                color: Theme.of(context).colorScheme.primary,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
             Text(
               l10n.statisticsScreenSubtitle,
               style: Theme.of(context).textTheme.bodySmall?.copyWith(
@@ -519,6 +525,7 @@ class _ContentTypeProgressCard extends StatelessWidget {
                   title,
                   style: Theme.of(context).textTheme.titleMedium?.copyWith(
                         fontWeight: FontWeight.bold,
+                        color: colorScheme.primary,
                       ),
                 ),
                 const Spacer(),
