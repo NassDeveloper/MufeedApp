@@ -87,11 +87,12 @@ void main() {
       expect(find.byIcon(Icons.flag_outlined), findsNothing);
     });
 
-    testWidgets('shows TTS button on masdar row', (tester) async {
+    testWidgets('shows TTS buttons on all verb form rows', (tester) async {
       await tester.pumpWidget(buildApp(verb: verb));
       await tester.pumpAndSettle();
 
-      expect(find.byIcon(Icons.volume_up), findsOneWidget);
+      // past, present, imperative, masdar → 4 TTS buttons
+      expect(find.byIcon(Icons.volume_up), findsNWidgets(4));
     });
   });
 }

@@ -89,7 +89,7 @@ void main() {
 
       expect(find.text('Erreur de chargement du contenu'), findsOneWidget);
       expect(find.text('Réessayer'), findsOneWidget);
-      expect(find.byIcon(Icons.error_outline), findsOneWidget);
+      expect(find.byIcon(Icons.error_outline_rounded), findsOneWidget);
     });
 
     testWidgets('displays localized names based on locale', (tester) async {

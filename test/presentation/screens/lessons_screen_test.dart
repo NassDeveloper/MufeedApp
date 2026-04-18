@@ -95,7 +95,7 @@ void main() {
 
       expect(find.text('Erreur de chargement du contenu'), findsOneWidget);
       expect(find.text('Réessayer'), findsOneWidget);
-      expect(find.byIcon(Icons.error_outline), findsOneWidget);
+      expect(find.byIcon(Icons.error_outline_rounded), findsOneWidget);
     });
 
     testWidgets('lesson cards are interactive with button semantics and chevron',
